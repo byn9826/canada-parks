@@ -1,0 +1,87 @@
+h1{
+    font-family: "Times New Roman", Times, serif;
+    margin: 0;
+}
+
+h2{
+    font-family: "Times New Roman", Times, serif;
+    margin: 0;
+}
+
+h3{
+    font-family: "Times New Roman", Times, serif;
+    margin: 0;
+}
+
+h4{
+    font-family: "Times New Roman", Times, serif;
+    margin: 0;
+}
+
+h5{
+    font-family: "Times New Roman", Times, serif;
+    margin: 0;
+}
+
+h6{
+    font-family: "Times New Roman", Times, serif;
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+#header{
+    position: fixed;
+    height: 50px;
+    background-color: rgba(255, 255, 255,0.5);
+    color: #021f4f;
+    z-index: 1000;
+}
+
+#header h4{
+    font-weight: bold;
+    color: #092c66;
+    font-style: italic;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+}
+
+#header h5{
+    font-weight: bold;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+}
+
+#header h5:hover{
+    font-size: 20px;
+}
+
+#header img{
+    height: 36px;
+    margin-top: 7px;
+}
+
+#footer{
+    background-color: black;
+    color: white;
+    height: 35px;
+    margin-top: 50px;
+}
+
+#footer h6{
+    height: 35px;
+    line-height: 35px;
+    vertical-align: middle;
+    float: left;
+    margin-left: 5%;
+}

@@ -1,0 +1,102 @@
+#banner-img{
+    width: 100%;
+    display: block;
+}
+
+#banner-list{
+    position: absolute;
+    top: 350px;
+    left: 55%;
+    margin-right: 10%;
+    color: black;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255,0.7);
+    text-align: center;
+    padding: 10px 5%;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid #51688e;
+}
+
+.section{
+    margin-top: 20px;
+}
+
+.section h3{
+    color: #081f44;
+    font-weight: bold;
+    line-height: 60px;
+    height: 60px;
+    vertical-align: middle;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.section-icon{
+    line-height: 60px;
+    height: 60px;
+    vertical-align: -6%;
+}
+
+#display{
+    margin-top: 20px;
+}
+
+#banner{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.comment-single{
+    float: left;
+    width: 31%;
+    margin: 5px 1%;
+    padding: 10px 3%;
+    background-color: #f2f4f7;
+    border: 1px solid #b1b5bc;
+}
+
+.comment-single>:first-child{
+    float: left;
+    width: 20%;
+}
+
+.comment-single>:nth-child(2){
+    float: right;
+    width: 80%;
+    text-align: center;
+}
+
+.comment-single>:nth-child(2) h4{
+    float: left;
+    width: 100%;
+    font-weight: bold;
+}
+
+.comment-single>:nth-child(3){
+    display: inline-block;
+    width: 100%;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.comment-single>:nth-child(3) h5{
+    display: inline-block;
+    margin-right: 5%;
+}
+
+.comment-single>:nth-child(4){
+    display: inline-block;
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #b1b5bc;
+}
+
+.comment-single>:nth-child(5) {
+    display: inline-block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+};
