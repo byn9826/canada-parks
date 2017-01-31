@@ -1,32 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="The best place for you to explore Canada Parks">
-		<meta name="keywords" content="Canada, National-Parks, Banff, Travel, Tourism">
-		<meta name="robots" content="all">
+		<?php
+			$team_cssglobal_custom = "static/css/globe.css";
+			$team_icon_custom = "static/img/logo.png";
+			$team_bootstrap_custom = "static/vendor/bootstrap/css/bootstrap.min.css";
+			include "templates/meta.php";
+		?>
 		<meta name="author" content="Baozier">
 		<title>Marvel Canada</title>
-		<link rel="shortcut icon" href="static/img/logo.png" type="image/x-icon" />
-		<!-- Modified from image Labeled for reuse with modification, https://c2.staticflickr.com/4/3327/3573458354_72c230294f_b.jpg 2017-01-06 -->
-        <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="static/css/globe.css" rel="stylesheet" type="text/css">
         <link href="static/css/home.css" rel="stylesheet" type="text/css">
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
 	</head>
 	<body>
         <div class="container-fluid">
             <?php
 				$team_logo_custom = "./static/img/logo.png";
 				$team_personal_custom = "./static/img/users/profile/0.png";
-                include "templates/header.php"
+                include "templates/header.php";
             ?>
             <main class="row">
                 <img id="banner-img" alt="go to parks on map page" src="static/img/home/marvel.jpg" />
@@ -102,12 +92,12 @@
 						<span class="section-icon glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 					</h3>
 					<?php
-						include "templates/userComment.php"
+						include "templates/userComment.php";
 					?>
 				</section>
             </main>
 			<?php
-				include "templates/footer.php"
+				include "templates/footer.php";
 			?>
         </div>
         <script type="text/javascript" src="static/vendor/jquery-3.1.1.min.js"></script>
