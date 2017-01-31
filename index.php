@@ -24,6 +24,8 @@
 	<body>
         <div class="container-fluid">
             <?php
+				$team_logo_custom = "./static/img/logo.png";
+				$team_personal_custom = "./static/img/users/profile/0.png";
                 include "templates/header.php"
             ?>
             <main class="row">
