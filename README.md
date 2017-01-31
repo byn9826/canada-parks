@@ -7,4 +7,4 @@ https://www.lonelyplanet.com/canada <br />
 
 
 ##Team
-Irfaan, Duc, Sam, Navpreet, Paul
+Irfaan, Duc, Sam, Navpreet, BAO

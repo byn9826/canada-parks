@@ -1,3 +1,6 @@
+<?php
+    #author：Baozier
+?>
 <div class="row">
     <section id="other" class="col-md-12 col-sm-12 col-xs-12">
     </section>

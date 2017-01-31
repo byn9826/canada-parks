@@ -1,6 +1,7 @@
 <?php
-    $team_logo_src = $team_logo_custom? $team_logo_custom: "../static/img/logo.png";
-    $team_personal_src = $team_personal_custom? $team_personal_custom: "../static/img/users/profile/0.png";
+    #author：Baozier
+    $team_logo_src = isset($team_logo_custom)? $team_logo_custom: "../static/img/logo.png";
+    $team_personal_src = isset($team_personal_custom)? $team_personal_custom: "../static/img/users/profile/0.png";
 ?>
 <div class="row">
     <header id="header" class="col-md-12 col-sm-12 visible-lg visible-md visible-sm">

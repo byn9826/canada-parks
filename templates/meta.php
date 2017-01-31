@@ -1,7 +1,8 @@
 <?php
-    $team_cssglobal_custom = $team_cssglobal_custom? $team_cssglobal_custom: "../static/css/globe.css";
-    $team_icon_custom = $team_icon_custom? $team_icon_custom: "../static/img/logo.png";
-    $team_bootstrap_custom = $team_bootstrap_custom? $team_bootstrap_custom: "../static/vendor/bootstrap/css/bootstrap.min.css";
+    #author：Baozier
+    $team_cssglobal_custom = isset($team_cssglobal_custom)? $team_cssglobal_custom: "../static/css/globe.css";
+    $team_icon_custom = isset($team_icon_custom)? $team_icon_custom: "../static/img/logo.png";
+    $team_bootstrap_custom = isset($team_bootstrap_custom)? $team_bootstrap_custom: "../static/vendor/bootstrap/css/bootstrap.min.css";
 ?>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
