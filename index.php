@@ -2,22 +2,17 @@
 <html lang="en">
 	<head>
 		<?php
-			$team_cssglobal_custom = "./static/css/globe.css";
-			$team_icon_custom = "./static/img/logo.png";
-			$team_bootstrap_custom = "./static/vendor/bootstrap/css/bootstrap.min.css";
-			$team_bootjs_custom= "./static/vendor/bootstrap/js/bootstrap.min.js";
-			$team_jquery_custom = "./static/vendor/jquery-3.1.1.min.js";
+			$team_route_custom = "./";
 			include "templates/meta.php";
 		?>
 		<meta name="author" content="Baozier">
 		<title>Marvel Canada</title>
         <link href="static/css/home.css" rel="stylesheet" type="text/css">
+		<link href="static/css/userComment.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
         <div class="container-fluid">
 			<?php
-				$team_logo_custom = "./static/img/logo.png";
-				$team_personal_custom = "./static/img/users/profile/0.png";
 				include "templates/header.php";
 			?>
             <main id="main" class="row">
