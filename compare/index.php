@@ -17,14 +17,27 @@ $provinces = array(
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<head>
+		<?php
+			$team_cssglobal_custom = "/static/css/globe.css";
+			$team_icon_custom = "/static/img/logo.png";
+			$team_bootstrap_custom = "/static/vendor/bootstrap/css/bootstrap.min.css";
+			$team_bootjs_custom= "/static/vendor/bootstrap/js/bootstrap.min.js";
+			$team_jquery_custom = "/static/vendor/jquery-3.1.1.min.js";
+			include "../templates/meta.php";
+		?>
+		<meta name="author" content="Sam">
         <title>Park List</title>
         <link rel="stylesheet" href="/static/css/parks.css">
     </head>
     <body>
         <main>
-            <div class="container">
+            <div class="container-fluid">
+                <?php
+    				$team_logo_custom = "/static/img/logo.png";
+    				$team_personal_custom = "/static/img/users/profile/0.png";
+    				include "../templates/header.php";
+    			?>
                 <h1 class="text-center">Park List</h1>
                 <form id="search" class="form-inline">
                     <div class="form-group">
@@ -124,8 +137,11 @@ $provinces = array(
                 </div>
             </div>
         </main>
-        <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <?php
+			include "../templates/footer.php";
+		?>
+        <!--<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>-->
+        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
         <script src="compare.js"></script>
     </body>
 </html>
