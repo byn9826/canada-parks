@@ -3,6 +3,8 @@
     $team_cssglobal_custom = isset($team_cssglobal_custom)? $team_cssglobal_custom: "../static/css/globe.css";
     $team_icon_custom = isset($team_icon_custom)? $team_icon_custom: "../static/img/logo.png";
     $team_bootstrap_custom = isset($team_bootstrap_custom)? $team_bootstrap_custom: "../static/vendor/bootstrap/css/bootstrap.min.css";
+    $team_jquery_custom = isset($team_jquery_custom)? $team_jquery_custom: "../static/vendor/jquery-3.1.1.min.js";
+    $team_bootjs_custom = isset($team_bootjs_custom)? $team_bootjs_custom: "../static/vendor/bootstrap/js/bootstrap.min.js";
 ?>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,3 +22,5 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+<script type="text/javascript" src="<?php echo $team_jquery_custom; ?>"></script>
+<script type="text/javascript" src="<?php echo $team_bootjs_custom; ?>"></script>

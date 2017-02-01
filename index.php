@@ -2,9 +2,11 @@
 <html lang="en">
 	<head>
 		<?php
-			$team_cssglobal_custom = "static/css/globe.css";
-			$team_icon_custom = "static/img/logo.png";
-			$team_bootstrap_custom = "static/vendor/bootstrap/css/bootstrap.min.css";
+			$team_cssglobal_custom = "./static/css/globe.css";
+			$team_icon_custom = "./static/img/logo.png";
+			$team_bootstrap_custom = "./static/vendor/bootstrap/css/bootstrap.min.css";
+			$team_bootjs_custom= "./static/vendor/bootstrap/js/bootstrap.min.js";
+			$team_jquery_custom = "./static/vendor/jquery-3.1.1.min.js";
 			include "templates/meta.php";
 		?>
 		<meta name="author" content="Baozier">
@@ -13,12 +15,12 @@
 	</head>
 	<body>
         <div class="container-fluid">
-            <?php
+			<?php
 				$team_logo_custom = "./static/img/logo.png";
 				$team_personal_custom = "./static/img/users/profile/0.png";
-                include "templates/header.php";
-            ?>
-            <main class="row">
+				include "templates/header.php";
+			?>
+            <main id="main" class="row">
                 <img id="banner-img" alt="go to parks on map page" src="static/img/home/marvel.jpg" />
 				<!--Granted copyright by Paul-->
 				<h3 id="banner-list">
@@ -114,8 +116,6 @@
 				include "templates/footer.php";
 			?>
         </div>
-        <script type="text/javascript" src="static/vendor/jquery-3.1.1.min.js"></script>
-		<script type="text/javascript" src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="static/js/home.js"></script>
 	</body>
 </html>
