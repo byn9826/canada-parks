@@ -30,8 +30,22 @@
 						Make the best decision
 						<span class="section-icon glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 					</h3>
-					<div style="height:300px">
+					<div class="col-md-12 col-sm-12 col-xs-12" style="height:300px">
 						<!--will import from compare page -->
+						<h5 class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+							<b>Test mysql connection:</b> <br />
+							<?php
+								include_once('./lib/ini.php');
+								$execute="SELECT * FROM comment ORDER BY comment_id DESC";
+								$result=mysqli_query($conn,$execute);
+								while($data=mysqli_fetch_object($result)){
+									echo "<b>comment_id: </b>" . $data->comment_id . "<br />";
+									echo "<b>park_id: </b>" . $data->park_id . "<br />";
+									echo "<b>comment_time: </b>" . $data->comment_time . "<br />";
+									echo "<b>comment_content: </b>" . $data->comment_content . "<br />";
+								}
+							?>
+						</h5>
 					</div>
 				</section>
 				<section class="section col-md-12 col-sm-12 col-xs-12">
@@ -101,6 +115,7 @@
 			?>
         </div>
         <script type="text/javascript" src="static/vendor/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="static/js/home.js"></script>
 	</body>
 </html>
