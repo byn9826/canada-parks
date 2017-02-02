@@ -2,23 +2,20 @@
 <html lang="en">
 	<head>
 		<?php
-			$team_cssglobal_custom = "static/css/globe.css";
-			$team_icon_custom = "static/img/logo.png";
-			$team_bootstrap_custom = "static/vendor/bootstrap/css/bootstrap.min.css";
+			$team_route_custom = "./";
 			include "templates/meta.php";
 		?>
 		<meta name="author" content="Baozier">
 		<title>Marvel Canada</title>
         <link href="static/css/home.css" rel="stylesheet" type="text/css">
+		<link href="static/css/userComment.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
         <div class="container-fluid">
-            <?php
-				$team_logo_custom = "./static/img/logo.png";
-				$team_personal_custom = "./static/img/users/profile/0.png";
-                include "templates/header.php";
-            ?>
-            <main class="row">
+			<?php
+				include "templates/header.php";
+			?>
+            <main id="main" class="row">
                 <img id="banner-img" alt="go to parks on map page" src="static/img/home/marvel.jpg" />
 				<!--Granted copyright by Paul-->
 				<h3 id="banner-list">
@@ -30,8 +27,22 @@
 						Make the best decision
 						<span class="section-icon glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 					</h3>
-					<div style="height:300px">
+					<div class="col-md-12 col-sm-12 col-xs-12" style="height:300px">
 						<!--will import from compare page -->
+						<h5 class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+							<b>Test mysql connection:</b> <br />
+							<?php
+								include_once('./lib/ini.php');
+								$execute="SELECT * FROM comment ORDER BY comment_id DESC";
+								$result=mysqli_query($conn,$execute);
+								while($data=mysqli_fetch_object($result)){
+									echo "<b>comment_id: </b>" . $data->comment_id . "<br />";
+									echo "<b>park_id: </b>" . $data->park_id . "<br />";
+									echo "<b>comment_time: </b>" . $data->comment_time . "<br />";
+									echo "<b>comment_content: </b>" . $data->comment_content . "<br />";
+								}
+							?>
+						</h5>
 					</div>
 				</section>
 				<section class="section col-md-12 col-sm-12 col-xs-12">
@@ -100,7 +111,6 @@
 				include "templates/footer.php";
 			?>
         </div>
-        <script type="text/javascript" src="static/vendor/jquery-3.1.1.min.js"></script>
 		<script type="text/javascript" src="static/js/home.js"></script>
 	</body>
 </html>

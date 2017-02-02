@@ -5,6 +5,5 @@ Provide valuable informations for users to find the best Canada National Park fo
 http://open.canada.ca/data/en/dataset?organization=pc <br />
 https://www.lonelyplanet.com/canada <br />
 
-
 ##Team
 Irfaan, Duc, Sam, Navpreet, BAO

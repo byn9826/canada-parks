@@ -38,38 +38,26 @@ a:hover{
     text-decoration: none;
 }
 
+main{
+    margin-top: 50px;
+}
+
 #header{
     position: fixed;
     height: 50px;
-    background-color: rgba(255, 255, 255,0.5);
+    background-color: rgba(255, 255, 255,0.7);
     color: #021f4f;
     z-index: 1000;
     border-bottom:1px solid #a0a4aa;
 }
 
-#header h4{
-    font-weight: bold;
-    color: #092c66;
-    font-style: italic;
-    height: 50px;
-    line-height: 50px;
-    vertical-align: middle;
-}
-
-#header h5{
-    font-weight: bold;
-    height: 50px;
-    line-height: 50px;
-    vertical-align: middle;
-}
-
-#header h5:hover{
-    font-size: 20px;
-}
-
 #header img{
     height: 36px;
     margin-top: 7px;
+}
+
+#header-searchicon{
+    margin-left: 10px;
 }
 
 #footer{
