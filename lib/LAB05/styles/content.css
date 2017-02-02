@@ -1,0 +1,60 @@
+/* Header */
+/* ------ */
+div.wrapper {
+    max-width: 1024px;
+    margin: auto;
+    padding: 0 1em;
+    color: #666;
+}
+
+main p {
+    font-size: 1.25em;
+}
+
+form > div, fieldset {
+    margin-bottom: 16px;
+}
+
+.label {
+    margin-bottom: 4px;
+}
+
+.field-required, .validation-error {
+    color: crimson;
+}
+
+.validation-error {
+    display: none;
+}
+
+.form-input, fieldset {
+    background-color: #fff;
+    padding: 10px 12px;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 3px;
+}
+
+fieldset, .form-input {
+    width: 40%;
+}
+
+textarea {
+    width: 60% !important;
+}
+
+.button {
+    border-radius: 3px;
+    padding: 10px 12px;
+    background-color: #ffb606;
+    color: #2a2a2a;
+    cursor: pointer;
+    transition: all 0.5s;
+    font-size: 1.25rem;
+    border: none;
+    text-align: center;
+}
+
+.button:hover {
+    background: #2a2a2a;
+    color: #fff;
+}
