@@ -22,6 +22,4 @@ class HumberValid {
             return false;
         }
     }
-
-
 }

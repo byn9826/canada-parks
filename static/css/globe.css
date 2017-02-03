@@ -60,6 +60,18 @@ main{
     margin-left: 10px;
 }
 
+#header-login>:first-child{
+    margin: 10px 8%;
+}
+
+#header-login>:nth-child(2){
+    margin: 0 8%;
+}
+
+#header-login>:nth-child(3){
+    padding-left: 5%;
+}
+
 #footer{
     background-color: black;
     color: white;
