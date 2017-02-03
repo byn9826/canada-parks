@@ -1,6 +1,7 @@
 <?php
     // PHP Include
     require_once 'includes/functions.php';
+    require_once 'includes/humberValid.php';
 
     // Initialise variables to hold form field data
     // ---------------------------------
@@ -50,22 +51,22 @@
 		<link rel="stylesheet" type="text/css" href="styles/footer.css">
 	</head>
 	<body>
-		
+
         <!-- --- PAGE HEADER --- -->
         <!-- ------------------- -->
         <?php include_once 'includes/header.php'; ?>
-        
-        
+
+
         <!-- --- PAGE BODY --- -->
         <!-- ----------------- -->
         <?php include_once 'includes/survey.php'; ?>
-        
-        
+
+
 		<!-- --- PAGE FOOTER --- -->
         <!-- ------------------- -->
         <?php include_once 'includes/footer.php'; ?>
-        
-        
+
+
 		<!-- <script src="scripts/script.js"></script>  DISABLE JAVASCRIPT FOR THE PURPOSE OF THIS LAB -->
 	</body>
 </html>

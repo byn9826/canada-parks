@@ -3,7 +3,7 @@
     $team_route_src = "../";
     if(isset($team_route_custom)) {
         $team_route_src = $team_route_custom;
-    }
+    }    
 ?>
 <div class="row">
     <header id="header" class="col-md-12 col-sm-12 visible-lg visible-md visible-sm">
