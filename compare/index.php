@@ -1,4 +1,5 @@
 <?php
+//Author: Sam
 $provinces = array(
     'Alberta' => 'AB',
     'British Columbia' => 'BC',
@@ -31,13 +32,13 @@ $provinces = array(
         <link rel="stylesheet" href="/static/css/parks.css">
     </head>
     <body>
-        <main>
-            <div class="container-fluid">
-                <?php
-    				$team_logo_custom = "/static/img/logo.png";
-    				$team_personal_custom = "/static/img/users/profile/0.png";
-    				include "../templates/header.php";
-    			?>
+        <div class="container-fluid">
+            <?php
+				$team_logo_custom = "/static/img/logo.png";
+				$team_personal_custom = "/static/img/users/profile/0.png";
+				include "../templates/header.php";
+			?>
+			<main id="main">
                 <h1 class="text-center">Park List</h1>
                 <form id="search" class="form-inline">
                     <div class="form-group">
@@ -54,10 +55,12 @@ $provinces = array(
                         </select>
                     </div>
                     <div class="form-group">
-
+                        <input type="submit" class="btn btn-success" value="Search"/>
                     </div>
                 </form>
-                <button type="button" id="compare" class="btn btn-primary hidden" data-toggle="modal" data-target=".bs-example-modal-lg">Compare</button>
+                <div id="compare-wrapper" class="container">
+                    <button type="button" disabled="disabled" id="compare" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Compare</button>
+                </div>
                 <div class="row">
                     <?php
                     //$url = 'http://travel.nationalgeographic.com/travel/parks/canada-national-parks/';
@@ -73,7 +76,7 @@ $provinces = array(
                     // national geo
                     // $classname = 'canada-park-guides';
                     // $results = $xpath->query("//*[contains(@class, '$classname')]");
-
+    
                     // foreach ($results as $result) {
                     //     $parks = $result->getElementsByTagName('li');
                     //     foreach($parks as $park) {
@@ -87,6 +90,7 @@ $provinces = array(
                     foreach($results as $result) {
                         $trs = $result->getElementsByTagName('tr');
                         $skip = false;
+                        $id = 1;
                         foreach($trs as $tr) {
                             if ($skip == true) {
                                 $td = $tr->getElementsByTagName('td');
@@ -98,45 +102,56 @@ $provinces = array(
                                     $img = '';
                                 }
                                 ?>
-                        <div class="col-xs-6 col-sm-4 col-md-3 park">
+                        <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$id?>">
                             <?php if ($img != '') {?>
                             <img class="img-responsive" src="<?=$img?>" alt="...">
                             <?php } ?>
                             <div class="caption">
-                                <h4><?=$name?></h4>
+                                <h4 class="name"><?=$name?></h4>
                                 <p>...</p>
-                                <p><a href="#" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$i?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
+                                <p><a href="#" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$id?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
                             </div>
                         </div>
                                 <?php
                             }
+                            $id++;
                             $skip = true;
                         }
                         break;
                     }
-
-
+    
+    
                     ?>
                 </div>
-            </div>
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </main>
+        </div>
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h2>Name</h2>
+                            </div>
+                            <div class="col-md-5" id="compare-1">
+                                <h2 class="name">Auyuittuq</h2>
+                            </div>
+                            <div class="col-md-5" id="compare-2">
+                                <h2 class="name">Banff</h2>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            Compare
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
         <?php
 			include "../templates/footer.php";
 		?>

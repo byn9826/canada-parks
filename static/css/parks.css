@@ -1,12 +1,25 @@
+/*Author: Sam*/
+
 #search {
     margin-bottom: 20px;
 }
 
 .park {
-    height: 300px;
+    height: 350px;
     margin-bottom: 20px;
 }
 
 .park img {
     width: 100%;
+}
+
+#compare-wrapper {
+    position: fixed;
+    top: 50px;
+    text-align: right;
+    z-index: 1000;
+}
+
+#compare {
+    
 }
