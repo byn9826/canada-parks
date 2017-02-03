@@ -1,24 +1,36 @@
 $(document).ready(function() {
-    var compareParks = [];
-    $('.select').on('click', function() {
+    var parkIds = [];
+    $('.select').on('click', function(e) {
+        e.preventDefault();
         var parkId = $(this).attr('data-id');
         if ($(this).hasClass('btn-success')) {
             $(this).removeClass('btn-success');
             $(this).text('Compare');
-            compareParks.splice(compareParks.indexOf(parkId), 1);
+            
+            for (var i = 0; i < parkIds.length; i++) {
+                if (parkIds[i].id = parkId) {
+                    parkIds.splice(i, 1);
+                }
+            }
+            
         } else {
-            if (compareParks.length != 2) {
+            if (parkIds.length != 2) {
                 $(this).addClass('btn-success');
                 $(this).text('Selected');
-                compareParks.push(parkId);   
+                var park = {
+                    id: parkId,
+                    name: $('#park-' + parkId).find('.name').text()
+                };
+                parkIds.push(park);
             }
         }
         
-        if (compareParks.length == 2) {
-            $('#compare').removeClass('hidden');
+        if (parkIds.length == 2) {
+            $('#compare-1').find('.name').text(parkIds[0].name);
+            $('#compare-2').find('.name').text(parkIds[1].name);
+            $('#compare').attr('disabled', false);
         } else {
-            $('#compare').addClass('hidden');
+            $('#compare').attr('disabled', true);
         }
-        
     });
 });
