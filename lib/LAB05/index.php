@@ -21,8 +21,12 @@
         $Valid = new HumberValid();
         $Valid->setEmail($_POST['txt_email']);
         $Valid->setGender($_POST['gender']);
+        $Valid->setPhone($_POST['phone']);
         echo $Valid->validEmail();
         echo $Valid->validGender();
+        echo 'test';
+        echo $Valid->validPhone();
+        echo 'test2';
 
 
 
