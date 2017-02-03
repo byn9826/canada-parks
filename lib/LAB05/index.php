@@ -13,10 +13,18 @@
     $isInternational = "";
     $message = "";
 
-
     // Perform validation only if form has being submitted
     // ---------------------------------------------------
+
     if(isset($_POST['send-message'])) {
+
+        $Valid = new HumberValid();
+        $Valid->setEmail($_POST['txt_email']);
+        $Valid->setGender($_POST['gender']);
+        echo $Valid->validEmail();
+        echo $Valid->validGender();
+
+
 
         //var_dump($_POST);
         //--- Get the data from the form
