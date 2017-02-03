@@ -35,4 +35,12 @@ class HumberValid {
             return false;
         }
     }
+    
+    public function validNotEmpty($value) {
+        if (!empty(trim($value))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

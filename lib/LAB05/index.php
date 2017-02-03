@@ -24,9 +24,8 @@
         $Valid->setPhone($_POST['phone']);
         echo $Valid->validEmail();
         echo $Valid->validGender();
-        echo 'test';
         echo $Valid->validPhone();
-        echo 'test2';
+        echo $Valid->validNotEmpty($_POST['txt_email']);
 
 
 
