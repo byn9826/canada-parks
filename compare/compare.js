@@ -33,4 +33,35 @@ $(document).ready(function() {
             $('#compare').attr('disabled', true);
         }
     });
+    
+    var map;
+    var service;
+    var infowindow;
+    
+    function initialize() {
+        var pyrmont = new google.maps.LatLng(43.7763962,-79.3240221);
+    
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: pyrmont,
+            zoom: 15
+        });
+    
+        var request = {
+            location: pyrmont,
+            radius: '10000000000000',
+            query: 'canada national park'
+        };
+    
+        service = new google.maps.places.PlacesService(map);
+        service.textSearch(request, callback);
+    }
+    
+    function callback(results, status, response) {
+        console.log(response);
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+            console.log(results);
+        }
+    }
+    
+    initialize();
 });

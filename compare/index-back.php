@@ -15,25 +15,6 @@ $provinces = array(
     'Saskatchewan' => 'SK',
     'Yukon' => 'YT'
 );
-
-$parks = array();
-$apiKey = 'AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k';
-$searchAPi = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=canada+national+park&key=' . $apiKey;
-$detailAPI = 'https://maps.googleapis.com/maps/api/place/details/json';
-$result = json_decode(file_get_contents($searchAPi), true);
-foreach ($result['results'] as $park) {
-    $place_id = $park['place_id'];
-    $park = json_decode(file_get_contents($detailAPI . '?placeid=' . $place_id . '&key=' . $apiKey), true);
-    $parks[] = $park['result'];
-}
-
-// while (!empty($result['next_page_token'])) {
-//     $result = json_decode((file_get_contents($searchAPi . '&pagetoken=' . $result['next_page_token'] )), true);
-//     foreach ($result['results'] as $park) {
-//         $parks[] = $park;
-//     }
-// }
-//die;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,17 +61,56 @@ foreach ($result['results'] as $park) {
                 <div id="compare-wrapper" class="container">
                     <button type="button" disabled="disabled" id="compare" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Compare</button>
                 </div>
-                <div id="map"></div>
                 <div class="row">
-                    <?php foreach($parks as $park) {?>
-                    <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
-                        <div class="caption">
-                            <h4 class="name"><?=$park['name']?></h4>
-                            <p>...</p>
-                            <p><a href="#" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
+                    <?php
+                    //$url = 'http://travel.nationalgeographic.com/travel/parks/canada-national-parks/';
+                    $url = 'https://en.wikipedia.org/wiki/List_of_National_Parks_of_Canada';
+                    $handle = curl_init($url);
+                    curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+                    $html = curl_exec($handle);
+                    libxml_use_internal_errors(true); // Prevent HTML errors from displaying
+                    
+                    $dom = new DOMDocument();
+                    $dom->loadHTML($html);
+                    $xpath = new DOMXPath($dom);
+                    
+                    $classname = 'wikitable';
+                    $results = $xpath->query("//*[contains(@class, '$classname')]");
+                    foreach($results as $result) {
+                        $trs = $result->getElementsByTagName('tr');
+                        $skip = false;
+                        $id = 1;
+                        foreach($trs as $tr) {
+                            if ($skip == true) {
+                                $td = $tr->getElementsByTagName('td');
+                                $name = $td->item(0)->getElementsByTagName('a')->item(0)->nodeValue;
+                                $photo = $td->item(1)->getElementsByTagName('img')->item(0);
+                                if ($photo != null ) {
+                                    $img = $photo->getAttribute('src');
+                                } else {
+                                    $img = '';
+                                }
+                                ?>
+                        <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$id?>">
+                            <?php if ($img != '') {?>
+                            <img class="img-responsive" src="<?=$img?>" alt="...">
+                            <?php } ?>
+                            <div class="caption">
+                                <h4 class="name"><?=$name?></h4>
+                                <p>...</p>
+                                <p><a href="#" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$id?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
+                            </div>
                         </div>
-                    </div>
-                    <?php } ?>
+                                <?php
+                            }
+                            $id++;
+                            $skip = true;
+                        }
+                        break;
+                    }
+    
+    
+                    ?>
                 </div>
             </main>
         </div>
