@@ -28,12 +28,13 @@ foreach ($result['results'] as $park) {
 }
 
 // while (!empty($result['next_page_token'])) {
+//     var_dump($result['next_page_token']);
 //     $result = json_decode((file_get_contents($searchAPi . '&pagetoken=' . $result['next_page_token'] )), true);
 //     foreach ($result['results'] as $park) {
 //         $parks[] = $park;
 //     }
 // }
-//die;
+// die;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +87,7 @@ foreach ($result['results'] as $park) {
                     <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
                         <div class="caption">
                             <h4 class="name"><?=$park['name']?></h4>
-                            <p>...</p>
+                            <p><?=$park['formatted_address']?></p>
                             <p><a href="#" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
                         </div>
                     </div>
@@ -124,6 +125,9 @@ foreach ($result['results'] as $park) {
         <?php
 			include "../templates/footer.php";
 		?>
+		<script type="text/javascript">
+		    var parks = <?=json_encode($parks)?>;
+		</script>
         <!--<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>-->
         <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>
