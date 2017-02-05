@@ -1,6 +1,6 @@
 <?php
     // Array to store location options
-    $lstLocations = ['NONE' => '-- Choose a Town --',
+    $lstLocations = ['NONE' => '-- Choose your City --',
                      'TO' => 'Toronto',
                      'RE' => 'Rexdale',
                      'NY' => 'North York',
@@ -31,8 +31,8 @@
             </div>
             <fieldset>
                 <legend class="label">Gender</legend>
-                <input type="radio" id="M" value="Male" name="gender" <?php if($gender === 'M') {echo 'checked';} ?> /><label for="M">Male</label>
-                <input type="radio" id="F" value="Female" name="gender" <?php if($gender === 'F') {echo 'checked';} ?> /><label for="F">Female</label>
+                <input type="radio" id="M" value="M" name="gender" <?php if($gender === 'M') {echo 'checked';} ?> /><label for="M">Male</label>
+                <input type="radio" id="F" value="F" name="gender" <?php if($gender === 'F') {echo 'checked';} ?> /><label for="F">Female</label>
             </fieldset>
             <div>
                 <div><label for="txt_phone" class="label">Phone Number</label></div>
@@ -45,7 +45,8 @@
                 <div>
                     <select id="location" name="opt_location" class="form-input">
                     <?php
-                        echo displayDropDownOptions($lstLocations, $location);
+                        //echo displayDropDownOptions($lstLocations, $location);
+                        echo validation_functions::generateDropDownOpt($lstLocations, $location);
                     ?>
                     </select>
                 </div>
