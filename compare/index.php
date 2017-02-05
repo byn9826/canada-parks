@@ -16,25 +16,33 @@ $provinces = array(
     'Yukon' => 'YT'
 );
 
-$parks = array();
-$apiKey = 'AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k';
-$searchAPi = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=canada+national+park&key=' . $apiKey;
-$detailAPI = 'https://maps.googleapis.com/maps/api/place/details/json';
-$result = json_decode(file_get_contents($searchAPi), true);
-foreach ($result['results'] as $park) {
-    $place_id = $park['place_id'];
-    $park = json_decode(file_get_contents($detailAPI . '?placeid=' . $place_id . '&key=' . $apiKey), true);
-    $parks[] = $park['result'];
+$dbhost = 'sql9.freemysqlhosting.net';
+$dbuser = 'sql9156605';
+$dbpass = 'FadNqjljSt';
+$conn = mysql_connect($dbhost, $dbuser, $dbpass);
+
+if(! $conn ) {
+  die('Could not connect: ' . mysql_error());
 }
 
-// while (!empty($result['next_page_token'])) {
-//     var_dump($result['next_page_token']);
-//     $result = json_decode((file_get_contents($searchAPi . '&pagetoken=' . $result['next_page_token'] )), true);
-//     foreach ($result['results'] as $park) {
-//         $parks[] = $park;
-//     }
-// }
-// die;
+mysql_select_db('sql9156605');
+
+$province = '';
+$province = $_GET['province'];
+
+if (!empty($province)) {
+    $sql = "SELECT * FROM park WHERE province_code = '$province'";
+} else {
+    $sql = 'SELECT * FROM park';
+}
+mysql_select_db('test_db');
+$retval = mysql_query( $sql, $conn );
+
+$parks = [];
+while($park = mysql_fetch_array($retval, MYSQL_ASSOC)) {
+    $parks[] = $park;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +68,7 @@ foreach ($result['results'] as $park) {
 			?>
 			<main id="main">
                 <h1 class="text-center">Park List</h1>
-                <form id="search" class="form-inline">
+                <form id="search" class="form-inline" method="GET">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Park Name">
@@ -70,7 +78,7 @@ foreach ($result['results'] as $park) {
                         <select class="form-control" id="province" name="province">
                             <option value="">Select a Province</option>
                             <?php foreach($provinces as $name => $value) {?>
-                            <option value="<?=$value?>"><?=$name?></option>
+                            <option <?=($province == $value) ? "selected" : ""?> value="<?=$value?>"><?=$name?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -87,7 +95,7 @@ foreach ($result['results'] as $park) {
                     <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
                         <div class="caption">
                             <h4 class="name"><?=$park['name']?></h4>
-                            <p><?=$park['formatted_address']?></p>
+                            <p><?=$park['address']?></p>
                             <p><a href="#" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
                         </div>
                     </div>
