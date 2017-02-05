@@ -26,6 +26,8 @@
         echo $Valid->validGender();
         echo $Valid->validPhone();
         echo $Valid->validNotEmpty($_POST['txt_email']);
+        echo $_POST['chk_international'];
+        echo $Valid->validCheck($_POST['chk_international'], "YES");
 
 
 
