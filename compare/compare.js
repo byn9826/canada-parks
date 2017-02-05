@@ -51,7 +51,7 @@ $(document).ready(function() {
         
         parks.map(function(park) {
             var marker = new google.maps.Marker({
-                position: {lat: park.geometry.location.lat, lng: park.geometry.location.lng},
+                position: {lat: parseFloat(park.latitude), lng: parseFloat(park.longitude)},
                 map: map,
                 title: park.name
             });
