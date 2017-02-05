@@ -1,13 +1,12 @@
 <header class="header">
     <?php
         // Array to keep navigation links
-        $lstNavLinks = [
-            ['navUrl' => '#', 'navText' => 'Home'],
-            ['navUrl' => '#', 'navText' => 'Blog'],
-            ['navUrl' => '#', 'navText' => 'Experiments'],
-            ['navUrl' => '#', 'navText' => 'Contact'],
-            ['navUrl' => '#', 'navText' => 'About']
-        ];
+        $lstNavLinks = [['#','Home'],
+                        ['#', 'Blog'],
+                        ['#', 'Experiments'],
+                        ['#', 'Contact'],
+                        ['#', 'About']
+                       ];
     ?>
 
 	<!-- Header logo -->
@@ -21,7 +20,8 @@
 
     <nav class="header-nav">
     <?php
-        echo display_navigation($lstNavLinks);
+        //echo display_navigation($lstNavLinks);
+        echo validation_functions::generateNavigationList($lstNavLinks);
     ?>
     </nav>
 
