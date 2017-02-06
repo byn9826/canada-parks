@@ -1,5 +1,9 @@
 <?php
 //Author: Sam
+
+require 'park.php';
+$p = new Park();
+
 $provinces = array(
     'Alberta' => 'AB',
     'British Columbia' => 'BC',
@@ -19,13 +23,12 @@ $provinces = array(
 $dbhost = 'sql9.freemysqlhosting.net';
 $dbuser = 'sql9156605';
 $dbpass = 'FadNqjljSt';
-$conn = mysql_connect($dbhost, $dbuser, $dbpass);
+$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbuser);
+
 
 if(! $conn ) {
   die('Could not connect: ' . mysql_error());
 }
-
-mysql_select_db('sql9156605');
 
 $province = '';
 $province = $_GET['province'];
@@ -35,13 +38,15 @@ if (!empty($province)) {
 } else {
     $sql = 'SELECT * FROM park';
 }
-mysql_select_db('test_db');
-$retval = mysql_query( $sql, $conn );
+
+$retval = mysqli_query($conn, $sql);
 
 $parks = [];
-while($park = mysql_fetch_array($retval, MYSQL_ASSOC)) {
+while($park = mysqli_fetch_array($retval, MYSQL_ASSOC)) {
     $parks[] = $park;
 }
+
+mysqli_close($conn);
 
 ?>
 <!DOCTYPE html>
@@ -98,11 +103,11 @@ while($park = mysql_fetch_array($retval, MYSQL_ASSOC)) {
                     <div role="tabpanel" class="tab-pane row" id="park-list">
                         <?php foreach($parks as $park) {?>
                         <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
-                            <img class="img-responsive" src="/static/img/park/0/0.jpg" alt="">
+                            <img class="img-responsive" src="<?=$p->renderPhoto($park['photo_reference'])?>" alt="">
                             <div class="caption">
                                 <h2 class="name"><?=$park['name']?></h2>
                                 <p><?=$park['address']?></p>
-                                <p><a href="#" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
+                                <p><a href="/park?id=<?=$park['id']?>" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
                             </div>
                         </div>
                         <?php } ?>
