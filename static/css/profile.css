@@ -5,6 +5,15 @@ img {
 .avatar {
     position: relative;
     padding: 16px 16px;
+    text-align: center;
+}
+
+.avatar img {
+    width: 80%;
+    border: 3px solid #337ab7;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 main {
@@ -19,11 +28,32 @@ main div.col {
 
 .user-details > * {
     margin-top: 16px;
+    /*border: 1px solid lawngreen;*/
+}
+
+.name {
+    text-align: center;
+}
+
+.name, .user-info {
+    border-bottom: 1px solid lightgrey;
+}
+
+.user-info > * {
+    padding: 0px 8px 4px 16px;
 }
 
 .glyphicon {
     font-size: 16px;
     margin-right: 12px;
+    color: #337ab7;
+}
+
+/* ========================= */
+/*       RIGHT COLUMN        */
+/* ========================= */
+.container__activities {
+    padding: 0 3em;
 }
 
 .activities {
@@ -32,11 +62,118 @@ main div.col {
 
 .activities span {
     font-size: 2em;
+    font-weight: bold;
+}
+
+
+/* ========================= */
+/*    NAVIGATION/TAB MENU    */
+/* ========================= */
+.activities-nav {
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.activities-nav span.glyphicon {
+    color: #767676;
+}
+
+.nav-pills>li>a {
+    background-color: transparent !important;
+    color: #767676;
+}
+
+.nav-pills>li>a:hover,
+.nav-pills>li>a:hover span.glyphicon {
+    color: #021f4f;
+}
+
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:focus,
+.nav-pills>li.active>a:hover {
+    color: #021f4f;
+    -webkit-border-radius:0;
+    -moz-border-radius:0;
+    border-radius:0;
+    border-bottom: 3px solid #337ab7;
+}
+
+.nav-pills>li.active span.glyphicon {
+    color: #337ab7 !important;
+}
+
+.tab-content {
+    /*border: 1px dashed greenyellow;*/
+    position: relative;
+}
+
+/* Footprint tab */
+/* ------------- */
+.share-footprint {
+    margin-bottom: 1.5em;
+    position: relative;
+    padding: 0 0;
+    border: 3px solid lightgrey;
+    /*border: 3px solid #337ab7;*/
+}
+
+.share-footprint .row {
+    margin: 0 0 0.5em 0;
+}
+
+.share-footprints__header {
+    font-size: 1.5em;
+    background: #0DC6FF;
+    margin-bottom: 0.5em;
+    padding: 0.25em 0.5em;
+}
+
+.share-footprints__text {
+    font-size: 2em;
+    color: #ccc;
+}
+
+.share-footprint__button {
+    text-align: center;
+    padding: 0.25em 0 0 0;
 }
 
 /* ========================= */
 .footprint {
     border: 1px solid lightgrey;
-    padding: 8px 16px;
-    margin: 8px 0;
+    padding: 16px 16px;
+    margin: 8px 0 16px 0;
+    background-color: #fafafa;
+}
+
+.footprint .glyphicon {
+    margin-left: 4px;
+    margin-right: 0;
+    color: #5cb85c;
+}
+
+.footprint .row>.col:last-child {
+    padding-left: 0;
+}
+
+.footprint__user {
+    color: #286090;
+    font-size: 1.125em;
+    font-weight: bold;
+}
+
+.footprint__park {
+    color: #5cb85c;
+}
+
+.footprint__date {
+    font-size: 0.875em;
+    padding-top: 0.125em;
+    color: gray;
+}
+
+.footprint__caption {
+    padding: 1em 0;
 }

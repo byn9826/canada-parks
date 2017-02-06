@@ -66,7 +66,7 @@ while($park = mysql_fetch_array($retval, MYSQL_ASSOC)) {
 				$team_personal_custom = "/static/img/users/profile/0.png";
 				include "../templates/header.php";
 			?>
-			<main id="main">
+			<main id="main" class="container">
                 <h1 class="text-center">Park List</h1>
                 <form id="search" class="form-inline" method="GET">
                     <div class="form-group">
@@ -89,17 +89,24 @@ while($park = mysql_fetch_array($retval, MYSQL_ASSOC)) {
                 <div id="compare-wrapper" class="container">
                     <button type="button" disabled="disabled" id="compare" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Compare</button>
                 </div>
-                <div id="map"></div>
-                <div class="row">
-                    <?php foreach($parks as $park) {?>
-                    <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
-                        <div class="caption">
-                            <h4 class="name"><?=$park['name']?></h4>
-                            <p><?=$park['address']?></p>
-                            <p><a href="#" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#map" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
+                    <li role="presentation"><a href="#park-list" aria-controls="park-list" role="tab" data-toggle="tab">List</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="map"></div>
+                    <div role="tabpanel" class="tab-pane row" id="park-list">
+                        <?php foreach($parks as $park) {?>
+                        <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
+                            <img class="img-responsive" src="/static/img/park/0/0.jpg" alt="">
+                            <div class="caption">
+                                <h2 class="name"><?=$park['name']?></h2>
+                                <p><?=$park['address']?></p>
+                                <p><a href="#" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
+                            </div>
                         </div>
+                        <?php } ?>
                     </div>
-                    <?php } ?>
                 </div>
             </main>
         </div>

@@ -4,8 +4,17 @@
     margin-bottom: 20px;
 }
 
+#park-list {
+    margin-top: 20px;
+}
+
 .park {
     margin-bottom: 20px;
+    height: 400px;
+}
+
+.park .name {
+    margin: 5px 0;
 }
 
 .park img {
