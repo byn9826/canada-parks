@@ -9,6 +9,14 @@ class Fanta_Valid
 
     // Public Static Functions
     // -----------------------
+
+    public static function sanitizeUserInput($value) {
+        $value = trim($value);
+        $value = stripslashes($value);
+        $value = htmlspecialchars($value);
+        return $value;
+    }
+
     // Function to validate is string is not null or empty
     public static function isNullOrEmpty($value) {
         $trim_value = trim($value);
@@ -44,4 +52,8 @@ class Fanta_Valid
         return strlen($value) <= $maxLength;
     }
 
+    // Function to check if a number is in the required range
+    public static function isNumberInRange($value, $minValue, $maxValue) {
+        return is_numeric($value) && $value >= $minValue && $value <= $maxValue;
+    }
 }

@@ -11,6 +11,7 @@
     $location = "";
     $isInternational = "";
     $message = "";
+    $yourself = "";
 
     // Perform validation only if form has being submitted
     // ---------------------------------------------------
@@ -21,15 +22,7 @@
         $gender = $_POST['gender'];
         $phoneNumber = $_POST['txt_phone'];
         $message = $_POST['txt_message'];
-
-        //--- Form fields validation
-        /*
-        validateName($name, $nameError);
-        validateEmail($email, $emailError);
-        validatePhoneNumber($phoneNumber, $phoneNumError);
-        validateDropDownSelection($location, "NONE", $locationError);
-        validateMessage($message, $messageError);
-        */
+        $yourself = $_POST['txt_self'];
         // Perform validations using fanta_valid library
         // Validate Name
         if(Fanta_Valid::isNullOrEmpty($name)) {
@@ -66,9 +59,21 @@
             $messageError = "Should be less than 20 characters";
         }
 
+        //valid self by isNumberInRange Functions
+        if(Fanta_Valid::isNullOrEmpty($yourself)) {
+            $yourselfError = "Please enter a number";
+        } elseif (!Fanta_Valid::isNumberInRange($yourself, 0, 5)) {
+            $yourselfError = "Must be a number between 0 - 5";
+        }
+
         // If form is valid, perform logic after form submission
-        if(!isset($nameError) && !isset($emailError) && !isset($genderError) && !isset($phoneNumError) && !isset($messageError)) {
+        if(!isset($nameError) && !isset($emailError) && !isset($genderError) && !isset($phoneNumError) && !isset($messageError) && !isset($yourselfError)) {
             $success = true;
+            $name = Fanta_Valid::sanitizeUserInput($name);
+            $email = Fanta_Valid::sanitizeUserInput($email);
+            $phoneNumber = Fanta_Valid::sanitizeUserInput($phoneNumber);
+            $message = Fanta_Valid::sanitizeUserInput($message);
+            $yourself = Fanta_Valid::sanitizeUserInput($yourself);
         }
     }
 ?>
@@ -85,7 +90,15 @@
         <main class="main">
             <div class="wrapper">
                 <div id="main-success" <?php if(!isset($success)) echo "class='hide'"; ?> >
-                    Success!
+                    Success! <br />
+                    <?php
+                        echo "<h4>" . "Your name: " . "$name" . "</h4>";
+                        echo "<h4>" . "Your email: " . "$email" . "</h4>";
+                        echo "<h4>" . "Your gender: " . "$gender" . "</h4>";
+                        echo "<h4>" . "Your phone number: " . "$phoneNumber" . "</h4>";
+                        echo "<h4>" . "Your message: " . "$message" . "</h4>";
+                        echo "<h4>" . "Yourself feel: " . "$yourself" . "</h4>";
+                    ?>
                 </div>
                 <h1>Example Page for fanta_Valid Lib</h1>
                 <p>Please take some time to fill out this short survey on Web Development Program. This short survey is an exercise from the HTTP 5202 Web Application Development 2 lab.</p>
@@ -115,6 +128,11 @@
                         <div><label for="txt_message" class="label">Why do you like Web Development? Must be between 10 - 20 characters<span class="field-required">&nbsp;*</span></label></div>
                         <div><textarea id="txt_message" name="txt_message" placeholder="Enter your message here ..." rows="5" class="form-input"><?php echo $message ?></textarea></div>
                         <div class="field-required"><?php if(isset($messageError)) {echo $messageError;} ?></div>
+                    </div>
+                    <div>
+                        <div><label for="txt_message" class="label">How you feel about yourself. Must be a number between 1-5<span class="field-required">&nbsp;*</span></label></div>
+                        <div><textarea id="txt_message" name="txt_self" placeholder="Enter your word here ..." rows="5" class="form-input"><?php echo $yourself ?></textarea></div>
+                        <div class="field-required"><?php if(isset($yourselfError)) {echo $yourselfError;} ?></div>
                     </div>
                     <div>
                         <button class="button" type="submit" name="send-message">Submit Survey</button>
