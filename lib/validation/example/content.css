@@ -7,6 +7,23 @@ div.wrapper {
     color: #666;
 }
 
+#main-success {
+    background-color: green;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 5%;
+    color: white;
+    font-weight: bold;
+}
+
+.hide {
+    display: none;
+}
+
+.wrapper h1{
+    border-bottom: 1px dashed black;
+}
+
 main p {
     font-size: 1.25em;
 }
