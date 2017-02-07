@@ -8,6 +8,7 @@
     $email = "";
     $gender = "";
     $phoneNumber = "";
+    $postalCode = "";
     $location = "";
     $isInternational = "";
     $message = "";
@@ -24,6 +25,7 @@
             $gender = $_POST['gender'];
         }
         $phoneNumber = Fanta_Valid::sanitizeUserInput($_POST['txt_phone']);
+        $postalCode = Fanta_Valid::sanitizeUserInput($_POST['txt_postalcode']);
         $message = Fanta_Valid::sanitizeUserInput($_POST['txt_message']);
         $yourself = Fanta_Valid::sanitizeUserInput($_POST['txt_self']);
 
@@ -52,6 +54,12 @@
             $phoneNumError = "Please enter a valid phone number";
         } elseif(!Fanta_Valid::isPhoneNumValid($phoneNumber)) {
             $phoneNumError = "The phone number format is wrong";
+        }
+
+        if(Fanta_Valid::isNullOrEmpty($postalCode)) {
+            $postalCodeError = "Please enter a valid postal code";
+        } elseif(!Fanta_Valid::isPostalCodeValid($postalCode)) {
+            $postalCodeError = "The postal code format is wrong";
         }
 
         // Validate User Message
@@ -95,6 +103,7 @@
                         echo "<h4>" . "Your email: " . "$email" . "</h4>";
                         echo "<h4>" . "Your gender: " . "$gender" . "</h4>";
                         echo "<h4>" . "Your phone number: " . "$phoneNumber" . "</h4>";
+                        echo "<h4>" . "Your postal code: " . "$postalCode" . "</h4>";
                         echo "<h4>" . "Your message: " . "$message" . "</h4>";
                         echo "<h4>" . "Yourself feel: " . "$yourself" . "</h4>";
                     ?>
@@ -122,6 +131,11 @@
                         <div><label for="txt_phone" class="label">Phone Number</label></div>
                         <div><input type="text" id="txt_phone" name="txt_phone" value="<?php echo $phoneNumber ?>" placeholder="647 685 9999" class="form-input" /></div>
                         <div class="field-required"><?php if(isset($phoneNumError)) {echo $phoneNumError;} ?></div>
+                    </div>
+                    <div>
+                        <div><label for="txt_postalcode" class="label">Postal Code</label></div>
+                        <div><input type="text" id="txt_postalcode" name="txt_postalcode" value="<?php echo $postalCode ?>" placeholder="R4T 2Z9 or R4T2Z9 or R4T-2Z9" class="form-input" /></div>
+                        <div class="field-required"><?php if(isset($postalCodeError)) {echo $postalCodeError;} ?></div>
                     </div>
                     <div>
                         <div><label for="txt_message" class="label">Why do you like Web Development? Must be between 10 - 20 characters<span class="field-required">&nbsp;*</span></label></div>

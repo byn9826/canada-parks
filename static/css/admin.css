@@ -1,0 +1,20 @@
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+body {
+    margin: 1em;
+}
+h1 {
+    margin-bottom: 1em;
+    text-align: center;
+}
+#adminSelect {
+    text-align: center;
+}
+#adminSelect .row div a{
+    border: 1px solid black;
+    padding: 1em 10em;
+}
