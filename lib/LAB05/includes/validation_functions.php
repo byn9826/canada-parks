@@ -24,6 +24,16 @@ class validation_functions
 
     // Public Static Functions
     // -----------------------
+    // Function to render user input in a safe format
+    // e.g. <script>location.href('http://www.hackertarget.com')</script>
+    // The above example will not execute, as it will be transformed to HTML escape code
+    public static function sanitizeUserInput($value) {
+        $value = trim($value);
+        $value = stripslashes($value);
+        $value = htmlspecialchars($value);
+        return $value;
+    }
+
     // Function to validate is string is not null or empty
     public static function isNullOrEmpty($value) {
         return !isset($value) || $value === "";
@@ -47,6 +57,11 @@ class validation_functions
     // Function to test if string isn't above maximum length
     public static function isBelowMaxLength($value, $maxLength) {
         return strlen($value) <= $maxLength;
+    }
+
+    // Function to check if a number is in the required range
+    public static function isNumberInRange($value, $minValue, $maxValue) {
+        return is_numeric($value) && $value >= $minValue && $value <= $maxValue;
     }
 
     // Function to generate a list of navigation links.
