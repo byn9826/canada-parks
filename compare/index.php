@@ -42,7 +42,7 @@ if (!empty($province)) {
 $retval = mysqli_query($conn, $sql);
 
 $parks = [];
-while($park = mysqli_fetch_array($retval, MYSQL_ASSOC)) {
+while($park = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
     $parks[] = $park;
 }
 
