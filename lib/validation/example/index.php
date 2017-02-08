@@ -55,9 +55,9 @@
         }
 
         if(Fanta_Valid::isNullOrEmpty($postalCode)) {
-            $postalCodeError = "Please enter a valid postal code";
+            $postalCodeError = "Please enter a postal code";
         } elseif(!Fanta_Valid::isPostalCodeValid($postalCode)) {
-            $postalCodeError = "The postal code format is wrong";
+            $postalCodeError = "Please enter a valid postal code";
         }
 
         // Validate User Message
@@ -77,7 +77,8 @@
         }
 
         // If form is valid, perform logic after form submission
-        if(!isset($nameError) && !isset($emailError) && !isset($genderError) && !isset($postalCodeError) && !isset($phoneNumError) && !isset($messageError) && !isset($yourselfError)) {
+        if(!isset($nameError) && !isset($emailError) && !isset($genderError) &&
+           !isset($postalCodeError) && !isset($phoneNumError) && !isset($messageError) && !isset($yourselfError)) {
             $success = true;
         }
     }

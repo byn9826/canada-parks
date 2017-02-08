@@ -7,16 +7,16 @@ class Fanta_Valid
     // ---------------------
     const PHONE_REGEX = "/^[0-9]{3}[ |-]?[0-9]{3}[ |-]?[0-9]{4}$/";
     const NAME_REGEX = "/^[a-zA-Z]+([a-zA-Z0-9] )*/";
-    const POSTALCODE_REGEX = "/^[A-Z][0-9][A-Z][ |-]?[0-9][A-Z][0-9]$/i";
+    const POSTAL_CODE_REGEX = "/^[A-Z][0-9][A-Z][ |-]?[0-9][A-Z][0-9]$/i";
 
     // Public Static Functions
     // -----------------------
     public static function isNameValid($value){
-        return preg_match(self::NAME_REGEX, trim($value));
+        return preg_match(self::NAME_REGEX, $value);
     }
 
     public static function isPostalCodeValid ($value){
-        return preg_match(self::POSTALCODE_REGEX, trim($value));
+        return preg_match(self::POSTALCODE_REGEX, $value);
     }
 
     public static function sanitizeUserInput($value) {
