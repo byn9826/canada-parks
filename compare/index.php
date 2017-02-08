@@ -30,8 +30,7 @@ if(! $conn ) {
   die('Could not connect: ' . mysql_error());
 }
 
-$province = '';
-$province = $_GET['province'];
+$province = isset($_GET['province']) ? $_GET['province'] : '';
 
 if (!empty($province)) {
     $sql = "SELECT * FROM park WHERE province_code = '$province'";
