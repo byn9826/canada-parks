@@ -21,9 +21,7 @@
 
         $name = Fanta_Valid::sanitizeUserInput($_POST['txt_name']);
         $email = Fanta_Valid::sanitizeUserInput($_POST['txt_email']);
-        if(isset($_POST['gender'])) {
-            $gender = $_POST['gender'];
-        }
+        $gender = $_POST['gender'];
         $phoneNumber = Fanta_Valid::sanitizeUserInput($_POST['txt_phone']);
         $postalCode = Fanta_Valid::sanitizeUserInput($_POST['txt_postalcode']);
         $message = Fanta_Valid::sanitizeUserInput($_POST['txt_message']);
@@ -79,7 +77,7 @@
         }
 
         // If form is valid, perform logic after form submission
-        if(!isset($nameError) && !isset($emailError) && !isset($genderError) && !isset($phoneNumError) && !isset($messageError) && !isset($yourselfError)) {
+        if(!isset($nameError) && !isset($emailError) && !isset($genderError) && !isset($postalCodeError) && !isset($phoneNumError) && !isset($messageError) && !isset($yourselfError)) {
             $success = true;
         }
     }

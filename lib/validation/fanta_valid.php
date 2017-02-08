@@ -7,7 +7,7 @@ class Fanta_Valid
     // ---------------------
     const PHONE_REGEX = "/^[0-9]{3}[ |-]?[0-9]{3}[ |-]?[0-9]{4}$/";
     const NAME_REGEX = "/^[a-zA-Z]+([a-zA-Z0-9] )*/";
-    const POSTALCODE_REGEX = "/^[A-Z][0-9][A-Z][ |-]?[0-9][A-Z][0-9]$/";
+    const POSTALCODE_REGEX = "/^[A-Z][0-9][A-Z][ |-]?[0-9][A-Z][0-9]$/i";
 
     // Public Static Functions
     // -----------------------
@@ -34,7 +34,7 @@ class Fanta_Valid
 
     // Function to validate if email address is in a valid format
     public static function isEmailValid($value) {
-        return filter_var(trim($value), FILTER_VALIDATE_EMAIL);
+        return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 
     // Function to validate if gender value is male or female
@@ -48,7 +48,7 @@ class Fanta_Valid
 
     // Function to validate if phone number is in acceptable formats
     public static function isPhoneNumValid($value) {
-        return preg_match(self::PHONE_REGEX, trim($value));
+        return preg_match(self::PHONE_REGEX, $value);
     }
 
     // Function to test if string isn't below minimum length
