@@ -61,7 +61,7 @@ mysqli_close($conn);
 		?>
 		<meta name="author" content="Sam">
         <title>Park List</title>
-        <link rel="stylesheet" href="/static/css/parks.css">
+        <link rel="stylesheet" href="../static/css/parks.css">
     </head>
     <body>
         <div class="container-fluid">
@@ -147,8 +147,7 @@ mysqli_close($conn);
 		<script type="text/javascript">
 		    var parks = <?=json_encode($parks)?>;
 		</script>
-        <!--<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>-->
-        <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>
         <script src="compare.js"></script>
     </body>
