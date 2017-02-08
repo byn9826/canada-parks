@@ -33,13 +33,22 @@
 							<b>Test mysql connection:</b> <br />
 							<?php
 								include_once('./lib/ini.php');
-								$execute="SELECT * FROM comment ORDER BY comment_id DESC";
-								$result=mysqli_query($conn,$execute);
-								while($data=mysqli_fetch_object($result)){
-									echo "<b>comment_id: </b>" . $data->comment_id . "<br />";
-									echo "<b>park_id: </b>" . $data->park_id . "<br />";
-									echo "<b>comment_time: </b>" . $data->comment_time . "<br />";
-									echo "<b>comment_content: </b>" . $data->comment_content . "<br />";
+								try {
+									$db = new PDO($dsn, $username, $password);
+									$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+									$id = 1;
+									$sql = "SELECT * FROM comment WHERE comment_id = :id";
+									$pdostmt = $db->prepare($sql);
+									$pdostmt->setFetchMode(PDO::FETCH_ASSOC);
+									$pdostmt->bindValue(":id", $id, PDO::PARAM_INT);
+									$pdostmt->execute();
+									//$park = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
+									$comment = $pdostmt->fetchAll();
+									foreach ($comment as $c) {
+										echo "<li>" . $c["comment_id"] . "</li>";
+									}
+								} catch (PDOException $err) {
+									echo $err->getMessage();
 								}
 							?>
 						</h5>
