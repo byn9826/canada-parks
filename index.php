@@ -97,7 +97,7 @@
 				</section>
 				<img id="banner" class="col-md-10 col-md-offset-1 col-sm-10 col-xs-10" src="static/img/home/banner.jpg" alt="Marvel Activity" />
 				<!-- Modified from image Labeled for reuse with modification, https://upload.wikimedia.org/wikipedia/commons/e/e1/Georgian_Bay,_Ontario,_Canada.jpg 2017-01-06 -->
-				<section class="section col-md-12 col-sm-12 col-xs-12">
+				<section class="section col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
 					<h3 class="col-md-12 col-sm-12 col-xs-12">
 						Marvels around Canada
 						<span class="section-icon glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
