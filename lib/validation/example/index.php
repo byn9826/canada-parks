@@ -142,7 +142,7 @@
                         <div class="field-required"><?php if(isset($messageError)) {echo $messageError;} ?></div>
                     </div>
                     <div>
-                        <div><label for="txt_message" class="label">How you feel about yourself. Must be a number between 1-5<span class="field-required">&nbsp;*</span></label></div>
+                        <div><label for="txt_message" class="label">How you feel about yourself. Must be a number between 0-5<span class="field-required">&nbsp;*</span></label></div>
                         <div><textarea id="txt_message" name="txt_self" placeholder="Enter your word here ..." rows="5" class="form-input"><?php echo $yourself ?></textarea></div>
                         <div class="field-required"><?php if(isset($yourselfError)) {echo $yourselfError;} ?></div>
                     </div>

@@ -16,7 +16,7 @@ class Fanta_Valid
     }
 
     public static function isPostalCodeValid ($value){
-        return preg_match(self::POSTALCODE_REGEX, $value);
+        return preg_match(self::POSTAL_CODE_REGEX, $value);
     }
 
     public static function sanitizeUserInput($value) {
