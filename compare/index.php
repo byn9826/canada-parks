@@ -2,6 +2,8 @@
 //Author: Sam
 
 require 'park.php';
+require 'ParkRepository.php';
+
 $p = new Park();
 
 $provinces = array(
@@ -20,32 +22,11 @@ $provinces = array(
     'Yukon' => 'YT'
 );
 
-$dbhost = 'sql9.freemysqlhosting.net';
-$dbuser = 'sql9156605';
-$dbpass = 'FadNqjljSt';
-$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbuser);
-
-
-if(! $conn ) {
-  die('Could not connect: ' . mysql_error());
-}
-
 $province = isset($_GET['province']) ? $_GET['province'] : '';
 
-if (!empty($province)) {
-    $sql = "SELECT * FROM park WHERE province_code = '$province'";
-} else {
-    $sql = 'SELECT * FROM park';
-}
+$parkRepository = new ParkRepository();
+$parks = $parkRepository->getParks($province);
 
-$retval = mysqli_query($conn, $sql);
-
-$parks = [];
-while($park = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
-    $parks[] = $park;
-}
-
-mysqli_close($conn);
 
 ?>
 <!DOCTYPE html>
