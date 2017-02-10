@@ -1,7 +1,10 @@
 <?php
 //Author: Sam
+
 require '../lib/park.php';
 require '../lib/ParkRepository.php';
+
+$p = new Park();
 
 $provinces = array(
     'Alberta' => 'AB',
@@ -19,14 +22,10 @@ $provinces = array(
     'Yukon' => 'YT'
 );
 
-$p = new Park();
+$province = isset($_GET['province']) ? $_GET['province'] : '';
 $parkRepository = new ParkRepository();
-$parkId1 = $_GET['park1'];
-$parkId2 = $_GET['park2'];
-$park1 = $parkRepository->getPark($parkId1);
-$park2 = $parkRepository->getPark($parkId2);
+$parks = $parkRepository->getParks($province);
 
-$parks = array($park1, $park2);
 
 ?>
 <!DOCTYPE html>
@@ -53,7 +52,7 @@ $parks = array($park1, $park2);
 			?>
 			<main id="main" class="container">
                 <h1 class="text-center">Park List</h1>
-                <form id="search" action="/parks" class="form-inline" method="GET">
+                <form id="search" class="form-inline" method="GET">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Park Name">
@@ -71,6 +70,10 @@ $parks = array($park1, $park2);
                         <input type="submit" class="btn btn-success" value="Search"/>
                     </div>
                 </form>
+                <?php if (count($parks) != 0) {?>
+                <div id="compare-wrapper" class="container">
+                    <a disabled="disabled" id="compare" class="btn btn-primary">Compare</a>
+                </div>
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#map" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
                     <li role="presentation"><a href="#park-list" aria-controls="park-list" role="tab" data-toggle="tab">List</a></li>
@@ -78,24 +81,21 @@ $parks = array($park1, $park2);
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="map"></div>
                     <div role="tabpanel" class="tab-pane row" id="park-list">
-                        <div class="col-md-4">
-                            <h2>Name</h2>
-                            <p>Photo</p>
-                            <p>Address</p>
-                            <p>Province</p>
-                        </div>
                         <?php foreach($parks as $park) {?>
-                        <div class="col-md-4">
-                            <h2><?=$park['name']?></h2>
-                            <figure>
-                                <img src="<?=$p->renderPhoto($park['photo_reference'])?>" />
-                            </figure>
-                            <p><?=$park['address']?></p>
-                            <p><?=$park['province']?></p>
+                        <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
+                            <img class="img-responsive" src="<?=$p->renderPhoto($park['photo_reference'])?>" alt="">
+                            <div class="caption">
+                                <h2 class="name"><?=$park['name']?></h2>
+                                <p><?=$park['address']?></p>
+                                <p><a href="/park?id=<?=$park['id']?>" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
+                            </div>
                         </div>
-                        <?php  } ?>
+                        <?php } ?>
                     </div>
                 </div>
+                <?php } else { ?>
+                <h2 class="text-center">No Park</h2>
+                <?php } ?>
             </main>
         </div>
         <?php
@@ -106,6 +106,7 @@ $parks = array($park1, $park2);
 		</script>
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>
+        <script src="../static/js/compare.js"></script>
         <script type="text/javascript" src="../static/js/map.js"></script>
     </body>
 </html>
