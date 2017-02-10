@@ -1,4 +1,7 @@
 <?php
+
+//Author: Sam
+
 class ParkRepository {
     private $host = 'sql9.freemysqlhosting.net';
     private $dbname = 'sql9156605';
@@ -14,9 +17,8 @@ class ParkRepository {
 
     
     public function getParks($province) {
-        
-        //$province = isset($_GET['province']) ? $_GET['province'] : '';
-        if (isset($province)) {
+
+        if (!empty($province)) {
             $sql = "SELECT * FROM park WHERE province_code = '$province'";
         } else {
             $sql = 'SELECT * FROM park';
@@ -25,5 +27,13 @@ class ParkRepository {
         $pdostmt->setFetchMode(PDO::FETCH_ASSOC);
         $pdostmt->execute();
         return $pdostmt->fetchAll();
+    }
+    
+    public function getPark($id) {
+        $sql = "SELECT * FROM park WHERE id = '$id'";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->setFetchMode(PDO::FETCH_ASSOC);
+        $pdostmt->execute();
+        return $pdostmt->fetch();
     }
 }

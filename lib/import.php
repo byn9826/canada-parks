@@ -1,4 +1,5 @@
 <?php
+//Author: Sam
 
 class ParkImport {
     private $apiKey = '?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k';
