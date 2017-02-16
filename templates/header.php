@@ -17,7 +17,7 @@
             <span id="header-searchicon" class="glyphicon glyphicon-search"></span>
         </form>
         <ul class="nav navbar-nav col-md-4 navbar-right">
-            <li><a href="#">Link</a></li>
+            <li><a href="parks">Parks</a></li>
             <li><a href="#">Link</a></li>
             <li><a href="#">Link</a></li>
             <li><a href="#">Link</a></li>
