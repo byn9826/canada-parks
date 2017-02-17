@@ -16,7 +16,7 @@ class ParkRepository {
     }
 
     
-    public function getParks($province) {
+    public function getParks($province = "") {
 
         if (!empty($province)) {
             $sql = "SELECT * FROM park WHERE province_code = '$province'";
@@ -36,4 +36,34 @@ class ParkRepository {
         $pdostmt->execute();
         return $pdostmt->fetch();
     }
+    
+    public function addPark($park) {
+        $sql = "INSERT INTO park (google_place_id, name, banner, photo_reference, address, province, province_code, latitude, longitude, phone_number, rating)" . 
+        "VALUES ( '', :name, :banner, '', :address, :province, '', :latitdue, :longitude, :phone_number, '')";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(':name', $park["name"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':banner', $park["banner"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':address', $park["address"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':province', $park["province"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':latitdue', $park["latitdue"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':longitude', $park["longitude"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':phone_number', $park["phone_number"], PDO::PARAM_STR);
+        return $pdostmt->execute();
+    }
+    
+    public function updatePark($park) {
+        $sql = "UPDATE park SET name = :name, banner = :banner, address = :address, province = :province, latitdue = :latitdue, longitude = :longitude, phone_number = :phone_number WHERE id = :id ";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(':id', $park["id"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':name', $park["name"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':banner', $park["banner"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':address', $park["address"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':province', $park["province"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':latitdue', $park["latitdue"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':longitude', $park["longitude"], PDO::PARAM_STR);
+        $pdostmt->bindValue(':phone_number', $park["phone_number"], PDO::PARAM_STR);
+        $pdostmt->execute();
+        //$pdostmt->debugDumpParams();
+    }
+    
 }
