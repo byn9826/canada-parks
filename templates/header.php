@@ -46,7 +46,7 @@
                         </li>
                     </form>
                     <li role="separator" class="divider"></li>
-                    <li><a href="#">New / Forgot</a></li>
+                    <li><a href="<?php echo $team_route_src . "signup/"; ?>">Sign up</a></li>
                 </ul>
             </li>
         </ul>

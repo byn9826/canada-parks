@@ -8,7 +8,6 @@
 		<meta name="author" content="Baozier">
 		<title>Marvel Canada</title>
         <link href="static/css/home.css" rel="stylesheet" type="text/css">
-		<link href="static/css/userComment.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
         <div class="container-fluid">
