@@ -32,24 +32,41 @@
 						<h5 class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
 							<b>Test mysql connection:</b> <br />
 							<?php
-								include_once('./lib/ini.php');
-								try {
-									$db = new PDO($dsn, $username, $password);
-									$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-									$id = 1;
-									$sql = "SELECT * FROM comment WHERE comment_id = :id";
-									$pdostmt = $db->prepare($sql);
-									$pdostmt->setFetchMode(PDO::FETCH_ASSOC);
-									$pdostmt->bindValue(":id", $id, PDO::PARAM_INT);
-									$pdostmt->execute();
-									//$park = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
-									$comment = $pdostmt->fetchAll();
-									foreach ($comment as $c) {
-										echo "<li>" . $c["comment_id"] . "</li>";
-									}
-								} catch (PDOException $err) {
-									echo $err->getMessage();
+							/*
+								require_once('./lib/ini.php');
+								require_once('./lib/test.php');
+								$db = Connect::dbConnect();
+								$myTest = new Test($db);
+								$contents = $myTest->listComment();
+								echo "<select>";
+							        foreach ($contents as $c) {
+							            echo "<option>" . $c["comment_content"] . "</option>";
+							        }
+							    echo "</select>";
+
+								if(isset($_GET['id'])) {
+									$comment = $myTest->getComment($_GET['id']);
+									echo "<h3>" . $comment->comment_content . "</h3>";
 								}
+								/*
+								try {
+										var_dump($dino);
+										echo "<h2>Dino Detail</h2>";
+									}
+									if(isset($_POST['add'])) {
+										$content = $_POST['content'];
+										$id = $_POST['id'];
+
+										$query3 = "INSERT INTO del
+													(comment_id, comment_content)
+													VALUES (:id, :content)";
+										$pdostmt3 = $db->prepare($query3);
+										$pdostmt3->bindValue(':id', $id, PDO::PARAM_INT);
+										$pdostmt3->bindValue(':content', $content, PDO::PARAM_STR);
+										$row = $pdostmt3->execute();
+										echo "Add " . $row;
+									}
+								*/
 							?>
 						</h5>
 					</div>
@@ -111,9 +128,6 @@
 						Marvels around Canada
 						<span class="section-icon glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 					</h3>
-					<?php
-						include "templates/userComment.php";
-					?>
 				</section>
             </main>
 			<?php

@@ -1,8 +1,18 @@
 <?php
     #author：Baozier
+    ## define route for different page
     $team_route_src = "../";
     if(isset($team_route_custom)) {
         $team_route_src = $team_route_custom;
+    }
+    ## If user click login
+    if(isset($_POST['login'])) {
+        require_once('./lib/DatabaseAccess.php');
+        require_once('./lib/publicLogin/default.php');
+        $db = DatabaseAccess::getConnection();
+        $publicLogin = new PublicLogin($db);
+        $success = $publicLogin->checkLogin($_POST['username'], $_POST['password']);
+        echo $success;
     }
 ?>
 <div class="row">
@@ -24,15 +34,15 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <form id="header-login">
+                    <form id="header-login" method="POST" action="">
                         <li>
-                            <input type="text" class="form-control" id="username" placeholder="Username">
+                            <input type="text" class="form-control" name="username" placeholder="Username">
                         </li>
                         <li>
-                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" placeholder="Password">
                         </li>
                         <li>
-                            <button type="button" class="btn btn-link">Submit</button>
+                            <input type="submit" class="btn btn-link" name="login" value="Submit" />
                         </li>
                     </form>
                     <li role="separator" class="divider"></li>
