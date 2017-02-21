@@ -5,7 +5,7 @@
 			$team_route_custom = "./";
 			include "templates/meta.php";
 		?>
-		<meta name="author" content="Baozier">
+		<meta name="author" content="Bao">
 		<title>Marvel Canada</title>
         <link href="static/css/home.css" rel="stylesheet" type="text/css">
 	</head>
@@ -30,43 +30,6 @@
 						<!--will import from compare page -->
 						<h5 class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
 							<b>Test mysql connection:</b> <br />
-							<?php
-							/*
-								require_once('./lib/ini.php');
-								require_once('./lib/test.php');
-								$db = Connect::dbConnect();
-								$myTest = new Test($db);
-								$contents = $myTest->listComment();
-								echo "<select>";
-							        foreach ($contents as $c) {
-							            echo "<option>" . $c["comment_content"] . "</option>";
-							        }
-							    echo "</select>";
-
-								if(isset($_GET['id'])) {
-									$comment = $myTest->getComment($_GET['id']);
-									echo "<h3>" . $comment->comment_content . "</h3>";
-								}
-								/*
-								try {
-										var_dump($dino);
-										echo "<h2>Dino Detail</h2>";
-									}
-									if(isset($_POST['add'])) {
-										$content = $_POST['content'];
-										$id = $_POST['id'];
-
-										$query3 = "INSERT INTO del
-													(comment_id, comment_content)
-													VALUES (:id, :content)";
-										$pdostmt3 = $db->prepare($query3);
-										$pdostmt3->bindValue(':id', $id, PDO::PARAM_INT);
-										$pdostmt3->bindValue(':content', $content, PDO::PARAM_STR);
-										$row = $pdostmt3->execute();
-										echo "Add " . $row;
-									}
-								*/
-							?>
 						</h5>
 					</div>
 				</section>

@@ -23,25 +23,28 @@ function checkPassLength(pass) {
         return false;
     }
 }
-//check user login
-document.getElementById("login").onclick = function () {
-    var name = document.getElementById("login-name").value;
-    var password = document.getElementById("login-password").value;
-    var message = document.getElementById("login-error");
-    if (!checkValidInput(name)) {
-        message.innerHTML = "Name can't be empty";
-        return false;
-    } else if (!checkValidInput(password)) {
-        message.innerHTML = "Password can't be empty";
-        return false;
-    } else if (!checkNameLength(name)) {
-        message.innerHTML = "Username is too long";
-        return false;
-    } else if (!checkPassLength(password)) {
-        message.innerHTML = "Password length incorrect";
-        return false;
-    } else {
-        document.getElementById("final-password").value = CryptoJS.MD5(password);
-        document.getElementById("header-login").submit();
-    }
+
+//change login status when users submit login request
+if (!$("#login-error").html() || $("#login-error").html().trim() !== "username:admin-pass:12345678") {
+    $("#login-dropdowm").click();
 }
+
+//check user login by ajax
+$(document).ready(function () {
+    $("#login").click(function () {
+        if (!checkValidInput($("#login-name").val())) {
+            $("#login-error").html("Name can't be empty");
+        } else if (!checkValidInput($("#login-password").val())) {
+            $("#login-error").html("Password can't be empty");
+        } else if (!checkNameLength($("#login-name").val())) {
+            $("#login-error").html("Username is too long");
+        } else if (!checkPassLength($("#login-password").val())) {
+            $("#login-error").html("Password length incorrect");
+        } else {
+            var userPassword = $("#login-password").val();
+            userPassword = CryptoJS.MD5(userPassword);
+            $("#login-password").val(userPassword);
+            $("#header-login").submit();
+        }
+    })
+});

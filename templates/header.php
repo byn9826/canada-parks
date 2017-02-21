@@ -5,7 +5,7 @@ $team_route_src = '../';
 if(isset($team_route_custom)) {
     $team_route_src = $team_route_custom;
 }
-##If js submit login form
+##If user login passed js validation submit login form
 if(isset($_POST['username'])) {
     require_once($team_route_src . 'lib/DatabaseAccess.php');
     require_once($team_route_src . 'lib/publicLogin/default.php');
@@ -51,61 +51,19 @@ if(isset($_POST['username'])) {
             <li><a href="#">Link</a></li>
             <li><a href="#">Link</a></li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <a id="login-dropdowm" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <?php
                         echo isset($_SESSION['user_name'])? $_SESSION['user_name']: 'Sign in';
                     ?>
                     <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu">
-                    <form id="header-login" method="POST" action="">
-                        <li>
-                            <?php
-                                if (isset($_SESSION['user_name'])) {
-                                    echo '<h4>Profile</h4>';
-                                }
-                                else {
-                                    echo '<input type="text" class="form-control" id="login-name" name="username" placeholder="Username" >';
-                                }
-                            ?>
-                        </li>
-                        <li>
-                            <?php
-                                if (isset($_SESSION['user_name'])) {
-                                    echo '<h4>Wishlist</h4>';
-                                }
-                                else {
-                                    echo '<input type="password" class="form-control" id="login-password" placeholder="Password" >';
-                                    echo '<input type="hidden" class="form-control" id="final-password" name="password" >';
-                                }
-                            ?>
-                        </li>
-                        <li>
-                            <?php
-                                if (isset($_SESSION['user_name'])) {
-                                    echo '<h4>Setting</h4>';
-                                }
-                                else {
-                                    echo '<h5 id="login-error">';
-                                        echo isset($login_error)? $login_error: 'username:admin-pass:12345678';
-                                    echo '</h5>';
-                                }
-                            ?>
-                        </li>
-                        <li>
-                            <?php
-                                if (isset($_SESSION['user_name'])) {
-                                    echo 'messagebox';
-                                }
-                                else {
-                                    echo '<input type="button" class="btn btn-link" id="login" name="login" value="Submit" />';
-                                }
-                            ?>
-                        </li>
-                    </form>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="<?php echo $team_route_src . 'signup/'; ?>">Sign up</a></li>
-                </ul>
+                <?php
+                    if (isset($_SESSION['user_name'])) {
+                        include_once($team_route_src . 'lib/publicLogin/LoginHeader.php');
+                    } else {
+                        include_once($team_route_src . 'lib/publicLogin/noLoginHeader.php');
+                    }
+                ?>
             </li>
         </ul>
     </header>
