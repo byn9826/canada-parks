@@ -1,4 +1,4 @@
-//author BAO
+//author BAO For login and signup
 //input can't be empty
 function checkValidInput(value) {
     if (!value || value === "") {
@@ -24,13 +24,40 @@ function checkPassLength(pass) {
     }
 }
 
+//This code is from http://stackoverflow.com/a/46181
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
 //change login status when users submit login request
 if (!$("#login-error").html() || $("#login-error").html().trim() !== "username:admin-pass:12345678") {
     $("#login-dropdowm").click();
 }
 
-//check user login by ajax
+//check user sign up
 $(document).ready(function () {
+    $("#signup-button").click(function () {
+        if (!checkValidInput($("#input-name").val())) {
+            $("#signup-error").html("Username can't be empty");
+        } else if (!checkValidInput($("#input-password").val())) {
+            $("#signup-error").html("Password can't be empty");
+        } else if (!checkValidInput($("#input-email").val())) {
+            $("#signup-error").html("Email can't be empty");
+        } else if (!checkNameLength($("#input-name").val())) {
+            $("#signup-error").html("Username is too long");
+        } else if (!checkPassLength($("#input-password").val())) {
+            $("#signup-error").html("Password length incorrect");
+        } else if (!validateEmail($("#input-email").val())) {
+            $("#signup-error").html("Email format is incorrect");
+        } else {
+            var securePass = $("#input-password").val();
+            securePass = CryptoJS.MD5(securePass);
+            $("#input-password").val(securePass);
+            $("#user-signup").submit();
+        }
+    })
+    //check user login
     $("#login").click(function () {
         if (!checkValidInput($("#login-name").val())) {
             $("#login-error").html("Name can't be empty");

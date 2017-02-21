@@ -1,4 +1,7 @@
 <?php
+if(!isset($_SESSION)){
+    session_start();
+}
 #author：Bao
 ## define route for different page
 $team_route_src = '../';
