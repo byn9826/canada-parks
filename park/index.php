@@ -46,12 +46,6 @@
                     </aside>
                 </aside>
             </div>
-            <!-- Test for now -->
-            <section class="col-md-10 col-md-offset-1">
-                <?php
-                    include "../templates/userComment.php";
-                ?>
-            </section>
             <?php include_once "../templates/footer.php" ?>
         </div>
     </body>
