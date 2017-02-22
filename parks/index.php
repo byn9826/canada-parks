@@ -83,7 +83,11 @@ $parks = $parkRepository->getParks($province);
                     <div role="tabpanel" class="tab-pane row" id="park-list">
                         <?php foreach($parks as $park) {?>
                         <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
-                            <img class="img-responsive" src="<?=$p->renderPhoto($park['photo_reference'])?>" alt="">
+                            <?php if (!empty($park["banner"])) { ?>
+                            <img src="<?=$park["banner"]?>" />
+                            <?php } else {?>
+                            <img class="img-responsive" src="<?=$p->renderPhoto($park['photo_reference'])?>" alt=""/>
+                            <?php } ?>
                             <div class="caption">
                                 <h2 class="name"><?=$park['name']?></h2>
                                 <p><?=$park['address']?></p>
