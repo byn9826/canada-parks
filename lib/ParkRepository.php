@@ -1,5 +1,6 @@
 <?php
 
+include "Upload.php";
 //Author: Sam
 
 class ParkRepository {
@@ -37,7 +38,7 @@ class ParkRepository {
         return $pdostmt->fetch();
     }
     
-    public function addPark($park) {
+    public function addPark($park, $upload) {
         $name = $park["name"];
         $banner = $park["banner"];
         $address = $park["address"];
@@ -59,7 +60,8 @@ class ParkRepository {
         return $pdostmt->execute();
     }
     
-    public function updatePark($park) {
+    public function updatePark($park, $upload) {
+        
         $id = $park["id"];
         $name = $park["name"];
         $banner = $park["banner"];
@@ -68,6 +70,11 @@ class ParkRepository {
         $latitude = $park["latitude"];
         $longitude = $park["longitude"];
         $phone_number = $park["phone_number"];
+        
+        if (isset($upload["name"])) {
+            $u = new Upload();
+            $banner = $u->toServer($upload);
+        }
 
         $sql = "UPDATE park SET name = :name, banner = :banner, address = :address, province = :province, latitude = :latitude, longitude = :longitude, phone_number = :phone_number WHERE id = :id ";
         $pdostmt = $this->db->prepare($sql);

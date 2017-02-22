@@ -6,9 +6,9 @@ $parkRepository = new ParkRepository();
 
 if (isset($_POST["submit"])) {
     if ($_GET["action"] == "add") {
-        $parkRepository->addPark($_POST);
+        $parkRepository->addPark($_POST, $_FILES["upload"]);
     } else {
-        $parkRepository->updatePark($_POST);
+        $parkRepository->updatePark($_POST, $_FILES["upload"]);
     }
     //header("location: /admin/park");
 }
@@ -35,7 +35,7 @@ if (isset($_GET["id"])) {
         <div class="container">
             <a class="btn btn-default" href="/admin/park" role="button">Back to Park List</a>
             <h1 class="text-center"><?=$_GET["action"]?> Park</h1>
-            <form method="POST" action="<?=$action?>">
+            <form method="POST" action="<?=$action?>" enctype="multipart/form-data">
                 <?php if (isset($id)) {?>
                 <input type="hidden" value="<?=$id?>" name="id" />
                 <?php } ?>
@@ -46,7 +46,11 @@ if (isset($_GET["id"])) {
                 
                 <div class="form-group">
                     <label for="banner">Park Banner</label>
-                    <input type="text" class="form-control" id="banner" name="banner" value="<?=isset($park["banner"]) ? $park["banner"] : "" ?>">
+                    <input type="file" class="form-control" id="upload" name="upload" />
+                    <input type="hidden" class="form-control" id="banner" name="banner" value="<?=isset($park["banner"]) ? $park["banner"] : "" ?>">
+                    <?php if(isset($park["banner"])) { ?>
+                    <img src="<?=$park["banner"]?>" class="img-responsive" />
+                    <?php } ?>
                 </div>
                 
                 <div class="form-group">
