@@ -17,15 +17,29 @@ class ParkRepository {
     }
 
     
-    public function getParks($province = "") {
-
+    public function getParks($name = "", $province = "") {
+        $sql = "SELECT * FROM park";
+        $pdostmt = $this->db->prepare($sql);
+        
+        if (!empty($name)) {
+            $sql = "SELECT * FROM park WHERE name LIKE %:name%";
+            $pdostmt = $this->db->prepare($sql);
+            $pdostmt->bindValue(":name", $name, PDO::PARAM_STR);
+        }
+        
         if (!empty($province)) {
             $sql = "SELECT * FROM park WHERE province_code = :province";
-        } else {
-            $sql = "SELECT * FROM park";
+            $pdostmt = $this->db->prepare($sql);
+            $pdostmt->bindValue(":province", $province, PDO::PARAM_STR);
         }
-        $pdostmt = $this->db->prepare($sql);
-        $pdostmt->bindValue(":province", $province, PDO::PARAM_STR);
+        
+        if (!empty($name) && !empty($province)) {
+            $sql = "SELECT * FROM park WHERE name LIKE %:name% AND province_code = :province";
+            $pdostmt = $this->db->prepare($sql);
+            $pdostmt->bindValue(":name", $name, PDO::PARAM_STR);
+            $pdostmt->bindValue(":province", $province, PDO::PARAM_STR);
+        }
+
         $pdostmt->execute();
         return $pdostmt->fetchAll();
     }

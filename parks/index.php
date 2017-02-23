@@ -23,8 +23,9 @@ $provinces = array(
 );
 
 $province = isset($_GET['province']) ? $_GET['province'] : '';
+$name = isset($_GET['name']) ? $_GET['name'] : '';
 $parkRepository = new ParkRepository();
-$parks = $parkRepository->getParks($province);
+$parks = $parkRepository->getParks($name, $province);
 
 
 ?>
@@ -55,7 +56,7 @@ $parks = $parkRepository->getParks($province);
                 <form id="search" class="form-inline" method="GET">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Park Name">
+                        <input type="text" class="form-control" id="name" name="name" value="<?=$name?>" placeholder="Park Name">
                     </div>
                     <div class="form-group">
                         <label for="province">Province</label>
