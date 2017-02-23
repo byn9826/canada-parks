@@ -8,6 +8,7 @@
     $email = "";
     $gender = "";
     $phoneNumber = "";
+    $postalCode = "";
     $location = "";
     $isInternational = "";
     $message = "";
@@ -17,12 +18,15 @@
     // ---------------------------------------------------
 
     if(isset($_POST['send-message'])) {
-        $name = $_POST['txt_name'];
-        $email = $_POST['txt_email'];
+
+        $name = Fanta_Valid::sanitizeUserInput($_POST['txt_name']);
+        $email = Fanta_Valid::sanitizeUserInput($_POST['txt_email']);
         $gender = $_POST['gender'];
-        $phoneNumber = $_POST['txt_phone'];
-        $message = $_POST['txt_message'];
-        $yourself = $_POST['txt_self'];
+        $phoneNumber = Fanta_Valid::sanitizeUserInput($_POST['txt_phone']);
+        $postalCode = Fanta_Valid::sanitizeUserInput($_POST['txt_postalcode']);
+        $message = Fanta_Valid::sanitizeUserInput($_POST['txt_message']);
+        $yourself = Fanta_Valid::sanitizeUserInput($_POST['txt_self']);
+
         // Perform validations using fanta_valid library
         // Validate Name
         if(Fanta_Valid::isNullOrEmpty($name)) {
@@ -50,6 +54,12 @@
             $phoneNumError = "The phone number format is wrong";
         }
 
+        if(Fanta_Valid::isNullOrEmpty($postalCode)) {
+            $postalCodeError = "Please enter a postal code";
+        } elseif(!Fanta_Valid::isPostalCodeValid($postalCode)) {
+            $postalCodeError = "Please enter a valid postal code";
+        }
+
         // Validate User Message
         if(Fanta_Valid::isNullOrEmpty($message)) {
             $messageError = "Please enter a message";
@@ -67,13 +77,9 @@
         }
 
         // If form is valid, perform logic after form submission
-        if(!isset($nameError) && !isset($emailError) && !isset($genderError) && !isset($phoneNumError) && !isset($messageError) && !isset($yourselfError)) {
+        if(!isset($nameError) && !isset($emailError) && !isset($genderError) &&
+           !isset($postalCodeError) && !isset($phoneNumError) && !isset($messageError) && !isset($yourselfError)) {
             $success = true;
-            $name = Fanta_Valid::sanitizeUserInput($name);
-            $email = Fanta_Valid::sanitizeUserInput($email);
-            $phoneNumber = Fanta_Valid::sanitizeUserInput($phoneNumber);
-            $message = Fanta_Valid::sanitizeUserInput($message);
-            $yourself = Fanta_Valid::sanitizeUserInput($yourself);
         }
     }
 ?>
@@ -96,6 +102,7 @@
                         echo "<h4>" . "Your email: " . "$email" . "</h4>";
                         echo "<h4>" . "Your gender: " . "$gender" . "</h4>";
                         echo "<h4>" . "Your phone number: " . "$phoneNumber" . "</h4>";
+                        echo "<h4>" . "Your postal code: " . "$postalCode" . "</h4>";
                         echo "<h4>" . "Your message: " . "$message" . "</h4>";
                         echo "<h4>" . "Yourself feel: " . "$yourself" . "</h4>";
                     ?>
@@ -125,12 +132,17 @@
                         <div class="field-required"><?php if(isset($phoneNumError)) {echo $phoneNumError;} ?></div>
                     </div>
                     <div>
+                        <div><label for="txt_postalcode" class="label">Postal Code</label></div>
+                        <div><input type="text" id="txt_postalcode" name="txt_postalcode" value="<?php echo $postalCode ?>" placeholder="R4T 2Z9 or R4T2Z9 or R4T-2Z9" class="form-input" /></div>
+                        <div class="field-required"><?php if(isset($postalCodeError)) {echo $postalCodeError;} ?></div>
+                    </div>
+                    <div>
                         <div><label for="txt_message" class="label">Why do you like Web Development? Must be between 10 - 20 characters<span class="field-required">&nbsp;*</span></label></div>
                         <div><textarea id="txt_message" name="txt_message" placeholder="Enter your message here ..." rows="5" class="form-input"><?php echo $message ?></textarea></div>
                         <div class="field-required"><?php if(isset($messageError)) {echo $messageError;} ?></div>
                     </div>
                     <div>
-                        <div><label for="txt_message" class="label">How you feel about yourself. Must be a number between 1-5<span class="field-required">&nbsp;*</span></label></div>
+                        <div><label for="txt_message" class="label">How you feel about yourself. Must be a number between 0-5<span class="field-required">&nbsp;*</span></label></div>
                         <div><textarea id="txt_message" name="txt_self" placeholder="Enter your word here ..." rows="5" class="form-input"><?php echo $yourself ?></textarea></div>
                         <div class="field-required"><?php if(isset($yourselfError)) {echo $yourselfError;} ?></div>
                     </div>

@@ -22,4 +22,5 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript" src="<?php echo $team_route_src . "static/vendor/jquery-3.1.1.min.js"; ?>"></script>
+<script type="text/javascript" src="<?php echo $team_route_src . "static/vendor/md5.js"; ?>"></script>
 <script type="text/javascript" src="<?php echo $team_route_src . "static/vendor/bootstrap/js/bootstrap.min.js"; ?>"></script>

@@ -1,4 +1,5 @@
 <?php
+//Author: Sam
 
 class ParkImport {
     private $apiKey = '?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k';
@@ -25,12 +26,24 @@ class ParkImport {
     public function getParks($query) {
         $url = $this->searchAPi . $this->apiKey . '&query=' . $query;
         $res = json_decode(file_get_contents($url), true);
+        
         $parks = $res['results'];
         foreach ($parks as $p) {
             $park = $this->getPark($p['place_id']);
-            
             $this->insertPark($park);
         }
+        
+        sleep(2);
+        while (!empty($res['next_page_token'])) {
+            $nextUrl = $url . '&pagetoken=' . $res['next_page_token'];
+            $res = json_decode(file_get_contents($nextUrl), true);
+            $parks = $res['results'];
+            foreach ($parks as $p) {
+                $park = $this->getPark($p['place_id']);
+                $this->insertPark($park);
+            }
+        }
+
     }
     
     public function getPark($place_id) {
@@ -59,16 +72,19 @@ class ParkImport {
         $latitdue = strval($park['geometry']['location']['lat']);
         $longitude = strval($park['geometry']['location']['lng']);
         
-        $sql = "INSERT INTO park (google_place_id, name, banner, photo_reference, address, province, province_code, latitude, longitude)" . 
-        "VALUES ( '$id', '$name', '$banner', '$photo_reference', '$address', '$province', '$province_code', '$latitdue', '$longitude')";
+        $phone_number = $park['international_phone_number'];
+        $rating = $park['rating'];
+        
+        $sql = "INSERT INTO park (google_place_id, name, banner, photo_reference, address, province, province_code, latitude, longitude, phone_number, rating)" . 
+        "VALUES ( '$id', '$name', '$banner', '$photo_reference', '$address', '$province', '$province_code', '$latitdue', '$longitude', '$phone_number', '$rating')";
         $retval = mysqli_query($this->conn, $sql);
         
         $this->disconnectDB();
     }
 }
 
-// $pi = new ParkImport();
-// $pi->getParks('canada+national+park');
+$pi = new ParkImport();
+$pi->getParks('canada+national+park');
 
 // while (!empty($result['next_page_token'])) {
 //     var_dump($result['next_page_token']);

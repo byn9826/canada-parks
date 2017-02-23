@@ -5,10 +5,9 @@
 			$team_route_custom = "./";
 			include "templates/meta.php";
 		?>
-		<meta name="author" content="Baozier">
+		<meta name="author" content="Bao">
 		<title>Marvel Canada</title>
         <link href="static/css/home.css" rel="stylesheet" type="text/css">
-		<link href="static/css/userComment.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
         <div class="container-fluid">
@@ -31,17 +30,6 @@
 						<!--will import from compare page -->
 						<h5 class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
 							<b>Test mysql connection:</b> <br />
-							<?php
-								include_once('./lib/ini.php');
-								$execute="SELECT * FROM comment ORDER BY comment_id DESC";
-								$result=mysqli_query($conn,$execute);
-								while($data=mysqli_fetch_object($result)){
-									echo "<b>comment_id: </b>" . $data->comment_id . "<br />";
-									echo "<b>park_id: </b>" . $data->park_id . "<br />";
-									echo "<b>comment_time: </b>" . $data->comment_time . "<br />";
-									echo "<b>comment_content: </b>" . $data->comment_content . "<br />";
-								}
-							?>
 						</h5>
 					</div>
 				</section>
@@ -97,14 +85,11 @@
 				</section>
 				<img id="banner" class="col-md-10 col-md-offset-1 col-sm-10 col-xs-10" src="static/img/home/banner.jpg" alt="Marvel Activity" />
 				<!-- Modified from image Labeled for reuse with modification, https://upload.wikimedia.org/wikipedia/commons/e/e1/Georgian_Bay,_Ontario,_Canada.jpg 2017-01-06 -->
-				<section class="section col-md-12 col-sm-12 col-xs-12">
+				<section class="section col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
 					<h3 class="col-md-12 col-sm-12 col-xs-12">
 						Marvels around Canada
 						<span class="section-icon glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 					</h3>
-					<?php
-						include "templates/userComment.php";
-					?>
 				</section>
             </main>
 			<?php

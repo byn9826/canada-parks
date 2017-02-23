@@ -72,6 +72,13 @@ main{
     padding-left: 5%;
 }
 
+#login-error{
+    display: block;
+    margin-top: 10px;
+    margin-left: 4%;
+    color: red;
+}
+
 #footer{
     background-color: black;
     color: white;
