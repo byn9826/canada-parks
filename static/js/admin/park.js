@@ -35,22 +35,21 @@ function createMarker(place) {
         data: place,
     });
     
-    var infowindow = new google.maps.InfoWindow();
-    
     google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(place.name);
-        infowindow.open(map, this);
-        
-        service.getDetails({
-            placeId: this.data.place_id
-        }, function(place, status) {
-            if (status === google.maps.places.PlacesServiceStatus.OK) {
-                renderForm(place);
-            }
-        });
-        
+        getPlaceDetails(this.data.place_id);
     });
     return marker;
+}
+
+function getPlaceDetails(place_id) {
+    service.getDetails({
+        placeId: place_id
+    }, function(place, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            console.log(place);
+            renderForm(place);
+        }
+    });
 }
 
 function renderForm(place) {
@@ -92,12 +91,22 @@ function renderPhoto(photos) {
 }
 
 $(document).ready(function() {
-    $('#map').height($('#form').height());
     initialize();
+    
+    var lat = $('#latitude').val();
+    var lng = $('#longitude').val();
+    
+    if (lat != '') {
+        var marker = new google.maps.Marker({
+            map: map,
+            position: {lat: parseFloat(lat), lng: parseFloat(lng)}
+        });
+    }
     
     $('#photos').on('click', '.park-banner', function() {
         var src = $(this).attr('src');
         $('#banner').val(src);
+        $('#banner-display').attr('src', src);
     });
     
     $('#search').on('click', function() {
@@ -107,6 +116,12 @@ $(document).ready(function() {
             query: $('#place').val()
         };
         service.textSearch(request, callback);
+    });
+    
+    $('#pull').on('click', function(e) {
+        e.preventDefault();
+        var placeId = $('#google_place_id').val();
+        getPlaceDetails(placeId);
     });
     
 });
