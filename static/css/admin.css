@@ -18,3 +18,7 @@ h1 {
     border: 1px solid black;
     padding: 1em 10em;
 }
+
+#map {
+    height: 400px;
+}

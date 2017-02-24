@@ -29,6 +29,7 @@ if (isset($_GET["id"])) {
 			$team_route_custom = "../../";
 			include "../../templates/meta.php";
 		?>
+		<link rel="stylesheet" href="/static/css/admin.css" type="text/css" />
 		<title>Edit Park</title>
     </head>
     <body>
@@ -37,13 +38,12 @@ if (isset($_GET["id"])) {
             <h1 class="text-center"><?=$_GET["action"]?> Park</h1>
             <div class="row">
                 <div class="col-md-6">
-                    <input class="form-control" type="text" id="place" /> <button class="btn btn-default" id="search">Search</button>
-                    <div class="col-md-12" id="map">
-                        
-                    </div>
+                    <input class="form-control" type="text" id="place" placeholder="Search park name" /> <button class="btn btn-default" id="search">Search</button>
+                    <div class="col-md-12" id="map"></div>
                 </div>
                 <form id="form" class="col-md-6" method="POST" action="<?=$action?>" enctype="multipart/form-data">
                     <?php if (isset($id)) {?>
+                    <button class="btn btn-success" id="pull">Pull Data From Google Place</button>
                     <input type="hidden" value="<?=$id?>" name="id" />
                     <?php } ?>
                     
@@ -63,8 +63,13 @@ if (isset($_GET["id"])) {
                         <label for="banner">Use url banner</label>
                         <input type="text" class="form-control" id="banner" name="banner" value="<?=isset($park["banner"]) ? $park["banner"] : "" ?>">
                         <?php if(isset($park["banner"])) { ?>
-                        <img src="<?=$park["banner"]?>" class="img-responsive" />
+                        <img src="<?=$park["banner"]?>" id="banner-display" class="img-responsive" />
                         <?php } ?>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" name="description" id="description"></textarea>
                     </div>
                     
                     <div class="form-group">
@@ -73,23 +78,23 @@ if (isset($_GET["id"])) {
                     </div>
                     
                     <div class="row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-xs-3">
                             <label for="province">Province</label>
                             <input type="text" class="form-control" id="province" name="province" value="<?=isset($park["province"]) ? $park["province"] : "" ?>">
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-xs-2">
                             <label for="province_code">Province code</label>
                             <input type="text" class="form-control" id="province_code" name="province_code" value="<?=isset($park["province_code"]) ? $park["province_code"] : "" ?>">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-xs-3">
                             <label for="country">Country</label>
                             <input type="text" class="form-control" id="country" name="country" value="<?=isset($park["country"]) ? $park["country"] : "" ?>">
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-xs-2">
                             <label for="country_code">Country code</label>
                             <input type="text" class="form-control" id="country_code" name="country_code" value="<?=isset($park["country_code"]) ? $park["country_code"] : "" ?>">
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-xs-2">
                             <label for="postal_code">Postal code</label>
                             <input type="text" class="form-control" id="postal_code" name="postal_code" value="<?=isset($park["postal_code"]) ? $park["postal_code"] : "" ?>">
                         </div>

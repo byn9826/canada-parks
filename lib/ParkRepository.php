@@ -23,23 +23,24 @@ class ParkRepository {
         
         if (!empty($name)) {
             $sql = "SELECT * FROM park WHERE name LIKE %:name%";
-            $pdostmt = $this->db->prepare($sql);
-            $pdostmt->bindValue(":name", $name, PDO::PARAM_STR);
         }
         
         if (!empty($province)) {
             $sql = "SELECT * FROM park WHERE province_code = :province";
-            $pdostmt = $this->db->prepare($sql);
-            $pdostmt->bindValue(":province", $province, PDO::PARAM_STR);
         }
         
         if (!empty($name) && !empty($province)) {
             $sql = "SELECT * FROM park WHERE name LIKE %:name% AND province_code = :province";
-            $pdostmt = $this->db->prepare($sql);
+        }
+        
+        $pdostmt = $this->db->prepare($sql);
+        if (!empty($name)) {
             $pdostmt->bindValue(":name", $name, PDO::PARAM_STR);
+        }
+        
+        if (!empty($province)) {
             $pdostmt->bindValue(":province", $province, PDO::PARAM_STR);
         }
-
         $pdostmt->execute();
         return $pdostmt->fetchAll();
     }
@@ -53,54 +54,80 @@ class ParkRepository {
     }
     
     public function addPark($park, $upload) {
-        $name = $park["name"];
-        $banner = $park["banner"];
-        $address = $park["address"];
-        $province = $park["province"];
-        $latitude = $park["latitude"];
-        $longitude = $park["longitude"];
-        $phone_number = $park["phone_number"];
         
-        $sql = "INSERT INTO park (google_place_id, name, banner, photo_reference, address, province, province_code, latitude, longitude, phone_number, rating)" . 
-        "VALUES ( '', :name, :banner, '', :address, :province, '', :latitude, :longitude, :phone_number, '')";
-        $pdostmt = $this->db->prepare($sql);
-        $pdostmt->bindValue(':name', $park["name"], PDO::PARAM_STR);
-        $pdostmt->bindValue(':banner', $park["banner"], PDO::PARAM_STR);
-        $pdostmt->bindValue(':address', $park["address"], PDO::PARAM_STR);
-        $pdostmt->bindValue(':province', $park["province"], PDO::PARAM_STR);
-        $pdostmt->bindValue(':latitude', $park["latitude"], PDO::PARAM_STR);
-        $pdostmt->bindValue(':longitude', $park["longitude"], PDO::PARAM_STR);
-        $pdostmt->bindValue(':phone_number', $park["phone_number"], PDO::PARAM_STR);
-        return $pdostmt->execute();
+        $sql = "INSERT INTO park (google_place_id, name, banner, description, address, province, province_code, country, country_code, postal_code, latitude, longitude, phone_number, rating, website)" . 
+        "VALUES ( :google_place_id, :name, :banner, :description, :address, :province, :province_code, :country, :country_code, :postal_code, :latitude, :longitude, :phone_number, 0.0, :website)";
+        
+        $this->parkOperation($park, $upload, $sql);
+
     }
     
     public function updatePark($park, $upload) {
+
+        $sql = "UPDATE park SET 
+            google_place_id = :google_place_id,
+            name = :name, 
+            banner = :banner,
+            address = :address, 
+            description = :description,
+            province = :province, 
+            province_code = :province_code, 
+            country = :country, 
+            country_code = :country_code, 
+            postal_code = :postal_code,
+            latitude = :latitude, 
+            longitude = :longitude, 
+            phone_number = :phone_number,
+            website = :website 
+        WHERE id = :id ";
         
-        $id = $park["id"];
+        $this->parkOperation($park, $upload, $sql);
+
+    }
+    
+    public function parkOperation($park, $upload, $sql) {
+        if (isset($park["id"])) {
+            $id = $park["id"];
+        }
         $name = $park["name"];
+        $google_place_id = $park["google_place_id"];
         $banner = $park["banner"];
+        $description = $park["description"];
         $address = $park["address"];
         $province = $park["province"];
+        $province_code = $park["province_code"];
+        $country = $park["country"];
+        $country_code = $park["country_code"];
+        $postal_code = $park["postal_code"];
         $latitude = $park["latitude"];
         $longitude = $park["longitude"];
         $phone_number = $park["phone_number"];
+        $website = $park["website"];
         
-        if (isset($upload["name"])) {
+        if (!empty($upload["name"])) {
             $u = new Upload();
             $banner = $u->toServer($upload);
         }
-
-        $sql = "UPDATE park SET name = :name, banner = :banner, address = :address, province = :province, latitude = :latitude, longitude = :longitude, phone_number = :phone_number WHERE id = :id ";
+        
         $pdostmt = $this->db->prepare($sql);
  
-        $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
+        if (isset($id)) {
+            $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
+        }
+        $pdostmt->bindValue(":google_place_id", $google_place_id, PDO::PARAM_STR);
         $pdostmt->bindValue(":name", $name, PDO::PARAM_STR);
         $pdostmt->bindValue(":banner", $banner, PDO::PARAM_STR);
         $pdostmt->bindValue(":address", $address, PDO::PARAM_STR);
+        $pdostmt->bindValue(":description", $description, PDO::PARAM_STR);
         $pdostmt->bindValue(":province", $province, PDO::PARAM_STR);
+        $pdostmt->bindValue(":province_code", $province_code, PDO::PARAM_STR);
+        $pdostmt->bindValue(":country", $country, PDO::PARAM_STR);
+        $pdostmt->bindValue(":country_code", $country_code, PDO::PARAM_STR);
+        $pdostmt->bindValue(":postal_code", $postal_code, PDO::PARAM_STR);
         $pdostmt->bindValue(":latitude", $latitude, PDO::PARAM_STR);
         $pdostmt->bindValue(":longitude", $longitude, PDO::PARAM_STR);
         $pdostmt->bindValue(":phone_number", $phone_number, PDO::PARAM_STR);
+        $pdostmt->bindValue(":website", $website, PDO::PARAM_STR);
         $pdostmt->execute();
     }
     
