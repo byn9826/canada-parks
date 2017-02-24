@@ -2,7 +2,7 @@
 //Author: Sam
 
 class ParkImport {
-    private $apiKey = '?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k';
+    private $apiKey = '?key=AIzaSyCyIDeakYLU04AwAxmUS44hHYQzgJPu6FQ';
     private $searchAPi = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
     private $detailAPI = 'https://maps.googleapis.com/maps/api/place/details/json';
     private $photoAPI = 'https://maps.googleapis.com/maps/api/place/photo';
