@@ -1,16 +1,21 @@
 <?php
+#author：Bao
 if(!isset($_SESSION)){
     session_start();
 }
-#author：Bao
 ## define route for different page
 $team_route_src = '../';
 if(isset($team_route_custom)) {
     $team_route_src = $team_route_custom;
 }
+##Get header navi info
+require_once($team_route_src . 'lib/DatabaseAccess.php');
+require_once($team_route_src . 'lib/globe/globe.php');
+$db = DatabaseAccess::getConnection();
+$globe = new Globe($db);
+$header_navi = $globe->getHeader();
 ##If user login passed js validation submit login form
 if(isset($_POST['username'])) {
-    require_once($team_route_src . 'lib/DatabaseAccess.php');
     require_once($team_route_src . 'lib/publicLogin/default.php');
     require_once($team_route_src . 'lib/validation/fanta_valid.php');
     $username = $_POST['username'];
@@ -49,10 +54,11 @@ if(isset($_POST['username'])) {
             <span id="header-searchicon" class="glyphicon glyphicon-search"></span>
         </form>
         <ul class="nav navbar-nav col-md-4 navbar-right">
-            <li><a href="/parks">Parks</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
+            <?php
+                foreach ($header_navi as $nav) {
+                    echo '<li><a>' . $nav['link'] . '</a></li>';
+                }
+            ?>
             <li class="dropdown">
                 <a id="login-dropdowm" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <?php
