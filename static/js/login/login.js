@@ -31,7 +31,7 @@ function validateEmail(email) {
 }
 
 //change login status when users submit login request
-if (!$("#login-error").html() || $("#login-error").html().trim() !== "username:admin-pass:12345678") {
+if ($("#login-error").html() && $("#login-error").html().trim() !== "username:admin-pass:12345678") {
     $("#login-dropdowm").click();
 }
 
