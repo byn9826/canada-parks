@@ -2,27 +2,6 @@
 //Author: Sam
 
 class ParkImport {
-    private $apiKey = '?key=AIzaSyCyIDeakYLU04AwAxmUS44hHYQzgJPu6FQ';
-    private $searchAPi = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
-    private $detailAPI = 'https://maps.googleapis.com/maps/api/place/details/json';
-    private $photoAPI = 'https://maps.googleapis.com/maps/api/place/photo';
-    private $conn;
-    
-    public function connectDB() {
-        $dbhost = 'sql9.freemysqlhosting.net';
-        $dbuser = 'sql9156605';
-        $dbpass = 'FadNqjljSt';
-        $this->conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbuser);
-        
-        if(! $this->conn ) {
-          die('Could not connect: ' . mysqli_error());
-        }
-    }
-    
-    public function disconnectDB() {
-        mysqli_close($this->conn);
-    }
-    
     public function getParks($query) {
         $url = $this->searchAPi . $this->apiKey . '&query=' . $query;
         $res = json_decode(file_get_contents($url), true);
@@ -43,7 +22,6 @@ class ParkImport {
                 $this->insertPark($park);
             }
         }
-
     }
     
     public function getPark($place_id) {
@@ -53,7 +31,6 @@ class ParkImport {
     }
     
     public function insertPark($park) {
-        $this->connectDB();
         
         $id = $park['place_id'];
         $name = $park['name'];
@@ -63,10 +40,23 @@ class ParkImport {
         $address = $park['formatted_address'];
         $province = '';
         $province_code = '';
+        $country = '';
+        $country_code = '';
+        $postal_code = '';
+        
         foreach ($park['address_components'] as $component) {
             if ($component['types'][0] == 'administrative_area_level_1') {
                 $province = $component['long_name'];
                 $province_code = $component['short_name'];
+            }
+            
+            if ($component['types'][0] == 'country') {
+                $country_code = $component['short_name'];
+                $country = $component['long_name'];
+            }
+            
+            if ($component['types'][0] == 'postal_code' || $component['types'][0] == 'postal_code_prefix') {
+                $postal_code = $component['long_name'];
             }
         }
         $latitdue = strval($park['geometry']['location']['lat']);
@@ -74,23 +64,9 @@ class ParkImport {
         
         $phone_number = $park['international_phone_number'];
         $rating = $park['rating'];
-        
-        $sql = "INSERT INTO park (google_place_id, name, banner, photo_reference, address, province, province_code, latitude, longitude, phone_number, rating)" . 
-        "VALUES ( '$id', '$name', '$banner', '$photo_reference', '$address', '$province', '$province_code', '$latitdue', '$longitude', '$phone_number', '$rating')";
-        $retval = mysqli_query($this->conn, $sql);
-        
-        $this->disconnectDB();
+        $website = $park['website'];
     }
 }
 
 $pi = new ParkImport();
 $pi->getParks('canada+national+park');
-
-// while (!empty($result['next_page_token'])) {
-//     var_dump($result['next_page_token']);
-//     $result = json_decode((file_get_contents($searchAPi . '&pagetoken=' . $result['next_page_token'] )), true);
-//     foreach ($result['results'] as $park) {
-//         $parks[] = $park;
-//     }
-// }
-//die;
