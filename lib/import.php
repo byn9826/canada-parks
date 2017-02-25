@@ -22,7 +22,6 @@ class ParkImport {
                 $this->insertPark($park);
             }
         }
-
     }
     
     public function getPark($place_id) {
@@ -41,28 +40,33 @@ class ParkImport {
         $address = $park['formatted_address'];
         $province = '';
         $province_code = '';
+        $country = '';
+        $country_code = '';
+        $postal_code = '';
+        
         foreach ($park['address_components'] as $component) {
             if ($component['types'][0] == 'administrative_area_level_1') {
                 $province = $component['long_name'];
                 $province_code = $component['short_name'];
+            }
+            
+            if ($component['types'][0] == 'country') {
+                $country_code = $component['short_name'];
+                $country = $component['long_name'];
+            }
+            
+            if ($component['types'][0] == 'postal_code' || $component['types'][0] == 'postal_code_prefix') {
+                $postal_code = $component['long_name'];
             }
         }
         $latitdue = strval($park['geometry']['location']['lat']);
         $longitude = strval($park['geometry']['location']['lng']);
         
         $phone_number = $park['international_phone_number'];
-        //$rating = $park['rating'];
+        $rating = $park['rating'];
+        $website = $park['website'];
     }
 }
 
 $pi = new ParkImport();
 $pi->getParks('canada+national+park');
-
-// while (!empty($result['next_page_token'])) {
-//     var_dump($result['next_page_token']);
-//     $result = json_decode((file_get_contents($searchAPi . '&pagetoken=' . $result['next_page_token'] )), true);
-//     foreach ($result['results'] as $park) {
-//         $parks[] = $park;
-//     }
-// }
-//die;
