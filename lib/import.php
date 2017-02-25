@@ -2,27 +2,6 @@
 //Author: Sam
 
 class ParkImport {
-    private $apiKey = '?key=AIzaSyCyIDeakYLU04AwAxmUS44hHYQzgJPu6FQ';
-    private $searchAPi = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
-    private $detailAPI = 'https://maps.googleapis.com/maps/api/place/details/json';
-    private $photoAPI = 'https://maps.googleapis.com/maps/api/place/photo';
-    private $conn;
-    
-    public function connectDB() {
-        $dbhost = 'sql9.freemysqlhosting.net';
-        $dbuser = 'sql9156605';
-        $dbpass = 'FadNqjljSt';
-        $this->conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbuser);
-        
-        if(! $this->conn ) {
-          die('Could not connect: ' . mysqli_error());
-        }
-    }
-    
-    public function disconnectDB() {
-        mysqli_close($this->conn);
-    }
-    
     public function getParks($query) {
         $url = $this->searchAPi . $this->apiKey . '&query=' . $query;
         $res = json_decode(file_get_contents($url), true);
@@ -53,7 +32,6 @@ class ParkImport {
     }
     
     public function insertPark($park) {
-        $this->connectDB();
         
         $id = $park['place_id'];
         $name = $park['name'];
@@ -73,13 +51,7 @@ class ParkImport {
         $longitude = strval($park['geometry']['location']['lng']);
         
         $phone_number = $park['international_phone_number'];
-        $rating = $park['rating'];
-        
-        $sql = "INSERT INTO park (google_place_id, name, banner, photo_reference, address, province, province_code, latitude, longitude, phone_number, rating)" . 
-        "VALUES ( '$id', '$name', '$banner', '$photo_reference', '$address', '$province', '$province_code', '$latitdue', '$longitude', '$phone_number', '$rating')";
-        $retval = mysqli_query($this->conn, $sql);
-        
-        $this->disconnectDB();
+        //$rating = $park['rating'];
     }
 }
 
