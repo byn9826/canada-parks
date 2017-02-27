@@ -5,10 +5,9 @@
 			$team_route_custom = "./";
 			include "templates/meta.php";
 		?>
-		<meta name="author" content="Baozier">
+		<meta name="author" content="Bao">
 		<title>Marvel Canada</title>
         <link href="static/css/home.css" rel="stylesheet" type="text/css">
-		<link href="static/css/userComment.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
         <div class="container-fluid">
@@ -31,26 +30,6 @@
 						<!--will import from compare page -->
 						<h5 class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
 							<b>Test mysql connection:</b> <br />
-							<?php
-								include_once('./lib/ini.php');
-								try {
-									$db = new PDO($dsn, $username, $password);
-									$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-									$id = 1;
-									$sql = "SELECT * FROM comment WHERE comment_id = :id";
-									$pdostmt = $db->prepare($sql);
-									$pdostmt->setFetchMode(PDO::FETCH_ASSOC);
-									$pdostmt->bindValue(":id", $id, PDO::PARAM_INT);
-									$pdostmt->execute();
-									//$park = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
-									$comment = $pdostmt->fetchAll();
-									foreach ($comment as $c) {
-										echo "<li>" . $c["comment_id"] . "</li>";
-									}
-								} catch (PDOException $err) {
-									echo $err->getMessage();
-								}
-							?>
 						</h5>
 					</div>
 				</section>
@@ -111,9 +90,6 @@
 						Marvels around Canada
 						<span class="section-icon glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 					</h3>
-					<?php
-						include "templates/userComment.php";
-					?>
 				</section>
             </main>
 			<?php

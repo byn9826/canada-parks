@@ -20,6 +20,7 @@ h1 {
     padding: 1em 10em;
 }
 
+
 .form-horizontal .form-group{
     width: 90%;
 }
@@ -38,4 +39,8 @@ h1 {
 
 .control-td form {
     width: 50%;
+}
+#map {
+    height: 400px;
+
 }
