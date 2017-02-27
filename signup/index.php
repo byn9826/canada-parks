@@ -40,7 +40,7 @@ if(isset($_POST['submit'])) {
 					  	</div>
 						<button type="submit" name="submit" class="btn btn-default">Submit</button>
 					</form>
-				</sectiton>
+				</section>
             </main>
 			<?php
 				include "../templates/footer.php";

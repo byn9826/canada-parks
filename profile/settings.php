@@ -31,228 +31,237 @@
             <div class="row">
 
                 <!-- Left column -->
-                <div class="user-details col col-md-3">
-                    <!-- Profile Avatar Picture -->
-                    <!-- data-src="../static/img/profile/users/custom/default.png" -->
-                    <!-- src="../static/img/profile/users/custom/default.png" -->
-                    <div class="avatar">
-                        <img id="profile_picture"
-                             data-src="<?php
-                                         if(isset($profilePicURL)) {
-                                             echo "../static/img/profile/users/" . $profilePicURL;
-                                         } else {
-                                             echo "../static/img/profile/users/custom/default.png";
-                                         }
-                                       ?>"
-                             data-holder-rendered="true"
-                             src="<?php
-                                    if(isset($profilePicURL)) {
-                                        echo "../static/img/profile/users/" . $profilePicURL;
-                                    } else {
-                                        echo "../static/img/profile/users/custom/default.png";
-                                    }
-                                  ?>"
-                             alt="User's avatar or profile picture" />
-                        <button type="button" class="btn btn-link" id="change-profile-pic">Change Profile Picture</button>
-                    </div>
-
-                    <!-- Profile Name -->
-                    <h1 class="name"><span>Irfaan Auhammad</span></h1>
-
-                    <!-- User Personal Details -->
-                    <div class="user-info">
-                        <div><span class="glyphicon glyphicon-map-marker"></span>205 Humber College Blvd, Etobicoke</div>
-                        <div><span class="glyphicon glyphicon-envelope"></span>irfaan@humber.ca</div>
-                        <div><span class="glyphicon glyphicon-time"></span>Joined on Jan 30, 2017</div>
-                    </div>
-
-                    <!-- Footprint & Wishlist -->
-                    <div class="activities row">
-                        <div class="col-xs-6">
-                            <div><span class="activities__footprint">2</span></div>
-                            <div>Footprint</div>
+                <div class="col-sm-3">
+                    <div class="user-details">
+                        <!-- Profile Avatar Picture -->
+                        <!-- data-src="../static/img/profile/users/custom/default.png" -->
+                        <!-- src="../static/img/profile/users/custom/default.png" -->
+                        <div class="avatar">
+                            <img id="profile_picture"
+                                 data-src="<?php
+                                             if(isset($profilePicURL)) {
+                                                 echo "../static/img/profile/users/" . $profilePicURL;
+                                             } else {
+                                                 echo "../static/img/profile/users/custom/default.png";
+                                             }
+                                           ?>"
+                                 data-holder-rendered="true"
+                                 src="<?php
+                                        if(isset($profilePicURL)) {
+                                            echo "../static/img/profile/users/" . $profilePicURL;
+                                        } else {
+                                            echo "../static/img/profile/users/custom/default.png";
+                                        }
+                                      ?>"
+                                 alt="User's avatar or profile picture" />
+                            <div>
+                                <button type="button" class="btn btn-link" id="change-profile-pic">Change Profile Picture</button>
+                            </div>
                         </div>
-                        <div class="col-xs-6">
-                            <div><span class="activities__wishlist">5</span></div>
-                            <div>Wishlist</div>
+
+                        <!-- Profile Name -->
+                        <h1 class="name"><span>Irfaan Auhammad</span></h1>
+
+                        <!-- User Personal Details -->
+                        <div class="user-info">
+                            <div><span class="glyphicon glyphicon-map-marker"></span>205 Humber College Blvd, Etobicoke</div>
+                            <div><span class="glyphicon glyphicon-envelope"></span>irfaan@humber.ca</div>
+                            <div><span class="glyphicon glyphicon-time"></span>Joined on Jan 30, 2017</div>
                         </div>
+
+                        <!-- Footprint & Wishlist -->
+                        <div class="activities row">
+                            <div class="col-xs-6">
+                                <div><span class="activities__footprint">2</span></div>
+                                <div>Footprint</div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div><span class="activities__wishlist">5</span></div>
+                                <div>Wishlist</div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <!-- Right column -->
-                <div class="container__tab-content col col-md-9">
-                    <!-- Profile & Account navigation -->
-                    <nav class="settings-nav">
-                        <h2 class="hidden">User settings</h2>
-                        <ul class="nav nav-pills">
-                            <li class="active"><a data-toggle="tab" href="#tabProfile"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
-                            <li><a data-toggle="tab" href="#tabAccount"><span class="glyphicon glyphicon-cog"></span>Account</a></li>
-                        </ul>
-                    </nav>
+                <div class="col-sm-9">
+                    <div class="container__tab-content">
 
-                    <div class="tab-content clearfix">
-                        <!-- Tab: Profile -->
-                        <div id="tabProfile" class="tab-pane fade in active">
+                        <!-- Profile & Account navigation -->
+                        <nav class="settings-nav">
+                            <h2 class="hidden">User settings</h2>
+                            <ul class="nav nav-pills">
+                                <li class="active"><a data-toggle="tab" href="#tabProfile"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
+                                <li><a data-toggle="tab" href="#tabAccount"><span class="glyphicon glyphicon-cog"></span>Account</a></li>
+                            </ul>
+                        </nav>
 
-                            <!-- User's Personal Details -->
-                            <div class="row display-group">
-                                <div class="col col-md-12">
-                                    <h3>About Me</h3>
-                                    <form action="" method="post"> <!-- TODO: form action to update personal details -->
-                                        <div class="form-group row">
-                                            <label for="inputFirstName" class="col-sm-3 col-form-label">First Name</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputFirstName" placeholder="Enter your first name" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputLastName" class="col-sm-3 col-form-label">Last Name</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputLastName" placeholder="Enter your last name" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">Gender</label>
-                                            <div class="col-sm-5 gender">
-                                                <fieldset>
-                                                    <input type="radio" id="radioMale" name="gender" value="M" /><label for="radioMale">Male</label>
-                                                    <input type="radio" id="radioFemale" name="gender" value="F" /><label for="radioFemale">Female</label>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputDOB" class="col-sm-3 col-form-label">Date of Birth</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputDOB" placeholder="Select date of birth" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="day" class="col-sm-3 col-form-label">City</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputCity" placeholder="Which city do you live?" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputProv" class="col-sm-3 col-form-label">Province</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputProv" placeholder="Which province do you live?" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputNationality" class="col-sm-3 col-form-label">Nationality</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputNationality" placeholder="Where are you from?" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputPhone" class="col-sm-3 col-form-label">Phone Number</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control input-medium bfh-phone" id="inputPhone" data-format="+1 (ddd) ddd-dddd" placeholder="Enter phone number" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputLastTrip" class="col-sm-3 col-form-label">Last Trip</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputLastTrip" placeholder="Where did you last travel to?" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputNextTrip" class="col-sm-3 col-form-label">Next Trip</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="inputNextTrip" placeholder="Where are you travelling to next?" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="inputFavourite" class="col-sm-3 col-form-label">Favourite Places</label>
-                                            <div class="col-sm-8">
-                                                <textarea class="form-control" rows="5" id="inputFavourite" placeholder="What are your favourite parks and activities?"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="offset-sm-2 col-sm-10">
-                                                <button type="button" class="btn btn-primary" title="Cancel">Cancel</button>
-                                                <button type="submit" class="btn btn-primary" title="Click to save your new changes">Save Changes</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                        <div class="tab-content clearfix">
+                            <!-- Tab: Profile -->
+                            <div id="tabProfile" class="tab-pane fade in active">
 
-                        </div>
-
-                        <!-- Tab: Account-->
-                        <div id="tabAccount" class="tab-pane fade">
-                            <div class="account">
-
-                                <!-- Change Password -->
+                                <!-- User's Personal Details -->
                                 <div class="row display-group">
                                     <div class="col col-md-12">
-                                        <h3>Change password</h3>
-                                        <form action="" method="post"> <!-- TODO: form action to update password -->
+                                        <h3>About Me</h3>
+                                        <form action="" method="post"> <!-- TODO: form action to update personal details -->
                                             <div class="form-group row">
-                                                <label for="inputOldPass" class="col-sm-3 col-form-label">Old Password</label>
+                                                <label for="inputFirstName" class="col-sm-3 col-form-label">First Name</label>
                                                 <div class="col-sm-5">
-                                                    <input type="password" class="form-control" id="inputOldPass" placeholder="Enter your current password">
+                                                    <input type="text" class="form-control" id="inputFirstName" placeholder="Enter your first name" />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputNewPass1" class="col-sm-3 col-form-label">New password</label>
+                                                <label for="inputLastName" class="col-sm-3 col-form-label">Last Name</label>
                                                 <div class="col-sm-5">
-                                                    <input type="password" class="form-control" id="inputNewPass1" placeholder="New Password">
+                                                    <input type="text" class="form-control" id="inputLastName" placeholder="Enter your last name" />
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputNewPass2" class="col-sm-3 col-form-label">Confirm new password</label>
+                                                <label class="col-sm-3 col-form-label">Gender</label>
+                                                <div class="col-sm-5 gender">
+                                                    <fieldset>
+                                                        <input type="radio" id="radioMale" name="gender" value="M" /><label for="radioMale">Male</label>
+                                                        <input type="radio" id="radioFemale" name="gender" value="F" /><label for="radioFemale">Female</label>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputDOB" class="col-sm-3 col-form-label">Date of Birth</label>
                                                 <div class="col-sm-5">
-                                                    <input type="password" class="form-control" id="inputNewPass2" placeholder="Confirm New Password">
+                                                    <input type="text" class="form-control" id="inputDOB" placeholder="Select date of birth" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="day" class="col-sm-3 col-form-label">City</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" id="inputCity" placeholder="Which city do you live?" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputProv" class="col-sm-3 col-form-label">Province</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" id="inputProv" placeholder="Which province do you live?" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputNationality" class="col-sm-3 col-form-label">Nationality</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" id="inputNationality" placeholder="Where are you from?" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputPhone" class="col-sm-3 col-form-label">Phone Number</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control input-medium bfh-phone" id="inputPhone" data-format="+1 (ddd) ddd-dddd" placeholder="Enter phone number" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputLastTrip" class="col-sm-3 col-form-label">Last Trip</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" id="inputLastTrip" placeholder="Where did you last travel to?" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputNextTrip" class="col-sm-3 col-form-label">Next Trip</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control" id="inputNextTrip" placeholder="Where are you travelling to next?" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputFavourite" class="col-sm-3 col-form-label">Favourite Places</label>
+                                                <div class="col-sm-8">
+                                                    <textarea class="form-control" rows="5" id="inputFavourite" placeholder="What are your favourite parks and activities?"></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="offset-sm-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-primary" title="Click to update your old password">Update Password</button>
+                                                    <button type="button" class="btn btn-primary" title="Cancel">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary" title="Click to save your new changes">Save Changes</button>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
 
-                                <!-- Update Email -->
-                                <div class="row display-group">
-                                    <div class="col col-md-12">
-                                        <h3>Update Email Address</h3>
-                                        <form>
-                                            <div class="form-group row">
-                                                <label for="inputEmail" class="col-sm-3 col-form-label">Email</label>
-                                                <div class="col-sm-5">
-                                                    <input type="text" class="form-control" id="inputEmail" value="irfaan1213@gmail.com"> <!-- TODO: Value of current email -->
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
-                                                <div class="col-sm-5">
-                                                    <input type="password" class="form-control" id="inputPassword" placeholder="Enter Password">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="offset-sm-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-primary" title="Click to update email address">Update Email</button> <!-- TODO: PHP file to update email -->
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                            </div>
 
-                                <!-- Delete account -->
-                                <div class="row display-group">
-                                    <div class="col col-md-12"> <!-- TODO: Use form to delete user's account -->
-                                        <h3>Delete account</h3>
-                                        <p>Once you delete your account, there is no going back. Please be certain.</p>
-                                        <div><button type="button" class="btn btn-danger" title="Click to delete your account">Delete Account</button></div>
-                                    </div>
-                                </div>
+                            <!-- Tab: Account-->
+                            <div id="tabAccount" class="tab-pane fade">
+                                <div class="account">
 
+                                    <!-- Change Password -->
+                                    <div class="row display-group">
+                                        <div class="col col-md-12">
+                                            <h3>Change password</h3>
+                                            <form action="" method="post"> <!-- TODO: form action to update password -->
+                                                <div class="form-group row">
+                                                    <label for="inputOldPass" class="col-sm-3 col-form-label">Old Password</label>
+                                                    <div class="col-sm-5">
+                                                        <input type="password" class="form-control" id="inputOldPass" placeholder="Enter your current password">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputNewPass1" class="col-sm-3 col-form-label">New password</label>
+                                                    <div class="col-sm-5">
+                                                        <input type="password" class="form-control" id="inputNewPass1" placeholder="New Password">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputNewPass2" class="col-sm-3 col-form-label">Confirm new password</label>
+                                                    <div class="col-sm-5">
+                                                        <input type="password" class="form-control" id="inputNewPass2" placeholder="Confirm New Password">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-primary" title="Click to update your old password">Update Password</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <!-- Update Email -->
+                                    <div class="row display-group">
+                                        <div class="col col-md-12">
+                                            <h3>Update Email Address</h3>
+                                            <form>
+                                                <div class="form-group row">
+                                                    <label for="inputEmail" class="col-sm-3 col-form-label">Email</label>
+                                                    <div class="col-sm-5">
+                                                        <input type="text" class="form-control" id="inputEmail" value="irfaan1213@gmail.com"> <!-- TODO: Value of current email -->
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+                                                    <div class="col-sm-5">
+                                                        <input type="password" class="form-control" id="inputPassword" placeholder="Enter Password">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-primary" title="Click to update email address">Update Email</button> <!-- TODO: PHP file to update email -->
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <!-- Delete account -->
+                                    <div class="row display-group">
+                                        <div class="col col-md-12"> <!-- TODO: Use form to delete user's account -->
+                                            <h3>Delete account</h3>
+                                            <p>Once you delete your account, there is no going back. Please be certain.</p>
+                                            <div><button type="button" class="btn btn-danger" title="Click to delete your account">Delete Account</button></div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>  <!-- end of right column div -->
 
