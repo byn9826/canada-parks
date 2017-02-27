@@ -23,8 +23,9 @@ $provinces = array(
 );
 
 $province = isset($_GET['province']) ? $_GET['province'] : '';
+$name = isset($_GET['name']) ? $_GET['name'] : '';
 $parkRepository = new ParkRepository();
-$parks = $parkRepository->getParks($province);
+$parks = $parkRepository->getParks($name, $province);
 
 
 ?>
@@ -55,7 +56,7 @@ $parks = $parkRepository->getParks($province);
                 <form id="search" class="form-inline" method="GET">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Park Name">
+                        <input type="text" class="form-control" id="name" name="name" value="<?=$name?>" placeholder="Park Name">
                     </div>
                     <div class="form-group">
                         <label for="province">Province</label>
@@ -83,7 +84,11 @@ $parks = $parkRepository->getParks($province);
                     <div role="tabpanel" class="tab-pane row" id="park-list">
                         <?php foreach($parks as $park) {?>
                         <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
-                            <img class="img-responsive" src="<?=$p->renderPhoto($park['photo_reference'])?>" alt="">
+                            <?php if (!empty($park["banner"])) { ?>
+                            <img src="<?=$park["banner"]?>" />
+                            <?php } else {?>
+                            <img class="img-responsive" src="<?=$p->renderPhoto($park['photo_reference'])?>" alt=""/>
+                            <?php } ?>
                             <div class="caption">
                                 <h2 class="name"><?=$park['name']?></h2>
                                 <p><?=$park['address']?></p>

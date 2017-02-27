@@ -78,7 +78,7 @@ $parks = array($park1, $park2);
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="map"></div>
                     <div role="tabpanel" class="tab-pane row" id="park-list">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <h2>Name</h2>
                             <p>Photo</p>
                             <p>Address</p>
@@ -88,7 +88,7 @@ $parks = array($park1, $park2);
                         <div class="col-md-4">
                             <h2><?=$park['name']?></h2>
                             <figure>
-                                <img src="<?=$p->renderPhoto($park['photo_reference'])?>" />
+                                <img class="img-responsive" src="<?=$park["banner"]?>" />
                             </figure>
                             <p><?=$park['address']?></p>
                             <p><?=$park['province']?></p>

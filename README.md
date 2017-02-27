@@ -23,7 +23,7 @@ A website which provide valuable informations for all national parks in Canada. 
 16. Input validation library - team
 
 ##Stacks
-PHP, Mysql, Apache, Bootstrap, jQuery, React
+PHP, Mysql, Apache, Bootstrap, jQuery
 
 ##Refer
 http://open.canada.ca/data/en/dataset?organization=pc <br />
