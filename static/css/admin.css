@@ -10,6 +10,7 @@ body {
 h1 {
     margin-bottom: 1em;
     text-align: center;
+    text-transform: uppercase;
 }
 #adminSelect {
     text-align: center;
@@ -19,6 +20,27 @@ h1 {
     padding: 1em 10em;
 }
 
+
+.form-horizontal .form-group{
+    width: 90%;
+}
+
+.form-horizontal .form-group span{
+    color: red;
+}
+
+#button-create{
+    text-align: right;
+}
+
+.control-td {
+    display: inline-flex;
+}
+
+.control-td form {
+    width: 50%;
+}
 #map {
     height: 400px;
+
 }
