@@ -6,6 +6,7 @@ if(isset($_POST['newname'])) {
 	$db = DatabaseAccess::getConnection();
 	$publicLogin = new PublicLogin($db);
 	$success = $publicLogin->signUp($_POST['newname'], $_POST['newpassword'], $_POST['newemail']);
+	echo $success;
 	if ($success == 1) {
 		$_SESSION['user_name'] = $_POST['newname'];
 		header("Location: ../");
