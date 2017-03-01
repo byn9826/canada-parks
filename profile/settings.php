@@ -5,8 +5,8 @@
     require_once ("../lib/DatabaseAccess.php");
 
     // TODO: Remove after test
-    require_once ("../lib/myLocalhostDB.php");
-    $profilePicURL = myLocalhostDB::getProfilePicture(666);
+    $profilePicURL;
+    //$profilePicURL = myLocalhostDB::getProfilePicture(666);
 
     include_once "../templates/meta.php";
     ?>
@@ -42,7 +42,7 @@
                                              if(isset($profilePicURL)) {
                                                  echo "../static/img/profile/users/" . $profilePicURL;
                                              } else {
-                                                 echo "../static/img/profile/users/custom/default.png";
+                                                 echo "../static/img/profile/users/default.png";
                                              }
                                            ?>"
                                  data-holder-rendered="true"
@@ -50,7 +50,7 @@
                                         if(isset($profilePicURL)) {
                                             echo "../static/img/profile/users/" . $profilePicURL;
                                         } else {
-                                            echo "../static/img/profile/users/custom/default.png";
+                                            echo "../static/img/profile/users/default.png";
                                         }
                                       ?>"
                                  alt="User's avatar or profile picture" />
