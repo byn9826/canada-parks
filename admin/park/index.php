@@ -1,8 +1,9 @@
 <?php
 
+include "../../lib/DatabaseAccess.php";
 include "../../lib/ParkRepository.php";
-
-$parkRepository = new ParkRepository();
+$db = DatabaseAccess::getConnection();
+$parkRepository = new ParkRepository($db);
 $parks = $parkRepository->getParks();
 
 ?>

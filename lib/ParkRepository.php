@@ -4,18 +4,10 @@ include "Upload.php";
 //Author: Sam
 
 class ParkRepository {
-    private $host = "sql9.freemysqlhosting.net";
-    private $dbname = "sql9156605";
-    private $username = "sql9156605";
-    private $password = "FadNqjljSt";
     private $db;
-    
-    public function __construct() {
-        $dsn = "mysql:host=$this->host;dbname=$this->dbname";
-        $this->db = new PDO($dsn, $this->username, $this->password);
-        $this->db->setAttribute(PDO::FETCH_ASSOC, PDO::ERRMODE_EXCEPTION);
+    public function __construct($db) {
+        $this->db = $db;
     }
-
     
     public function getParks($name = "", $province = "") {
         $sql = "SELECT * FROM park";
@@ -57,7 +49,7 @@ class ParkRepository {
         
         $sql = "INSERT INTO park (google_place_id, name, banner, description, address, province, province_code, country, country_code, postal_code, latitude, longitude, phone_number, rating, website)" . 
         "VALUES ( :google_place_id, :name, :banner, :description, :address, :province, :province_code, :country, :country_code, :postal_code, :latitude, :longitude, :phone_number, 0.0, :website)";
-        
+
         $this->parkOperation($park, $upload, $sql);
 
     }
@@ -90,7 +82,7 @@ class ParkRepository {
             $id = $park["id"];
         }
         $name = $park["name"];
-        $google_place_id = $park["google_place_id"];
+            $google_place_id = $park["google_place_id"];
         $banner = $park["banner"];
         $description = $park["description"];
         $address = $park["address"];
@@ -104,13 +96,13 @@ class ParkRepository {
         $phone_number = $park["phone_number"];
         $website = $park["website"];
         
-        if (!empty($upload["name"])) {
+        if (isset($upload["name"]) && !empty($upload["name"])) {
             $u = new Upload();
             $banner = $u->toServer($upload);
         }
         
         $pdostmt = $this->db->prepare($sql);
- 
+
         if (isset($id)) {
             $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
         }
@@ -129,6 +121,7 @@ class ParkRepository {
         $pdostmt->bindValue(":phone_number", $phone_number, PDO::PARAM_STR);
         $pdostmt->bindValue(":website", $website, PDO::PARAM_STR);
         $pdostmt->execute();
+        //print_r($pdostmt->errorInfo());
     }
     
 }

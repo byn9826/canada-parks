@@ -6,6 +6,7 @@ if(isset($_POST['newname'])) {
 	$db = DatabaseAccess::getConnection();
 	$publicLogin = new PublicLogin($db);
 	$success = $publicLogin->signUp($_POST['newname'], $_POST['newpassword'], $_POST['newemail']);
+	echo $success;
 	if ($success == 1) {
 		$_SESSION['user_name'] = $_POST['newname'];
 		header("Location: ../");
@@ -28,7 +29,7 @@ if(isset($_POST['newname'])) {
 				include "../templates/header.php";
 			?>
             <main id="main" class="row">
-				<section id="signup" class="col-md-4 col-md-offset-4">
+				<section id="signup" class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
 					<h2>Join today, explore Marvel!</h2>
 					<form id="user-signup" method="POST" action="" >
 						<div id="form-name" class="form-group">
@@ -46,8 +47,8 @@ if(isset($_POST['newname'])) {
 						<h5 id="signup-error">Test Error message, will hide later</h5>
 						<input id="signup-button" type="button" name="signup-button" value="Submit" class="btn btn-default" />
 					</form>
+					<h6>By signing up, you agree to the Terms of Service and Privacy Policy</h6>
 				</section>
-				<h6>By signing up, you agree to the Terms of Service and Privacy Policy</h6>
             </main>
         </div>
 	</body>

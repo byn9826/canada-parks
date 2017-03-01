@@ -5,8 +5,8 @@
     require_once ("../lib/DatabaseAccess.php");
 
     // TODO: Remove after test
-    require_once ("../lib/myLocalhostDB.php");
-    $profilePicURL = myLocalhostDB::getProfilePicture(666);
+    $profilePicURL;
+    //$profilePicURL = myLocalhostDB::getProfilePicture(666);
 
     include_once "../templates/meta.php";
     ?>
@@ -28,7 +28,7 @@
 
         <!-- Page Body -->
         <main class="container-fluid">
-            <div class="row">
+            <div class="row col-md-10 col-md-offset-1">
 
                 <!-- Left column -->
                 <div class="col-sm-3">
@@ -42,7 +42,7 @@
                                              if(isset($profilePicURL)) {
                                                  echo "../static/img/profile/users/" . $profilePicURL;
                                              } else {
-                                                 echo "../static/img/profile/users/custom/default.png";
+                                                 echo "../static/img/profile/users/default.png";
                                              }
                                            ?>"
                                  data-holder-rendered="true"
@@ -50,7 +50,7 @@
                                         if(isset($profilePicURL)) {
                                             echo "../static/img/profile/users/" . $profilePicURL;
                                         } else {
-                                            echo "../static/img/profile/users/custom/default.png";
+                                            echo "../static/img/profile/users/default.png";
                                         }
                                       ?>"
                                  alt="User's avatar or profile picture" />
@@ -105,7 +105,7 @@
                                 <div class="row display-group">
                                     <div class="col col-md-12">
                                         <h3>About Me</h3>
-                                        <form action="" method="post"> <!-- TODO: form action to update personal details -->
+                                        <form name="frmUserDetails" action="settings.php" method="post"> <!-- TODO: form action to update personal details -->
                                             <div class="form-group row">
                                                 <label for="inputFirstName" class="col-sm-3 col-form-label">First Name</label>
                                                 <div class="col-sm-5">

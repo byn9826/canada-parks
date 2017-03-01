@@ -2,16 +2,19 @@
 <html lang="en">
     <head>
         <?php
+            session_start();
+            if(isset($_SESSION['user_name'])) {
+                $sCurrentUsername = $_SESSION['user_name'];
+                $iCurrentUserId = $_SESSION['user_id'];
+            }
+
             require_once ("../lib/DatabaseAccess.php");
             require_once '../lib/park.php';
             require_once '../lib/ParkRepository.php';
-
+            $team_route_src = '../';
             // TODO: Remove after test
-            require_once ("../lib/myLocalhostDB.php");
-            $profilePicURL = myLocalhostDB::getProfilePicture(666);
-
-            $parkRepository = new ParkRepository();
-            //$lstParks = $parkRepository->getParks(null);
+            $profilePicURL;
+            //$profilePicURL = myLocalhostDB::getProfilePicture(666);
 
             // Test SQL connection
         //            $objConnection = DatabaseAccess::getConnection();
@@ -31,8 +34,6 @@
 		<title>Profile Page | Marvel Canada</title>
         <link rel="stylesheet" type="text/css" href="../static/css/profile.css" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -42,7 +43,7 @@
 
             <!-- Page Body -->
             <main class="container-fluid">
-                <div class="row">
+                <div class="row col-md-10 col-md-offset-1">
 
                     <!-- Left column -->
                     <div class="col-sm-3">
@@ -56,7 +57,7 @@
                                          if(isset($profilePicURL)) {
                                              echo "../static/img/profile/users/" . $profilePicURL;
                                          } else {
-                                             echo "../static/img/profile/users/custom/default.png";
+                                             echo "../static/img/profile/users/default.png";
                                          }
                                          ?>"
                                          data-holder-rendered="true"
@@ -64,7 +65,7 @@
                                          if(isset($profilePicURL)) {
                                              echo "../static/img/profile/users/" . $profilePicURL;
                                          } else {
-                                             echo "../static/img/profile/users/custom/default.png";
+                                             echo "../static/img/profile/users/default.png";
                                          }
                                          ?>"
                                          alt="User's avatar or profile picture" />
@@ -78,9 +79,9 @@
 
                             <!-- User Personal Details -->
                             <div class="user-info">
-                                <div><span class="glyphicon glyphicon-map-marker"></span>205 Humber College Blvd, Etobicoke</div>
-                                <div><span class="glyphicon glyphicon-envelope"></span>irfaan@humber.ca</div>
-                                <div><span class="glyphicon glyphicon-time"></span>Joined on Jan 30, 2017</div>
+                                <div><span class="glyphicon glyphicon-map-marker ai-glyphicon"></span>205 Humber College Blvd, Etobicoke</div>
+                                <div><span class="glyphicon glyphicon-envelope ai-glyphicon"></span>irfaan@humber.ca</div>
+                                <div><span class="glyphicon glyphicon-time ai-glyphicon"></span>Joined on Jan 30, 2017</div>
                             </div>
 
                             <!-- Footprint & Wishlist -->
@@ -106,15 +107,16 @@
                             <nav class="activities-nav">
                                 <h2 class="hidden">Footprint and Wish list navigation</h2>
                                 <ul class="nav nav-pills">
-                                    <li class="active"><a data-toggle="tab" href="#footprints"><span class="glyphicon glyphicon-road"></span>Footprint</a></li>
-                                    <li><a data-toggle="tab" href="#wishlist"><span class="glyphicon glyphicon-eye-open"></span>Wishlist</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#footprints"><span class="glyphicon glyphicon-road ai-glyphicon"></span>Footprint</a></li>
+                                    <li><a data-toggle="tab" href="#wishlist"><span class="glyphicon glyphicon-eye-open ai-glyphicon"></span>Wishlist</a></li>
                                 </ul>
                             </nav>
 
                             <div class="tab-content clearfix">
                                 <!-- Tab: Footprints -->
+                                <!-- --------------- -->
                                 <div id="footprints" class="tab-pane fade in active">
-                                    <!-- Past Footprints -->
+                                    <!-- Share a new footprint -->
                                     <div class="share-footprint container-fluid">
                                         <h2 class="share-footprints__header">Have a new footprint?</h2>
                                         <div class="row">
@@ -126,20 +128,21 @@
                                         </div>
                                     </div>
 
+                                    <!-- Past footprints -->
                                     <div id="1" class="footprint display-group">
                                         <div class="row">
                                             <div class="col col-xs-2 col-sm-2"><img src="../static/img/users/profile/1.png" /></div>
                                             <div class="col col-xs-9 col-sm-9">
                                                 <div>
-                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous"></span> <span class="footprint__park">Banff National Park</span> recently.
+                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous ai-glyphicon"></span> <span class="footprint__park">Banff National Park</span> recently.
                                                 </div>
                                                 <div class="footprint__date">Monday 29th Jan, 2017</div>
                                             </div>
                                         </div>
                                         <p class="footprint__caption">Here will go a short description/comment written by the user when registering a new footprint.</p>
                                         <div class="footprint__gallery">
-                                            <img src="../static/img/park/0/0.jpg" alt="Park picture" />
                                             <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
+                                            <img src="../static/img/park/1/profile.jpg" alt="Park picture" />
                                         </div>
                                     </div>
 
@@ -148,15 +151,15 @@
                                             <div class="col col-xs-2 col-sm-2"><img src="../static/img/users/profile/1.png" /></div>
                                             <div class="col col-xs-9 col-sm-9">
                                                 <div>
-                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous"></span> <span class="footprint__park">Banff National Park</span> recently.
+                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous ai-glyphicon"></span> <span class="footprint__park">Banff National Park</span> recently.
                                                 </div>
                                                 <div class="footprint__date">Monday 29th Jan, 2017</div>
                                             </div>
                                         </div>
                                         <p class="footprint__caption">Here will go a short description/comment written by the user when registering a new footprint.</p>
                                         <div class="footprint__gallery">
-                                            <img src="../static/img/park/0/0.jpg" alt="Park picture" />
                                             <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
+                                            <img src="../static/img/park/1/profile.jpg" alt="Park picture" />
                                         </div>
                                     </div>
 
@@ -165,27 +168,28 @@
                                             <div class="col col-xs-2 col-sm-2"><img src="../static/img/users/profile/1.png" /></div>
                                             <div class="col col-xs-9 col-sm-9">
                                                 <div>
-                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous"></span> <span class="footprint__park">Banff National Park</span> recently.
+                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous ai-glyphicon"></span> <span class="footprint__park">Banff National Park</span> recently.
                                                 </div>
                                                 <div class="footprint__date">Monday 29th Jan, 2017</div>
                                             </div>
                                         </div>
                                         <p class="footprint__caption">Here will go a short description/comment written by the user when registering a new footprint.</p>
                                         <div class="footprint__gallery">
-                                            <img src="../static/img/park/0/0.jpg" alt="Park picture" />
                                             <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
+                                            <img src="../static/img/park/1/profile.jpg" alt="Park picture" />
                                         </div>
                                     </div>
 
                                 </div>
 
-                                <!-- Tab: Wishlist-->
+                                <!-- Tab: Wishlist -->
+                                <!-- ------------- -->
                                 <div id="wishlist" class="tab-pane fade">
 
                                     <div id="w1" class="display-group">
                                         <div class="row">
                                             <div class="col col-xs-4 col-sm-4 wishlist-group__thumbnail">
-                                                <img src="../static/img/park/0/0.jpg" alt="Park picture" />
+                                                <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
                                             </div>
                                             <div class="col col-xs-8 col-sm-8 wishlist-group__park-details">
                                                 <div>
@@ -207,7 +211,7 @@
                                     <div id="w2" class="display-group">
                                         <div class="row">
                                             <div class="col col-xs-4 col-sm-4 wishlist-group__thumbnail">
-                                                <img src="../static/img/park/0/0.jpg" alt="Park picture" />
+                                                <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
                                             </div>
                                             <div class="col col-xs-8 col-sm-8 wishlist-group__park-details">
                                                 <div>

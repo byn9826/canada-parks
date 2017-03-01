@@ -20,8 +20,6 @@ $(document).ready(function() {
         $( "#inputDateVisit" ).datepicker();
     } );
 
-    // $('#inputDOB').datepicker();
-
     /* When click on change profile pic */
     jQuery('#change-profile-pic').on('click', function(e){
         jQuery('#profile_pic_modal').modal({show:true});

@@ -10,6 +10,7 @@ switch($post['action']) {
         changeProfilePic();
         break;
 }
+
 /* Function to change profile picture */
 function changeProfilePic() {
     $post = isset($_POST) ? $_POST : array();
