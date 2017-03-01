@@ -39,7 +39,7 @@
 
             <!-- Page Body -->
             <main class="container-fluid">
-                <div class="row">
+                <div class="row col-md-10 col-md-offset-1">
 
                     <!-- Left column -->
                     <div class="col-sm-3">
@@ -75,9 +75,9 @@
 
                             <!-- User Personal Details -->
                             <div class="user-info">
-                                <div><span class="glyphicon glyphicon-map-marker"></span>205 Humber College Blvd, Etobicoke</div>
-                                <div><span class="glyphicon glyphicon-envelope"></span>irfaan@humber.ca</div>
-                                <div><span class="glyphicon glyphicon-time"></span>Joined on Jan 30, 2017</div>
+                                <div><span class="glyphicon glyphicon-map-marker ai-glyphicon"></span>205 Humber College Blvd, Etobicoke</div>
+                                <div><span class="glyphicon glyphicon-envelope ai-glyphicon"></span>irfaan@humber.ca</div>
+                                <div><span class="glyphicon glyphicon-time ai-glyphicon"></span>Joined on Jan 30, 2017</div>
                             </div>
 
                             <!-- Footprint & Wishlist -->
@@ -103,8 +103,8 @@
                             <nav class="activities-nav">
                                 <h2 class="hidden">Footprint and Wish list navigation</h2>
                                 <ul class="nav nav-pills">
-                                    <li class="active"><a data-toggle="tab" href="#footprints"><span class="glyphicon glyphicon-road"></span>Footprint</a></li>
-                                    <li><a data-toggle="tab" href="#wishlist"><span class="glyphicon glyphicon-eye-open"></span>Wishlist</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#footprints"><span class="glyphicon glyphicon-road ai-glyphicon"></span>Footprint</a></li>
+                                    <li><a data-toggle="tab" href="#wishlist"><span class="glyphicon glyphicon-eye-open ai-glyphicon"></span>Wishlist</a></li>
                                 </ul>
                             </nav>
 
@@ -130,7 +130,7 @@
                                             <div class="col col-xs-2 col-sm-2"><img src="../static/img/users/profile/1.png" /></div>
                                             <div class="col col-xs-9 col-sm-9">
                                                 <div>
-                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous"></span> <span class="footprint__park">Banff National Park</span> recently.
+                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous ai-glyphicon"></span> <span class="footprint__park">Banff National Park</span> recently.
                                                 </div>
                                                 <div class="footprint__date">Monday 29th Jan, 2017</div>
                                             </div>
@@ -147,7 +147,7 @@
                                             <div class="col col-xs-2 col-sm-2"><img src="../static/img/users/profile/1.png" /></div>
                                             <div class="col col-xs-9 col-sm-9">
                                                 <div>
-                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous"></span> <span class="footprint__park">Banff National Park</span> recently.
+                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous ai-glyphicon"></span> <span class="footprint__park">Banff National Park</span> recently.
                                                 </div>
                                                 <div class="footprint__date">Monday 29th Jan, 2017</div>
                                             </div>
@@ -164,7 +164,7 @@
                                             <div class="col col-xs-2 col-sm-2"><img src="../static/img/users/profile/1.png" /></div>
                                             <div class="col col-xs-9 col-sm-9">
                                                 <div>
-                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous"></span> <span class="footprint__park">Banff National Park</span> recently.
+                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous ai-glyphicon"></span> <span class="footprint__park">Banff National Park</span> recently.
                                                 </div>
                                                 <div class="footprint__date">Monday 29th Jan, 2017</div>
                                             </div>

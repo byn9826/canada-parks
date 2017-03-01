@@ -51,7 +51,7 @@ $parks = $parkRepository->getParks($name, $province);
 				$team_personal_custom = "/static/img/users/profile/0.png";
 				include "../templates/header.php";
 			?>
-			<main id="main" class="container">
+			<main id="main" class="row col-md-10 col-md-offset-1">
                 <h1 id="parks-headline" class="text-center">Park List</h1>
                 <form id="search" class="form-inline" method="GET">
                     <div class="form-group">
@@ -72,9 +72,11 @@ $parks = $parkRepository->getParks($name, $province);
                     </div>
                 </form>
                 <?php if (count($parks) != 0) {?>
-                <div id="compare-wrapper" class="container">
+                <!-- Don't know where show be this be
+                <div id="compare-wrapper" >
                     <a disabled="disabled" id="compare" class="btn btn-primary">Compare Parks</a>
                 </div>
+                -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#park-list" aria-controls="park-list" role="tab" data-toggle="tab">List</a></li>
                     <li role="presentation"><a href="#map" id="toMap" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
@@ -101,10 +103,11 @@ $parks = $parkRepository->getParks($name, $province);
                 <h2 class="text-center">No Park</h2>
                 <?php } ?>
             </main>
+            <?php
+    			include "../templates/footer.php";
+    		?>
         </div>
-        <?php
-			include "../templates/footer.php";
-		?>
+
 		<script type="text/javascript">
 		    var parks = <?=json_encode($parks)?>;
 		</script>

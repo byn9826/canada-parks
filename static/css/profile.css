@@ -20,6 +20,7 @@ main {
     /*border: 1px solid red;*/
     padding: 1em 1em;
     /*margin-top: 3.5em;*/
+    margin-top: 100px;
 }
 
 main div.col {
@@ -43,7 +44,7 @@ main div.col {
     padding: 0px 8px 4px 16px;
 }
 
-.glyphicon {
+.ai-glyphicon {
     font-size: 16px;
     margin-right: 12px;
     color: #337ab7;
