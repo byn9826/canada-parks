@@ -24,7 +24,7 @@
                           <li><a href="#">Search Nearby parks</a></li>
                           <li><a href="#">Image Gallery</a></li>
                       </ul>
-                      
+
           </article>
       </aside>
 	    <div class="col-md-8">

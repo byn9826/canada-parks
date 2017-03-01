@@ -58,9 +58,9 @@
 </div>
 <div id="body">
     <?php
-    $folder_path = 'images/'; //image's folder path
+    $folder_path = '../static/img/park/5'; //image's folder path
 
-    $num_files = glob($folder_path . "*.{JPG,jpg,gif,png,bmp}", GLOB_BRACE);
+    /* $num_files = glob($folder_path . "*.{JPG,jpg,gif,png,bmp}", GLOB_BRACE);
 
     $folder = opendir($folder_path);
 
@@ -73,7 +73,7 @@
             if($extension=='jpg' || $extension =='png' || $extension == 'gif' || $extension == 'bmp')
             {
                 ?>
-                <a href="<?php echo $file_path; ?>"><img src="<?php echo $file_path; ?>"  height="250" /></a>
+                <a href="<?php echo $file_path; ?>"><img src="<?php echo $file_path.'5/0.jpg'; ?>"  height="250" /></a>
                 <?php
             }
         }
@@ -82,8 +82,13 @@
     {
         echo "the folder was empty !";
     }
-    closedir($folder);
+    closedir($folder);  */
+
     ?>
+    <a><img src="<?php echo $folder_path.'/0.jpg'; ?>"  height="250" /></a>
+    <a><img src="<?php echo $folder_path.'/1.jpg'; ?>"  height="250" /></a>
+    <a><img src="<?php echo $folder_path.'/2.jpg'; ?>"  height="250" /></a>
+    <a><img src="<?php echo $folder_path.'/3.jpg'; ?>"  height="250" /></a>
 
 </div>
 </body>
