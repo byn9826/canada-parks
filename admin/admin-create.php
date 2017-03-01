@@ -61,6 +61,7 @@
         }
 
         if ($ok){
+            $gender = ($gender == "male") ? "m" : "f";
             $myAdmin = new AdminUser($fname, $lname, $gender, $email, $pwd);
             $row = $myAdmin->addNewAdmin($myAdmin->getFirstName(), $myAdmin->getLastName(), $myAdmin->getEmail(), $myAdmin->getPassword(), $myAdmin->getGender());
             var_dump($myAdmin);

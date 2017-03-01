@@ -8,9 +8,9 @@
  */
 class Database
 {
-    private static $dsn = "mysql:host=sql9.freemysqlhosting.net;dbname=sql9156605";
-    private static $username = "sql9156605";
-    private static $password = "FadNqjljSt";
+    private static $dsn = "mysql:host=159.203.38.161;dbname=marvel";
+    private static $username = "humberTeam";
+    private static $password = "sQbI8cMHci2VYJjrvXlp";
     private static $db;
 
     private function __construct()

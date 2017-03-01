@@ -40,7 +40,9 @@
         }
 
         if ($ok){
-            $row = AdminUser::updateAdmin($_POST['id'], $_POST['firstname'], $_POST['lastname'], $_POST['gender']);
+            //var_dump($_POST['gender']);
+            $g = ($_POST['gender'] == "male") ? "m" : "f";
+            $row = AdminUser::updateAdmin($_POST['id'], $_POST['firstname'], $_POST['lastname'], $g);
             if($row == 1){
                 header("Location: admin-success.php");
             } else {
