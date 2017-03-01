@@ -1,5 +1,5 @@
 h1{
-    font-family: "Gloria Hallelujah", Times, serif;
+    font-family: "Kalam", Times, serif;
     margin: 0;
 }
 
@@ -14,17 +14,17 @@ h3{
 }
 
 h4{
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Comfortaa", Times, serif;
     margin: 0;
 }
 
 h5{
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Comfortaa", Times, serif;
     margin: 0;
 }
 
 h6{
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Comfortaa", Times, serif;
     margin: 0;
 }
 
@@ -74,6 +74,19 @@ main{
 
 #header-login>:nth-child(3){
     padding-left: 5%;
+}
+
+#header-hamburger {
+    background-color: #f7f7f9;
+    float: left; !important
+}
+
+#header-hamburger span {
+    border: 1px solid #74777c;
+}
+
+#header-links a{
+    font-family: "Comfortaa", Times, serif;
 }
 
 #login-error{

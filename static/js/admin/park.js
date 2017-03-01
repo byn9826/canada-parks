@@ -123,5 +123,4 @@ $(document).ready(function() {
         var placeId = $('#google_place_id').val();
         getPlaceDetails(placeId);
     });
-    
 });

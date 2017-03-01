@@ -43,17 +43,24 @@ if(isset($_POST['username'])) {
 }
 ?>
 <div class="row">
-    <header id="header" class="col-md-12 col-sm-12 visible-lg visible-md visible-sm">
-        <div class="col-md-1 col-md-offset-1 col-sm-1">
-            <img alt="Marvel Logo" src="<?php echo $team_route_src . 'static/img/logo.png'; ?>" />
+    <header id="header" class="col-md-12 col-sm-12 col-xs-12">
+        <button id="header-hamburger" type="button" class="navbar-toggle co-xs-4 visible-xs">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="col-md-1 col-md-offset-1 col-sm-1 col-sm-offset-0 col-xs-2 col-xs-offset-4">
+            <a href="<?php echo $team_route_src; ?>">
+                <img alt="Marvel Logo" src="<?php echo $team_route_src . 'static/img/logo.png'; ?>" />
+            </a>
         </div>
-        <form class="navbar-form navbar-left col-md-5" role="search">
+        <form class="navbar-form navbar-left col-md-5 col-sm-4 visible-lg visible-md visible-sm" role="search">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search">
             </div>
             <span id="header-searchicon" class="glyphicon glyphicon-search"></span>
         </form>
-        <ul class="nav navbar-nav col-md-4 navbar-right">
+        <ul id="header-links" class="nav navbar-nav col-md-5 col-sm-6 navbar-right visible-lg visible-md visible-sm">
             <?php
                 foreach ($header_navi as $nav) {
                     echo '<li><a>' . $nav['link'] . '</a></li>';

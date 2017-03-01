@@ -1,5 +1,10 @@
 /*Author: Sam*/
 
+#parks-headline {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
 #search {
     margin-bottom: 20px;
 }
@@ -10,7 +15,6 @@
 
 .park {
     margin-bottom: 20px;
-    height: 400px;
 }
 
 .park .name {
@@ -19,6 +23,7 @@
 
 .park img {
     width: 100%;
+    margin: auto;
 }
 
 #map {
@@ -29,10 +34,20 @@
 #compare-wrapper {
     position: fixed;
     top: 50px;
-    text-align: right;
+    text-align: center;
     z-index: 1000;
+    width: 100%;
 }
 
-#compare {
-    
+#park-compare .row {
+    margin-top: 30px
+}
+
+#park-compare .name {
+    height: 60px;
+}
+
+#park-compare h3 {
+    border-bottom: 1px solid #000000;
+    margin-bottom: 10px;
 }
