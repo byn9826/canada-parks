@@ -28,7 +28,7 @@
 
         <!-- Page Body -->
         <main class="container-fluid">
-            <div class="row">
+            <div class="row col-md-10 col-md-offset-1">
 
                 <!-- Left column -->
                 <div class="col-sm-3">
