@@ -70,13 +70,12 @@ $parks = $parkRepository->getParks($name, $province);
                     <div class="form-group">
                         <input type="submit" class="btn btn-success" value="Search"/>
                     </div>
+                    <div class="form-group">
+                        <a disabled="disabled" id="compare" class="btn btn-primary">Compare Parks</a>
+                    </div>
                 </form>
                 <?php if (count($parks) != 0) {?>
-                <!-- Don't know where show be this be
-                <div id="compare-wrapper" >
-                    <a disabled="disabled" id="compare" class="btn btn-primary">Compare Parks</a>
-                </div>
-                -->
+
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#park-list" aria-controls="park-list" role="tab" data-toggle="tab">List</a></li>
                     <li role="presentation"><a href="#map" id="toMap" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>

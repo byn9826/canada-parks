@@ -2,10 +2,16 @@
 <html lang="en">
     <head>
         <?php
+            session_start();
+            if(isset($_SESSION['user_name'])) {
+                $sCurrentUsername = $_SESSION['user_name'];
+                $iCurrentUserId = $_SESSION['user_id'];
+            }
+
             require_once ("../lib/DatabaseAccess.php");
             require_once '../lib/park.php';
             require_once '../lib/ParkRepository.php';
-
+            $team_route_src = '../';
             // TODO: Remove after test
             $profilePicURL;
             //$profilePicURL = myLocalhostDB::getProfilePicture(666);
