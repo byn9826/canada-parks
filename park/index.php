@@ -8,22 +8,23 @@
   <title>Parks</title>
 </head>
 <body>
-<?php
-include "../templates/header.php";
-?>
 
-  <main class="container">
-      <div class="row">
-    <aside id="sidebar" class="col-md-4">
-          <article id="blog-posts">
 
-              <h2 class="links">Quick Links</h2>
-              <ul class="l1">
-                  <li><a href="#">Weather</a></li>
-                  <li><a href="#">Search Nearby parks</a></li>
-                  <li><a href="#">Image Gallery</a></li>
-              </ul>
-
+  <main id="main" class="container-fluid">
+      <?php
+        include "../templates/header.php";
+      ?>
+      <div class="row" style="margin-top: 100px">
+          <div class="col-md-10 col-md-offset-1">
+            <aside id="sidebar" class="col-md-4">
+                  <article id="blog-posts">
+                      <h2 class="links">Quick Links</h2>
+                      <ul class="l1">
+                          <li><a href="#">Weather</a></li>
+                          <li><a href="#">Search Nearby parks</a></li>
+                          <li><a href="#">Image Gallery</a></li>
+                      </ul>
+                      
           </article>
       </aside>
 	    <div class="col-md-8">
@@ -39,8 +40,10 @@ include "../templates/header.php";
             <?php
             include "imagegallery.php";
             ?>
-	  
-	  
+
+            <?php
+            include "../templates/attitude.php";
+            ?>
 	  <form action="parks.html" method="post">
 	  <h2>Comments</h2>
 	  <div>
@@ -58,7 +61,8 @@ include "../templates/header.php";
 	  
 	</div>
       </div>
+      <?php include "../templates/footer.php";?>
   </main>
-<?php include "../templates/footer.php";?>
+
 </body>
 </html>

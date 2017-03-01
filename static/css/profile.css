@@ -20,6 +20,7 @@ main {
     /*border: 1px solid red;*/
     padding: 1em 1em;
     /*margin-top: 3.5em;*/
+    margin-top: 100px;
 }
 
 main div.col {
@@ -43,7 +44,7 @@ main div.col {
     padding: 0px 8px 4px 16px;
 }
 
-.glyphicon {
+.ai-glyphicon {
     font-size: 16px;
     margin-right: 12px;
     color: #337ab7;
@@ -118,6 +119,9 @@ main div.col {
     position: relative;
     padding: 0 0;
     border: 3px solid lightgrey;
+    -webkit-border-radius: 5px 5px;
+    -moz-border-radius: 5px 5px;
+    border-radius: 5px 5px;
     /*border: 3px solid #337ab7;*/
 }
 
@@ -126,10 +130,20 @@ main div.col {
 }
 
 .share-footprints__header {
+    color: #fff;
     font-size: 1.5em;
-    background: #0DC6FF;
+    font-weight: 500;
+    /*background: #0DC6FF;*/
+    background-color: rgba(51,122,183,0.7);
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0;
     margin-bottom: 0.5em;
     padding: 0.25em 0.5em;
+}
+
+.share-footprint img {
+    width: 60%;
 }
 
 .share-footprints__text {
@@ -139,7 +153,7 @@ main div.col {
 
 .share-footprint__button {
     text-align: center;
-    padding: 0.25em 0 0 0;
+    padding: 0.25em 0.25em;
 }
 
 /* ========================= */
@@ -154,6 +168,10 @@ main div.col {
     margin-left: 4px;
     margin-right: 0;
     color: #5cb85c;
+}
+
+.footprint .row img {
+    width: 60%;
 }
 
 .footprint .row>.col:last-child {
@@ -178,6 +196,11 @@ main div.col {
 
 .footprint__caption {
     padding: 1em 0;
+}
+
+.footprint__gallery img {
+    width: 200px;
+    height: 175px;
 }
 
 /* ========================= */
@@ -276,7 +299,10 @@ main div.col {
 /* ========================= */
 .modal-header {
     padding-bottom: 8px;
-    background-color: #0DC6FF;
+    color: #fff;
+    font-weight: 500;
+    /*background-color: #0DC6FF;*/
+    background-color: rgba(51,122,183,0.7);
     border-radius: 5px 5px 0px 0px;
 }
 
@@ -303,4 +329,193 @@ main div.col {
 
 .new-footprint-data {
     padding: 16px 12px;
+}
+
+/* ========================= */
+@media all and (max-width:1200px){
+
+    h1 {
+        font-size: 2em;
+    }
+
+}
+
+@media all and (max-width:1000px){
+
+    h1 {
+        font-size: 1.75em;
+    }
+
+    .avatar img {
+        width: 100%;
+    }
+
+    .avatar button {
+        padding: 4px 0;
+    }
+
+    .user-info > div {
+        padding: 0 0;
+    }
+
+}
+
+@media all and (max-width:900px){
+
+    .avatar button {
+        font-size: 12px;
+    }
+
+    .share-footprint img {
+        width: 100%;
+    }
+
+    .footprint .row img {
+        width: 100%;
+    }
+
+    .share-footprints__text {
+        font-size: 1.75em;
+    }
+
+}
+
+@media all and (max-width:767px){
+
+    .avatar {
+        margin-top: 0;
+    }
+
+    .avatar img {
+        width: 35%;
+        height: auto;
+    }
+
+    .avatar button {
+        font-size: 14px;
+    }
+
+    .user-info {
+        position: relative;
+    }
+
+    .user-info > div {
+        position: relative;
+        width: 45%;
+        margin: 0 auto;
+        padding: 0 0;
+    }
+
+    .activities {
+        margin-bottom: 1.125em;
+    }
+
+    .share-footprints__text {
+        font-size: 1.5em;
+    }
+
+    .wishlist-group__park-link {
+        font-size: 1.25em;
+    }
+
+    .container__tab-content {
+        padding: 0 1.5em;
+    }
+
+}
+
+@media all and (max-width:654px){
+
+    .avatar img {
+        width: 45%;
+    }
+
+    .user-info > div {
+        width: 60%;
+    }
+
+    .share-footprints__text {
+        font-size: 1.25em;
+    }
+
+    .footprint__gallery img {
+        width: 160px;
+        height: 140px;
+    }
+
+    .container__tab-content {
+        padding: 0 16px;
+    }
+
+}
+
+@media all and (max-width:550px){
+
+    .footprint__gallery img:first-child ~ img {
+        display: none;
+    }
+
+    .share-footprints__text {
+        font-size: 1em;
+        font-weight: 500;
+        padding: 0 0;
+    }
+
+    .container__tab-content {
+        padding: 0 8px;
+    }
+
+}
+
+@media all and (max-width:510px){
+
+    .avatar img {
+        width: 60%;
+    }
+
+    .user-info > div {
+        width: 70%;
+    }
+
+}
+
+@media all and (max-width:460px){
+
+    .user-info > div {
+        width: 90%;
+    }
+
+    .share-footprint__button button {
+        padding: 4px 4px !important;
+    }
+
+    .wishlist-group__park-link {
+        font-size: 1em;
+    }
+
+    .wishlist-group__more-details {
+        font-size: 0.875em;
+    }
+
+}
+
+@media all and (max-width:360px){
+
+    .nav-pills>li>a {
+        padding: 8px 12px;
+    }
+
+    .share-footprint > .row > div:first-child,
+    .footprint > .row > div:first-child {
+        padding: 0 2px;
+    }
+
+    .share-footprint__button span {
+        display: none;
+    }
+
+    .share-footprint__button button:after {
+        content: 'Share';
+    }
+
 }

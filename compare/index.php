@@ -1,5 +1,6 @@
 <?php
 //Author: Sam
+require '../lib/DatabaseAccess.php';
 require '../lib/park.php';
 require '../lib/ParkRepository.php';
 
@@ -19,8 +20,9 @@ $provinces = array(
     'Yukon' => 'YT'
 );
 
+$db = DatabaseAccess::getConnection();
 $p = new Park();
-$parkRepository = new ParkRepository();
+$parkRepository = new ParkRepository($db);
 $parkId1 = $_GET['park1'];
 $parkId2 = $_GET['park2'];
 $park1 = $parkRepository->getPark($parkId1);
@@ -71,30 +73,53 @@ $parks = array($park1, $park2);
                         <input type="submit" class="btn btn-success" value="Search"/>
                     </div>
                 </form>
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#map" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
-                    <li role="presentation"><a href="#park-list" aria-controls="park-list" role="tab" data-toggle="tab">List</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="map"></div>
-                    <div role="tabpanel" class="tab-pane row" id="park-list">
-                        <div class="col-md-4">
-                            <h2>Name</h2>
-                            <p>Photo</p>
-                            <p>Address</p>
-                            <p>Province</p>
-                        </div>
-                        <?php foreach($parks as $park) {?>
-                        <div class="col-md-4">
-                            <h2><?=$park['name']?></h2>
+                <div id="park-compare">
+                    <div class="active" id="map"></div>
+                    <div class="row">
+                        <div class="col-xs-6 text-center park">
+                            <h2 class="name"><a href="/park?id=<?=$park1["id"]?>"><?=$park1['name']?></a></h2>
                             <figure>
-                                <img src="<?=$p->renderPhoto($park['photo_reference'])?>" />
+                                <img class="img-responsive" src="<?=$park1["banner"]?>" alt="<?=$park1["name"]?>" />
                             </figure>
-                            <p><?=$park['address']?></p>
-                            <p><?=$park['province']?></p>
                         </div>
-                        <?php  } ?>
+                        <div class="col-xs-6 text-center park">
+                            <h2 class="name"><a href="/park?id=<?=$park2["id"]?>"><?=$park2['name']?></a></h2>
+                            <figure>
+                                <img class="img-responsive" src="<?=$park2["banner"]?>" alt="<?=$park2["name"]?>" />
+                            </figure>
+                        </div>
                     </div>
+                    
+                    <div class="row">
+                        <h3 class="col-xs-12">Address</h3>
+                        <div class="col-xs-6">
+                            <?=$park1["address"]?>
+                        </div>
+                        <div class="col-xs-6">
+                            <?=$park2["address"]?>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <h3 class="col-xs-12">Province</h3>
+                        <div class="col-xs-6">
+                            <?=$park1["province"]?>
+                        </div>
+                        <div class="col-xs-6">
+                            <?=$park2["province"]?>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <h3 class="col-xs-12">Website</h3>
+                        <div class="col-xs-6">
+                            <a href="<?=$park1["website"]?>" class="btn btn-success" target="_blank">Go to website</a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="<?=$park2["website"]?>" class="btn btn-success" target="_blank">Go to website</a>
+                        </div>
+                    </div>
+                    
                 </div>
             </main>
         </div>
@@ -107,5 +132,6 @@ $parks = array($park1, $park2);
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>
         <script type="text/javascript" src="../static/js/map.js"></script>
+        <script type="text/javascript" src="/static/js/compare.js"></script>
     </body>
 </html>

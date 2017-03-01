@@ -7,15 +7,15 @@ A website which provide valuable informations for all national parks in Canada. 
 ##Features
 1. Public sign in / sign up, forget password, social platform login. - BAO
 2. Search by all contents / users / parks / comments- BAO
-3. Rate and comment parks - BAO
+3. Rate and Vote parks - BAO
 4. Foorprint & POST - Irfaan
 5. Wishlist management - Irfaan
 6. Users' profile settings - Irfaan
-7. Admin for parks info - Duc
+7. Email subscribe - Duc
 8. Admin users group and privilege - Duc
 9. Users activity statistics - Duc
 10. Compare parks - Sam
-11. Parks on the map - Sam
+11. Admin parks - Sam
 12. Select parks - Sam
 13. Park Gallery - Navpreet
 14. Parks combo - Navpreet
@@ -24,10 +24,6 @@ A website which provide valuable informations for all national parks in Canada. 
 
 ##Stacks
 PHP, Mysql, Apache, Bootstrap, jQuery
-
-##Refer
-http://open.canada.ca/data/en/dataset?organization=pc <br />
-https://www.lonelyplanet.com/canada <br />
 
 ##Team
 Irfaan, Duc, Sam, Navpreet, BAO

@@ -1,6 +1,6 @@
 <?php
 //Author: Sam
-
+require '../lib/DatabaseAccess.php';
 require '../lib/park.php';
 require '../lib/ParkRepository.php';
 
@@ -21,10 +21,11 @@ $provinces = array(
     'Saskatchewan' => 'SK',
     'Yukon' => 'YT'
 );
-
+$db = DatabaseAccess::getConnection();
 $province = isset($_GET['province']) ? $_GET['province'] : '';
-$parkRepository = new ParkRepository();
-$parks = $parkRepository->getParks($province);
+$name = isset($_GET['name']) ? $_GET['name'] : '';
+$parkRepository = new ParkRepository($db);
+$parks = $parkRepository->getParks($name, $province);
 
 
 ?>
@@ -50,12 +51,12 @@ $parks = $parkRepository->getParks($province);
 				$team_personal_custom = "/static/img/users/profile/0.png";
 				include "../templates/header.php";
 			?>
-			<main id="main" class="container">
-                <h1 class="text-center">Park List</h1>
+			<main id="main" class="row col-md-10 col-md-offset-1">
+                <h1 id="parks-headline" class="text-center">Park List</h1>
                 <form id="search" class="form-inline" method="GET">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Park Name">
+                        <input type="text" class="form-control" id="name" name="name" value="<?=$name?>" placeholder="Park Name">
                     </div>
                     <div class="form-group">
                         <label for="province">Province</label>
@@ -69,24 +70,24 @@ $parks = $parkRepository->getParks($province);
                     <div class="form-group">
                         <input type="submit" class="btn btn-success" value="Search"/>
                     </div>
+                    <div class="form-group">
+                        <a disabled="disabled" id="compare" class="btn btn-primary">Compare Parks</a>
+                    </div>
                 </form>
                 <?php if (count($parks) != 0) {?>
-                <div id="compare-wrapper" class="container">
-                    <a disabled="disabled" id="compare" class="btn btn-primary">Compare</a>
-                </div>
+
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#map" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
-                    <li role="presentation"><a href="#park-list" aria-controls="park-list" role="tab" data-toggle="tab">List</a></li>
+                    <li role="presentation" class="active"><a href="#park-list" aria-controls="park-list" role="tab" data-toggle="tab">List</a></li>
+                    <li role="presentation"><a href="#map" id="toMap" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="map"></div>
-                    <div role="tabpanel" class="tab-pane row" id="park-list">
+                    <div role="tabpanel" class="tab-pane" id="map"></div>
+                    <div role="tabpanel" class="tab-pane active row parks" id="park-list">
+                        <div class="col-xs-12 col-sm-4 col-md-3 park-sizer"></div>
                         <?php foreach($parks as $park) {?>
-                        <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
+                        <div class="col-xs-12 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
                             <?php if (!empty($park["banner"])) { ?>
-                            <img src="<?=$park["banner"]?>" />
-                            <?php } else {?>
-                            <img class="img-responsive" src="<?=$p->renderPhoto($park['photo_reference'])?>" alt=""/>
+                            <img class="img-responsive" src="<?=$park["banner"]?>" />
                             <?php } ?>
                             <div class="caption">
                                 <h2 class="name"><?=$park['name']?></h2>
@@ -101,16 +102,18 @@ $parks = $parkRepository->getParks($province);
                 <h2 class="text-center">No Park</h2>
                 <?php } ?>
             </main>
+            <?php
+    			include "../templates/footer.php";
+    		?>
         </div>
-        <?php
-			include "../templates/footer.php";
-		?>
+
 		<script type="text/javascript">
 		    var parks = <?=json_encode($parks)?>;
 		</script>
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>
-        <script src="../static/js/compare.js"></script>
+        <script type="text/javascript" src="https://npmcdn.com/isotope-layout@3.0.2/dist/isotope.pkgd.min.js"></script>
         <script type="text/javascript" src="../static/js/map.js"></script>
+        <script type="text/javascript" src="/static/js/parks.js"></script>
     </body>
 </html>

@@ -1,11 +1,6 @@
 <?php
 class Upload {
     
-    /*
-    function to upload file to static/upload folder
-    $upload is the $_FILES[file input name]
-    return a string path to the uploaded file
-    */
     public function toServer($upload) {
         //var_dump(dirname(getcwd()));
         $target_dir = "/home/ubuntu/workspace/static/upload/";

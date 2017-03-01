@@ -15,9 +15,9 @@
 				include "templates/header.php";
 			?>
             <main id="main" class="row">
-                <img id="banner-img" alt="go to parks on map page" src="static/img/home/marvel.jpg" />
+				<img id="banner-img" class="visible-lg visible-md visible-sm" alt="go to parks on map page" src="static/img/home/marvel.jpg" />
 				<!--Granted copyright by Paul-->
-				<h3 id="banner-list">
+				<h3 id="banner-list" class="visible-lg visible-md visible-sm">
 					Explore Marvel <br />
 					for your next trip
 				</h3>
@@ -28,9 +28,6 @@
 					</h3>
 					<div class="col-md-12 col-sm-12 col-xs-12" style="height:300px">
 						<!--will import from compare page -->
-						<h5 class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
-							<b>Test mysql connection:</b> <br />
-						</h5>
 					</div>
 				</section>
 				<section class="section col-md-12 col-sm-12 col-xs-12">
@@ -38,8 +35,8 @@
 						Parks You might like
 						<span class="section-icon glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 					</h3>
-					<div id="display" class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
-						<div class="col-md-4 col-sm-4 col-xs-6">
+					<div id="display" class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+						<div class="col-md-4 col-sm-4 col-xs-12">
 							<div class="thumbnail">
 								<img src="static/img/park/0/profile.jpg" alt="Banff National Parks">
 								<!-- Modified from image Labeled for reuse with modification, https://c1.staticflickr.com/8/7112/7667662212_90b01ac9fe_b.jpg 2017-01-06 -->
@@ -53,7 +50,7 @@
 								</div>
 						  	</div>
 						</div>
-						<div class="col-md-4 col-sm-4 col-xs-6">
+						<div class="col-md-4 col-sm-4 col-xs-12">
 							<div class="thumbnail">
 								<img src="static/img/park/1/profile.jpg" alt="Jasper National Parks">
 								<!-- Modified from image Labeled for reuse with modification, https://c1.staticflickr.com/7/6018/6194015412_8487a871d4_b.jpg 2017-01-06 -->
@@ -67,13 +64,13 @@
 								</div>
 						  	</div>
 						</div>
-						<div class="col-md-4 col-sm-4 col-xs-6">
+						<div class="col-md-4 col-sm-4 visible-lg visible-md visible-sm">
 							<div class="thumbnail">
 								<img src="static/img/park/2/profile.jpg" alt="Algonquin National Parks">
 								<!-- Modified from image Labeled for reuse with modification, https://c1.staticflickr.com/7/6018/6194015412_8487a871d4_b.jpg 2017-01-06 -->
 								<div class="caption">
 							  		<h3>Algonquin</h3>
-							  		<p class="display-content">Algonquin Provincial Park is a provincial park located between Georgian Bay and the Ottawa River in Central Ontario, Canada, mostly within the Unorganized South Part of Nipissing District.</p>
+							  		<p class="display-content">Algonquin Provincial Park is a provincial park located between Georgian Bay and the Ottawa River in Central Ontario, Canada.</p>
 							  		<p>
 								  		<a href="#" class="btn btn-primary" role="button">Explore</a>
 								  		<a href="#" class="btn btn-default" role="button">Save</a>
@@ -83,7 +80,7 @@
 						</div>
 					</div>
 				</section>
-				<img id="banner" class="col-md-10 col-md-offset-1 col-sm-10 col-xs-10" src="static/img/home/banner.jpg" alt="Marvel Activity" />
+				<img id="banner" class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 visible-lg visible-md visible-sm" src="static/img/home/banner.jpg" alt="Marvel Activity" />
 				<!-- Modified from image Labeled for reuse with modification, https://upload.wikimedia.org/wikipedia/commons/e/e1/Georgian_Bay,_Ontario,_Canada.jpg 2017-01-06 -->
 				<section class="section col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
 					<h3 class="col-md-12 col-sm-12 col-xs-12">
@@ -96,6 +93,5 @@
 				include "templates/footer.php";
 			?>
         </div>
-		<script type="text/javascript" src="static/js/home.js"></script>
 	</body>
 </html>

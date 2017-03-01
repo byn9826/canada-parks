@@ -1,3 +1,5 @@
+/*Author: Sam*/
+
 var map;
 var service;
 var infowindow;
@@ -24,22 +26,4 @@ function initialize() {
     });
     
     map.fitBounds(bounds);
-
-    // var request = {
-    //     location: pyrmont,
-    //     radius: '10000000000000',
-    //     query: 'canada national park'
-    // };
-
-    // service = new google.maps.places.PlacesService(map);
-    // service.textSearch(request, callback);
 }
-
-// function callback(results, status, response) {
-//     console.log(response);
-//     if (status == google.maps.places.PlacesServiceStatus.OK) {
-//         console.log(results);
-//     }
-// }
-
-initialize();
