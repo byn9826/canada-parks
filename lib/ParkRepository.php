@@ -4,18 +4,10 @@ include "Upload.php";
 //Author: Sam
 
 class ParkRepository {
-    private $host = "sql9.freemysqlhosting.net";
-    private $dbname = "sql9156605";
-    private $username = "sql9156605";
-    private $password = "FadNqjljSt";
     private $db;
-    
-    public function __construct() {
-        $dsn = "mysql:host=$this->host;dbname=$this->dbname";
-        $this->db = new PDO($dsn, $this->username, $this->password);
-        $this->db->setAttribute(PDO::FETCH_ASSOC, PDO::ERRMODE_EXCEPTION);
+    public function __construct($db) {
+        $this->db = $db;
     }
-
     
     public function getParks($name = "", $province = "") {
         $sql = "SELECT * FROM park";

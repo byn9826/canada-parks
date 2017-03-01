@@ -1,6 +1,6 @@
 <?php
 //Author: Sam
-
+require '../lib/DatabaseAccess.php';
 require '../lib/park.php';
 require '../lib/ParkRepository.php';
 
@@ -21,10 +21,10 @@ $provinces = array(
     'Saskatchewan' => 'SK',
     'Yukon' => 'YT'
 );
-
+$db = DatabaseAccess::getConnection();
 $province = isset($_GET['province']) ? $_GET['province'] : '';
 $name = isset($_GET['name']) ? $_GET['name'] : '';
-$parkRepository = new ParkRepository();
+$parkRepository = new ParkRepository($db);
 $parks = $parkRepository->getParks($name, $province);
 
 

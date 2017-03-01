@@ -1,8 +1,10 @@
 <?php
 
+include "../../lib/DatabaseAccess.php";
 include "../../lib/ParkRepository.php";
 
-$parkRepository = new ParkRepository();
+$db = DatabaseAccess::getConnection();
+$parkRepository = new ParkRepository($db);
 
 if (isset($_POST["submit"])) {
     if ($_GET["action"] == "add") {
