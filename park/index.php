@@ -35,11 +35,10 @@ include "../templates/header.php";
 	  </p>
 	 
 	  
-	  <p id="bruce-caves">Tgrfbgetbnhrnhtynjtyntfnmdtvgdbgrthbtr
-	  brtntrmnjtmtumf yu myu mkyum yk i,kiul,jhmgmfj,fj,f,fyk,f,k,,fy.
-	  jdytmkcgmjdukmd
-	  
-	  </p>
+
+            <?php
+            include "imagegallery.php";
+            ?>
 	  
 	  
 	  <form action="parks.html" method="post">
