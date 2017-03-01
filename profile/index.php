@@ -11,7 +11,7 @@
             $profilePicURL = myLocalhostDB::getProfilePicture(666);
 
             $parkRepository = new ParkRepository();
-            //$lstParks = $parkRepository->getParks(null);
+            $lstParks = $parkRepository->getParks(null);
 
             // Test SQL connection
         //            $objConnection = DatabaseAccess::getConnection();
@@ -113,8 +113,9 @@
 
                             <div class="tab-content clearfix">
                                 <!-- Tab: Footprints -->
+                                <!-- --------------- -->
                                 <div id="footprints" class="tab-pane fade in active">
-                                    <!-- Past Footprints -->
+                                    <!-- Share a new footprint -->
                                     <div class="share-footprint container-fluid">
                                         <h2 class="share-footprints__header">Have a new footprint?</h2>
                                         <div class="row">
@@ -126,6 +127,7 @@
                                         </div>
                                     </div>
 
+                                    <!-- Past footprints -->
                                     <div id="1" class="footprint display-group">
                                         <div class="row">
                                             <div class="col col-xs-2 col-sm-2"><img src="../static/img/users/profile/1.png" /></div>
@@ -138,8 +140,8 @@
                                         </div>
                                         <p class="footprint__caption">Here will go a short description/comment written by the user when registering a new footprint.</p>
                                         <div class="footprint__gallery">
-                                            <img src="../static/img/park/0/0.jpg" alt="Park picture" />
                                             <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
+                                            <img src="../static/img/park/1/profile.jpg" alt="Park picture" />
                                         </div>
                                     </div>
 
@@ -155,8 +157,8 @@
                                         </div>
                                         <p class="footprint__caption">Here will go a short description/comment written by the user when registering a new footprint.</p>
                                         <div class="footprint__gallery">
-                                            <img src="../static/img/park/0/0.jpg" alt="Park picture" />
                                             <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
+                                            <img src="../static/img/park/1/profile.jpg" alt="Park picture" />
                                         </div>
                                     </div>
 
@@ -172,20 +174,21 @@
                                         </div>
                                         <p class="footprint__caption">Here will go a short description/comment written by the user when registering a new footprint.</p>
                                         <div class="footprint__gallery">
-                                            <img src="../static/img/park/0/0.jpg" alt="Park picture" />
                                             <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
+                                            <img src="../static/img/park/1/profile.jpg" alt="Park picture" />
                                         </div>
                                     </div>
 
                                 </div>
 
-                                <!-- Tab: Wishlist-->
+                                <!-- Tab: Wishlist -->
+                                <!-- ------------- -->
                                 <div id="wishlist" class="tab-pane fade">
 
                                     <div id="w1" class="display-group">
                                         <div class="row">
                                             <div class="col col-xs-4 col-sm-4 wishlist-group__thumbnail">
-                                                <img src="../static/img/park/0/0.jpg" alt="Park picture" />
+                                                <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
                                             </div>
                                             <div class="col col-xs-8 col-sm-8 wishlist-group__park-details">
                                                 <div>
@@ -207,7 +210,7 @@
                                     <div id="w2" class="display-group">
                                         <div class="row">
                                             <div class="col col-xs-4 col-sm-4 wishlist-group__thumbnail">
-                                                <img src="../static/img/park/0/0.jpg" alt="Park picture" />
+                                                <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
                                             </div>
                                             <div class="col col-xs-8 col-sm-8 wishlist-group__park-details">
                                                 <div>

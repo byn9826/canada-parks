@@ -105,7 +105,7 @@
                                 <div class="row display-group">
                                     <div class="col col-md-12">
                                         <h3>About Me</h3>
-                                        <form action="" method="post"> <!-- TODO: form action to update personal details -->
+                                        <form name="frmUserDetails" action="settings.php" method="post"> <!-- TODO: form action to update personal details -->
                                             <div class="form-group row">
                                                 <label for="inputFirstName" class="col-sm-3 col-form-label">First Name</label>
                                                 <div class="col-sm-5">
