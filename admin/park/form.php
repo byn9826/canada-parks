@@ -1,8 +1,10 @@
 <?php
 
+include "../../lib/DatabaseAccess.php";
 include "../../lib/ParkRepository.php";
 
-$parkRepository = new ParkRepository();
+$db = DatabaseAccess::getConnection();
+$parkRepository = new ParkRepository($db);
 
 if (isset($_POST["submit"])) {
     if ($_GET["action"] == "add") {
@@ -10,7 +12,7 @@ if (isset($_POST["submit"])) {
     } else {
         $parkRepository->updatePark($_POST, $_FILES["upload"]);
     }
-    //header("location: /admin/park");
+    header("location: /admin/park");
 }
 
 if (isset($_GET["id"])) {

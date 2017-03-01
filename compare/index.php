@@ -1,5 +1,6 @@
 <?php
 //Author: Sam
+require '../lib/DatabaseAccess.php';
 require '../lib/park.php';
 require '../lib/ParkRepository.php';
 
@@ -19,8 +20,9 @@ $provinces = array(
     'Yukon' => 'YT'
 );
 
+$db = DatabaseAccess::getConnection();
 $p = new Park();
-$parkRepository = new ParkRepository();
+$parkRepository = new ParkRepository($db);
 $parkId1 = $_GET['park1'];
 $parkId2 = $_GET['park2'];
 $park1 = $parkRepository->getPark($parkId1);
