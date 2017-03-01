@@ -10,7 +10,7 @@ if (isset($_POST["submit"])) {
     } else {
         $parkRepository->updatePark($_POST, $_FILES["upload"]);
     }
-    //header("location: /admin/park");
+    header("location: /admin/park");
 }
 
 if (isset($_GET["id"])) {
