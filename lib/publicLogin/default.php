@@ -60,4 +60,16 @@ class PublicLogin {
         }
         return $iRowAffected;
     }
+    public function googleLogin($id) {
+        $query = 'SELECT user_id, user_name FROM user WHERE google_id = :id';
+        $pdostmt = $this->db->prepare($query);
+        $pdostmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $pdostmt->execute();
+        $result = $pdostmt->fetch(PDO::FETCH_OBJ);
+        if ($pdostmt->rowCount() === 1) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
 }
