@@ -52,7 +52,7 @@ $(document).ready(function () {
             $("#signup-error").html("Email format is incorrect");
         } else {
             var securePass = $("#input-password").val();
-            securePass = CryptoJS.MD5(securePass);
+            //securePass = CryptoJS.MD5(securePass);
             $("#input-password").val(securePass);
             $("#user-signup").submit();
         }
@@ -69,7 +69,7 @@ $(document).ready(function () {
             $("#login-error").html("Password length incorrect");
         } else {
             var userPassword = $("#login-password").val();
-            userPassword = CryptoJS.MD5(userPassword);
+            //userPassword = CryptoJS.MD5(userPassword);
             $("#login-password").val(userPassword);
             $("#header-login").submit();
         }
