@@ -1,9 +1,10 @@
 <?php
 #author：Bao
+##use session
 if(!isset($_SESSION)){
     session_start();
 }
-## define route for different page
+## define route for different pages
 $team_route_src = '../';
 if(isset($team_route_custom)) {
     $team_route_src = $team_route_custom;
@@ -41,6 +42,7 @@ if(isset($_POST['username'])) {
         }
     }
 }
+
 ?>
 <div class="row">
     <header id="header" class="col-md-12 col-sm-12 col-xs-12">

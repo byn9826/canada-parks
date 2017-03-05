@@ -85,6 +85,12 @@ a:hover{
     font-family: "Comfortaa", Times, serif;
 }
 
+#header-google{
+    display: block;
+    width: 80%;
+    margin-left: 10%;
+}
+
 #login-error{
     display: block;
     margin-top: 10px;

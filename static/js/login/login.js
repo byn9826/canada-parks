@@ -35,6 +35,25 @@ if ($("#login-error").html() && $("#login-error").html().trim() !== "username:ad
     $("#login-dropdowm").click();
 }
 
+//google login. Modifyed from code example from google
+function onSignIn(googleUser) {
+    // Useful data for your client-side scripts:
+    var profile = googleUser.getBasicProfile();
+    console.log('Given Name: ' + profile.getGivenName());
+    console.log("Image URL: " + profile.getImageUrl());
+    // The ID token you need to pass to your backend:
+    var id_token = googleUser.getAuthResponse().id_token;
+    var user_email = profile.getEmail();
+    var user_name = profile.getGivenName();
+    $.ajax({
+        type: "POST",
+        url: 'lib/publicLogin/googleLogin.php',
+        data: {id: id_token, email: user_email, name: user_name},
+        success: function (result) {window.location = 'index.php';}
+    });
+}
+
+
 //check user sign up
 $(document).ready(function () {
     $("#signup-button").click(function () {
@@ -74,4 +93,11 @@ $(document).ready(function () {
             $("#header-login").submit();
         }
     })
+
+    $("#header-google").click(
+
+
+
+    );
+
 });
