@@ -36,33 +36,36 @@ if ($("#login-error").html() && $("#login-error").html().trim() !== "username:ad
 }
 
 //google login. Modifyed from code example from google
+var googleLogin = 0;
 function onSignIn(googleUser) {
-    // Useful data for your client-side scripts:
-    var profile = googleUser.getBasicProfile();
-    console.log('Given Name: ' + profile.getGivenName());
-    console.log("Image URL: " + profile.getImageUrl());
-    // The ID token you need to pass to your backend:
-    var id_token = googleUser.getAuthResponse().id_token;
-    var user_email = profile.getEmail();
-    var user_name = profile.getGivenName();
-    var google_profile = profile.getImageUrl();
-    $.ajax({
-        type: "POST",
-        url: 'lib/publicLogin/googleLogin.php',
-        data: {id: id_token, email: user_email, name: user_name, profile: google_profile},
-        success: function (result) {
-            console.log(result);
-            if (result == 'create') {
-                window.location = 'signup/';
-            } else if (result == 'success') {
-                window.location = '';
-            } else {
+    //init google login only after click, solution found on http://stackoverflow.com/questions/31331428/how-to-call-getbasicprofile-of-google-to-google-signin-on-only-button-click
+    if (googleLogin === 1) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log("Image URL: " + profile.getImageUrl());
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        var user_email = profile.getEmail();
+        var user_name = profile.getGivenName();
+        var google_profile = profile.getImageUrl();
+        $.ajax({
+            type: "POST",
+            url: window.location.origin + '/canada-parks' + '/lib/publicLogin/googleLogin.php',
+            data: {id: id_token, email: user_email, name: user_name, profile: google_profile},
+            success: function (result) {
                 console.log(result);
+                if (result == 'create') {
+                    window.location = window.location.origin + '/canada-parks' + '/signup/';
+                } else if (result == 'success') {
+                    window.location = window.location.origin + '/canada-parks';
+                } else {
+                    console.log(result);
+                }
             }
-        }
-    });
+        });
+    }
 }
-
 
 //check user sign up
 $(document).ready(function () {
@@ -103,4 +106,22 @@ $(document).ready(function () {
             $("#header-login").submit();
         }
     })
+
+    //trigger google login
+    $("#header-google").click(
+        function () {googleLogin = 1;}
+    );
+
+    //logout userPassword
+    $("#logout").submit(function() {
+        gapi.load('auth2', function() {
+            gapi.auth2.init({
+                client_id: "168098850234-7ouvsm9ikqj9g77u623o5754kdp1t62c.apps.googleusercontent.com"
+            }).then(function(auth2) {
+                auth2.signOut().then(function () {
+                  console.log('User signed out.');
+                });
+            });
+        });
+    });
 });
