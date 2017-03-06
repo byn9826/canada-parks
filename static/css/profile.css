@@ -79,7 +79,8 @@ main div.col {
     margin-bottom: 1em;
 }
 
-.activities-nav span.glyphicon {
+.activities-nav span.ai-glyphicon,
+.settings-nav span.ai-glyphicon {
     color: #767676;
 }
 
@@ -89,7 +90,7 @@ main div.col {
 }
 
 .nav-pills>li>a:hover,
-.nav-pills>li>a:hover span.glyphicon {
+.nav-pills>li>a:hover span.ai-glyphicon {
     color: #021f4f;
 }
 
@@ -103,7 +104,7 @@ main div.col {
     border-bottom: 3px solid #337ab7;
 }
 
-.nav-pills>li.active span.glyphicon {
+.nav-pills>li.active span.ai-glyphicon {
     color: #337ab7 !important;
 }
 
