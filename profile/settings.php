@@ -640,39 +640,6 @@
         </main>
 
 
-        <!-- Modal Windows -->
-        <!-- ------------- -->
-        <!-- Modal to add a new footprint -->
-        <div class="modal fade bs-example-modal-lg" id="myNewFootprint" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h3 class="modal-title" id="myModalLabel">Share a New Footprint Event</h3>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                Travelled Today
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                Form collecting data about new footprint ...
-                            </div>
-                            <div class="col-md-6">
-                                Section to allow for images upload ...
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Share</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Modal window to change profile picture -->
         <div id="profile_pic_modal" class="modal fade">
             <div class="modal-dialog">
