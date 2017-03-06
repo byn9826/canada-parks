@@ -45,11 +45,21 @@ function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token;
     var user_email = profile.getEmail();
     var user_name = profile.getGivenName();
+    var google_profile = profile.getImageUrl();
     $.ajax({
         type: "POST",
         url: 'lib/publicLogin/googleLogin.php',
-        data: {id: id_token, email: user_email, name: user_name},
-        success: function (result) {window.location = 'index.php';}
+        data: {id: id_token, email: user_email, name: user_name, profile: google_profile},
+        success: function (result) {
+            console.log(result);
+            if (result == 'create') {
+                window.location = 'signup/';
+            } else if (result == 'success') {
+                window.location = '';
+            } else {
+                console.log(result);
+            }
+        }
     });
 }
 
