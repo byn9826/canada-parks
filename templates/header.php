@@ -29,7 +29,9 @@ if(isset($_POST['username'])) {
         $login_error = 'Please enable javaScript';
     } else {
         //get php secure password
+        echo $password;
         $password = sha1($password);
+        echo $password;
         //check users password in db
         $db = DatabaseAccess::getConnection();
         $publicLogin = new PublicLogin($db);
