@@ -40,11 +40,11 @@ if(isset($_POST['newname'])) {
 					<form id="user-signup" method="POST" action="" >
 						<div id="form-name" class="form-group">
 							<label for="InputName">Username must be <= 10 characters</label>
-						    <input type="text" class="form-control" id="input-name" name="newname" placeholder="Username" value="<?php if (isset($_SESSION['google_id'])) {echo $_SESSION['user_name'];} ?>" >
+						    <input type="text" class="form-control" id="input-name" name="newname" placeholder="Username" value="<?php if (isset($_SESSION['google_id'])) {echo $_SESSION['google_name'];} ?>" >
 					  	</div>
 						<div class="form-group">
 							<label for="InputEmail">Email will be used for retrieve password</label>
-					    	<input type="email" class="form-control" id="input-email" name="newemail" placeholder="Email" value="<?php if (isset($_SESSION['google_id'])) {echo $_SESSION['user_email'];} ?>" >
+					    	<input type="email" class="form-control" id="input-email" name="newemail" placeholder="Email" value="<?php if (isset($_SESSION['google_id'])) {echo $_SESSION['google_email'];} ?>" >
 						</div>
 						<div class="form-group">
 							<label for="InputPassword">Password must be 8 - 16 characters</label>

@@ -23,8 +23,8 @@ if (isset($_POST['id'])) {
           if(!isset($_SESSION)){
               session_start();
           }
-          $_SESSION['user_name'] = $_POST['name'];
-          $_SESSION['user_email'] = $_POST['email'];
+          $_SESSION['google_name'] = $_POST['name'];
+          $_SESSION['google_email'] = $_POST['email'];
           $_SESSION['google_id'] = $google_id;
           $_SESSION['google_profile'] = $_POST['profile'];
           echo "create";
