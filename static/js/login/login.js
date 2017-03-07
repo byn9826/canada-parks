@@ -89,6 +89,7 @@ $(document).ready(function () {
             $("#user-signup").submit();
         }
     })
+
     //check user login
     $("#login").click(function () {
         if (!checkValidInput($("#login-name").val())) {
@@ -124,4 +125,26 @@ $(document).ready(function () {
             });
         });
     });
+    //retrieve username by email
+    $("#forget-username").submit(function () {
+        $.ajax({
+            type: "POST",
+            url: window.location.origin + '/canada-parks' + '/lib/publicLogin/retrievePassword.php',
+            data: {email: $("#get-email").val()},
+            success: function (result) {
+                if (result == "false") {
+                    $("#back-username").html("Sorry, no username found");
+                } else {
+                    result = JSON.parse(result);
+                    var info = "";
+                    for (var i = 0; i < result.length; i++) {
+                        info = info + result[i].user_name + "<br/>";
+                    }
+                    $("#back-username").html("Your username is: " + "<br />" + info);
+                }
+            }
+        });
+        return false;
+    });
+
 });

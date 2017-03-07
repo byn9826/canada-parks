@@ -19,4 +19,5 @@
     <li><div id="header-google" class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div></li>
     <li role="separator" class="divider"></li>
     <li><a href="<?php echo $team_route_src . 'signup/'; ?>">Sign up</a></li>
+    <li><a href="<?php echo $team_route_src . 'forget/' ; ?>">Forget?</a></li>
 </ul>

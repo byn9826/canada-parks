@@ -3,7 +3,7 @@
 if (isset($_POST['id'])) {
     require_once('../google-api-php-client/vendor/autoload.php');
     require_once('../DatabaseAccess.php');
-    require_once('../publicLogin/default.php');
+    require_once('default.php');
     $client = new Google_Client(['client_id' => '168098850234-7ouvsm9ikqj9g77u623o5754kdp1t62c.apps.googleusercontent.com']);
     $payload = $client->verifyIdToken($_POST['id']);
     if ($payload) {

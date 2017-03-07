@@ -71,6 +71,7 @@ class PublicLogin {
             return $iRowAffected;
         }
     }
+    #check if google user exist in db
     public function googleLogin($id) {
         $query = 'SELECT user_id, user_name FROM user WHERE google_id = :id';
         $pdostmt = $this->db->prepare($query);
@@ -78,6 +79,19 @@ class PublicLogin {
         $pdostmt->execute();
         $result = $pdostmt->fetch(PDO::FETCH_OBJ);
         if ($pdostmt->rowCount() === 1) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+    #find username by email address
+    public function getUsername($email) {
+        $query = 'SELECT user_name FROM user WHERE user_email = :email';
+        $pdostmt = $this->db->prepare($query);
+        $pdostmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $pdostmt->execute();
+        $result = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($pdostmt->rowCount() >= 1) {
             return $result;
         } else {
             return false;

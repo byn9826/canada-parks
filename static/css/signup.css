@@ -27,3 +27,24 @@
     width: 50px;
     border-radius: 48px;
 }
+
+#forget-username {
+    margin-top: 30px;
+    border: 1px dashed #c0cad8;
+    padding: 30px 5%;
+    border-radius: 8px;
+}
+
+.retrieve{
+    display: block;
+    margin-top: 100px;
+}
+
+.retrieve h2 {
+    margin-bottom: 20px;
+}
+
+.retrieve h5{
+    display: block;
+    margin-top: 20px;
+}

@@ -7,7 +7,7 @@ if(isset($_POST['newname'])) {
 	$publicLogin = new PublicLogin($db);
 	$result = $publicLogin->signUp($_POST['newname'], $_POST['newpassword'], $_POST['newemail']);
 	if ($result == 'duplicate') {
-		$error_message = 'Duplicated Username';
+		$error_message = 'Username has already been taken';
 	} else if ($result == 1) {
 		$_SESSION['user_name'] = $_POST['newname'];
 		header("Location: ../");
