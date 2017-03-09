@@ -40,7 +40,7 @@ if (isset($_GET["id"])) {
             <h1 class="text-center"><?=$_GET["action"]?> Park</h1>
             <div class="row">
                 <div class="col-md-6">
-                    <?php if ($action == "add") {?>
+                    <?php if ($_GET["action"] == "add") {?>
                     <input class="form-control" type="text" id="place" placeholder="Search park name" /> <button class="btn btn-default" id="search">Search</button>
                     <?php  } ?>
                     <div class="col-md-12" id="map"></div>
