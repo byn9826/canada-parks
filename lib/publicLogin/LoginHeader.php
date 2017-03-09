@@ -12,5 +12,9 @@
         Message Box
     </a></li>
     <li role="separator" class="divider"></li>
-    <li><a>Log out</a></li>
+    <li>
+        <form id="logout" method="POST" >
+            <input id="header-logout" name="logout" type="submit" value="Log out" />
+        </form>
+    </li>
 </ul>

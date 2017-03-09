@@ -42,7 +42,11 @@ if(isset($_POST['username'])) {
         }
     }
 }
-
+//logout
+if (isset($_POST['logout'])) {
+    $_SESSION = array();
+    session_destroy();
+}
 ?>
 <div class="row">
     <header id="header" class="col-md-12 col-sm-12 col-xs-12">
