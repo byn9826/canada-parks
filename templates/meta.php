@@ -11,6 +11,8 @@
 <meta name="description" content="The best place for you to explore Canada Parks">
 <meta name="keywords" content="Canada, National-Parks, Banff, Travel, Tourism">
 <meta name="robots" content="all">
+<meta name="google-signin-client_id" content="168098850234-7ouvsm9ikqj9g77u623o5754kdp1t62c.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <link rel="shortcut icon" href="<?php echo $team_route_src . "static/img/logo.png"; ?>" type="image/x-icon" />
 <!-- Modified from image Labeled for reuse with modification, https://c2.staticflickr.com/4/3327/3573458354_72c230294f_b.jpg 2017-01-06 -->
 <link href="<?php echo $team_route_src . "static/vendor/bootstrap/css/bootstrap.min.css"; ?>" rel="stylesheet" type="text/css">

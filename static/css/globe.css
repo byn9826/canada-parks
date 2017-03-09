@@ -32,6 +32,10 @@ p {
     font-family: "Comfortaa", Times, serif;
 }
 
+input {
+    font-family: "Comfortaa", Times, serif;
+}
+
 a{
     text-decoration: none;
     color: inherit;
@@ -83,6 +87,22 @@ a:hover{
 
 #header-links a{
     font-family: "Comfortaa", Times, serif;
+}
+
+#header-google{
+    display: block;
+    width: 80%;
+    margin-left: 10%;
+}
+
+#header-logout{
+    display: block;
+    width: 80%;
+    margin-left: 10%;
+    border: 0;
+    color: black;
+    background-color: white;
+    decoration:none;
 }
 
 #login-error{

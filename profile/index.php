@@ -1,37 +1,49 @@
+<?php
+    session_start();
+    // -- If user not signed in, redirect to sign-in page
+    // -- -----------------------------------------------
+    if (!isset($_SESSION['user_id']))
+    {
+        header("location: ../signup/index.php");
+    }
+    require_once '../lib/DatabaseAccess.php';
+    require_once '../lib/validation/fanta_valid.php';
+    require_once '../lib/profile/UserAccount.php';
+    require_once '../lib/profile/UserDetails.php';
+    require_once '../lib/park.php';
+    require_once '../lib/ParkRepository.php';
+
+
+    // -- Create a database connection
+    // -- ----------------------------
+    $objConnection = DatabaseAccess::getConnection();
+
+
+    // -- Create an instance of user details & user account for current user
+    // -- ------------------------------------------------------------------
+    $objUserAccount = new UserAccount($objConnection, $_SESSION['user_id']);
+    $objUserDetails = new UserDetails($objConnection, $_SESSION['user_id']);
+    $iUserDetailsRead = $objUserDetails->Read();
+    if($iUserDetailsRead == 0) {
+        die("Unable to read user details at the moment.");
+    }
+
+
+    // -- Default tab to open
+    if(!isset($tabWishlists)) {
+        $tabFootprints = true;
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <?php
-            session_start();
-            if(isset($_SESSION['user_name'])) {
-                $sCurrentUsername = $_SESSION['user_name'];
-                $iCurrentUserId = $_SESSION['user_id'];
-            }
-
-            require_once ("../lib/DatabaseAccess.php");
-            require_once '../lib/park.php';
-            require_once '../lib/ParkRepository.php';
-            $team_route_src = '../';
-            // TODO: Remove after test
-            $profilePicURL;
-            //$profilePicURL = myLocalhostDB::getProfilePicture(666);
-
-            // Test SQL connection
-        //            $objConnection = DatabaseAccess::getConnection();
-        //            $query = 'SELECT * FROM wishlist';
-        //            $statement = $objConnection->prepare($query);
-        //            $statement->execute();
-        //            $lstWishlist = $statement->fetchAll(PDO::FETCH_ASSOC);
-        //            var_dump($lstWishlist);
-        //            foreach ($lstWishlist as $row) {
-        //                echo $row['wish_id'] . " | " . $row['user_id'] . " | " .
-        //                     $row['park_id'] . " | " . date('F d, Y', strtotime($row['added_on'])) . "<br />";
-        //            }
-
 			include_once "../templates/meta.php";
 		?>
 		<meta name="author" content="Irfaan">
-		<title>Profile Page | Marvel Canada</title>
+		<title>Profile | Marvel Canada</title>
         <link rel="stylesheet" type="text/css" href="../static/css/profile.css" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
@@ -48,40 +60,35 @@
                     <!-- Left column -->
                     <div class="col-sm-3">
                         <div class="user-details">
-
                             <!-- Profile Avatar Picture -->
                             <div class="avatar">
                                 <a href="settings.php" title="Go to profile settings">
                                     <img id="profile_picture"
-                                         data-src="<?php
-                                         if(isset($profilePicURL)) {
-                                             echo "../static/img/profile/users/" . $profilePicURL;
-                                         } else {
-                                             echo "../static/img/profile/users/default.png";
-                                         }
-                                         ?>"
+                                         data-src="<?php echo $objUserDetails->getProfilePictureURL(); ?>"
                                          data-holder-rendered="true"
-                                         src="<?php
-                                         if(isset($profilePicURL)) {
-                                             echo "../static/img/profile/users/" . $profilePicURL;
-                                         } else {
-                                             echo "../static/img/profile/users/default.png";
-                                         }
-                                         ?>"
+                                         src="<?php echo $objUserDetails->getProfilePictureURL(); ?>"
                                          alt="User's avatar or profile picture" />
                                 </a>
                             </div>
 
                             <!-- Profile Name -->
                             <h1 class="name">
-                                <span><a href="settings.php" title="Change profile settings">Irfaan Auhammad</a></span>
+                                <span>
+                                    <a href="settings.php" title="Change profile settings">
+                                        <?php
+                                        echo ($objUserDetails->getFullName() != "")?
+                                            $objUserDetails->getFullName() :
+                                            ucwords($_SESSION['user_name']);
+                                        ?>
+                                    </a>
+                                </span>
                             </h1>
 
                             <!-- User Personal Details -->
                             <div class="user-info">
-                                <div><span class="glyphicon glyphicon-map-marker ai-glyphicon"></span>205 Humber College Blvd, Etobicoke</div>
-                                <div><span class="glyphicon glyphicon-envelope ai-glyphicon"></span>irfaan@humber.ca</div>
-                                <div><span class="glyphicon glyphicon-time ai-glyphicon"></span>Joined on Jan 30, 2017</div>
+                                <div><span class="glyphicon glyphicon-map-marker ai-glyphicon"></span><?php echo $objUserDetails->getAddress(); ?></div>
+                                <div><span class="glyphicon glyphicon-envelope ai-glyphicon"></span><?php echo $objUserAccount->getEmail(); ?></div>
+                                <div><span class="glyphicon glyphicon-time ai-glyphicon"></span><?php echo $objUserDetails->getJoinedOn(); ?></div>
                             </div>
 
                             <!-- Footprint & Wishlist -->
@@ -107,15 +114,23 @@
                             <nav class="activities-nav">
                                 <h2 class="hidden">Footprint and Wish list navigation</h2>
                                 <ul class="nav nav-pills">
-                                    <li class="active"><a data-toggle="tab" href="#footprints"><span class="glyphicon glyphicon-road ai-glyphicon"></span>Footprint</a></li>
-                                    <li><a data-toggle="tab" href="#wishlist"><span class="glyphicon glyphicon-eye-open ai-glyphicon"></span>Wishlist</a></li>
+                                    <li <?php if(isset($tabFootprints)) { echo 'class="active"'; } ?> >
+                                        <a data-toggle="tab" href="#footprints">
+                                            <span class="glyphicon glyphicon-road ai-glyphicon"></span>Footprint
+                                        </a>
+                                    </li>
+                                    <li <?php if(isset($tabWishlists)) { echo 'class="active"'; } ?> >
+                                        <a data-toggle="tab" href="#wishlist">
+                                            <span class="glyphicon glyphicon-eye-open ai-glyphicon"></span>Wishlist
+                                        </a>
+                                    </li>
                                 </ul>
                             </nav>
 
                             <div class="tab-content clearfix">
                                 <!-- Tab: Footprints -->
                                 <!-- --------------- -->
-                                <div id="footprints" class="tab-pane fade in active">
+                                <div id="footprints" class="tab-pane fade <?php if(isset($tabFootprints)) { echo 'in active'; } ?> ">
                                     <!-- Share a new footprint -->
                                     <div class="share-footprint container-fluid">
                                         <h2 class="share-footprints__header">Have a new footprint?</h2>
@@ -184,7 +199,7 @@
 
                                 <!-- Tab: Wishlist -->
                                 <!-- ------------- -->
-                                <div id="wishlist" class="tab-pane fade">
+                                <div id="wishlist" class="tab-pane fade <?php if(isset($tabWishlists)) { echo 'in active'; } ?> ">
 
                                     <div id="w1" class="display-group">
                                         <div class="row">
