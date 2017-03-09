@@ -1,9 +1,10 @@
 <?php
 #author：Bao
+##use session
 if(!isset($_SESSION)){
     session_start();
 }
-## define route for different page
+## define route for different pages
 $team_route_src = '../';
 if(isset($team_route_custom)) {
     $team_route_src = $team_route_custom;
@@ -40,6 +41,11 @@ if(isset($_POST['username'])) {
             $_SESSION['user_id'] = $login_result->user_id;
         }
     }
+}
+//logout
+if (isset($_POST['logout'])) {
+    $_SESSION = array();
+    session_destroy();
 }
 ?>
 <div class="row">
