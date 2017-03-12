@@ -47,8 +47,12 @@ class PublicLogin {
             $pdostmt->bindValue(':name', $username, PDO::PARAM_STR);
             $pdostmt->bindValue(':password', sha1($password), PDO::PARAM_STR);
             $pdostmt->bindValue(':email', $email, PDO::PARAM_STR);
-            $pdostmt->bindValue(':google', $_SESSION['google_id'], PDO::PARAM_INT);
+            if (isset($_SESSION['google_id'])) {
+                $pdostmt->bindValue(':google', $_SESSION['google_id'], PDO::PARAM_INT);
+            }
+
             $pdostmt->bindValue(':reg', $currentDate);
+
             try {
                 $this->db->beginTransaction();
 

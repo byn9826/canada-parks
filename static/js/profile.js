@@ -1,7 +1,7 @@
 /**
  * Created by M. Irfaan Auhammad on 10-Feb-17.
  */
-
+// alert('javasrcipt');
 $(document).ready(function() {
 
     // -- Scroll window automatically to match hash
@@ -12,7 +12,6 @@ $(document).ready(function() {
         }, 1000, 'swing');
     }
 
-
     // -- Initialise date pickers
     $(function() {
         $('#inputDOB').datepicker();
@@ -20,6 +19,108 @@ $(document).ready(function() {
     $(function() {
         $('#inputDateVisit').datepicker();
     } );
+
+
+    // ===== FORM HANDLING ===== //
+    // ========================= //
+    function checkValidInput(value) {
+        if (!value || value === "") {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //This code is from http://stackoverflow.com/a/46181
+    function validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+    //password length should be between 8 to 16
+    function checkPassLength(pass) {
+        if (pass.length >= 8 && pass.length <= 16) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    var frmUpdatePassword = document.forms.frmUpdatePassword;
+    var frmUpdateEmail = document.forms.frmUpdateEmail;
+    frmUpdatePassword.onsubmit = changePassword;
+    frmUpdateEmail.onsubmit = changeEmail;
+
+    function changePassword() {
+        var fFormValid = true;
+
+        // Empty error messages
+        $("#errOldPass").html("");
+        $("#errNewPass").html("");
+        $("#errConfirmNewPass").html("");
+
+        // Perform form validations
+        if(!checkValidInput($("#inputOldPass").val())) {
+            $("#errOldPass").html("Please enter the current password");
+            fFormValid = false;
+        }else if (!checkValidInput($("#inputNewPass1").val())) {
+            $("#errNewPass").html("Please enter a new password");
+            fFormValid = false;
+        } else if ($("#inputOldPass").val() === $("#inputNewPass1").val()) {
+            $("#errNewPass").html("New password must be different from the old password");
+            fFormValid = false;
+        } else if(!checkPassLength($("#inputNewPass1").val())) {
+            $("#errNewPass").html("Password should be between 8 to 16 characters");
+            fFormValid = false;
+        } else if (!checkValidInput($("#inputNewPass2").val())) {
+            $("#errConfirmNewPass").html("Please re-enter the new password again");
+            fFormValid = false;
+        } else if ($("#inputNewPass1").val() !== $("#inputNewPass2").val()) {
+            $("#errConfirmNewPass").html("Confirm password does not match new password");
+            fFormValid = false;
+        }
+
+        if(fFormValid === true) {
+            var secureOld = $("#inputOldPass").val();
+            var securePass = $("#inputNewPass1").val();
+            secureOld = CryptoJS.MD5(secureOld);
+            securePass = CryptoJS.MD5(securePass);
+            $("#inputOldPass").val(secureOld);
+            $("#inputNewPass1").val(securePass);
+            $("#inputNewPass2").val(securePass);
+        } else {
+            return false;
+        }
+    }
+
+    function changeEmail() {
+        var fFormValid = true;
+
+        // Empty error messages
+        $("#errEmail").html("");
+        $("#errPassword").html("");
+
+        // Perform form validations
+        if(!checkValidInput($("#inputEmail").val())) {
+            $("#errEmail").html("Please enter an email address");
+            fFormValid = false;
+        } else if(!validateEmail($("#inputEmail").val())) {
+            $("#errEmail").html("Please enter a valid email address format");
+            fFormValid = false;
+        } else if(!checkValidInput($("#inputPassword").val())) {
+            $("#errPassword").html("Please enter your password");
+            fFormValid = false;
+        }
+
+        if(fFormValid === true) {
+            var accPassword = $("#inputPassword").val();
+            accPassword = CryptoJS.MD5(accPassword);
+            $("#inputPassword").val(accPassword);
+        } else {
+            return false;
+        }
+    }
 
 
     // ===== FUNCTIONS & EVENTS TO HANDLE CHANGE PROFILE PICTURE ===== //
@@ -136,5 +237,6 @@ $(document).ready(function() {
             }
         });
     }
+
 
 });
