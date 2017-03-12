@@ -2,6 +2,7 @@
     session_start();
     // -- If user not signed in, redirect to sign-in page
     // -- -----------------------------------------------
+
     if (!isset($_SESSION['user_id']))
     {
         header("location: ../signup/index.php");
@@ -241,7 +242,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/profile.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../static/img/profile/users/custom/jquery.imgareaselect.js"></script>
@@ -497,7 +498,7 @@
                                     <div class="row display-group">
                                         <div class="col col-md-12">
                                             <h3>Change password</h3>
-                                            <form action="settings.php" method="post">
+                                            <form action="settings.php" method="post" name="frmUpdatePassword">
                                                 <!-- Golobal error message if update fails -->
                                                 <div class="form-group row">
                                                     <div class=" col-sm-12 <?php echo (isset($updatePasswordSuccess))? 'text-success' : 'text-danger' ?>">
@@ -518,7 +519,7 @@
                                                                placeholder="Enter your current password"
                                                                value="<?php if(isset($oldPassword) && !isset($updatePasswordSuccess)) { echo $oldPassword; } ?>">
                                                     </div>
-                                                    <div class="col-sm-9 col-sm-offset-3 text-danger">
+                                                    <div id="errOldPass" class="col-sm-9 col-sm-offset-3 text-danger">
                                                         <?php if(isset($errOldPassword)) { echo $errOldPassword; } ?>
                                                     </div>
                                                 </div>
@@ -530,7 +531,7 @@
                                                                placeholder="New Password"
                                                                value="<?php if(isset($newPassword) && !isset($updatePasswordSuccess)) { echo $newPassword; } ?>">
                                                     </div>
-                                                    <div class="col-sm-9 col-sm-offset-3 text-danger">
+                                                    <div id="errNewPass" class="col-sm-9 col-sm-offset-3 text-danger">
                                                         <?php if(isset($errNewPassword)) { echo $errNewPassword; } ?>
                                                     </div>
                                                 </div>
@@ -542,14 +543,15 @@
                                                                placeholder="Confirm New Password"
                                                                value="<?php if(isset($confirmNewPassword) && !isset($updatePasswordSuccess)) { echo $confirmNewPassword; } ?>">
                                                     </div>
-                                                    <div class="col-sm-9 col-sm-offset-3 text-danger">
+                                                    <div id="errConfirmNewPass" class="col-sm-9 col-sm-offset-3 text-danger">
                                                         <?php if(isset($errConfirmPassword)) { echo $errConfirmPassword; } ?>
                                                     </div>
                                                 </div>
                                                 <!-- Button: Update Password -->
                                                 <div class="form-group row">
                                                     <div class="offset-sm-2 col-sm-10">
-                                                        <button type="submit" class="btn btn-primary" name="updatePassword"
+                                                        <button type="submit" class="btn btn-primary"
+                                                                id="btnUpdatePassword" name="updatePassword"
                                                                 title="Click to update your old password">Update Password</button>
                                                     </div>
                                                 </div>
@@ -561,7 +563,7 @@
                                     <div class="row display-group">
                                         <div class="col col-md-12">
                                             <h3>Update Email Address</h3>
-                                            <form action="settings.php" method="post">
+                                            <form action="settings.php" method="post" name="frmUpdateEmail">
                                                 <!-- Golobal error message if update fails -->
                                                 <div class="form-group row">
                                                     <div class=" col-sm-12 <?php echo (isset($updateEmailSuccess))? 'text-success' : 'text-danger' ?>">
@@ -587,7 +589,7 @@
                                                                         }
                                                                       ?>">
                                                     </div>
-                                                    <div class="col-sm-9 col-sm-offset-3 text-danger">
+                                                    <div id="errEmail" class="col-sm-9 col-sm-offset-3 text-danger">
                                                         <?php if(isset($errNewEmail)) { echo $errNewEmail; } ?>
                                                     </div>
                                                 </div>
@@ -599,7 +601,7 @@
                                                                placeholder="Enter Password"
                                                                value="<?php if(isset($password) && !isset($updateEmailSuccess)) { echo $password; } ?>">
                                                     </div>
-                                                    <div class="col-sm-9 col-sm-offset-3 text-danger">
+                                                    <div id="errPassword" class="col-sm-9 col-sm-offset-3 text-danger">
                                                         <?php if(isset($errPassword)) { echo $errPassword; } ?>
                                                     </div>
                                                 </div>
