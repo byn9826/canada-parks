@@ -124,4 +124,19 @@ class ParkRepository {
         //print_r($pdostmt->errorInfo());
     }
     
+    public function getNumParksWithProvince() {
+        $sql = "SELECT COUNT(*) as y, province FROM park GROUP BY province";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->execute();
+        $datas = $pdostmt->fetchAll();
+        $result = array();
+        foreach ($datas as $data) {
+            $result[] = array(
+                "province" => $data["province"],
+                "y" => intval($data["y"])
+            );
+        }
+        return $result;
+    }
+    
 }
