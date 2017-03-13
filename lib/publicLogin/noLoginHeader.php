@@ -8,7 +8,7 @@
         </li>
         <li>
             <h5 id="login-error">
-                <?php echo isset($login_error)? $login_error: 'username:admin-pass:12345678'; ?>
+                <?php echo isset($login_error)? $login_error: 'Error message here'; ?>
             </h5>
         </li>
         <li>

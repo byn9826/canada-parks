@@ -69,7 +69,8 @@ if (isset($_POST['logout'])) {
         <ul id="header-links" class="nav navbar-nav col-md-5 col-sm-6 navbar-right visible-lg visible-md visible-sm">
             <?php
                 foreach ($header_navi as $nav) {
-                    echo '<li><a>' . $nav['link'] . '</a></li>';
+                    echo '<li><a href="http://' . $_SERVER['SERVER_NAME'] . '/canada-parks/' . $nav['path'] . '">' . $nav['link'] . '</a></li>';
+
                 }
             ?>
             <li class="dropdown">
