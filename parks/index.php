@@ -114,6 +114,6 @@ $parks = $parkRepository->getParks($name, $province);
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>
         <script type="text/javascript" src="https://npmcdn.com/isotope-layout@3.0.2/dist/isotope.pkgd.min.js"></script>
         <script type="text/javascript" src="../static/js/map.js"></script>
-        <script type="text/javascript" src="/static/js/parks.js"></script>
+        <script type="text/javascript" src="../static/js/parks.js"></script>
     </body>
 </html>

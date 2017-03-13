@@ -135,5 +135,5 @@ if (isset($_GET["id"])) {
         </div>
     </body>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyIDeakYLU04AwAxmUS44hHYQzgJPu6FQ&libraries=places"></script>
-    <script type="text/javascript" src="/static/js/admin/park.js"></script>
+    <script type="text/javascript" src="../../static/js/admin/park.js"></script>
 </html>

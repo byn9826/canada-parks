@@ -31,6 +31,6 @@ $parks = $parkRepository->getNumParksWithProvince();
         </script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script type="text/javascript" src="/static/js/admin/park-statics.js"></script>
+        <script type="text/javascript" src="../../static/js/admin/park-statics.js"></script>
     </body>
 </html>
