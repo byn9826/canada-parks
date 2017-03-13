@@ -92,7 +92,7 @@ $parks = $parkRepository->getParks($name, $province);
                             <div class="caption">
                                 <h2 class="name"><?=$park['name']?></h2>
                                 <p><?=$park['address']?></p>
-                                <p><a href="/park?id=<?=$park['id']?>" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
+                                <p><a href="../park?id=<?=$park['id']?>" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
                             </div>
                         </div>
                         <?php } ?>
