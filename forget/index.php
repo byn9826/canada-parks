@@ -40,11 +40,11 @@
 					</form>
 				</section>
 				<section class="retrieve col-md-4 col-md-offset-1 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-					<form id="forget-username" method="POST" >
+					<form id="forget-password" method="POST" >
 						<h2>Forget Password?</h2>
 						<div class="form-group">
-							<label for="InputEmail">Provide your username here.</label>
-					    	<input type="text" class="form-control" id="get-username" name="username" placeholder="Username">
+							<label for="InputPassword">Provide your password here.</label>
+					    	<input type="email" class="form-control" id="get-email" name="useremail" placeholder="Email">
 						</div>
 						<input type="submit" value="Submit" class="btn btn-default" />
 						<h5 id="back-password">Test error message, will hide later</h5>

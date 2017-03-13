@@ -9,23 +9,23 @@ $team_route_src = '../';
 if(isset($team_route_custom)) {
     $team_route_src = $team_route_custom;
 }
-##Get header navi info
+##Get header navigation names and links
 require_once($team_route_src . 'lib/DatabaseAccess.php');
 require_once($team_route_src . 'lib/globe/globe.php');
 $db = DatabaseAccess::getConnection();
 $globe = new Globe($db);
 $header_navi = $globe->getHeader();
 ##If user login passed js validation submit login form
-if(isset($_POST['username'])) {
+if(isset($_POST['email']) && isset($_POST['password'])) {
     require_once($team_route_src . 'lib/publicLogin/default.php');
     require_once($team_route_src . 'lib/validation/fanta_valid.php');
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
     //secure input
-    $username = Fanta_Valid::sanitizeUserInput($username);
+    $email = Fanta_Valid::sanitizeUserInput($email);
     $password = Fanta_Valid::sanitizeUserInput($password);
     //double check input
-    if (Fanta_Valid::isNullOrEmpty($username) || Fanta_Valid::isNullOrEmpty($username) || !Fanta_Valid::isBelowMaxLength($username, 10) || !count($password) === 32) {
+    if (Fanta_Valid::isNullOrEmpty($email) || Fanta_Valid::isNullOrEmpty($password) || !Fanta_Valid::isEmailValid($email) || !count($password) === 32) {
         $login_error = 'Please enable javaScript';
     } else {
         //get php secure password
@@ -33,9 +33,9 @@ if(isset($_POST['username'])) {
         //check users password in db
         $db = DatabaseAccess::getConnection();
         $publicLogin = new PublicLogin($db);
-        $login_result = $publicLogin->checkLogin($username, $password);
+        $login_result = $publicLogin->checkLogin($email, $password);
         if (!$login_result) {
-            $login_error = 'Wrong name or password';
+            $login_error = 'Wrong email or password';
         } else {
             $_SESSION['user_name'] = $login_result->user_name;
             $_SESSION['user_id'] = $login_result->user_id;

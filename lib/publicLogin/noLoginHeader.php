@@ -1,7 +1,7 @@
 <ul class="dropdown-menu">
     <form id="header-login" method="POST" action="">
         <li>
-            <input type="text" class="form-control" id="login-name" name="username" placeholder="Username" >
+            <input type="email" class="form-control" id="login-email" name="email" placeholder="Email" >
         </li>
         <li>
             <input type="password" class="form-control" id="login-password" name="password" placeholder="Password" >
