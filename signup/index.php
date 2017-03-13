@@ -1,16 +1,28 @@
 <?php
 session_start();
 if(isset($_POST['newname'])) {
-	require_once('../lib/DatabaseAccess.php');
-	require_once('../lib/publicLogin/default.php');
-	$db = DatabaseAccess::getConnection();
-	$publicLogin = new PublicLogin($db);
-	$result = $publicLogin->signUp($_POST['newname'], $_POST['newpassword'], $_POST['newemail']);
-	if ($result == 'duplicate') {
-		$error_message = 'Username has already been taken';
-	} else if ($result == 1) {
-		$_SESSION['user_name'] = $_POST['newname'];
-		header("Location: ../");
+	require_once('../lib/validation/fanta_valid.php');
+	//Validate input in php
+	$name = $_POST['newname'];
+	$password = $_POST['newpassword'];
+	$email = $_POST['newemail'];
+	$name = Fanta_Valid::sanitizeUserInput($name);
+	$email = Fanta_Valid::sanitizeUserInput($email);
+    $password = Fanta_Valid::sanitizeUserInput($password);
+	if (Fanta_Valid::isNullOrEmpty($name) ||Fanta_Valid::isNullOrEmpty($email) || Fanta_Valid::isNullOrEmpty($password) || !Fanta_Valid::isBelowMaxLength($name, 10) || !Fanta_Valid::isEmailValid($email) || !count($password) === 32) {
+        $error_message = 'Please enable javaScript';
+    } else {
+		require_once('../lib/DatabaseAccess.php');
+		require_once('../lib/publicLogin/default.php');
+		$db = DatabaseAccess::getConnection();
+		$publicLogin = new PublicLogin($db);
+		$result = $publicLogin->signUp($_POST['newname'], $_POST['newpassword'], $_POST['newemail']);
+		if ($result == 'duplicate') {
+			$error_message = 'Email address has already been used';
+		} else if ($result == 1) {
+			$_SESSION['user_name'] = $_POST['newname'];
+			header("Location: ../");
+		}
 	}
 }
 ?>
@@ -50,6 +62,11 @@ if(isset($_POST['newname'])) {
 							<label for="InputPassword">Password must be 8 - 16 characters</label>
 					    	<input type="password" class="form-control" id="input-password" name="newpassword" placeholder="Password">
 					  	</div>
+						<div class="checkbox">
+							<label>
+						    	<input id="input-check" name="check" type="checkbox"> By signing up, you agree to the Terms of Service and Privacy Policy
+						    </label>
+						</div>
 						<h5 id="signup-error">
 							<?php
 								if( isset($error_message)) {
@@ -61,7 +78,6 @@ if(isset($_POST['newname'])) {
 						</h5>
 						<input id="signup-button" type="button" name="signup-button" value="Submit" class="btn btn-default" />
 					</form>
-					<h6>By signing up, you agree to the Terms of Service and Privacy Policy</h6>
 				</section>
             </main>
         </div>

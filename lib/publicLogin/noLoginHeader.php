@@ -1,14 +1,14 @@
 <ul class="dropdown-menu">
     <form id="header-login" method="POST" action="">
         <li>
-            <input type="text" class="form-control" id="login-name" name="username" placeholder="Username" >
+            <input type="email" class="form-control" id="login-email" name="email" placeholder="Email" >
         </li>
         <li>
             <input type="password" class="form-control" id="login-password" name="password" placeholder="Password" >
         </li>
         <li>
             <h5 id="login-error">
-                <?php echo isset($login_error)? $login_error: 'username:admin-pass:12345678'; ?>
+                <?php echo isset($login_error)? $login_error: 'Error message here'; ?>
             </h5>
         </li>
         <li>

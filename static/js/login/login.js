@@ -82,7 +82,11 @@ $(document).ready(function () {
             $("#signup-error").html("Password length incorrect");
         } else if (!validateEmail($("#input-email").val())) {
             $("#signup-error").html("Email format is incorrect");
-        } else {
+        } else if (!document.getElementById('input-check').checked) {
+            $("#signup-error").html("Please check our signup conditions");
+        }
+
+        else {
             var securePass = $("#input-password").val();
             securePass = CryptoJS.MD5(securePass);
             $("#input-password").val(securePass);
@@ -92,12 +96,12 @@ $(document).ready(function () {
 
     //check user login
     $("#login").click(function () {
-        if (!checkValidInput($("#login-name").val())) {
-            $("#login-error").html("Name can't be empty");
+        if (!checkValidInput($("#login-email").val())) {
+            $("#login-error").html("Email can't be empty");
         } else if (!checkValidInput($("#login-password").val())) {
             $("#login-error").html("Password can't be empty");
-        } else if (!checkNameLength($("#login-name").val())) {
-            $("#login-error").html("Username is too long");
+        } else if (!validateEmail($("#login-email").val())) {
+            $("#login-error").html("Email format is incorrect");
         } else if (!checkPassLength($("#login-password").val())) {
             $("#login-error").html("Password length incorrect");
         } else {

@@ -96,7 +96,7 @@ $fManageWishlist = isset($_SESSION["user_id"])? true : false;
                                 <h2 class="name"><?=$park['name']?></h2>
                                 <p><?=$park['address']?></p>
                                 <p>
-                                    <a href="/park?id=<?=$park['id']?>" class="btn btn-primary" role="button">Detail</a>
+                                    <a href="../park?id=<?=$park['id']?>" class="btn btn-primary" role="button">Detail</a>
                                     <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a>
                                 </p>
                                 <!-- If user is logged in, display wishlist menu -->
@@ -127,6 +127,9 @@ $fManageWishlist = isset($_SESSION["user_id"])? true : false;
         <script type="text/javascript" src="https://npmcdn.com/isotope-layout@3.0.2/dist/isotope.pkgd.min.js"></script>
         <script type="text/javascript" src="../static/js/map.js"></script>
         <script type="text/javascript" src="../static/js/parks.js"></script>
+<<<<<<< HEAD
         <script type="text/javascript" src="../static/js/parkToWishlist.js"></script>
+=======
+>>>>>>> f0a90ae2f99545b44cb9a31b1a5edc1c99579fc2
     </body>
 </html>
