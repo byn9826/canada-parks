@@ -114,11 +114,6 @@ $(document).ready(function() {
 
     // ===== FUNCTIONS & EVENTS TO HANDLE CHANGE PROFILE PICTURE ===== //
     // =============================================================== //
-    // -- Show modal window when user clicks on change profile picture link
-    $('#change-profile-pic').on('click', function() {
-        $('#profile_pic_modal').modal({show:true});
-    });
-
     // -- Show image preview when user selects an image
     $('#profile-pic').on('change', function() {
         $('#preview-profile-pic').html('');
@@ -167,10 +162,10 @@ $(document).ready(function() {
             },
             type: 'post',
             success: function() {
-                jQuery('#profile_pic_modal').modal('hide');
-                jQuery(".imgareaselect-border1,.imgareaselect-border2,.imgareaselect-border3,.imgareaselect-border4,.imgareaselect-border2,.imgareaselect-outer").css('display', 'none');
-                jQuery("#preview-profile-pic").html('');
-                jQuery("#profile-pic").val('');
+                $('#profile_pic_modal').modal('hide');
+                $(".imgareaselect-border1,.imgareaselect-border2,.imgareaselect-border3,.imgareaselect-border4,.imgareaselect-border2,.imgareaselect-outer").css('display', 'none');
+                $("#preview-profile-pic").html('');
+                $("#profile-pic").val('');
             }
         });
     });

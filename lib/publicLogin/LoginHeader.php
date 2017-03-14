@@ -2,8 +2,8 @@
     <li><a>
         Home
     </a></li>
-    <li><a>
-        Wishlist
+    <li>
+        My Profile
     </a></li>
     <li><a>
         Setting
