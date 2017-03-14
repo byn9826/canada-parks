@@ -6,7 +6,6 @@ $(document).ready(function() {
 
     // Handle action when user clicks 'Add to wishlist'
     $('button.parkToWishlist').on('click', function() {
-        //alert('add to wishlist' + $(this).attr('data-parkId'));
         var parentDIV = $(this).parent();
         var parkId = $(this).attr('data-parkId');
 

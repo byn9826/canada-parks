@@ -92,6 +92,21 @@ class Wishlist
         return $lstParkDetails;
     }
 
+    // Function to remove a park found in user's wishlist
+    public function RemoveParkFromWishlist($wishId) {
+        $fStatus = false;
+        try {
+            // Query to remove item from wishlist
+            $sQueryDelete = "DELETE FROM wishlist WHERE wish_id = :wishId";
+            $objPDOStatement = $this->_objConnection->prepare($sQueryDelete);
+            $objPDOStatement->bindValue(':wishId', $wishId);
+            $objPDOStatement->execute();
+            $fStatus = true;
+        } catch(PDOException $e) {
+            // SQL Exception occured
+        }
+        return $fStatus;
+    }
 
     // -- Public Static Functions Declaration
     // -- -----------------------------------
@@ -126,7 +141,7 @@ class Wishlist
             $sResult .= "        <div class=\"col col-xs-12 col-sm-12\">";
             $sResult .= "            <span class=\"wishlist-group__more-details\" title=\"{$objParkDetails->added_on}\">Added on {$objParkDetails->date_added}</span>";
             $sResult .= "            &nbsp;|&nbsp;";
-            $sResult .= "            <span><a href=\"\" alt=\"Link to remove park from wishlist\">Remove</a></span>";
+            $sResult .= "            <span ><a class=\"del-wishitem\"  href=\"\" data-wishId=\"{$objParkDetails->wish_id}\" data-wishElmt=\"w{$objParkDetails->wish_id}\" alt=\"Link to remove park from wishlist\">Remove</a></span>";
             $sResult .= "        </div>";
             $sResult .= "    </div>";
             $sResult .= "</div>";
