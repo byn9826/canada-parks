@@ -10,8 +10,12 @@
     require_once '../lib/validation/fanta_valid.php';
     require_once '../lib/profile/UserAccount.php';
     require_once '../lib/profile/UserDetails.php';
-    require_once '../lib/park.php';
-    require_once '../lib/ParkRepository.php';
+    require_once '../lib/profile/Wishlist.php';
+
+    // Check whether the wishlist tab needs to display by default
+    if(isset($_GET['wishlist'])) {
+        $tabWishlists = true;
+    }
 
 
     // -- Create a database connection
@@ -23,11 +27,15 @@
     // -- ------------------------------------------------------------------
     $objUserAccount = new UserAccount($objConnection, $_SESSION['user_id']);
     $objUserDetails = new UserDetails($objConnection, $_SESSION['user_id']);
+    $objWishlist = new Wishlist($objConnection, $_SESSION['user_id']);
     $iUserDetailsRead = $objUserDetails->Read();
     if($iUserDetailsRead == 0) {
         die("Unable to read user details at the moment.");
     }
-
+    // Find number of items in user's wishlist
+    $lstParksInWishlist = $objWishlist->GetWishParkDetails();
+    $iNbWishlistItems = count($lstParksInWishlist);
+    $lblWishlist = ($iNbWishlistItems > 1) ? 'Wishlist items' : 'Wishlist item';
 
     // -- Default tab to open
     if(!isset($tabWishlists)) {
@@ -58,7 +66,7 @@
                 <div class="row col-md-10 col-md-offset-1">
 
                     <!-- Left column -->
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 user-sidebar">
                         <div class="user-details">
                             <!-- Profile Avatar Picture -->
                             <div class="avatar">
@@ -94,12 +102,16 @@
                             <!-- Footprint & Wishlist -->
                             <div class="activities row">
                                 <div class="col-xs-6">
-                                    <div><span class="activities__footprint">2</span></div>
-                                    <div>Footprint</div>
+                                    <a href="." title="View my footprints">
+                                        <div><span class="activities__footprint">2</span></div>
+                                        <div>Footprint items</div>
+                                    </a>
                                 </div>
                                 <div class="col-xs-6">
-                                    <div><span class="activities__wishlist">5</span></div>
-                                    <div>Wishlist</div>
+                                    <a href="?wishlist=true" title="View parks in wish list">
+                                        <div><span class="activities__wishlist"><?php echo $iNbWishlistItems ?></span></div>
+                                        <div><?php echo $lblWishlist ?></div>
+                                    </a>
                                 </div>
                             </div>
 
@@ -201,49 +213,9 @@
                                 <!-- ------------- -->
                                 <div id="wishlist" class="tab-pane fade <?php if(isset($tabWishlists)) { echo 'in active'; } ?> ">
 
-                                    <div id="w1" class="display-group">
-                                        <div class="row">
-                                            <div class="col col-xs-4 col-sm-4 wishlist-group__thumbnail">
-                                                <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
-                                            </div>
-                                            <div class="col col-xs-8 col-sm-8 wishlist-group__park-details">
-                                                <div>
-                                                    <a class="wishlist-group__park-link" href="" alt="Link to park profile page">[Nahanni National Park Reserve of Canada]</a>
-                                                </div>
-                                                <div class="wishlist-group__more-details">[Fort Smith, Unorganized, NT X0E, Canada]</div>
-                                                <div class="wishlist-group__more-details">[Northwest Territories]</div>
-                                            </div>
-                                        </div>
-                                        <div class="row wishlist-group__footer">
-                                            <div class="col col-xs-12 col-sm-12">
-                                                <span class="wishlist-group__more-details">Added on [Feb 11, 2017]</span>
-                                                &nbsp;|&nbsp;
-                                                <span><a href="" alt="Link to remove park from wishlist">Remove</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div id="w2" class="display-group">
-                                        <div class="row">
-                                            <div class="col col-xs-4 col-sm-4 wishlist-group__thumbnail">
-                                                <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
-                                            </div>
-                                            <div class="col col-xs-8 col-sm-8 wishlist-group__park-details">
-                                                <div>
-                                                    <a class="wishlist-group__park-link" href="" alt="Link to park profile page">[Prince Edward Island National Park]</a>
-                                                </div>
-                                                <div class="wishlist-group__more-details">[North Rustico, PE C0A, Canada]</div>
-                                                <div class="wishlist-group__more-details">[Prince Edward Island]</div>
-                                            </div>
-                                        </div>
-                                        <div class="row wishlist-group__footer">
-                                            <div class="col col-xs-12 col-sm-12">
-                                                <span class="wishlist-group__more-details">Added on [Jan 29, 2017]</span>
-                                                &nbsp;|&nbsp;
-                                                <span><a href="" alt="Link to remove park from wishlist">Remove</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php
+                                        echo Wishlist::ConstructWishlistItems($lstParksInWishlist);
+                                    ?>
 
                                 </div>
                             </div>

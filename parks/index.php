@@ -1,8 +1,10 @@
 <?php
 //Author: Sam
+session_start();
 require '../lib/DatabaseAccess.php';
 require '../lib/park.php';
 require '../lib/ParkRepository.php';
+require_once '../lib/profile/Wishlist.php';
 
 $p = new Park();
 
@@ -27,9 +29,16 @@ $name = isset($_GET['name']) ? $_GET['name'] : '';
 $parkRepository = new ParkRepository($db);
 $parks = $parkRepository->getParks($name, $province);
 
-// If user is signed in, display wshlist links
+// -- If user is signed in, display wshlist icons
+// -- ----------------------------------------
 $fManageWishlist = isset($_SESSION["user_id"])? true : false;
-
+if($fManageWishlist) {
+    // Get list of ID's for parks in user's wishlist
+    $userId = $_SESSION["user_id"];
+    $objWishlist = new Wishlist($db, $userId);
+    $lstParksInWishlist = $objWishlist->GetParksIdInWishlist();
+    $filterArray = Wishlist::ConstructWishlistFilterArray($lstParksInWishlist);
+}
 
 ?>
 <!DOCTYPE html>
@@ -98,13 +107,24 @@ $fManageWishlist = isset($_SESSION["user_id"])? true : false;
                                 <p>
                                     <a href="../park?id=<?=$park['id']?>" class="btn btn-primary" role="button">Detail</a>
                                     <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a>
+                                    <!-- If user is logged in, display wishlist menu -->
+                                    <!-- ------------------------------------------- -->
+                                    <?php if($fManageWishlist) { ?>
+                                        <span class="section-wishlist">
+                                            <?php
+                                            if(in_array($park['id'], $filterArray)) {
+                                                echo "<button type=\"button\" class=\"btn btn-link eye\" title=\"Park listed in wish list\">";
+                                                echo "    <span class=\"glyphicon glyphicon-eye-open ai-glyphicon\">";
+                                                echo "</button>";
+                                            } else {
+                                                echo "<button type=\"button\" class=\"btn btn-link parkToWishlist\" title=\"Add park to your wishlist\" data-parkId=\"{$park['id']}\">";
+                                                echo "    <span class=\"glyphicon glyphicon-heart ai-glyphicon\"></span>";
+                                                echo "</button>";
+                                            }
+                                            ?>
+                                        </span>
+                                    <?php } ?>
                                 </p>
-                                <!-- If user is logged in, display wishlist menu -->
-                                <div class="section-wishlist">
-                                    <button type="button" class="parkToWishlist" title="Add park to your wishlist" data-parkId="<?php echo $park['id']; ?>">
-                                        <span class="glyphicon glyphicon-heart ai-glyphicon"></span>Add to wishlist
-                                    </button>
-                                </div>
                             </div>
                         </div>
                         <?php } ?>
@@ -127,9 +147,6 @@ $fManageWishlist = isset($_SESSION["user_id"])? true : false;
         <script type="text/javascript" src="https://npmcdn.com/isotope-layout@3.0.2/dist/isotope.pkgd.min.js"></script>
         <script type="text/javascript" src="../static/js/map.js"></script>
         <script type="text/javascript" src="../static/js/parks.js"></script>
-<<<<<<< HEAD
         <script type="text/javascript" src="../static/js/parkToWishlist.js"></script>
-=======
->>>>>>> f0a90ae2f99545b44cb9a31b1a5edc1c99579fc2
     </body>
 </html>

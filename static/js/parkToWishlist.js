@@ -18,9 +18,10 @@ $(document).ready(function() {
             data: dataString,
             success: function(result) {
                 // on success change display on page
-                alert(result);
                 if(result === "Added") {
-                    parentDIV.html("Is in wishlist.");
+                    var btn = $('<button type="button" class="btn btn-link eye" title="Park listed in wish list"><span class="glyphicon glyphicon-eye-open ai-glyphicon"></button>');
+                    parentDIV.html('');
+                    parentDIV.append(btn);
                 } else {
                     alert("Unable to add park to wishlist.");
                 }
@@ -29,5 +30,10 @@ $(document).ready(function() {
 
     }); // end of button click
 
+    // Handle click on eye to go to wishlist
+    // Event handled this way to work on dynamically added buttons from jQuery
+    $(document).on('click', 'button.eye', function(e) {
+        window.location.href = "../profile/index.php?wishlist=true";
+    });
 
 });

@@ -8,7 +8,8 @@
 
 session_start();
 
-// If user clicked 'Add to wishlist' button
+// -- If user clicked 'Add to wishlist' button
+// -- ----------------------------------------
 if(isset($_POST["addToWishlist"])) {
     // -- Include libraries
     require_once '../DatabaseAccess.php';
@@ -29,12 +30,12 @@ if(isset($_POST["addToWishlist"])) {
     } else {
         echo "Error";
     }
-
 }
 
 /*
  * When parks page laods,
- *  - check if park in wish list and display already in wishlist
- *  - else show button to add to wishlist
+ *  - check if park in wish list and display already in wishlist - Done
+ *  - else show button to add to wishlist - Done
+ *  - Build wishlist dynamically
  *  - code delete from wishlist using ajax
  */

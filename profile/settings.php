@@ -2,7 +2,6 @@
     session_start();
     // -- If user not signed in, redirect to sign-in page
     // -- -----------------------------------------------
-
     if (!isset($_SESSION['user_id']))
     {
         header("location: ../signup/index.php");
@@ -11,6 +10,7 @@
     require_once '../lib/validation/fanta_valid.php';
     require_once '../lib/profile/UserDetails.php';
     require_once '../lib/profile/UserAccount.php';
+    require_once '../lib/profile/Wishlist.php';
 
 
     // -- Create a database connection
@@ -22,10 +22,15 @@
     // -- ------------------------------------------------------------------
     $objUserAccount = new UserAccount($objConnection, $_SESSION['user_id']);
     $objUserDetails = new UserDetails($objConnection, $_SESSION['user_id']);
+    $objWishlist = new Wishlist($objConnection, $_SESSION['user_id']);
     $iUserDetailsRead = $objUserDetails->Read();
     if($iUserDetailsRead == 0) {
         die("Unable to read user details at the moment.");
     }
+    // Find number of items in user's wishlist
+    $lstParksInWishlist = $objWishlist->GetParksIdInWishlist();
+    $iNbWishlistItems = count($lstParksInWishlist);
+    $lblWishlist = ($iNbWishlistItems > 1) ? 'Wishlist items' : 'Wishlist item';
 
 
     // -- Update user details if user submitted new changes
@@ -243,7 +248,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../static/img/profile/users/custom/jquery.imgareaselect.js"></script>
     <script src="../static/img/profile/users/custom/jquery.form.js"></script>
@@ -258,7 +262,7 @@
             <div class="row col-md-10 col-md-offset-1">
 
                 <!-- Left column -->
-                <div class="col-sm-3">
+                <div class="col-sm-3 user-sidebar">
                     <div class="user-details">
                         <!-- Profile Avatar Picture -->
                         <div class="avatar">
@@ -293,12 +297,16 @@
                         <!-- Footprint & Wishlist -->
                         <div class="activities row">
                             <div class="col-xs-6">
-                                <div><span class="activities__footprint">2</span></div>
-                                <div>Footprint</div>
+                                <a href="." title="View my footprints">
+                                    <div><span class="activities__footprint">2</span></div>
+                                    <div>Footprint items</div>
+                                </a>
                             </div>
                             <div class="col-xs-6">
-                                <div><span class="activities__wishlist">5</span></div>
-                                <div>Wishlist</div>
+                                <a href="index.php?wishlist=true" title="View parks in wish list">
+                                    <div><span class="activities__wishlist"><?php echo $iNbWishlistItems ?></span></div>
+                                    <div><?php echo $lblWishlist ?></div>
+                                </a>
                             </div>
                         </div>
 
@@ -678,6 +686,6 @@
         <!-- Page Footer -->
         <?php include_once "../templates/footer.php" ?>
     </div>
-    <script type="text/javascript" src="../static/js/profile.js"></script>
+    <script type="text/javascript" src="../static/js/profileSettings.js"></script>
 </body>
 </html>
