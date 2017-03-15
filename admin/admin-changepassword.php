@@ -7,13 +7,12 @@
     $id = "";
     $email = "";
     $pwd = "";
-    if (isset($_GET['id'])){
-        static $id;
-        $id = $_GET['id'];
-        $admin = AdminUser::findAdminByID($id);
-        $email = $admin->email;
-        $pwd = $admin->password;
-    }
+
+    $id = $_SESSION["user_id"];
+    $admin = AdminUser::findUserByID($id);
+    $email = $admin->user_email;
+    $pwd = $admin->user_password;
+    //var_dump($pwd);
 
     if (isset($_POST['update'])){
         $ok = true;
@@ -21,7 +20,7 @@
         if(Fanta_Valid::isNullOrEmpty($_POST['oldpwd'])) {
             $oldpwdError = "Please enter your old password";
             $ok = false;
-        } elseif ($_POST['oldpwd'] != $pwd){
+        } elseif (sha1($_POST['oldpwd']) != $pwd){
             $oldpwdError = "Your password is incorrect";
             $ok = false;
         }
@@ -40,7 +39,8 @@
         }
 
         if ($ok){
-            $row = AdminUser::updatePassword($id, $email, $_POST['newwpwd']);
+            $row = AdminUser::updatePassword($id, $email, sha1($_POST['newwpwd']));
+
             if($row == 1){
                 header("Location: admin-success.php");
             } else {
@@ -51,7 +51,7 @@
 
 ?>
 
-<h1>Change Admin Password</h1>
+<h1>Change User Password</h1>
 <form class="form-horizontal" method="post" action="admin-changepassword.php?id=<?php echo $id ?>">
     <fieldset>
         <legend>Update your password</legend>
