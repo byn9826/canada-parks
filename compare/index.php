@@ -89,7 +89,7 @@ $parks = array($park1, $park2);
                             </figure>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <h3 class="col-xs-12">Address</h3>
                         <div class="col-xs-6">
@@ -99,7 +99,7 @@ $parks = array($park1, $park2);
                             <?=$park2["address"]?>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <h3 class="col-xs-12">Province</h3>
                         <div class="col-xs-6">
@@ -109,7 +109,7 @@ $parks = array($park1, $park2);
                             <?=$park2["province"]?>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <h3 class="col-xs-12">Website</h3>
                         <div class="col-xs-6">
@@ -119,7 +119,7 @@ $parks = array($park1, $park2);
                             <a href="<?=$park2["website"]?>" class="btn btn-success" target="_blank">Go to website</a>
                         </div>
                     </div>
-                    
+
                 </div>
             </main>
         </div>
@@ -132,6 +132,6 @@ $parks = array($park1, $park2);
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>
         <script type="text/javascript" src="../static/js/map.js"></script>
-        <script type="text/javascript" src="/static/js/compare.js"></script>
+        <script type="text/javascript" src="../static/js/compare.js"></script>
     </body>
 </html>
