@@ -40,7 +40,7 @@ $(document).ready(function() {
         if (parkIds.length == 2) {
 
             $('#compare').attr('disabled', false);
-            var url = '/compare?park1=' + parkIds[0] + '&park2=' + parkIds[1];
+            var url = '../compare?park1=' + parkIds[0] + '&park2=' + parkIds[1];
             $('#compare').attr('href', url);
         } else {
             $('#compare').attr('disabled', true);

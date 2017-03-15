@@ -2,10 +2,37 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="14443e76-1ef6-4b36-870e-ecfa5da84417" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/img/profile/users/avatar_13.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/profile/Wishlist.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/profile/manageWishlist.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/parkToWishlist.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/profileSettings.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/profile/users/avatar_13.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/img/profile/users/avatar_19.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/img/profile/users/avatar_12.jpg" afterPath="$PROJECT_DIR$/static/img/profile/users/avatar_12.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/admin-list.php" afterPath="$PROJECT_DIR$/admin/admin-list.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/header.php" afterPath="$PROJECT_DIR$/admin/header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/index.php" afterPath="$PROJECT_DIR$/admin/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/park/form.php" afterPath="$PROJECT_DIR$/admin/park/form.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/park/index.php" afterPath="$PROJECT_DIR$/admin/park/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/park/sidebar.php" afterPath="$PROJECT_DIR$/admin/park/sidebar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/park/statics.php" afterPath="$PROJECT_DIR$/admin/park/statics.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/compare/index.php" afterPath="$PROJECT_DIR$/compare/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/forget/index.php" afterPath="$PROJECT_DIR$/forget/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/publicLogin/LoginHeader.php" afterPath="$PROJECT_DIR$/lib/publicLogin/LoginHeader.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/publicLogin/default.php" afterPath="$PROJECT_DIR$/lib/publicLogin/default.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/publicLogin/noLoginHeader.php" afterPath="$PROJECT_DIR$/lib/publicLogin/noLoginHeader.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/parks/index.php" afterPath="$PROJECT_DIR$/parks/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profile/change_pic.php" afterPath="$PROJECT_DIR$/profile/change_pic.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profile/index.php" afterPath="$PROJECT_DIR$/profile/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profile/settings.php" afterPath="$PROJECT_DIR$/profile/settings.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/signup/index.php" afterPath="$PROJECT_DIR$/signup/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/parks.css" afterPath="$PROJECT_DIR$/static/css/parks.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/profile.css" afterPath="$PROJECT_DIR$/static/css/profile.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/signup.css" afterPath="$PROJECT_DIR$/static/css/signup.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/login/login.js" afterPath="$PROJECT_DIR$/static/js/login/login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/parks.js" afterPath="$PROJECT_DIR$/static/js/parks.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/profile.js" afterPath="$PROJECT_DIR$/static/js/profile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/header.php" afterPath="$PROJECT_DIR$/templates/header.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,7 +74,7 @@
         <entry file="file://$PROJECT_DIR$/admin/admin-edit.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
-              <caret line="51" column="5" lean-forward="true" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+              <caret line="51" column="5" lean-forward="false" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -57,7 +84,7 @@
         <entry file="file://$PROJECT_DIR$/templates/header.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="294">
-              <caret line="14" column="38" lean-forward="true" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+              <caret line="14" column="38" lean-forward="false" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -109,6 +136,7 @@
         <option value="$PROJECT_DIR$/admin/index.php" />
         <option value="$PROJECT_DIR$/admin/header.php" />
         <option value="$PROJECT_DIR$/admin/admin-edit.php" />
+        <option value="$PROJECT_DIR$/templates/header.php" />
       </list>
     </option>
   </component>
@@ -284,12 +312,12 @@
       <workItem from="1488385716494" duration="1381000" />
       <workItem from="1488818969430" duration="26646000" />
       <workItem from="1489412810661" duration="3370000" />
-      <workItem from="1489537046881" duration="1969000" />
+      <workItem from="1489537046881" duration="2380000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37677000" />
+    <option name="totallyTimeSpent" value="38088000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1932" height="1170" extended-state="0" />
@@ -703,7 +731,7 @@
     <entry file="file://$PROJECT_DIR$/admin/admin-edit.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
-          <caret line="51" column="5" lean-forward="true" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+          <caret line="51" column="5" lean-forward="false" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -711,7 +739,7 @@
     <entry file="file://$PROJECT_DIR$/templates/header.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
-          <caret line="14" column="38" lean-forward="true" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+          <caret line="14" column="38" lean-forward="false" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
           <folding />
         </state>
       </provider>

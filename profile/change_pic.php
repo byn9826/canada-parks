@@ -42,10 +42,10 @@ function changeProfilePic() {
                     //Scale the image if it is greater than the width set above
                     if ($width > $max_width){
                         $scale = $max_width/$width;
-                        $uploaded = resizeImage($filePath,$width,$height,$scale);
+                        $uploaded = resizeImage($filePath,$width,$height,$scale, $ext);
                     } else {
                         $scale = 1;
-                        $uploaded = resizeImage($filePath,$width,$height,$scale);
+                        $uploaded = resizeImage($filePath,$width,$height,$scale, $ext);
                     }
                     echo "<img id='photo' file-name='".$actual_image_name."' class='' src='".$filePath.'?'.time()."' class='preview'/>";
                 }
@@ -120,11 +120,21 @@ function deleteTempImage() {
 }
 
 // -- Function  to resize image
-function resizeImage($image,$width,$height,$scale) {
+function resizeImage($image,$width,$height,$scale, $ext) {
     $newImageWidth = ceil($width * $scale);
     $newImageHeight = ceil($height * $scale);
     $newImage = imagecreatetruecolor($newImageWidth,$newImageHeight);
-    $source = imagecreatefromjpeg($image);
+    if(strcasecmp($ext,'jpg') == 0 || strcasecmp($ext, 'jpeg') == 0) {
+        $source = imagecreatefromjpeg($image);
+    } elseif (strcasecmp($ext, 'png') == 0) {
+        $source = imagecreatefrompng($image);
+    } elseif (strcasecmp($ext, 'bmp') == 0) {
+        $source = imagecreatefromwbmp($image);
+    } elseif (strcasecmp($ext, 'git') == 0) {
+        $source = imagecreatefromgif($image);
+    } else {
+        $source = imagecreatefromstring($image);
+    }
     imagecopyresampled($newImage,$source,0,0,0,0,$newImageWidth,$newImageHeight,$width,$height);
     imagejpeg($newImage,$image,90);
     chmod($image, 0777);

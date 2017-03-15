@@ -36,7 +36,7 @@ if (isset($_GET["id"])) {
     </head>
     <body>
         <div class="container">
-            <a class="btn btn-default" href="/admin/park" role="button">Back to Park List</a>
+            <a class="btn btn-default" href="index.php" role="button">Back to Park List</a>
             <h1 class="text-center"><?=$_GET["action"]?> Park</h1>
             <div class="row">
                 <div class="col-md-6">
@@ -135,5 +135,5 @@ if (isset($_GET["id"])) {
         </div>
     </body>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyIDeakYLU04AwAxmUS44hHYQzgJPu6FQ&libraries=places"></script>
-    <script type="text/javascript" src="/static/js/admin/park.js"></script>
+    <script type="text/javascript" src="../../static/js/admin/park.js"></script>
 </html>

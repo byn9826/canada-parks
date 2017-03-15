@@ -1,8 +1,10 @@
 <?php
 //Author: Sam
+session_start();
 require '../lib/DatabaseAccess.php';
 require '../lib/park.php';
 require '../lib/ParkRepository.php';
+require_once '../lib/profile/Wishlist.php';
 
 $p = new Park();
 
@@ -27,6 +29,16 @@ $name = isset($_GET['name']) ? $_GET['name'] : '';
 $parkRepository = new ParkRepository($db);
 $parks = $parkRepository->getParks($name, $province);
 
+// -- If user is signed in, display wshlist icons
+// -- ----------------------------------------
+$fManageWishlist = isset($_SESSION["user_id"])? true : false;
+if($fManageWishlist) {
+    // Get list of ID's for parks in user's wishlist
+    $userId = $_SESSION["user_id"];
+    $objWishlist = new Wishlist($db, $userId);
+    $lstParksInWishlist = $objWishlist->GetParksIdInWishlist();
+    $filterArray = Wishlist::ConstructWishlistFilterArray($lstParksInWishlist);
+}
 
 ?>
 <!DOCTYPE html>
@@ -92,7 +104,27 @@ $parks = $parkRepository->getParks($name, $province);
                             <div class="caption">
                                 <h2 class="name"><?=$park['name']?></h2>
                                 <p><?=$park['address']?></p>
-                                <p><a href="/park?id=<?=$park['id']?>" class="btn btn-primary" role="button">Detail</a> <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a></p>
+                                <p>
+                                    <a href="../park?id=<?=$park['id']?>" class="btn btn-primary" role="button">Detail</a>
+                                    <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a>
+                                    <!-- If user is logged in, display wishlist menu -->
+                                    <!-- ------------------------------------------- -->
+                                    <?php if($fManageWishlist) { ?>
+                                        <span class="section-wishlist">
+                                            <?php
+                                            if(in_array($park['id'], $filterArray)) {
+                                                echo "<button type=\"button\" class=\"btn btn-link eye\" title=\"Park listed in wish list\">";
+                                                echo "    <span class=\"glyphicon glyphicon-eye-open ai-glyphicon\">";
+                                                echo "</button>";
+                                            } else {
+                                                echo "<button type=\"button\" class=\"btn btn-link parkToWishlist\" title=\"Add park to your wishlist\" data-parkId=\"{$park['id']}\">";
+                                                echo "    <span class=\"glyphicon glyphicon-heart ai-glyphicon\"></span>";
+                                                echo "</button>";
+                                            }
+                                            ?>
+                                        </span>
+                                    <?php } ?>
+                                </p>
                             </div>
                         </div>
                         <?php } ?>
@@ -114,6 +146,7 @@ $parks = $parkRepository->getParks($name, $province);
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>
         <script type="text/javascript" src="https://npmcdn.com/isotope-layout@3.0.2/dist/isotope.pkgd.min.js"></script>
         <script type="text/javascript" src="../static/js/map.js"></script>
-        <script type="text/javascript" src="/static/js/parks.js"></script>
+        <script type="text/javascript" src="../static/js/parks.js"></script>
+        <script type="text/javascript" src="../static/js/parkToWishlist.js"></script>
     </body>
 </html>
