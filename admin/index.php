@@ -2,35 +2,59 @@
 require_once "header.php";
 require_once "model/database.php";
 require_once "model/admin.php";
+/*
+ * username:
+ *      lenoir - superadmin
+ *      andy - admin
+ *      duc - user
+ * pass: 123123123
+ * */
 
-if(isset($_SESSION["admin_fullname"]) || $_SESSION["admin_fullname"] != null)
-{
-    header("Location: admin-list.php");
-}
-else
-{
-    $email = $password = "";
-    if(isset($_POST["submit"]))
+
+    if(!empty($_SESSION))
     {
-        $email = $_POST["email"];
-        $password = $_POST["pwd"];
-
-        $currentUser = AdminUser::findAdminByEmail($email);
-        if (is_null($currentUser) || !isset($currentUser) || $currentUser == false)
-        {
-            echo "No username found!";
-        }
-        elseif ($currentUser->email == $email && $currentUser->password == $password)
-        {
-            $_SESSION["admin_fullname"] = $currentUser->first_name . " " . $currentUser->last_name;
+        if (isset($_SESSION["user_name"]) || $_SESSION["user_name"] != null){
             header("Location: admin-list.php");
         }
-        else
+    }
+    else
+    {
+        $username = $password = "";
+        if(isset($_POST["submit"]))
         {
-            echo "Invalid password for the username!";
+            $username = $_POST["username"];
+            $password = $_POST["pwd"];
+
+            $currentUser = AdminUser::findUserByUsername($username);
+            if (is_null($currentUser) || !isset($currentUser) || $currentUser == false)
+            {
+                echo "<div class=\"alert alert-danger\"> No username found!</div>";
+            }
+            elseif ($currentUser->user_name == $username && $currentUser->user_password == sha1($password) &&
+                $currentUser->user_status == 0 && $currentUser->role_id > 0)
+            {
+                $_SESSION["user_id"] = $currentUser->user_id;
+                $_SESSION["user_name"] = $currentUser->user_name;
+                $_SESSION["role_id"] = $currentUser->role_id;
+                AdminUser::updateUserStatus($currentUser);
+                //var_dump($_SESSION["user_name"]);
+                header("Location: admin-list.php");
+            }
+            elseif ($currentUser->role_id == 0)
+            {
+                echo "<div class=\"alert alert-danger\"> This account does not have privilege to access admin page. Please contact admin for further information.</div>";
+            }
+            elseif ($currentUser->user_status == 1)
+            {
+                echo "<div class=\"alert alert-danger\"> The username is already logged in our website!</div>";
+            }
+            else
+            {
+                echo "<div class=\"alert alert-danger\"> Invalid password for the username!</div>";
+            }
+
         }
     }
-}
 
 
 ?>
@@ -52,9 +76,9 @@ else
             <h2>Login Form</h2>
             <form class="form-horizontal" method="post" action="index.php">
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="email">Email:</label>
+                    <label class="control-label col-sm-2" for="username">Username:</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username">
                     </div>
                 </div>
                 <div class="form-group">

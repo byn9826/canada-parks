@@ -4,45 +4,38 @@
     require_once "model/admin.php";
     require_once "../lib/validation/fanta_valid.php";
 
-    $id = "";
-    $fname = "";
-    $lname = "";
-    $gender = "";
-
-    if (isset($_POST['id'])){
-        $id = $_POST['id'];
-        $admin = AdminUser::findAdminByID($id);
-
-        $fname = $admin->first_name;
-        $lname = $admin->last_name;
-        $gender = ($admin->gender == 'm')? 'male' : 'female';
-    }
+    $id = $_SESSION["user_id"];
+    $admin = AdminUser::findUserByID($id);
+    $username = $admin->user_name;
+    $email = $admin->user_email;
 
     if (isset($_POST['update'])){
         $ok = true;
+        $usernameExisted = AdminUser::checkUsernameExisted($_POST['id'], $_POST['username']);
+        $emailExisted = AdminUser::checkEmailExisted($_POST['id'], $_POST['email']);
 
-        if(Fanta_Valid::isNullOrEmpty($_POST['firstname'])) {
-            $fnameError = "Please enter your first name";
+        if(Fanta_Valid::isNullOrEmpty($_POST['username'])) {
+            $usernameError = "Username can not be empty";
+            $ok = false;
+        } elseif ($usernameExisted) {
+            $usernameError = "This username is already used. Please select another";
             $ok = false;
         }
 
-        if(Fanta_Valid::isNullOrEmpty($_POST['lastname'])) {
-            $lnameError = "Please enter your last name";
+        if(Fanta_Valid::isNullOrEmpty($_POST['email'])) {
+            $emailError = "Email can not be empty";
             $ok = false;
-        }
-
-        if(Fanta_Valid::isNullOrEmpty($_POST['gender'])) {
-            $genderError = "Please indicate your gender";
+        }else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+            $emailError = "Please enter valid email format";
             $ok = false;
-        } elseif (!Fanta_Valid::isGenderValid($_POST['gender'])) {
-            $genderError = "Invalid gender";
+        }elseif ($emailExisted) {
+            $emailError = "This email is already used. Please select another";
             $ok = false;
         }
 
         if ($ok){
             //var_dump($_POST['gender']);
-            $g = ($_POST['gender'] == "male") ? "m" : "f";
-            $row = AdminUser::updateAdmin($_POST['id'], $_POST['firstname'], $_POST['lastname'], $g);
+            $row = AdminUser::updateUsernameAndEmailForUser($_POST['id'], $_POST['username'], $_POST['email']);
             if($row == 1){
                 header("Location: admin-success.php");
             } else {
@@ -52,38 +45,30 @@
     }
 ?>
 
-<h1>New Admin</h1>
+<h1>Update your profile</h1>
 <form class="form-horizontal" method="post" action="admin-edit.php">
     <fieldset>
-        <legend>Edit user</legend>
+        <legend>Please edit fields below:</legend>
         <input type="hidden" class="form-control" id="id" name="id" value="<?php echo $id ?>" />
         <div class="form-group">
-            <label class="control-label col-sm-2" for="firstname">First Name:</label>
+            <label class="control-label col-sm-2" for="username">User Name:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="firstname" placeholder="Enter first name" name="firstname" value="<?php echo $fname ?>" />
-                <br/><span><?php if (isset($fnameError)) echo "$fnameError"; ?></span>
+                <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" value="<?php echo $username ?>" />
+                <br/><span><?php if (isset($usernameError)) echo "$usernameError"; ?></span>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="lastname">Last Name:</label>
+            <label class="control-label col-sm-2" for="email">Email:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="lastname" placeholder="Enter last name" name="lastname" value="<?php echo $lname ?>" />
-                <br/><span><?php if (isset($lnameError)) echo "$lnameError"; ?></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="gender">Gender:</label>
-            <div class="col-sm-10">
-                <label class="radio-inline"><input type="radio" name="gender" value="male" <?php if($gender === 'male') {echo 'checked';} ?> >Male</label>
-                <label class="radio-inline"><input type="radio" name="gender" value="female" <?php if($gender === 'female') {echo 'checked';} ?> >Female</label>
-                <br/><span><?php if (isset($genderError)) echo "$genderError"; ?></span>
+                <input type="text" class="form-control" id="email" placeholder="Enter email" name="email" value="<?php echo $email ?>" />
+                <br/><span><?php if (isset($emailError)) echo "$emailError"; ?></span>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default" name="update">Update</button>
                 <a class="btn btn-default" href="admin-list.php">Cancel</a>
-                <a class="btn btn-link" href="admin-changepassword.php?id=<?php echo $id ?>" >Change Password</a>
+                <a class="btn btn-link" href="admin-changepassword.php?">Change Password</a>
             </div>
         </div>
     </fieldset>
