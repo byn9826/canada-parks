@@ -46,3 +46,14 @@
     border-bottom: 1px solid #000000;
     margin-bottom: 10px;
 }
+
+button.parkToWishlist {
+    padding: 8px 8px;
+}
+
+button.parkToWishlist:hover .ai-glyphicon {
+    color: #ffb606;
+}
+.ai-glyphicon {
+    font-size: 24px;
+}

@@ -6,10 +6,10 @@ class PublicLogin {
         $this->db = $db;
     }
     #check if user submit true name and password
-    public function checkLogin($username, $password) {
-        $query = 'SELECT user_id, user_name FROM user WHERE user_name = :name AND user_password = :password';
+    public function checkLogin($email, $password) {
+        $query = 'SELECT user_id, user_name FROM user WHERE user_email = :email AND user_password = :password';
         $pdostmt = $this->db->prepare($query);
-        $pdostmt->bindValue(':name', $username, PDO::PARAM_STR);
+        $pdostmt->bindValue(':email', $email, PDO::PARAM_STR);
         $pdostmt->bindValue(':password', $password, PDO::PARAM_STR);
         $pdostmt->execute();
         $result = $pdostmt->fetch(PDO::FETCH_OBJ);
@@ -26,9 +26,9 @@ class PublicLogin {
         $default_image = 'default.png'; // default avatar name when user sign up
         $currentDate = date('Y-m-d H:i:s'); // get the current date user sign's up
         //Check if there are duplicated user name
-        $query = 'SELECT * FROM user WHERE user_name = :name';
+        $query = 'SELECT * FROM user WHERE user_email = :email';
         $pdostmt = $this->db->prepare($query);
-        $pdostmt->bindValue(':name', $username, PDO::PARAM_STR);
+        $pdostmt->bindValue(':email', $email, PDO::PARAM_STR);
         $pdostmt->execute();
         $result = $pdostmt->fetch(PDO::FETCH_OBJ);
         if ($pdostmt->rowCount() >= 1) {
@@ -36,9 +36,9 @@ class PublicLogin {
         } else {
             // Queries to Insert into the user and user_details table
             if (isset($_SESSION['google_id'])) {
-                $query = 'INSERT INTO user (user_name, user_password, user_email, user_reg, google_id) VALUES (:name, :password, :email, :reg, :google)';
+                $query = 'INSERT INTO user (user_name, user_password, user_email, user_reg, google_id, accept_term) VALUES (:name, :password, :email, :reg, :google, :checked)';
             } else {
-                $query = 'INSERT INTO user (user_name, user_password, user_email, user_reg) VALUES (:name, :password, :email, :reg)';
+                $query = 'INSERT INTO user (user_name, user_password, user_email, user_reg, accept_term) VALUES (:name, :password, :email, :reg, :checked)';
             }
             $sQueryUserDetails = 'INSERT INTO user_details (user_id, first_name, joined_on, image_src)
                                   VALUES (:user_id, :first_name, :joined_on, :image_src)';
@@ -47,12 +47,13 @@ class PublicLogin {
             $pdostmt->bindValue(':name', $username, PDO::PARAM_STR);
             $pdostmt->bindValue(':password', sha1($password), PDO::PARAM_STR);
             $pdostmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $pdostmt->bindValue(':checked', 1, PDO::PARAM_INT);
             if (isset($_SESSION['google_id'])) {
                 $pdostmt->bindValue(':google', $_SESSION['google_id'], PDO::PARAM_INT);
             }
 
             $pdostmt->bindValue(':reg', $currentDate);
-
+            #User detail update function wrote by Irfaan
             try {
                 $this->db->beginTransaction();
 
