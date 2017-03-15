@@ -93,10 +93,11 @@ if($fManageWishlist) {
                     <li role="presentation"><a href="#map" id="toMap" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
                 </ul>
                 <div class="tab-content">
+                    <h2 class="text-center fou">We Found <?=count($parks)?> parks for you!</h2>
                     <div role="tabpanel" class="tab-pane" id="map"></div>
                     <div role="tabpanel" class="tab-pane active row parks" id="park-list">
                         <?php foreach($parks as $park) {?>
-                        <div class="col-xs-6 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>" style="background-image: url(<?=$park["banner"]?>)">
+                        <div class="col-xs-12 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>" style="background-image: url(<?=$park["banner"]?>)">
                             <div class="caption">
                                 <h3 class="name"><?=$park['name']?></h3>
                                 <p>
