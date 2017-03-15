@@ -40,7 +40,16 @@ h1 {
 .control-td form {
     width: 50%;
 }
+
+/*start park*/
 #map {
     height: 400px;
 
 }
+
+.park-banner {
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+/*end of park*/

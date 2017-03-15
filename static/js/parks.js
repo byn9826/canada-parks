@@ -1,17 +1,4 @@
 //Author: Sam
-
-$(window).on('load', function() {
-    $('.parks').isotope({
-        // set itemSelector so .grid-sizer is not used in layout
-        itemSelector: '.park',
-        percentPosition: true,
-        masonry: {
-            // use element for option
-            columnWidth: '.park-sizer'
-        }
-    });
-});
-
 $('#toMap').on('click', function() {
     if (typeof map == 'undefined') {
         initialize();
@@ -40,7 +27,7 @@ $(document).ready(function() {
         if (parkIds.length == 2) {
 
             $('#compare').attr('disabled', false);
-            var url = '/compare?park1=' + parkIds[0] + '&park2=' + parkIds[1];
+            var url = '../compare?park1=' + parkIds[0] + '&park2=' + parkIds[1];
             $('#compare').attr('href', url);
         } else {
             $('#compare').attr('disabled', true);

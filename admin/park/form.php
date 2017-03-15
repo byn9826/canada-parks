@@ -8,11 +8,16 @@ $parkRepository = new ParkRepository($db);
 
 if (isset($_POST["submit"])) {
     if ($_GET["action"] == "add") {
-        $parkRepository->addPark($_POST, $_FILES["upload"]);
+        $result = $parkRepository->addPark($_POST, $_FILES["upload"]);
     } else {
-        $parkRepository->updatePark($_POST, $_FILES["upload"]);
+        $result = $parkRepository->updatePark($_POST, $_FILES["upload"]);
     }
-    header("location: /admin/park");
+    
+    if ($result["code"] != 200) {
+        $error = $result["msg"];
+    } else {
+        header("location: /admin/park");
+    }
 }
 
 if (isset($_GET["id"])) {
@@ -36,16 +41,18 @@ if (isset($_GET["id"])) {
     </head>
     <body>
         <div class="container">
-            <a class="btn btn-default" href="/admin/park" role="button">Back to Park List</a>
+            <a class="btn btn-default" href="index.php" role="button">Back to Park List</a>
             <h1 class="text-center"><?=$_GET["action"]?> Park</h1>
+            <p class="bg-danger"><?=isset($error) ? $error : ""?></p>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-4">
                     <?php if ($_GET["action"] == "add") {?>
+                    <label for="">Search the park you want to add, then click the marker to populate data</label>
                     <input class="form-control" type="text" id="place" placeholder="Search park name" /> <button class="btn btn-default" id="search">Search</button>
                     <?php  } ?>
-                    <div class="col-md-12" id="map"></div>
+                    <div class="col-xs-12" id="map"></div>
                 </div>
-                <form id="form" class="col-md-6" method="POST" action="<?=$action?>" enctype="multipart/form-data">
+                <form id="form" class="col-sm-4" method="POST" action="<?=$action?>" enctype="multipart/form-data">
                     <?php if (isset($id)) {?>
                     <button class="btn btn-success" id="pull">Pull Data From Google Place</button>
                     <input type="hidden" value="<?=$id?>" name="id" />
@@ -82,23 +89,27 @@ if (isset($_GET["id"])) {
                     </div>
                     
                     <div class="row">
-                        <div class="form-group col-xs-3">
+                        <div class="form-group col-xs-6">
                             <label for="province">Province</label>
                             <input type="text" class="form-control" id="province" name="province" value="<?=isset($park["province"]) ? $park["province"] : "" ?>">
                         </div>
-                        <div class="form-group col-xs-2">
+                        <div class="form-group col-xs-6">
                             <label for="province_code">Province code</label>
                             <input type="text" class="form-control" id="province_code" name="province_code" value="<?=isset($park["province_code"]) ? $park["province_code"] : "" ?>">
                         </div>
-                        <div class="form-group col-xs-3">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
                             <label for="country">Country</label>
                             <input type="text" class="form-control" id="country" name="country" value="<?=isset($park["country"]) ? $park["country"] : "" ?>">
                         </div>
-                        <div class="form-group col-xs-2">
+                        <div class="form-group col-xs-6">
                             <label for="country_code">Country code</label>
                             <input type="text" class="form-control" id="country_code" name="country_code" value="<?=isset($park["country_code"]) ? $park["country_code"] : "" ?>">
                         </div>
-                        <div class="form-group col-xs-2">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-4">
                             <label for="postal_code">Postal code</label>
                             <input type="text" class="form-control" id="postal_code" name="postal_code" value="<?=isset($park["postal_code"]) ? $park["postal_code"] : "" ?>">
                         </div>
@@ -128,12 +139,10 @@ if (isset($_GET["id"])) {
                     
                     <button type="submit" name="submit" class="btn btn-default">Submit</button>
                 </form>
-            </div>
-            <div id="photos" class="row">
-                
+                <div id="photos" class="col-sm-4"></div>
             </div>
         </div>
     </body>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyIDeakYLU04AwAxmUS44hHYQzgJPu6FQ&libraries=places"></script>
-    <script type="text/javascript" src="/static/js/admin/park.js"></script>
+    <script type="text/javascript" src="../../static/js/admin/park.js"></script>
 </html>

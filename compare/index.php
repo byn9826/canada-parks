@@ -76,13 +76,13 @@ $parks = array($park1, $park2);
                 <div id="park-compare">
                     <div class="active" id="map"></div>
                     <div class="row">
-                        <div class="col-xs-6 text-center park">
+                        <div class="col-xs-6 text-center">
                             <h2 class="name"><a href="/park?id=<?=$park1["id"]?>"><?=$park1['name']?></a></h2>
                             <figure>
                                 <img class="img-responsive" src="<?=$park1["banner"]?>" alt="<?=$park1["name"]?>" />
                             </figure>
                         </div>
-                        <div class="col-xs-6 text-center park">
+                        <div class="col-xs-6 text-center">
                             <h2 class="name"><a href="/park?id=<?=$park2["id"]?>"><?=$park2['name']?></a></h2>
                             <figure>
                                 <img class="img-responsive" src="<?=$park2["banner"]?>" alt="<?=$park2["name"]?>" />
@@ -132,6 +132,6 @@ $parks = array($park1, $park2);
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>
         <script type="text/javascript" src="../static/js/map.js"></script>
-        <script type="text/javascript" src="../static/js/compare.js"></script>
+        <script type="text/javascript" src="../../static/js/compare.js"></script>
     </body>
 </html>

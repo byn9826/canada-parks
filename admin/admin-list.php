@@ -2,9 +2,9 @@
     require_once "header.php";
     require_once "model/database.php";
     require_once "model/admin.php";
-
     $db = Database::getDB();
     $admins = AdminUser::getAllAdminUser();
+
 ?>
 
 <h1>Administration page</h1>
