@@ -16,17 +16,39 @@
     margin-top: 20px;
 }
 
-.park {
-    margin-bottom: 20px;
-}
-
 .park .name {
     margin: 5px 0;
 }
 
-.park img {
+.park {
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 200px;
+    background-size: 150%;
+    position: relative;
+    transition: background-size 0.5s linear;
+    -webkit-transition: background-size 0.5s linear;
+    -moz-transition: background-size 0.5s linear;
+    -ms-transition: background-size 0.5s linear;
+}
+
+.park:hover {
+    background-size: 200%;
+}
+
+.park .caption {
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+}
+
+.marker {
+    width: 300px;
+    height: 200px;
+}
+
+.marker-img {
     width: 100%;
-    margin: auto;
 }
 
 #map {

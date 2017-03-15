@@ -14,7 +14,7 @@ class ParkRepository {
         $pdostmt = $this->db->prepare($sql);
         
         if (!empty($name)) {
-            $sql = "SELECT * FROM park WHERE name LIKE %:name%";
+            $sql = "SELECT * FROM park WHERE name LIKE :name";
         }
         
         if (!empty($province)) {
@@ -22,11 +22,12 @@ class ParkRepository {
         }
         
         if (!empty($name) && !empty($province)) {
-            $sql = "SELECT * FROM park WHERE name LIKE %:name% AND province_code = :province";
+            $sql = "SELECT * FROM park WHERE name LIKE :name AND province_code = :province";
         }
         
         $pdostmt = $this->db->prepare($sql);
         if (!empty($name)) {
+            $name = "%" . $name . "%";
             $pdostmt->bindValue(":name", $name, PDO::PARAM_STR);
         }
         
@@ -50,7 +51,7 @@ class ParkRepository {
         $sql = "INSERT INTO park (google_place_id, name, banner, description, address, province, province_code, country, country_code, postal_code, latitude, longitude, phone_number, rating, website)" . 
         "VALUES ( :google_place_id, :name, :banner, :description, :address, :province, :province_code, :country, :country_code, :postal_code, :latitude, :longitude, :phone_number, 0.0, :website)";
 
-        $this->parkOperation($park, $upload, $sql);
+        return $this->parkOperation($park, $upload, $sql);
 
     }
     
@@ -73,7 +74,7 @@ class ParkRepository {
             website = :website 
         WHERE id = :id ";
         
-        $this->parkOperation($park, $upload, $sql);
+        return $this->parkOperation($park, $upload, $sql);
 
     }
     
@@ -82,7 +83,7 @@ class ParkRepository {
             $id = $park["id"];
         }
         $name = $park["name"];
-            $google_place_id = $park["google_place_id"];
+        $google_place_id = $park["google_place_id"];
         $banner = $park["banner"];
         $description = $park["description"];
         $address = $park["address"];
@@ -120,8 +121,14 @@ class ParkRepository {
         $pdostmt->bindValue(":longitude", $longitude, PDO::PARAM_STR);
         $pdostmt->bindValue(":phone_number", $phone_number, PDO::PARAM_STR);
         $pdostmt->bindValue(":website", $website, PDO::PARAM_STR);
-        $pdostmt->execute();
-        //print_r($pdostmt->errorInfo());
+        try {
+            $pdostmt->execute();
+            // print_r($pdostmt->errorInfo());
+            // die;
+            return array("code" => 200, "msg" => "success");
+        } catch (PDOException $e) {
+            return array("code" => 500, "msg" => "fail");
+        }
     }
     
     public function getNumParksWithProvince() {
