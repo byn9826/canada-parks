@@ -138,5 +138,23 @@ class ParkRepository {
         }
         return $result;
     }
-    
+
+    public static function getParksForDropDown($objConnection, $userSelection) {
+        // Query to select all parks
+        $sQuery = "SELECT * FROM park ORDER BY name";
+        $objPDOStatement = $objConnection->prepare($sQuery);
+        $objPDOStatement->execute();
+        $lstParks = $objPDOStatement->fetchAll(PDO::FETCH_OBJ);
+
+        // Construct options mark-up for the dropdown
+        $result = '';
+        foreach ($lstParks as $objPark) {
+            $result .= '<option value="' . $objPark->id . '"';
+            if($userSelection === $objPark->id) {
+                $result .= ' selected ';
+            }
+            $result .= ' >' . $objPark->name . '</option>';
+        }
+        return $result;
+    }
 }
