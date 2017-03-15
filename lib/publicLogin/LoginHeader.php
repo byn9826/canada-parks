@@ -2,7 +2,7 @@
     <li><a>
         Home
     </a></li>
-    <li>
+    <li><a>
         My Profile
     </a></li>
     <li><a>
@@ -13,7 +13,7 @@
     </a></li>
     <li role="separator" class="divider"></li>
     <li>
-        <form id="logout" method="POST" >
+        <form id="logout" method="POST" action="<?php echo $team_route_src; ?>" >
             <input id="header-logout" name="logout" type="submit" value="Log out" />
         </form>
     </li>
