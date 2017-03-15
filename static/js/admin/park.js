@@ -46,7 +46,6 @@ function getPlaceDetails(place_id) {
         placeId: place_id
     }, function(place, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-            console.log(place);
             renderForm(place);
         }
     });
@@ -76,18 +75,21 @@ function renderForm(place) {
             $('#postal_code').val(address.long_name);
         }
     });
-    
     renderPhoto(place.photos);
 }
 
 function renderPhoto(photos) {
-    var photosHTML = '';
-    photos.map(function(photo) {
-        var photoUrl = photo.getUrl({'maxWidth': 400, 'maxHeight': 300});
-        var photoHTML = '<img class="col-md-3 park-banner" src="' + photoUrl + '" />';
-        photosHTML += photoHTML;
-    });
-    $('#photos').html(photosHTML);
+    if (typeof photos == "undefined") {
+        $('#photos').html('No photos from google');
+    } else {
+        var photosHTML = '';
+        photos.map(function(photo) {
+            var photoUrl = photo.getUrl({'maxWidth': 400, 'maxHeight': 300});
+            var photoHTML = '<img class="col-md-12 park-banner" src="' + photoUrl + '" />';
+            photosHTML += photoHTML;
+        });
+        $('#photos').html(photosHTML);
+    }
 }
 
 $(document).ready(function() {
@@ -111,8 +113,6 @@ $(document).ready(function() {
     
     $('#search').on('click', function() {
         var request = {
-            //location: pyrmont,
-            //radius: '500',
             query: $('#place').val()
         };
         service.textSearch(request, callback);
