@@ -146,7 +146,7 @@ class ParkRepository {
         return $result;
     }
 
-    public static function getParksForDropDown($objConnection, $userSelection) {
+    public static function getParksForDropDown($objConnection) {
         // Query to select all parks
         $sQuery = "SELECT * FROM park ORDER BY name";
         $objPDOStatement = $objConnection->prepare($sQuery);
@@ -157,9 +157,6 @@ class ParkRepository {
         $result = '';
         foreach ($lstParks as $objPark) {
             $result .= '<option value="' . $objPark->id . '"';
-            if($userSelection === $objPark->id) {
-                $result .= ' selected ';
-            }
             $result .= ' >' . $objPark->name . '</option>';
         }
         return $result;

@@ -136,6 +136,7 @@ class Footprints
         return $fRecordAdded;
     }
 
+    // -- Function taking an array of images as input and storing them in the database
     public function SaveFootprintImages($lstImages) {
         // Query to store footprint's image name in DB
         $sQuery = "INSERT INTO footprint_images (footprint_id, image_src) VALUES (:footprintId, :imageName);";
@@ -147,4 +148,61 @@ class Footprints
            $objPDOStatement->execute();
         }
     }
+
+    // -- Function to retrieve details to display a footprint
+    public function GetFootprintsDetails() {
+        // Query to select footprints details
+        $sQueryFootprints = "
+                                    SELECT fp.footprint_id
+                                          ,DATE_FORMAT(fp.date_visited, '%M %d, %Y') as date_visited
+                                          ,DATE_FORMAT(fp.created_on,'%b %d, %Y %h:%i %p') as created_on
+                                          ,fp.is_public
+                                          ,fp.user_story
+                                          ,ud.image_src
+                                          ,RTRIM(concat(IFNULL(ud.first_name,''), ' ', IFNULL(ud.last_name,''))) AS full_name
+                                          ,p.name
+                                      FROM footprints fp
+                                INNER JOIN user_details ud
+                                        ON ud.user_id = fp.user_id
+                                INNER JOIN park p
+                                        ON p.id = fp.park_id
+                                     WHERE fp.user_id = :userId
+                                  ORDER BY fp.created_on DESC;
+                            ";
+        // Prepare and execute query
+        $objPDOStatement = $this->_objConnection->prepare($sQueryFootprints);
+        $objPDOStatement->bindValue(':userId', $this->_userId);
+        $objPDOStatement->execute();
+        $lstFootprints = $objPDOStatement->fetchAll(PDO::FETCH_OBJ);
+        return $lstFootprints;
+    }
+
+
+    // -- Public Static Functions Declaration
+    // -- -----------------------------------
+    // -- Function taking a list of park details and return constructed HTML
+    public static function ConstructFootprintItems($lstFootprints) {
+        // Loop and build a wishlist item
+        $sResult = "";
+        foreach ($lstFootprints as $objFootprint) {
+            $sResult .= "<div id=\"f{$objFootprint->footprint_id}\" data-footprintId=\"{$objFootprint->footprint_id}\" class=\"footprint display-group\">";
+            $sResult .= "    <div class=\"row\">";
+            $sResult .= "        <div class=\"col col-xs-2 col-sm-2\"><img src=\"../static/img/profile/users/{$objFootprint->image_src}\" /></div>";
+            $sResult .= "        <div class=\"col col-xs-9 col-sm-9\">";
+            $sResult .= "            <div>";
+            $sResult .= "                <span class=\"footprint__user\">{$objFootprint->full_name}</span> has been to <span class=\"glyphicon glyphicon-tree-deciduous ai-glyphicon\"></span> <span class=\"footprint__park\">{$objFootprint->name}</span> <span title=\"{$objFootprint->date_visited}\">recently.</span>";
+            $sResult .= "            </div>";
+            $sResult .= "            <div class=\"footprint__date\">{$objFootprint->created_on}</div>";
+            $sResult .= "        </div>";
+            $sResult .= "    </div>";
+            $sResult .= "    <p class=\"footprint__caption\">{$objFootprint->user_story}</p>";
+            $sResult .= "    <div class=\"footprint__gallery\">";
+            $sResult .= "        <img src=\"../static/img/park/0/profile.jpg\" alt=\"Park picture\" /><!-- ../static/img/profile/footprints/foldername -->";
+            $sResult .= "        <img src=\"../static/img/park/1/profile.jpg\" alt=\"Park picture\" />";
+            $sResult .= "    </div>";
+            $sResult .= "</div>";
+        }
+        return $sResult;
+    }
+
 }

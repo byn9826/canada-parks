@@ -34,17 +34,23 @@
     // -- ------------------------------------------------------------------
     $objUserAccount = new UserAccount($objConnection, $_SESSION['user_id']);
     $objUserDetails = new UserDetails($objConnection, $_SESSION['user_id']);
+    $objFootprints = new Footprints($objConnection, $_SESSION['user_id']);
     $objWishlist = new Wishlist($objConnection, $_SESSION['user_id']);
     $iUserDetailsRead = $objUserDetails->Read();
     if($iUserDetailsRead == 0) {
         die("Unable to read user details at the moment.");
     }
-    // Find number of items in user's wishlist
+
+    // -- Find number of items in user's footprint
+    $lstFootprints = $objFootprints->GetFootprintsDetails();
+    $iNbFootprints = count($lstFootprints);
+    $lblFootprints = ($iNbFootprints > 1) ? 'Footprint items' : 'Footprint item';
+
+    // -- Find number of items in user's wishlist
     $lstParksInWishlist = $objWishlist->GetWishParkDetails();
     $iNbWishlistItems = count($lstParksInWishlist);
     $lblWishlist = ($iNbWishlistItems > 1) ? 'Wishlist items' : 'Wishlist item';
-    // Get list of parks for footprint
-    $parkSelected = "";
+
 
     // -- Default tab to open
     if(!isset($tabWishlists)) {
@@ -115,8 +121,8 @@
                             <div class="activities row">
                                 <div class="col-xs-6">
                                     <a href="." title="View my footprints">
-                                        <div><span class="activities__footprint">2</span></div>
-                                        <div>Footprint items</div>
+                                        <div><span class="activities__footprint"><?php echo $iNbFootprints ?></span></div>
+                                        <div><?php echo $lblFootprints ?></div>
                                     </a>
                                 </div>
                                 <div class="col-xs-6">
@@ -167,6 +173,9 @@
                                         </div>
                                     </div>
 
+                                        <?php
+                                            echo Footprints::ConstructFootprintItems($lstFootprints);
+                                        ?>
                                     <!-- Past footprints -->
                                     <div id="1" class="footprint display-group">
                                         <div class="row">
@@ -180,7 +189,7 @@
                                         </div>
                                         <p class="footprint__caption">Here will go a short description/comment written by the user when registering a new footprint.</p>
                                         <div class="footprint__gallery">
-                                            <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
+                                            <img src="../static/img/park/0/profile.jpg" alt="Park picture" /><!-- ../static/img/profile/footprints/foldername -->
                                             <img src="../static/img/park/1/profile.jpg" alt="Park picture" />
                                         </div>
                                     </div>
@@ -269,7 +278,7 @@
                                             <div class="col-sm-7">
                                                 <select id="slctPark" name="parkVisited" class="form-control">
                                                     <?php
-                                                        echo ParkRepository::getParksForDropDown($objConnection, $parkSelected);
+                                                        echo ParkRepository::getParksForDropDown($objConnection);
                                                     ?>
                                                 </select>
                                             </div>

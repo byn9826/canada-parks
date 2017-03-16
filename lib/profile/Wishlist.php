@@ -108,6 +108,7 @@ class Wishlist
         return $fStatus;
     }
 
+
     // -- Public Static Functions Declaration
     // -- -----------------------------------
     // Function returning an array of park IDs to use as filter
