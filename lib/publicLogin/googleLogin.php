@@ -1,7 +1,7 @@
 <?php
 //Paul - Modified from login example by google https://developers.google.com/identity/sign-in/web/backend-auth
 if (isset($_POST['id'])) {
-    require_once('../google-api-php-client/vendor/autoload.php');
+    require_once('../../vendor/autoload.php');
     require_once('../DatabaseAccess.php');
     require_once('default.php');
     $client = new Google_Client(['client_id' => '168098850234-7ouvsm9ikqj9g77u623o5754kdp1t62c.apps.googleusercontent.com']);
