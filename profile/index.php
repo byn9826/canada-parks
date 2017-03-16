@@ -11,10 +11,17 @@
     require_once '../lib/profile/UserAccount.php';
     require_once '../lib/profile/UserDetails.php';
     require_once '../lib/profile/Wishlist.php';
+    require_once '../lib/profile/manageFootprints.php';
+    require_once '../lib/ParkRepository.php';
+
 
     // Check whether the wishlist tab needs to display by default
     if(isset($_GET['wishlist'])) {
         $tabWishlists = true;
+    }
+    $footprintStatus = "";
+    if(isset($_GET['fp'])) {
+        $footprintStatus = $_GET['fp'];
     }
 
 
@@ -36,6 +43,8 @@
     $lstParksInWishlist = $objWishlist->GetWishParkDetails();
     $iNbWishlistItems = count($lstParksInWishlist);
     $lblWishlist = ($iNbWishlistItems > 1) ? 'Wishlist items' : 'Wishlist item';
+    // Get list of parks for footprint
+    $parkSelected = "";
 
     // -- Default tab to open
     if(!isset($tabWishlists)) {
@@ -55,6 +64,9 @@
         <link rel="stylesheet" type="text/css" href="../static/css/profile.css" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            var footprintStatus = "<?php echo $footprintStatus ?>";
+        </script>
     </head>
     <body>
         <div class="container-fluid">
@@ -231,6 +243,7 @@
             <div class="modal fade bs-example-modal-lg" id="myNewFootprint" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
+                        <form name="frmAddFootprint" id="frmAddFootprint" action="../lib/profile/manageFootprints.php" method="post" enctype="multipart/form-data">
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -248,51 +261,55 @@
                                 </div>
                             </div>
                             <div class="row new-footprint-data">
-                                <form name="" action="" method="post" enctype="multipart/form-data">
-                                    <!-- TODO: Form to add a new footprint -->
-                                    <div class="col-md-6 new-footprint-form">
-                                            <div class="form-group row">
-                                                <label for="slctPark" class="col-sm-5 col-form-label">Park visited</label>
-                                                <div class="col-sm-7">
-                                                    <select id="slctPark" name="parkVisited" class="form-control">
-                                                        <?php foreach ($lstParks as $parkDetails) {
-                                                            echo "<option value=\"{$parkDetails['id']}\">{$parkDetails['name']}</option>";
-                                                        } ?>
-                                                    </select>
-                                                </div>
+                                <!-- TODO: Form to add a new footprint -->
+                                <div class="col-md-6 new-footprint-form">
+                                        <!-- Park Referenced in Footprint -->
+                                        <div class="form-group row">
+                                            <label for="slctPark" class="col-sm-5 col-form-label">Park visited</label>
+                                            <div class="col-sm-7">
+                                                <select id="slctPark" name="parkVisited" class="form-control">
+                                                    <?php
+                                                        echo ParkRepository::getParksForDropDown($objConnection, $parkSelected);
+                                                    ?>
+                                                </select>
                                             </div>
-                                            <div class="form-group row">
-                                                <label for="inputDateVisit" class="col-sm-5 col-form-label">Date visited</label>
-                                                <div class="col-sm-5">
-                                                    <input type="text" class="form-control" id="inputDateVisit" placeholder="Date visited park" />
-                                                </div>
+                                        </div>
+                                        <!-- Date Visited Park -->
+                                        <div class="form-group row">
+                                            <label for="inputDateVisit" class="col-sm-5 col-form-label">Date visited</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="inputDateVisit" name="dateVisited" placeholder="Date visited park" />
                                             </div>
-                                            <div class="form-group row">
-                                                <label for="inputStory" class="col-sm-5 col-form-label">Story</label>
-                                                <div class="col-sm-7">
-                                                    <textarea class="form-control" id="inputStory" row="4" placeholder="Optional"></textarea>
-                                                </div>
+                                            <div id="errFootprintDate" class="col-sm-5 col-sm-offset-5 text-danger"></div>
+                                        </div>
+                                        <!-- User Story about Footprint -->
+                                        <div class="form-group row">
+                                            <label for="inputStory" class="col-sm-5 col-form-label">Story</label>
+                                            <div class="col-sm-7">
+                                                <textarea class="form-control" id="inputStory" name="userStory" row="5" placeholder="Optional"></textarea>
                                             </div>
-                                            <div class="form-group row">
-                                                <label for="isPublic" class="col-sm-5 col-form-label">Share post as public?</label>
-                                                <div class="col-sm-7">
-                                                    <input class="form-check-input" type="checkbox" id="isPublic" value="Y">
-                                                    <label for="isPublic">Yes</label>
-                                                </div>
+                                        </div>
+                                        <!-- Indicate if footprint shared as public -->
+                                        <div class="form-group row">
+                                            <label for="isPublic" class="col-sm-5 col-form-label">Share post as public?</label>
+                                            <div class="col-sm-7">
+                                                <input class="form-check-input" type="checkbox" id="isPublic" name="isPublic" value="Y">
+                                                <label for="isPublic">Yes</label>
                                             </div>
-                                    </div>
-                                    <div class="col-md-6 new-footprint-images">
-                                        <label for="yourImages">Upload your pictures</label>
-                                        <input type="file" id="yourImages" name="files[]" multiple="multiple" accept="image/*" />
-                                    </div>
-                                </form>
+                                        </div>
+                                </div>
+                                <div class="col-md-6 new-footprint-images">
+                                    <label for="yourImages">Upload your pictures</label>
+                                    <input type="file" id="yourImages" name="files[]" multiple="multiple" accept="image/*" />
+                                </div>
                             </div>
                         </div>
                         <!-- Modal Footer -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Share</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="submit" id="btnShareFootprint" name="btnShareFootprint" class="btn btn-primary">Share Footprint</button>
+                            <button type="button" id="btnCancelFootprint" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -301,5 +318,6 @@
             <?php include_once "../templates/footer.php" ?>
         </div>
         <script type="text/javascript" src="../static/js/profile.js"></script>
+        <script type="text/javascript" src="../static/js/alert.js"></script>
     </body>
 </html>

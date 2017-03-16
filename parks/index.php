@@ -93,17 +93,13 @@ if($fManageWishlist) {
                     <li role="presentation"><a href="#map" id="toMap" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
                 </ul>
                 <div class="tab-content">
+                    <h2 class="text-center fou">We Found <?=count($parks)?> parks for you!</h2>
                     <div role="tabpanel" class="tab-pane" id="map"></div>
                     <div role="tabpanel" class="tab-pane active row parks" id="park-list">
-                        <div class="col-xs-12 col-sm-4 col-md-3 park-sizer"></div>
                         <?php foreach($parks as $park) {?>
-                        <div class="col-xs-12 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>">
-                            <?php if (!empty($park["banner"])) { ?>
-                            <img class="img-responsive" src="<?=$park["banner"]?>" />
-                            <?php } ?>
+                        <div class="col-xs-12 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>" style="background-image: url(<?=$park["banner"]?>)">
                             <div class="caption">
-                                <h2 class="name"><?=$park['name']?></h2>
-                                <p><?=$park['address']?></p>
+                                <h3 class="name"><?=$park['name']?></h3>
                                 <p>
                                     <a href="../park?id=<?=$park['id']?>" class="btn btn-primary" role="button">Detail</a>
                                     <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a>
@@ -144,7 +140,6 @@ if($fManageWishlist) {
 		</script>
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>
-        <script type="text/javascript" src="https://npmcdn.com/isotope-layout@3.0.2/dist/isotope.pkgd.min.js"></script>
         <script type="text/javascript" src="../static/js/map.js"></script>
         <script type="text/javascript" src="../static/js/parks.js"></script>
         <script type="text/javascript" src="../static/js/parkToWishlist.js"></script>

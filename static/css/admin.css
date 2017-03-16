@@ -40,10 +40,21 @@ h1 {
 .control-td form {
     width: 50%;
 }
+
+/*start park*/
 #map {
     height: 400px;
 
 }
+
+
+.park-banner {
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+/*end of park*/
+
 .btn{
     margin: 5px;
 }
@@ -56,3 +67,4 @@ h1 {
 .admin-header-drop-down-div {
     margin-bottom: 2em;
 }
+

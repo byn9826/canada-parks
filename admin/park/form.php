@@ -8,11 +8,16 @@ $parkRepository = new ParkRepository($db);
 
 if (isset($_POST["submit"])) {
     if ($_GET["action"] == "add") {
-        $parkRepository->addPark($_POST, $_FILES["upload"]);
+        $result = $parkRepository->addPark($_POST, $_FILES["upload"]);
     } else {
-        $parkRepository->updatePark($_POST, $_FILES["upload"]);
+        $result = $parkRepository->updatePark($_POST, $_FILES["upload"]);
     }
-    header("location: /admin/park");
+    
+    if ($result["code"] != 200) {
+        $error = $result["msg"];
+    } else {
+        header("location: /admin/park");
+    }
 }
 
 if (isset($_GET["id"])) {
@@ -38,19 +43,20 @@ if (isset($_GET["id"])) {
         <div class="container">
             <a class="btn btn-default" href="index.php" role="button">Back to Park List</a>
             <h1 class="text-center"><?=$_GET["action"]?> Park</h1>
+            <p class="bg-danger"><?=isset($error) ? $error : ""?></p>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-4">
                     <?php if ($_GET["action"] == "add") {?>
+                    <label for="">Search the park you want to add, then click the marker to populate data</label>
                     <input class="form-control" type="text" id="place" placeholder="Search park name" /> <button class="btn btn-default" id="search">Search</button>
                     <?php  } ?>
-                    <div class="col-md-12" id="map"></div>
+                    <div class="col-xs-12" id="map"></div>
                 </div>
-                <form id="form" class="col-md-6" method="POST" action="<?=$action?>" enctype="multipart/form-data">
+                <form id="form" class="col-sm-8" method="POST" action="<?=$action?>" enctype="multipart/form-data">
                     <?php if (isset($id)) {?>
                     <button class="btn btn-success" id="pull">Pull Data From Google Place</button>
                     <input type="hidden" value="<?=$id?>" name="id" />
                     <?php } ?>
-                    
                     <div class="form-group">
                         <label for="google_place_id">Google Place ID</label>
                         <input type="text" class="form-control" id="google_place_id" name="google_place_id" value="<?=isset($park["google_place_id"]) ? $park["google_place_id"] : "" ?>">
@@ -62,10 +68,11 @@ if (isset($_GET["id"])) {
                     </div>
                     
                     <div class="form-group">
-                        <label for="upload">Upload banner</label>
-                        <input type="file" class="form-control" id="upload" name="upload" />
+                        <!--<label for="upload">Upload banner</label>-->
+                        <!--<input type="file" class="form-control" id="upload" name="upload" />-->
                         <label for="banner">Use url banner</label>
                         <input type="text" class="form-control" id="banner" name="banner" value="<?=isset($park["banner"]) ? $park["banner"] : "" ?>">
+                        <button id="pullPhotosFromGoogle" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Select banner from Google</button>
                         <?php if(isset($park["banner"])) { ?>
                         <img src="<?=$park["banner"]?>" id="banner-display" class="img-responsive" />
                         <?php } ?>
@@ -82,23 +89,27 @@ if (isset($_GET["id"])) {
                     </div>
                     
                     <div class="row">
-                        <div class="form-group col-xs-3">
+                        <div class="form-group col-xs-6">
                             <label for="province">Province</label>
                             <input type="text" class="form-control" id="province" name="province" value="<?=isset($park["province"]) ? $park["province"] : "" ?>">
                         </div>
-                        <div class="form-group col-xs-2">
+                        <div class="form-group col-xs-6">
                             <label for="province_code">Province code</label>
                             <input type="text" class="form-control" id="province_code" name="province_code" value="<?=isset($park["province_code"]) ? $park["province_code"] : "" ?>">
                         </div>
-                        <div class="form-group col-xs-3">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
                             <label for="country">Country</label>
                             <input type="text" class="form-control" id="country" name="country" value="<?=isset($park["country"]) ? $park["country"] : "" ?>">
                         </div>
-                        <div class="form-group col-xs-2">
+                        <div class="form-group col-xs-6">
                             <label for="country_code">Country code</label>
                             <input type="text" class="form-control" id="country_code" name="country_code" value="<?=isset($park["country_code"]) ? $park["country_code"] : "" ?>">
                         </div>
-                        <div class="form-group col-xs-2">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-4">
                             <label for="postal_code">Postal code</label>
                             <input type="text" class="form-control" id="postal_code" name="postal_code" value="<?=isset($park["postal_code"]) ? $park["postal_code"] : "" ?>">
                         </div>
@@ -126,11 +137,23 @@ if (isset($_GET["id"])) {
                         <input type="text" class="form-control" id="website" name="website" value="<?=isset($park["website"]) ? $park["website"] : "" ?>">
                     </div>
                     
-                    <button type="submit" name="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
-            <div id="photos" class="row">
-                
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Choose a banner form park</h4>
+                        </div>
+                        <div class="modal-body row" id="photos">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

@@ -1,17 +1,4 @@
 //Author: Sam
-
-$(window).on('load', function() {
-    $('.parks').isotope({
-        // set itemSelector so .grid-sizer is not used in layout
-        itemSelector: '.park',
-        percentPosition: true,
-        masonry: {
-            // use element for option
-            columnWidth: '.park-sizer'
-        }
-    });
-});
-
 $('#toMap').on('click', function() {
     if (typeof map == 'undefined') {
         initialize();

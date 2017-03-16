@@ -1,8 +1,29 @@
 /**
  * Created by M. Irfaan Auhammad on 10-Feb-17.
  */
-// alert('javasrcipt');
+
 $(document).ready(function() {
+
+    // Handle Query string to check if user just created a footprint
+    if(footprintStatus !== "") {
+        var footprintMessage;
+        var messageType;
+        if(footprintStatus === "s") {
+            footprintMessage = "Your new footprint was added successfully.";
+            messageType = "success";
+        } else {
+            footprintMessage = "Sorry. Currently, we are not able to add your new footprint."
+            messageType = "warning";
+        }
+        $.alert(footprintMessage,{
+            autoClose: true,
+            closeTime: 5000,
+            type: messageType,
+            isOnly: true,
+            position: ['top-right', [0, 25]],
+            minTop: 50,
+        });
+    }
 
     // -- Scroll window automatically to match hash
     if(window.location.hash) {
@@ -17,6 +38,34 @@ $(document).ready(function() {
         $('#inputDateVisit').datepicker();
     } );
 
+
+    // -- Handle form when User Adds a new footprint
+    $('#frmAddFootprint').submit(function(e) {
+
+        // Capture form data
+        //var frmFootprint = document.forms.frmAddFootprint;
+        //var iParkId = $('#slctPark').val();
+        var dDateVisited = $('#inputDateVisit').val();
+        // var sUserStory = $('#inputStory').val();
+        // if ( $('#isPublic').is(':checked') )
+        //     var fSharePublic = $('#isPublic').val();
+        // else
+        //     var fSharePublic = 'N';
+
+        // Perform validation
+        if(dDateVisited === "") {
+            $('#errFootprintDate').html('Please select a date')
+            return false;
+        } else {
+            $('#errFootprintDate').html('');
+        }
+
+    });
+
+    // Reset form is user hits Cancel button
+    $('#btnCancelFootprint').on('click', function () {
+        $('#frmAddFootprint').trigger('reset');
+    });
 
     // -- Handle delete a wishlist item
     $('a.del-wishitem').on('click', function(e) {
