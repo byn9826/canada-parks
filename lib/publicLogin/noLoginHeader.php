@@ -12,7 +12,7 @@
             </h5>
         </li>
         <li>
-            <input type="button" class="btn btn-link" id="login" name="login" value="Submit" />
+            <input type="button" class="btn btn-link" id="login" name="login" value="Login" />
         </li>
     </form>
     <li role="separator" class="divider"></li>

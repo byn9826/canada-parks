@@ -1,24 +1,31 @@
 <?php
-#author：Bao
-##use session
+//author：Bao
+
+//Inital session if not exist
 if(!isset($_SESSION)){
     session_start();
 }
-## define route for different pages
+
+//define route for different pages
 $team_route_src = '../';
 if(isset($team_route_custom)) {
     $team_route_src = $team_route_custom;
 }
-##Get header navigation names and links
+
+//get db connection
 require_once($team_route_src . 'lib/DatabaseAccess.php');
-require_once($team_route_src . 'lib/globe/globe.php');
 $db = DatabaseAccess::getConnection();
+
+//Get header navigation names and links
+require_once($team_route_src . 'lib/globe/globe.php');
 $globe = new Globe($db);
 $header_navi = $globe->getHeader();
-##If user login passed js validation submit login form
+
+//If user login passed js validation and click login
 if(isset($_POST['email']) && isset($_POST['password'])) {
     require_once($team_route_src . 'lib/publicLogin/default.php');
     require_once($team_route_src . 'lib/validation/fanta_valid.php');
+    //Get input
     $email = $_POST['email'];
     $password = $_POST['password'];
     //secure input
@@ -30,13 +37,15 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
     } else {
         //get php secure password
         $password = sha1($password);
-        //check users password in db
-        $db = DatabaseAccess::getConnection();
+        //check users account in db
         $publicLogin = new PublicLogin($db);
         $login_result = $publicLogin->checkLogin($email, $password);
+        //If account not exist, error message
         if (!$login_result) {
             $login_error = 'Wrong email or password';
-        } else {
+        }
+        //If account exist, write into session
+        else {
             $_SESSION['user_name'] = $login_result->user_name;
             $_SESSION['user_id'] = $login_result->user_id;
         }

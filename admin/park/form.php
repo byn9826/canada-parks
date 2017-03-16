@@ -36,7 +36,7 @@ if (isset($_GET["id"])) {
 			$team_route_custom = "../../";
 			include "../../templates/meta.php";
 		?>
-		<link rel="stylesheet" href="/static/css/admin.css" type="text/css" />
+		<link rel="stylesheet" href="../../static/css/admin.css" type="text/css" />
 		<title>Edit Park</title>
     </head>
     <body>
@@ -52,12 +52,11 @@ if (isset($_GET["id"])) {
                     <?php  } ?>
                     <div class="col-xs-12" id="map"></div>
                 </div>
-                <form id="form" class="col-sm-4" method="POST" action="<?=$action?>" enctype="multipart/form-data">
+                <form id="form" class="col-sm-8" method="POST" action="<?=$action?>" enctype="multipart/form-data">
                     <?php if (isset($id)) {?>
                     <button class="btn btn-success" id="pull">Pull Data From Google Place</button>
                     <input type="hidden" value="<?=$id?>" name="id" />
                     <?php } ?>
-                    
                     <div class="form-group">
                         <label for="google_place_id">Google Place ID</label>
                         <input type="text" class="form-control" id="google_place_id" name="google_place_id" value="<?=isset($park["google_place_id"]) ? $park["google_place_id"] : "" ?>">
@@ -69,10 +68,11 @@ if (isset($_GET["id"])) {
                     </div>
                     
                     <div class="form-group">
-                        <label for="upload">Upload banner</label>
-                        <input type="file" class="form-control" id="upload" name="upload" />
+                        <!--<label for="upload">Upload banner</label>-->
+                        <!--<input type="file" class="form-control" id="upload" name="upload" />-->
                         <label for="banner">Use url banner</label>
                         <input type="text" class="form-control" id="banner" name="banner" value="<?=isset($park["banner"]) ? $park["banner"] : "" ?>">
+                        <button id="pullPhotosFromGoogle" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Select banner from Google</button>
                         <?php if(isset($park["banner"])) { ?>
                         <img src="<?=$park["banner"]?>" id="banner-display" class="img-responsive" />
                         <?php } ?>
@@ -137,9 +137,23 @@ if (isset($_GET["id"])) {
                         <input type="text" class="form-control" id="website" name="website" value="<?=isset($park["website"]) ? $park["website"] : "" ?>">
                     </div>
                     
-                    <button type="submit" name="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                 </form>
-                <div id="photos" class="col-sm-4"></div>
+            </div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Choose a banner form park</h4>
+                        </div>
+                        <div class="modal-body row" id="photos">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
