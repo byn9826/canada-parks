@@ -65,7 +65,7 @@ $parks = array($park1, $park2);
                         <select class="form-control" id="province" name="province">
                             <option value="">Select a Province</option>
                             <?php foreach($provinces as $name => $value) {?>
-                            <option <?=($province == $value) ? "selected" : ""?> value="<?=$value?>"><?=$name?></option>
+                            <option value="<?=$value?>"><?=$name?></option>
                             <?php } ?>
                         </select>
                     </div>
