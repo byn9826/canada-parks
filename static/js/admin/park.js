@@ -85,7 +85,7 @@ function renderPhoto(photos) {
         var photosHTML = '';
         photos.map(function(photo) {
             var photoUrl = photo.getUrl({'maxWidth': 400, 'maxHeight': 300});
-            var photoHTML = '<img class="col-md-12 park-banner" src="' + photoUrl + '" />';
+            var photoHTML = '<img class="col-md-3 park-banner" src="' + photoUrl + '" />';
             photosHTML += photoHTML;
         });
         $('#photos').html(photosHTML);
@@ -118,7 +118,7 @@ $(document).ready(function() {
         service.textSearch(request, callback);
     });
     
-    $('#pull').on('click', function(e) {
+    $('#pull, #pullPhotosFromGoogle').on('click', function(e) {
         e.preventDefault();
         var placeId = $('#google_place_id').val();
         getPlaceDetails(placeId);
