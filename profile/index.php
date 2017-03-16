@@ -67,9 +67,12 @@
 		?>
 		<meta name="author" content="Irfaan">
 		<title>Profile | Marvel Canada</title>
+        <link rel="stylesheet" href="../lib/profile/owl.carousel.min.css">
+        <link rel="stylesheet" href="../lib/profile/owl.theme.default.min.css">
         <link rel="stylesheet" type="text/css" href="../static/css/profile.css" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+        <script src="../lib/profile/owl.carousel.js"></script>
         <script type="text/javascript">
             var footprintStatus = "<?php echo $footprintStatus ?>";
         </script>
@@ -173,60 +176,10 @@
                                         </div>
                                     </div>
 
-                                        <?php
-                                            echo Footprints::ConstructFootprintItems($lstFootprints);
-                                        ?>
                                     <!-- Past footprints -->
-                                    <div id="1" class="footprint display-group">
-                                        <div class="row">
-                                            <div class="col col-xs-2 col-sm-2"><img src="../static/img/users/profile/1.png" /></div>
-                                            <div class="col col-xs-9 col-sm-9">
-                                                <div>
-                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous ai-glyphicon"></span> <span class="footprint__park">Banff National Park</span> recently.
-                                                </div>
-                                                <div class="footprint__date">Monday 29th Jan, 2017</div>
-                                            </div>
-                                        </div>
-                                        <p class="footprint__caption">Here will go a short description/comment written by the user when registering a new footprint.</p>
-                                        <div class="footprint__gallery">
-                                            <img src="../static/img/park/0/profile.jpg" alt="Park picture" /><!-- ../static/img/profile/footprints/foldername -->
-                                            <img src="../static/img/park/1/profile.jpg" alt="Park picture" />
-                                        </div>
-                                    </div>
-
-                                    <div id="2" class="footprint display-group">
-                                        <div class="row">
-                                            <div class="col col-xs-2 col-sm-2"><img src="../static/img/users/profile/1.png" /></div>
-                                            <div class="col col-xs-9 col-sm-9">
-                                                <div>
-                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous ai-glyphicon"></span> <span class="footprint__park">Banff National Park</span> recently.
-                                                </div>
-                                                <div class="footprint__date">Monday 29th Jan, 2017</div>
-                                            </div>
-                                        </div>
-                                        <p class="footprint__caption">Here will go a short description/comment written by the user when registering a new footprint.</p>
-                                        <div class="footprint__gallery">
-                                            <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
-                                            <img src="../static/img/park/1/profile.jpg" alt="Park picture" />
-                                        </div>
-                                    </div>
-
-                                    <div id="3" class="footprint display-group">
-                                        <div class="row">
-                                            <div class="col col-xs-2 col-sm-2"><img src="../static/img/users/profile/1.png" /></div>
-                                            <div class="col col-xs-9 col-sm-9">
-                                                <div>
-                                                    <span class="footprint__user">Irfaan Auhammad</span> has been to <span class="glyphicon glyphicon-tree-deciduous ai-glyphicon"></span> <span class="footprint__park">Banff National Park</span> recently.
-                                                </div>
-                                                <div class="footprint__date">Monday 29th Jan, 2017</div>
-                                            </div>
-                                        </div>
-                                        <p class="footprint__caption">Here will go a short description/comment written by the user when registering a new footprint.</p>
-                                        <div class="footprint__gallery">
-                                            <img src="../static/img/park/0/profile.jpg" alt="Park picture" />
-                                            <img src="../static/img/park/1/profile.jpg" alt="Park picture" />
-                                        </div>
-                                    </div>
+                                    <?php
+                                        echo Footprints::ConstructFootprintItems($lstFootprints);
+                                    ?>
 
                                 </div>
 
@@ -247,8 +200,9 @@
                 </div>
             </main>
 
-            <!-- Modal Window -->
-            <!-- ------------ -->
+            <!-- Modal Windows -->
+            <!-- ------------- -->
+            <!-- Modal to share a new footprint -->
             <div class="modal fade bs-example-modal-lg" id="myNewFootprint" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">

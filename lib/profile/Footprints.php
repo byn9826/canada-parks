@@ -18,6 +18,7 @@ class Footprints
     private $_userStory;
     private $_isPublic;
     private $_createdOn;
+    public static $lstImageExtensions = array("png","PNG","jpg","JPG","jpeg","JPEG","gif","GIF","bmp","BMP");
 
 
     // -- Public Constructor Function
@@ -158,6 +159,7 @@ class Footprints
                                           ,DATE_FORMAT(fp.created_on,'%b %d, %Y %h:%i %p') as created_on
                                           ,fp.is_public
                                           ,fp.user_story
+                                          ,ud.user_id
                                           ,ud.image_src
                                           ,RTRIM(concat(IFNULL(ud.first_name,''), ' ', IFNULL(ud.last_name,''))) AS full_name
                                           ,p.name
@@ -187,7 +189,7 @@ class Footprints
         foreach ($lstFootprints as $objFootprint) {
             $sResult .= "<div id=\"f{$objFootprint->footprint_id}\" data-footprintId=\"{$objFootprint->footprint_id}\" class=\"footprint display-group\">";
             $sResult .= "    <div class=\"row\">";
-            $sResult .= "        <div class=\"col col-xs-2 col-sm-2\"><img src=\"../static/img/profile/users/{$objFootprint->image_src}\" /></div>";
+            $sResult .= "        <div class=\"col col-xs-2 col-sm-2 small-profile-pic\"><img src=\"../static/img/profile/users/{$objFootprint->image_src}\" /></div>";
             $sResult .= "        <div class=\"col col-xs-9 col-sm-9\">";
             $sResult .= "            <div>";
             $sResult .= "                <span class=\"footprint__user\">{$objFootprint->full_name}</span> has been to <span class=\"glyphicon glyphicon-tree-deciduous ai-glyphicon\"></span> <span class=\"footprint__park\">{$objFootprint->name}</span> <span title=\"{$objFootprint->date_visited}\">recently.</span>";
@@ -196,9 +198,34 @@ class Footprints
             $sResult .= "        </div>";
             $sResult .= "    </div>";
             $sResult .= "    <p class=\"footprint__caption\">{$objFootprint->user_story}</p>";
-            $sResult .= "    <div class=\"footprint__gallery\">";
-            $sResult .= "        <img src=\"../static/img/park/0/profile.jpg\" alt=\"Park picture\" /><!-- ../static/img/profile/footprints/foldername -->";
-            $sResult .= "        <img src=\"../static/img/park/1/profile.jpg\" alt=\"Park picture\" />";
+            $sResult .= "    <div class=\"row footprint__gallery\">";
+            // -- Construct a list of pictures for the footprint
+            // -- ----------------------------------------------
+            // Target directory containing footprint images
+            $sFolderPath = '../static/img/profile/footprints/' . $objFootprint->user_id . '_' . $objFootprint->footprint_id . '/';
+            $iNbFiles = glob($sFolderPath . "*.{JPG,jpg,jpeg,JPEG,gif,GIF,png,PNG,bmp,BMP}", GLOB_BRACE);   // Number of images in folder
+            if (is_dir($sFolderPath)) {    // Only if directory exists
+                $sCurrentDirectory = opendir($sFolderPath); // Open folder to read
+                if($iNbFiles > 0) {
+                    $counter = 0;
+                    $sResult .= "        <div class=\"owl-carousel owl-theme\">";
+                    while(false !== ($file = readdir($sCurrentDirectory)))
+                    {
+                        $file_path = $sFolderPath.$file;
+                        $extension = strtolower(pathinfo($file ,PATHINFO_EXTENSION));
+                        if(in_array($extension, Footprints::$lstImageExtensions))
+                        {
+                            $counter += 1;
+//                            $sResult .= "<li class=\"col-lg-2 col-md-2 col-sm-3 col-xs-4\">";
+//                            $sResult .= "        <img src=\"{$file_path}\" />";
+//                            $sResult .= "    </li>";
+                            $sResult .= "        <div class=\"item\"><img src=\"$file_path\" /></div>";
+                        }
+                    }
+                    $sResult .= "        </div>";
+                }
+                closedir($sCurrentDirectory);   // Close folder after read
+            }
             $sResult .= "    </div>";
             $sResult .= "</div>";
         }
