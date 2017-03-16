@@ -44,3 +44,24 @@
     display: block;
     margin-top: 20px;
 }
+
+#email-verify{
+    font-size: 150px;
+    margin-top: 50px;
+    margin-left: 15%;
+}
+
+#confirm-resend{
+    display: block;
+    margin-top: 20px;
+    margin-left: 15%;
+}
+
+#verify-result{
+    margin-top: 40px;
+}
+
+.verify-button{
+    display: block;
+    margin-top: 20px;
+}

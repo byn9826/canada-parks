@@ -12,14 +12,20 @@ if (isset($_POST['id'])) {
       $db = DatabaseAccess::getConnection();
       $publicLogin = new PublicLogin($db);
       $result = $publicLogin->googleLogin($google_id);
-      if ($result) {
+      //if email verified, account exist
+      if ($result && !is_string($result)) {
           if(!isset($_SESSION)){
               session_start();
           }
           $_SESSION['user_name'] = $result->user_name;
           $_SESSION['user_id'] = $result->user_id;
           echo "success";
-      } else {
+      }
+      //if email not verified
+      else if ($result && is_string($result)) {
+          echo $result;
+      }
+      else {
           if(!isset($_SESSION)){
               session_start();
           }

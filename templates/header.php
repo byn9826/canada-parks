@@ -44,7 +44,11 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
         if (!$login_result) {
             $login_error = 'Wrong email or password';
         }
-        //If account exist, write into session
+        //If account exist, email not verified
+        else if (is_string($login_result)) {
+            header('Location: ' . $team_route_src . 'signup/confirm.php?' . $login_result);
+        }
+        //If account exist, email verified, write into session
         else {
             $_SESSION['user_name'] = $login_result->user_name;
             $_SESSION['user_id'] = $login_result->user_id;

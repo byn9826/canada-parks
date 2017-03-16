@@ -30,7 +30,7 @@ if(isset($_POST['newname'])) {
 		$result = $publicLogin->signUp($_POST['newname'], $_POST['newpassword'], $_POST['newemail']);
 		//if email already taken
 		if ($result == 'duplicate') {
-			$error_message = 'Email address has already been used';
+			$error_message = 'Email address has already been used and verified';
 		}
 		//if there's error
 		else if ($result == 0) {
@@ -47,22 +47,26 @@ if(isset($_POST['newname'])) {
 			$mail->SMTPAuth = true;
 			$mail->Username = 'marvelcanada@outlook.com';
 			$mail->Password = 'hb2017cms';
-			$mail->SMTPSecure = tls;
+			$mail->SMTPSecure = 'tls';
 			$mail->Port = 587;
 			$mail->setFrom('marvelcanada@outlook.com', 'Mailer');
 			$mail->addAddress($_POST['newemail']);
 			$mail->isHTML(true);
-			$mail->Subject = 'Test';
-			$mail->Body = 'Test only.';
+			$mail->Subject = 'Verify your email address on Marvel Canada';
+			//encrypt a secure string with username, email pair
+			$string = $_POST['newname'] . '(-!+am)cuw]&' . $_POST['newemail'];
+			$encrypted = openssl_encrypt($string, "AES-128-ECB", "hm!f$#aba=s)&adsf");
+			$mail->Body = 'Please click the link below to verify your email address. <br/>';
+			$mail->Body .= '<a style="font-size:20px; font-weight: bold; margin:10px 0" href="http://localhost/canada-parks/signup/valid.php?' . $encrypted . '">Click here to verify your email address</a> <br/>';
+			$mail->Body .= 'Please click the link below if the link above not working: <br/>';
+			$mail->Body .= 'http://localhost/canada-parks/signup/valid.php?' . $encrypted;
 			if(!$mail->send()) {
-			    echo 'Message could not be sent.';
-			    echo 'Mailer Error: ' . $mail->ErrorInfo;
-			} else {
+			    $error_message = "Can't send email right now, try later";
+			}
+			//redirect to require email valid page
+			else {
 				//If mail successfully sent, will write logic later
-				$_SESSION['user_name'] = $_POST['newname'];
-				$error_message = $result;
-				$_SESSION['user_id'] = $result;
-				header("Location: ../");
+				header('Location: confirm.php?email=' . $_POST['newemail'] . '&name=' . $_POST['newname']);
 			}
 		}
 	}
