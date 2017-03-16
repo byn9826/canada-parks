@@ -51,25 +51,25 @@ class PublicLogin {
             if (isset($_SESSION['google_id'])) {
                 $pdostmt->bindValue(':google', $_SESSION['google_id'], PDO::PARAM_INT);
             }
-
             $pdostmt->bindValue(':reg', $currentDate);
             #User detail update function wrote by Irfaan
             try {
                 $this->db->beginTransaction();
-
                 $pdostmt->execute();
                 $new_id = $this->db->lastInsertId();    // Capture the new inserted id
-
                 $PDOStmt2 = $this->db->prepare($sQueryUserDetails);
                 $PDOStmt2->bindValue(':user_id', $new_id, PDO::PARAM_INT);
                 $PDOStmt2->bindValue(':first_name', $username, PDO::PARAM_STR);
                 $PDOStmt2->bindValue(':joined_on', $currentDate);
                 $PDOStmt2->bindValue(':image_src', $default_image, PDO::PARAM_STR);
                 $PDOStmt2->execute();
-
                 $this->db->commit();
-                $iRowAffected = 1;  // Return 1 if queries executed successfully
-
+                //Get last Id
+                $getIdQuery = 'SELECT MAX(user_id) FROM user';
+                $PDOStmt3 = $this->db->prepare($getIdQuery);
+                $PDOStmt3->execute();
+                $userId = $PDOStmt3->fetch();
+                $iRowAffected = $userId[0];  // Return last id inserted
             } catch(PDOExecption $e) {
                 $this->db->rollback();
             }

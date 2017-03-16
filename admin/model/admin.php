@@ -8,75 +8,102 @@
  */
 class AdminUser
 {
-    private $id;
-    private $firstName;
-    private $lastName;
-    private $gender;
-    private $email;
-    private $password;
+    private $user_id;
+    private $user_name;
+    private $user_password;
+    private $user_email;
+    private $user_reg;
+    private $google_id;
+    private $accept_term;
+    private $role_id;
+    private $user_status;
 
-    public function setID($value){
-        $this->id = $value ;
+    public function setUserID($value){
+        $this->user_id = $value ;
     }
 
-    public function getID(){
-        return $this->id;
+    public function getUserID(){
+        return $this->user_id;
     }
 
-    public function setFirstName($value){
-        $this->firstName = $value;
+    public function setUserName($value){
+        $this->user_name = $value;
     }
 
-    public function getFirstName(){
-        return $this->firstName;
+    public function getUserName(){
+        return $this->user_name;
     }
 
-    public function setLastName($value){
-        $this->lastName = $value;
+    public function setUserPassword($value){
+        $this->user_password = $value;
     }
 
-    public function getLastName(){
-        return $this->lastName;
+    public function getUserPassword(){
+        return $this->user_password;
     }
 
-    public function setGender($value){
-        $this->gender = $value;
+    public function setUserEmail($value){
+        $this->user_email = $value;
     }
 
-    public function getGender(){
-        return $this->gender;
+    public function getUserEmail(){
+        return $this->user_email;
     }
 
-    public function setEmail($value){
-        $this->email = $value;
+    public function setUserRegDate($value){
+        $this->user_reg = $value;
     }
 
-    public function getEmail(){
-        return $this->email;
+    public function getUserRegDate(){
+        return $this->user_reg;
     }
 
-    public function setPassword($value){
-        $this->password = $value;
+    public function setGoogleId($value){
+        $this->google_id = $value;
     }
 
-    public function getPassword(){
-        return $this->password;
+    public function getGoogleId(){
+        return $this->google_id;
     }
 
-    public function __construct($fName, $lName, $gender, $email, $pass)
+    public function setAcceptTerm($value){
+        $this->accept_term = $value;
+    }
+
+    public function getAcceptTerm(){
+        return $this->accept_term;
+    }
+
+    public function setRoleId($value){
+        $this->role_id = $value;
+    }
+
+    public function getRoleId(){
+        return $this->role_id;
+    }
+
+    public function setUserStatus($value){
+        $this->user_status = $value;
+    }
+
+    public function getUserStatus(){
+        return $this->user_status;
+    }
+
+    public function __construct($myName, $myPassword, $myEmail, $myAcceptTerm = 0, $myRoleId = 0, $myUser_Status = 0)
     {
-        $this->setFirstName($fName);
-        $this->setLastName($lName);
-        $this->setGender($gender);
-        $this->setEmail($email);
-        $this->setPassword($pass);
+        $this->setUserName($myName);
+        $this->setUserEmail($myEmail);
+        $this->setUserRegDate(date("Y-m-d"));
+        $this->setUserPassword(sha1($myPassword));
     }
 
-    public static function getAllAdminUser(){
+    public static function getAllUsers($id){
         $db = Database::getDB();
         try {
-            $query = "SELECT * FROM admin";
+            $query = "SELECT * FROM user WHERE user_id != :user_id ORDER BY role_id DESC";
             $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':user_id', $id, PDO::PARAM_INT);
             $pdostament->execute();
             $userArr = $pdostament->fetchAll(PDO::FETCH_OBJ);
             //var_dump($userArr);
@@ -88,7 +115,23 @@ class AdminUser
         }
     }
 
-    public function addNewAdmin($fname, $lname, $email, $password, $gender){
+    public static function getAllRoles(){
+        $db = Database::getDB();
+        try {
+            $query = "SELECT * FROM role";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $roleArr = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            //var_dump($userArr);
+            return $roleArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    /*public function addNewAdmin($fname, $lname, $email, $password, $gender){
         $db = Database::getDB();
         try {
             $query = "INSERT INTO admin(first_name, last_name, gender, email, password) VALUES(:first_name, :last_name, :gender, :email, :password)";
@@ -105,17 +148,35 @@ class AdminUser
         } finally {
             $pdostament->closeCursor();
         }
-    }
+    }*/
 
-    public static function updateAdmin($id, $fname, $lname, $gender){
+    public static function updateUserRole($id, $roleId){
         $db = Database::getDB();
         try {
-            $query = "UPDATE admin SET first_name = :first_name, last_name = :last_name, gender = :gender WHERE user_id = :id";
+            $query = "UPDATE user SET role_id = :role_id WHERE user_id = :id";
             $pdostament = $db->prepare($query);
-            $pdostament->bindValue(':first_name', $fname, PDO::PARAM_STR);
-            $pdostament->bindValue(':last_name', $lname, PDO::PARAM_STR);
-            $pdostament->bindValue(':gender', $gender, PDO::PARAM_STR);
+            $pdostament->bindValue(':role_id', $roleId, PDO::PARAM_INT);
             $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $row = $pdostament->execute();
+            return $row;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+
+    public static function updateUserStatus($user){
+        $db = Database::getDB();
+        try {
+            $query = "UPDATE user SET user_status = :status WHERE user_id = :id";
+            $pdostament = $db->prepare($query);
+            var_dump($user);
+            $newStatus = ($user->user_status == 0) ? 1 : 0;
+            var_dump($newStatus);
+            $pdostament->bindValue(':status', $newStatus, PDO::PARAM_INT);
+            $pdostament->bindValue(':id', $user->user_id, PDO::PARAM_INT);
             $row = $pdostament->execute();
             return $row;
         } catch (PDOException $e) {
@@ -128,7 +189,7 @@ class AdminUser
     public static function updatePassword($id, $email, $password){
         $db = Database::getDB();
         try {
-            $query = "UPDATE admin SET password = :password WHERE user_id = :id AND email = :email";
+            $query = "UPDATE user SET user_password = :password WHERE user_id = :id AND user_email = :email";
             $pdostament = $db->prepare($query);
             $pdostament->bindValue(':password', $password, PDO::PARAM_STR);
             $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
@@ -142,15 +203,15 @@ class AdminUser
         }
     }
 
-    public static function findAdminByEmail($email){
+    public static function searchUsersByEmailOrUsername($term){
         $db = Database::getDB();
         try {
-            $query = "SELECT * FROM admin WHERE email = :email";
+            $query = "SELECT * FROM user WHERE user_email LIKE :term OR user_name LIKE :term ORDER BY role_id DESC";
             $pdostament = $db->prepare($query);
-            $pdostament->bindValue(':email', $email, PDO::PARAM_STR);
+            $pdostament->bindValue(':term', '%' . $term . '%', PDO::PARAM_STR);
             $pdostament->execute();
-            $admin = $pdostament->fetch(PDO::FETCH_OBJ);
-            return $admin;
+            $userArr = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $userArr;
         } catch (PDOException $e) {
             echo "There is an error: ".$e->getMessage();
         } finally {
@@ -158,15 +219,15 @@ class AdminUser
         }
     }
 
-    public static function findAdminByID($id){
+    public static function findUserByID($id){
         $db = Database::getDB();
         try {
-            $query = "SELECT * FROM admin WHERE user_id = :id";
+            $query = "SELECT * FROM user WHERE user_id = :id";
             $pdostament = $db->prepare($query);
             $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
             $pdostament->execute();
-            $admin = $pdostament->fetch(PDO::FETCH_OBJ);
-            return $admin;
+            $user = $pdostament->fetch(PDO::FETCH_OBJ);
+            return $user;
         } catch (PDOException $e) {
             echo "There is an error: ".$e->getMessage();
         } finally {
@@ -174,15 +235,47 @@ class AdminUser
         }
     }
 
-    public static function checkEmailExisted($email){
+    public static function findUserByUsername($username){
         $db = Database::getDB();
         try {
-            $query = "SELECT 1 FROM admin WHERE email = :email LIMIT 1";
+            $query = "SELECT * FROM user WHERE user_name = :username";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':username', $username, PDO::PARAM_STR);
+            $pdostament->execute();
+            $user = $pdostament->fetch(PDO::FETCH_OBJ);
+            return $user;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function findRoleNameByRoleID($roleId){
+        $db = Database::getDB();
+        try {
+            $query = "SELECT * FROM role WHERE role_id = :id";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':id', $roleId, PDO::PARAM_INT);
+            $pdostament->execute();
+            $role = $pdostament->fetch(PDO::FETCH_OBJ);
+            return $role;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function checkEmailExisted($id, $email){
+        $db = Database::getDB();
+        try {
+            $query = "SELECT 1 FROM user WHERE user_email = :email AND user_id != :id LIMIT 1";
             $pdostament = $db->prepare($query);
             $pdostament->bindValue(':email', $email, PDO::PARAM_STR);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
             $pdostament->execute();
-            $row = $pdostament->fetch(PDO::FETCH_OBJ);
-            $existed = ($row == 1) ? true : false;
+            $existed = $pdostament->fetch(PDO::FETCH_OBJ);
             return $existed;
         } catch (PDOException $e) {
             echo "There is an error: ".$e->getMessage();
@@ -191,11 +284,30 @@ class AdminUser
         }
     }
 
-    public static function deleteAdminByEmail($email){
+    public static function checkUsernameExisted($id, $username){
         $db = Database::getDB();
         try {
-            $query = "DELETE FROM admin WHERE email = :email";
+            $query = "SELECT 1 FROM user WHERE user_name = :username AND user_id != :id LIMIT 1";
             $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':username', $username, PDO::PARAM_STR);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $pdostament->execute();
+            $existed = $pdostament->fetch(PDO::FETCH_OBJ);
+            return $existed;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function updateUsernameAndEmailForUser($id, $username, $email){
+        $db = Database::getDB();
+        try {
+            $query = "UPDATE user SET user_email = :email, user_name = :username WHERE user_id = :id";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':username', $username, PDO::PARAM_STR);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
             $pdostament->bindValue(':email', $email, PDO::PARAM_STR);
             $row = $pdostament->execute();
             return $row;
@@ -206,10 +318,10 @@ class AdminUser
         }
     }
 
-    public static function deleteAdminByID($id){
+    public static function deleteUserByID($id){
         $db = Database::getDB();
         try {
-            $query = "DELETE FROM admin WHERE user_id = :id";
+            $query = "DELETE FROM user WHERE user_id = :id";
             $pdostament = $db->prepare($query);
             $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
             $row = $pdostament->execute();

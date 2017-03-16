@@ -75,7 +75,7 @@
     }
 ?>
 
-<h1>New Admin</h1>
+<h1>Update User Role</h1>
 <form class="form-horizontal" method="post" action="admin-create.php">
     <fieldset>
        <legend>Create new user</legend>

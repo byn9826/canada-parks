@@ -19,8 +19,12 @@ if(isset($_POST['newname'])) {
 		$result = $publicLogin->signUp($_POST['newname'], $_POST['newpassword'], $_POST['newemail']);
 		if ($result == 'duplicate') {
 			$error_message = 'Email address has already been used';
-		} else if ($result == 1) {
+		} else if ($result == 0) {
+			$error_message = 'Something wrong, please try again';
+		} else {
 			$_SESSION['user_name'] = $_POST['newname'];
+			$error_message = $result;
+			$_SESSION['user_id'] = $result;
 			header("Location: ../");
 		}
 	}
