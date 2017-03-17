@@ -147,5 +147,14 @@ $(document).ready(function () {
         }
     });
 
-
+    //forget password to check email format
+    $("#forget-submit").unbind('click').bind('click', function() {
+        if (!checkValidInput($("#forget-email").val())) {
+            $("#forget-message").html("Email address can't be empty");
+        } else if (!validateEmail($("#forget-email").val())) {
+            $("#forget-message").html("Email format is incorrect");
+        } else {
+            $("#forget-password").submit();
+        }
+    });
 });
