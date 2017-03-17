@@ -114,7 +114,11 @@ class PublicLogin {
                 $PDOStmt2->bindValue(':user_id', $new_id, PDO::PARAM_INT);
                 $PDOStmt2->bindValue(':first_name', $username, PDO::PARAM_STR);
                 $PDOStmt2->bindValue(':joined_on', $currentDate);
-                $PDOStmt2->bindValue(':image_src', $default_image, PDO::PARAM_STR);
+                if (isset($_SESSION["google_profile"])) {
+                    $PDOStmt2->bindValue(':image_src', $_SESSION["google_profile"], PDO::PARAM_STR);
+                } else {
+                    $PDOStmt2->bindValue(':image_src', $default_image, PDO::PARAM_STR);
+                }
                 $PDOStmt2->execute();
                 $this->db->commit();
                 //return 1 stand for success

@@ -403,7 +403,14 @@ class UserDetails
     }
 
     public function getProfilePictureURL() {
-        return "../static/img/profile/users/" . $this->_imageSrc;
+        //if img src is from google+
+        if (substr($this->_imageSrc, 0, 4) == 'http') {
+            return $this->_imageSrc;
+        }
+        //if img is from local folder
+        else {
+            return "../static/img/profile/users/" . $this->_imageSrc;
+        }
     }
 
     public function getFullName() {
