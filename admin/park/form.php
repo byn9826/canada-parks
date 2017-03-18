@@ -36,7 +36,7 @@ if (isset($_GET["id"])) {
 			$team_route_custom = "../../";
 			include "../../templates/meta.php";
 		?>
-		<link rel="stylesheet" href="/static/css/admin.css" type="text/css" />
+		<link rel="stylesheet" href="../../static/css/admin.css" type="text/css" />
 		<title>Edit Park</title>
     </head>
     <body>

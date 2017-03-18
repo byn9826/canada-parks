@@ -10,6 +10,7 @@
     require_once '../lib/validation/fanta_valid.php';
     require_once '../lib/profile/UserDetails.php';
     require_once '../lib/profile/UserAccount.php';
+    require_once '../lib/profile/Footprints.php';
     require_once '../lib/profile/Wishlist.php';
 
 
@@ -22,11 +23,18 @@
     // -- ------------------------------------------------------------------
     $objUserAccount = new UserAccount($objConnection, $_SESSION['user_id']);
     $objUserDetails = new UserDetails($objConnection, $_SESSION['user_id']);
+    $objFootprints = new Footprints($objConnection, $_SESSION['user_id']);
     $objWishlist = new Wishlist($objConnection, $_SESSION['user_id']);
     $iUserDetailsRead = $objUserDetails->Read();
     if($iUserDetailsRead == 0) {
         die("Unable to read user details at the moment.");
     }
+
+    // -- Find number of items in user's footprint
+    $lstFootprints = $objFootprints->GetFootprintsDetails();
+    $iNbFootprints = count($lstFootprints);
+    $lblFootprints = ($iNbFootprints > 1) ? 'Footprint items' : 'Footprint item';
+
     // Find number of items in user's wishlist
     $lstParksInWishlist = $objWishlist->GetParksIdInWishlist();
     $iNbWishlistItems = count($lstParksInWishlist);
@@ -297,8 +305,8 @@
                         <div class="activities row">
                             <div class="col-xs-6">
                                 <a href="." title="View my footprints">
-                                    <div><span class="activities__footprint">2</span></div>
-                                    <div>Footprint items</div>
+                                    <div><span class="activities__footprint"><?php echo $iNbFootprints ?></span></div>
+                                    <div><?php echo $lblFootprints ?></div>
                                 </a>
                             </div>
                             <div class="col-xs-6">

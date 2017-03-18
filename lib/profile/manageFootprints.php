@@ -45,7 +45,11 @@ if(isset($_POST["btnShareFootprint"])) {
         if($fFootprintAdded) {
             // Upload any footprint images to DB
             $sFolderName = $userId . '_' . $objFootprint->getFootprintId();
-            mkdir("../../static/img/profile/footprints/{$sFolderName}", 0755, true); // Create folder to store images
+            if($_FILES["files"]["error"] != 4) {    // TODO: CHECK if files uploaded is none
+                if (!is_dir("../../static/img/profile/footprints/{$sFolderName}")) {
+                    mkdir("../../static/img/profile/footprints/{$sFolderName}", 0775, true);    // Create folder to store images
+                }
+            }
             foreach ($_FILES['files']['name'] as $name => $value)
             {
                 $file_name = explode(".", $_FILES['files']['name'][$name]);

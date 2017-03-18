@@ -65,7 +65,7 @@ $parks = array($park1, $park2);
                         <select class="form-control" id="province" name="province">
                             <option value="">Select a Province</option>
                             <?php foreach($provinces as $name => $value) {?>
-                            <option <?=($province == $value) ? "selected" : ""?> value="<?=$value?>"><?=$name?></option>
+                            <option value="<?=$value?>"><?=$name?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -132,6 +132,6 @@ $parks = array($park1, $park2);
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>
         <script type="text/javascript" src="../static/js/map.js"></script>
-        <script type="text/javascript" src="../../static/js/compare.js"></script>
+        <script type="text/javascript" src="../static/js/compare.js"></script>
     </body>
 </html>

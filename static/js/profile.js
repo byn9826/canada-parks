@@ -4,7 +4,7 @@
 
 $(document).ready(function() {
 
-    // Handle Query string to check if user just created a footprint
+    // -- Handle Query string to check if user just created a footprint
     if(footprintStatus !== "") {
         var footprintMessage;
         var messageType;
@@ -33,11 +33,29 @@ $(document).ready(function() {
         }, 1000, 'swing');
     }
 
+    // -- Initialise the Carousel for images
+    var owl = $('.owl-carousel');
+    owl.owlCarousel({
+        margin: 5,
+        nav: true
+        // loop: true,
+        // responsive: {
+        //      0: {
+        //          items: 1
+        //      },
+        //      600: {
+        //          items: 3
+        //      },
+        //       1000: {
+        //          items: 5
+        //       }
+        // }
+    })
+
     // -- Initialise date pickers
     $(function() {
         $('#inputDateVisit').datepicker();
     } );
-
 
     // -- Handle form when User Adds a new footprint
     $('#frmAddFootprint').submit(function(e) {

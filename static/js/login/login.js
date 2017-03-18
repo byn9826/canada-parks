@@ -59,8 +59,10 @@ function onSignIn(googleUser) {
                     window.location = window.location.origin + '/canada-parks' + '/signup/';
                 } else if (result == 'success') {
                     window.location = window.location.origin + '/canada-parks';
+                } else if (result == 'failed') {
+                    $("#login").val("Something Wrong");
                 } else {
-                    console.log(result);
+                    window.location = window.location.origin + '/canada-parks/signup/confirm.php?' + result;
                 }
             }
         });
@@ -85,7 +87,6 @@ $(document).ready(function () {
         } else if (!document.getElementById('input-check').checked) {
             $("#signup-error").html("Please check our signup conditions");
         }
-
         else {
             var securePass = $("#input-password").val();
             securePass = CryptoJS.MD5(securePass);
@@ -129,26 +130,31 @@ $(document).ready(function () {
             });
         });
     });
-    //retrieve username by email
-    $("#forget-username").submit(function () {
-        $.ajax({
-            type: "POST",
-            url: window.location.origin + '/canada-parks' + '/lib/publicLogin/retrievePassword.php',
-            data: {email: $("#get-email").val()},
-            success: function (result) {
-                if (result == "false") {
-                    $("#back-username").html("Sorry, no username found");
-                } else {
-                    result = JSON.parse(result);
-                    var info = "";
-                    for (var i = 0; i < result.length; i++) {
-                        info = info + result[i].user_name + "<br/>";
-                    }
-                    $("#back-username").html("Your username is: " + "<br />" + info);
+
+    //resend verify email
+    $("#confirm-resend").unbind('click').bind('click', function() {
+        if ($("#confirm-resend").html() == "Click to resend the link") {
+            var name = $("#hide-name").val();
+            var email = $("#hide-email").val();
+            $.ajax({
+                type: "POST",
+                url: '../lib/publicLogin/sendVerify.php',
+                data: {name: name, email: email},
+                success: function (result) {
+                    $("#confirm-resend").text(result);
                 }
-            }
-        });
-        return false;
+            });
+        }
     });
 
+    //forget password to check email format
+    $("#forget-submit").unbind('click').bind('click', function() {
+        if (!checkValidInput($("#forget-email").val())) {
+            $("#forget-message").html("Email address can't be empty");
+        } else if (!validateEmail($("#forget-email").val())) {
+            $("#forget-message").html("Email format is incorrect");
+        } else {
+            $("#forget-password").submit();
+        }
+    });
 });
