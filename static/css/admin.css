@@ -5,9 +5,10 @@ html {
     box-sizing: inherit;
 }
 body {
-    margin: 1em;
+    margin: 0;
 }
-h1 {
+h1, h2 {
+    margin-top: 3em;
     margin-bottom: 1em;
     text-align: center;
     text-transform: uppercase;
@@ -58,13 +59,18 @@ h1 {
 .btn{
     margin: 5px;
 }
-.admin-header-drop-down-div>a {
-    border: 1px solid lightgray;
-    padding: 1em;
-    border-radius: 10px;
-}
 
 .admin-header-drop-down-div {
-    margin-bottom: 2em;
+    margin: 1em;
+    font-size: 20px;
 }
 
+#login-form, #forgot-form {
+    margin-top: 5em;
+}
+
+#admin-footer {
+    background-color: #e7e7e7;
+    padding: 1em;
+    color: #777;
+}

@@ -10,12 +10,10 @@ require_once "model/admin.php";
  * pass: 123123123
  * */
 
+//var_dump($_SESSION);
 
-    if(!empty($_SESSION))
-    {
-        if (isset($_SESSION["user_name"]) || $_SESSION["user_name"] != null){
-            header("Location: admin-list.php");
-        }
+    if (isset($_SESSION["user_name"])){
+        header("Location: admin-list.php");
     }
     else
     {
@@ -72,7 +70,7 @@ require_once "model/admin.php";
         ?>
     </head>
     <body>
-        <div class="container">
+        <div class="container" id="login-form">
             <h2>Login Form</h2>
             <form class="form-horizontal" method="post" action="index.php">
                 <div class="form-group">
@@ -90,9 +88,14 @@ require_once "model/admin.php";
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" name="submit" class="btn btn-default">Login</button>
+                        <a class="btn btn-link" href="admin-forgotpassword.php?">Forgot my Password</a>
                     </div>
                 </div>
             </form>
         </div>
     </body>
 </html>
+
+<?php
+require_once "footer.php";
+?>
