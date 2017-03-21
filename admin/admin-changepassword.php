@@ -96,3 +96,7 @@
         </div>
     </fieldset>
 </form>
+
+<?php
+require_once "footer.php";
+?>
