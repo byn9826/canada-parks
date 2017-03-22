@@ -4,25 +4,10 @@ require '../lib/DatabaseAccess.php';
 require '../lib/park.php';
 require '../lib/ParkRepository.php';
 
-$provinces = array(
-    'Alberta' => 'AB',
-    'British Columbia' => 'BC',
-    'Manitoba' => 'MB',
-    'New Brunswick' => 'NB',
-    'Newfoundland and Labrador' => 'NL',
-    'Northwest Territories' => 'NT',
-    'Nova Scotia' => 'NS',
-    'Nunavut' => 'NU',
-    'Ontario' => 'ON',
-    'Prince Edward Island' => 'PE',
-    'Quebec' => 'QC',
-    'Saskatchewan' => 'SK',
-    'Yukon' => 'YT'
-);
-
 $db = DatabaseAccess::getConnection();
 $p = new Park();
 $parkRepository = new ParkRepository($db);
+$provinces = $parkRepository->getProvinces();
 $parkId1 = $_GET['park1'];
 $parkId2 = $_GET['park2'];
 $park1 = $parkRepository->getPark($parkId1);
@@ -64,8 +49,8 @@ $parks = array($park1, $park2);
                         <label for="province">Province</label>
                         <select class="form-control" id="province" name="province">
                             <option value="">Select a Province</option>
-                            <?php foreach($provinces as $name => $value) {?>
-                            <option value="<?=$value?>"><?=$name?></option>
+                            <?php foreach($provinces as $p) {?>
+                            <option value="<?=$p["province_code"]?>"><?=$p["province"]?></option>
                             <?php } ?>
                         </select>
                     </div>

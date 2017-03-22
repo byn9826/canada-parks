@@ -5,6 +5,7 @@ include "../../lib/ParkRepository.php";
 $db = DatabaseAccess::getConnection();
 $parkRepository = new ParkRepository($db);
 $parks = $parkRepository->getNumParksWithProvince();
+$footprints = $parkRepository->getFootprintStatic();
 
 ?>
 <!DOCTYPE html>
@@ -23,11 +24,13 @@ $parks = $parkRepository->getNumParksWithProvince();
                 <?php include "sidebar.php" ?>
                 <div class="col-md-10">
                     <div id="container" style="height: 400px;"></div>
+                    <div id="footprints" style="height: 400px"></div>
                 </div>
             </div>
         </div>
         <script type="text/javascript">
             var parks = <?=json_encode($parks)?>;
+            var footprints = <?=json_encode($footprints)?>;
         </script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
