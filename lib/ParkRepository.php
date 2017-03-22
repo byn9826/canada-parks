@@ -38,6 +38,13 @@ class ParkRepository {
         return $pdostmt->fetchAll();
     }
     
+    public function getProvinces() {
+        $sql = "SELECT DISTINCT(province), province_code FROM park";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->execute();
+        return $pdostmt->fetchAll();
+    }
+    
     public function getPark($id) {
         $sql = "SELECT * FROM park WHERE id = :id";
         $pdostmt = $this->db->prepare($sql);
@@ -144,6 +151,22 @@ class ParkRepository {
             );
         }
         return $result;
+    }
+    
+    public function getFootprintStatic() {
+        $sql = "SELECT COUNT(user_id) as num_user, park.name FROM footprints JOIN park WHERE park.id = footprints.park_id GROUP BY footprints.park_id";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->execute();
+        $datas = $pdostmt->fetchAll();
+        $result = array();
+        foreach ($datas as $data) {
+            $result[] = array(
+                "parkName" => $data["name"],
+                "y" => intval($data["num_user"])
+            );
+        }
+        return $result;
+        
     }
 
     public static function getParksForDropDown($objConnection, $userSelection) {
