@@ -40,15 +40,15 @@ require_once "model/admin.php";
             }
             elseif ($currentUser->role_id == 0)
             {
-                echo "<div class=\"alert alert-danger\"> This account does not have privilege to access admin page. Please contact admin for further information.</div>";
+                echo "<div style='position:relative;top:5em;' class=\"alert alert-danger\"> This account does not have privilege to access admin page. Please contact admin for further information.</div>";
             }
             elseif ($currentUser->user_status == 1)
             {
-                echo "<div class=\"alert alert-danger\"> The username is already logged in our website!</div>";
+                echo "<div style='position:relative;top:5em;' class=\"alert alert-danger\"> The username is already logged in our website!</div>";
             }
             else
             {
-                echo "<div class=\"alert alert-danger\"> Invalid password for the username!</div>";
+                echo "<div style='position:relative;top:5em;' class=\"alert alert-danger\"> Invalid password for the username!</div>";
             }
 
         }
