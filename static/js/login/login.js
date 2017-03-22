@@ -54,7 +54,6 @@ function onSignIn(googleUser) {
             url: window.location.origin + '/canada-parks' + '/lib/publicLogin/googleLogin.php',
             data: {id: id_token, email: user_email, name: user_name, profile: google_profile},
             success: function (result) {
-                console.log(result);
                 if (result == 'create') {
                     window.location = window.location.origin + '/canada-parks' + '/signup/';
                 } else if (result == 'success') {
@@ -62,7 +61,7 @@ function onSignIn(googleUser) {
                 } else if (result == 'failed') {
                     $("#login").val("Something Wrong");
                 } else {
-                    window.location = window.location.origin + '/canada-parks/signup/confirm.php?' + result;
+                    console.log(result);
                 }
             }
         });
@@ -145,6 +144,14 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    //force change new password
+    $("#valid-repass").unbind('click').bind('click', function() {
+        var securePass = $("#validpage-password").val();
+        securePass = CryptoJS.MD5(securePass);
+        $("#validpage-password").val(securePass);
+        $("#repass").submit();
     });
 
     //forget password to check email format

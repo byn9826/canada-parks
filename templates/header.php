@@ -50,8 +50,8 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
         }
         //If account exist, email verified, write into session
         else {
-            $_SESSION['user_name'] = $login_result->user_name;
-            $_SESSION['user_id'] = $login_result->user_id;
+            $_SESSION['user_name'] = $login_result['user_name'];
+            $_SESSION['user_id'] = $login_result['user_id'];
         }
     }
 }

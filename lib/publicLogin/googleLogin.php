@@ -8,23 +8,19 @@ if (isset($_POST['id'])) {
     $payload = $client->verifyIdToken($_POST['id']);
     if ($payload) {
       $google_id = $payload['sub'];
-      //will remove this line later
       $db = DatabaseAccess::getConnection();
       $publicLogin = new PublicLogin($db);
-      $result = $publicLogin->googleLogin($google_id);
+      $result = $publicLogin->googleLogin($google_id, $_POST['email']);
       //if email verified, account exist
-      if ($result && !is_string($result)) {
+      if ($result != NULL) {
           if(!isset($_SESSION)){
               session_start();
           }
-          $_SESSION['user_name'] = $result->user_name;
-          $_SESSION['user_id'] = $result->user_id;
+          $_SESSION['user_name'] = $result['user_name'];
+          $_SESSION['user_id'] = $result['user_id'];
           echo "success";
       }
-      //if email not verified
-      else if ($result && is_string($result)) {
-          echo $result;
-      }
+      //redirect to signup page
       else {
           if(!isset($_SESSION)){
               session_start();
@@ -35,7 +31,9 @@ if (isset($_POST['id'])) {
           $_SESSION['google_profile'] = $_POST['profile'];
           echo "create";
       }
-    } else {
+    }
+    //can't valid google id
+    else {
       echo "failed";
     }
 }

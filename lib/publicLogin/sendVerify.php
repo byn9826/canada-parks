@@ -1,32 +1,23 @@
 <?php
 //author Bao
 if (isset($_POST['name']) && isset($_POST['email'])) {
+    require_once('../email/Default.php');
     require_once('../../vendor/phpmailer/phpmailer/PHPMailerAutoload.php');
-    $mail = new PHPMailer;
-    $mail->isSMTP();
-    $mail->Host = 'smtp-mail.outlook.com';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'marvelcanada@outlook.com';
-    $mail->Password = 'hb2017cms';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
-    $mail->setFrom('marvelcanada@outlook.com', 'Mailer');
-    $mail->addAddress($_POST['email']);
-    $mail->isHTML(true);
-    $mail->Subject = 'Verify your email address on Marvel Canada';
-    //encrypt a secure string with username, email pair
-    $string = $_POST['name'] . '(-!+am)cuw]&' . $_POST['email'];
-    $encrypted = openssl_encrypt($string, "AES-128-ECB", "hm!f$#aba=s)&adsf");
-    $mail->Body = 'Please click the link below to verify your email address. <br/>';
-    $mail->Body .= '<a style="font-size:20px; font-weight: bold; margin:10px 0" href="http://localhost/canada-parks/signup/valid.php?' . $encrypted . '">Click here to verify your email address</a> <br/>';
-    $mail->Body .= 'Please click the link below if the link above not working: <br/>';
-    $mail->Body .= 'http://localhost/canada-parks/signup/valid.php?' . $encrypted;
-    if(!$mail->send()) {
+    $emailValid = new OutEmail();
+    $address = $_POST['email'];
+    $combine = $_POST['name'] . '-!+a4mc1uw]&' . $_POST['email'];
+    $string = openssl_encrypt($combine, 'AES-128-ECB', 'hm!f$#abas&adsf');
+    $subject = 'Verify your email address on Marvel Canada';
+    $body = 'Please click the link below to verify your email address. <br/>';
+    $body .= '<a style="font-size:20px; font-weight: bold; margin:10px 0" href="http://localhost/canada-parks/signup/valid.php?' . $string . '">Click here to verify your email address</a> <br/>';
+    $body .= 'Please click the link below if the link above not working: <br/>';
+    $body .= 'http://localhost/canada-parks/signup/valid.php?' . $string;
+    $sent = $emailValid->validEmail($address , $subject, $body);
+    //If can't send email
+    if($sent == 0) {
         echo "Failed, please try later";
     }
-    //redirect to require email valid page
     else {
-        //If mail successfully sent, will write logic later
         echo "Success, check your email";
     }
 }
