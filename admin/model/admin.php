@@ -172,9 +172,9 @@ class AdminUser
         try {
             $query = "UPDATE user SET user_status = :status WHERE user_id = :id";
             $pdostament = $db->prepare($query);
-            var_dump($user);
+            //var_dump($user);
             $newStatus = ($user->user_status == 0) ? 1 : 0;
-            var_dump($newStatus);
+            //var_dump($newStatus);
             $pdostament->bindValue(':status', $newStatus, PDO::PARAM_INT);
             $pdostament->bindValue(':id', $user->user_id, PDO::PARAM_INT);
             $row = $pdostament->execute();
@@ -251,6 +251,22 @@ class AdminUser
         }
     }
 
+    public static function findUserByEmail($email){
+        $db = Database::getDB();
+        try {
+            $query = "SELECT * FROM user WHERE user_email = :email";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':email', $email, PDO::PARAM_STR);
+            $pdostament->execute();
+            $user = $pdostament->fetch(PDO::FETCH_OBJ);
+            return $user;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
     public static function findRoleNameByRoleID($roleId){
         $db = Database::getDB();
         try {
@@ -274,6 +290,22 @@ class AdminUser
             $pdostament = $db->prepare($query);
             $pdostament->bindValue(':email', $email, PDO::PARAM_STR);
             $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $pdostament->execute();
+            $existed = $pdostament->fetch(PDO::FETCH_OBJ);
+            return $existed;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function checkEmailExistedInDB($email){
+        $db = Database::getDB();
+        try {
+            $query = "SELECT 1 FROM user WHERE user_email = :email LIMIT 1";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':email', $email, PDO::PARAM_STR);
             $pdostament->execute();
             $existed = $pdostament->fetch(PDO::FETCH_OBJ);
             return $existed;
@@ -324,6 +356,23 @@ class AdminUser
             $query = "DELETE FROM user WHERE user_id = :id";
             $pdostament = $db->prepare($query);
             $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $row = $pdostament->execute();
+            return $row;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function updateActivation($id, $code = null, $date = null){
+        $db = Database::getDB();
+        try {
+            $query = "UPDATE user SET activation_code = :code, activation_date = :date WHERE user_id = :id";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':code', $code, PDO::PARAM_STR);
+            $pdostament->bindValue(':date', $date, PDO::PARAM_STR);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_STR);
             $row = $pdostament->execute();
             return $row;
         } catch (PDOException $e) {

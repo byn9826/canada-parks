@@ -13,3 +13,7 @@
 ?>
 
 <h1>Something went wrong. Cannot delete the record!</h1>
+
+<?php
+require_once "footer.php";
+?>

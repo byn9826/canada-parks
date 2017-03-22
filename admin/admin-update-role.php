@@ -79,3 +79,6 @@ if (isset($_POST["change"]))
 </form>
 
 
+<?php
+require_once "footer.php";
+?>
