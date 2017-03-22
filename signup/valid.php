@@ -17,14 +17,21 @@
             $db = DatabaseAccess::getConnection();
             $publicLogin = new PublicLogin($db);
             if (isset($_POST['valid-password'])) {
-                $result = $publicLogin->conflictValid($username, $email, $_POST['valid-password'], $string);
-                if ($result === 1) {
-                    $message = "Email verified! Welcome, " . $result['user_name'];
-                    session_start();
-                    $_SESSION['user_name'] = $result['user_name'];
-                    $_SESSION['user_id'] = $result['user_id'];
-                } else {
-                    $message = "Can't update info right now, please try later!";
+                //double check password
+                require_once('../lib/validation/fanta_valid.php');
+        		$password = Fanta_Valid::sanitizeUserInput($_POST['valid-password']);
+        		if (Fanta_Valid::isNullOrEmpty($password) || !count($password) === 32) {
+        	        $error = 'Please enable javaScript';
+        	    } else {
+                    $result = $publicLogin->conflictValid($username, $email, $password, $string);
+                    if ($result === 0) {
+                        $message = "Can't update info right now, please try later!";
+                    } else {
+                        $message = "Email verified! Welcome, " . $result[0];
+                        session_start();
+                        $_SESSION['user_name'] = $result[0];
+                        $_SESSION['user_id'] = $result[1];
+                    }
                 }
             } else {
                 $result = $publicLogin->verifyEmail($username, $email, $string);
@@ -95,6 +102,9 @@
                             <label class="col-md-12"  for="password"><?php echo $message; ?></label>
                             <input  class="form-control col-md-12" id="validpage-Password" type="password" name="valid-password" />
                             <input id="valid-repass" type="button" class="btn btn-link" name="valid-submit" value="Submit" />
+                            <h4 id="repass-error">
+                                <?php if (isset($error)) { echo $error; }?>
+                            </h4>
                         </form>
                     <?php } ?>
 				</section>
