@@ -47,10 +47,6 @@
 	  <form action="parks.html" method="post">
 	  <h2>Comments</h2>
 	  <div>
-	  <label for="name" class="form-label">Name:</label>
-	  <input type="text" id="name" name="visitor_name" placeholder="Type your name here."/>
-	  </div>
-	  <div>
 	  <label for="comments" class="form-label">Comments:</label>
 	  <input type="text" id="comments" name="visitor_comments" placeholder="Type your comments here."/>
 	  </div>

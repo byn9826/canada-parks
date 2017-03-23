@@ -12,7 +12,6 @@ $parkId1 = $_GET['park1'];
 $parkId2 = $_GET['park2'];
 $park1 = $parkRepository->getPark($parkId1);
 $park2 = $parkRepository->getPark($parkId2);
-
 $parks = array($park1, $park2);
 
 ?>
