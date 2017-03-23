@@ -1,3 +1,17 @@
+<?php
+
+require '../lib/DatabaseAccess.php';
+require '../lib/park.php';
+require '../lib/ParkRepository.php';
+
+$db = DatabaseAccess::getConnection();
+$parkRepository = new ParkRepository($db);
+$provinces = $parkRepository->getProvinces();
+$id = $_GET['id'];
+$park1 = $parkRepository->getPark($id);
+// var_dump($park1);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +42,7 @@
           </article>
       </aside>
 	    <div class="col-md-8">
-	  <h1>About the Park</h1>
+	  <h1><?=$park1["name"]?></h1>
 	  
 	  By:Navpreet<br>
 	  <img class="img-responsive" id="pic1" alt="Problem Loading Image" src="p1.jpg">
