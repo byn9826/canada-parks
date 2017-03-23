@@ -52,9 +52,7 @@
     </style>
 </head>
 <body>
-<div id="header">
-    <label>Image Gallery</label>
-</div>
+
 <div id="body">
     <?php
     $folder_path = '../static/img/park/5'; //image's folder path

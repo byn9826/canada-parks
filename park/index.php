@@ -45,8 +45,9 @@ $park1 = $parkRepository->getPark($id);
 	  <h1><?=$park1["name"]?></h1>
 	  
 	  By:Navpreet<br>
-	  <img class="img-responsive" id="pic1" alt="Problem Loading Image" src="p1.jpg">
-	  <p> This is a beautiful park for enjoyment. It is an ideal location to be used for special occasions and celebrations. It is a great park to spend time with family as well as friends.
+
+	  <img class="img-responsive" id="pic1" alt="Problem Loading Image" src="<?=$park1["banner"]?>">
+	  <p> <?=$park1["description"]?>
 	  </p>
 	 
 	  
