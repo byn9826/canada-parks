@@ -148,20 +148,40 @@ $(document).ready(function () {
 
     //force change new password
     $("#valid-repass").unbind('click').bind('click', function() {
-        var securePass = $("#validpage-password").val();
-        securePass = CryptoJS.MD5(securePass);
-        $("#validpage-password").val(securePass);
-        $("#repass").submit();
-    });
-
-    //forget password to check email format
-    $("#forget-submit").unbind('click').bind('click', function() {
-        if (!checkValidInput($("#forget-email").val())) {
-            $("#forget-message").html("Email address can't be empty");
-        } else if (!validateEmail($("#forget-email").val())) {
-            $("#forget-message").html("Email format is incorrect");
+        if (!checkValidInput($("#validpage-Password").val())) {
+            $("#repass-error").html("Password can't be empty");
+        } else if (!checkPassLength($("#validpage-Password").val())) {
+            $("#repass-error").html("Password length should be between 8 -16");
         } else {
-            $("#forget-password").submit();
+            var securePass = $("#validpage-Password").val();
+            securePass = CryptoJS.MD5(securePass);
+            $("#validpage-Password").val(securePass);
+            $("#repass").submit();
         }
     });
+
+    $( "#forget-password" ).unbind('submit').bind('submit', function(event) {
+        if (!checkValidInput($("#forget-email").val())) {
+            $("#forget-message").html("Email address can't be empty");
+            event.preventDefault();
+        } else if (!validateEmail($("#forget-email").val())) {
+            $("#forget-message").html("Email format is incorrect");
+            event.preventDefault();
+        }
+    });
+
+    $( "#change-pass" ).unbind('submit').bind('submit', function(event) {
+        if (!checkValidInput($("#change-password").val())) {
+            $("#change-message").html("Password can't be empty");
+            event.preventDefault();
+        } else if (!checkPassLength($("#change-password").val())) {
+            $("#change-message").html("Password length should be between 8 -16");
+            event.preventDefault();
+        } else {
+            var securePass = $("#change-password").val();
+            securePass = CryptoJS.MD5(securePass);
+            $("#change-password").val(securePass);
+        }
+    });
+
 });
