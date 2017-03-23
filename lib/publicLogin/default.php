@@ -395,5 +395,40 @@ class PublicLogin {
         return false;
     }
 
+    //SET UP COOKIE FOR user check remember me
+    public function activeCookieLogin($email, $string) {
+        $query = 'UPDATE user SET cookie_token = :token WHERE user_email = :email';
+        try {
+            $pdostmt = $this->db->prepare($query);
+            $pdostmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $pdostmt->bindValue(':token', $string, PDO::PARAM_STR);
+            $this->db->beginTransaction();
+            $pdostmt->execute();
+            $this->db->commit();
+            if ($pdostmt->rowCount() == 1) {
+                $expire = new DateTime('+1 month');
+                setcookie('token', $string, $expire->getTimestamp(), '/', 'localhost', false, true);
+            }
+        } catch(PDOExecption $e) {
+            $this->db->rollback();
+        }
+    }
+
+    //use cookie to login user
+    public function useCookieLogin($token) {
+        $query = 'SELECT user_id, user_name FROM user WHERE cookie_token = :token';
+        try {
+            $pdostmt = $this->db->prepare($query);
+            $pdostmt->bindValue(':token', $token, PDO::PARAM_STR);
+            $pdostmt->execute();
+            $result = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($pdostmt->rowCount() == 1) {
+                return $result[0];
+            }
+        } catch(PDOExecption $e) {
+            return 0;
+        }
+    }
+
 
 }
