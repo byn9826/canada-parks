@@ -31,7 +31,6 @@ if(isset($_POST["btnShareFootprint"])) {
 
     // -- Add details to footprint
     // -- ------------------------
-    $objFootprint = new Footprints($objConnection, $userId);
     $objFootprint->setParkId($visitedParkId);
     $objFootprint->setDateVisited($dateVisited);
     $objFootprint->setUserStory($userStory);
@@ -79,5 +78,29 @@ if(isset($_POST["btnShareFootprint"])) {
         // ROLLBACK transaction
         $objConnection->rollBack();
         header('Location: ../../profile/?fp=f');
+    }
+}
+
+
+// -- If user clicked 'Delete footprint' button
+// -- -----------------------------------------
+if(isset($_POST['deleteFootprint'])) {
+    // Handle user session
+    session_start();
+    require_once '../DatabaseAccess.php';
+
+    // -- Global Variables Initialisation
+    $userId = $_SESSION["user_id"];
+    $objConnection = DatabaseAccess::getConnection();
+    $objFootprint = new Footprints($objConnection, $userId);
+
+    // -- Capture form data
+    $iFootprintId = $_POST['footprint_id'];
+    $objFootprint->setFootprintId($iFootprintId);
+    $fFootprintRemoved = $objFootprint->Delete();
+    if($fFootprintRemoved) {
+        echo "Deleted";
+    } else {
+        echo "Error";
     }
 }

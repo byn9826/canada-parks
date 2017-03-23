@@ -37,19 +37,19 @@ $(document).ready(function() {
     var owl = $('.owl-carousel');
     owl.owlCarousel({
         margin: 5,
-        nav: true
+        nav: true,
         // loop: true,
-        // responsive: {
-        //      0: {
-        //          items: 1
-        //      },
-        //      600: {
-        //          items: 3
-        //      },
-        //       1000: {
-        //          items: 5
-        //       }
-        // }
+        responsive: {
+             0: {
+                 items: 1
+             },
+             420: {
+                items: 2
+             },
+             700: {
+                 items: 3
+             }
+        }
     })
 
     // -- Initialise date pickers
@@ -80,9 +80,36 @@ $(document).ready(function() {
 
     });
 
-    // Reset form is user hits Cancel button
+    // -- Reset form is user hits Cancel button
     $('#btnCancelFootprint').on('click', function () {
         $('#frmAddFootprint').trigger('reset');
+    });
+
+    // -- Handle delete a footprint post
+    $('button.delete-footprint').on('click', function(e) {
+        e.preventDefault();
+        var footElementId = $(this).attr('data-footElementId');
+        var footprintId = $(this).attr('data-footprintId');
+
+        // AJAX delete footprint item
+        var dataString = 'deleteFootprint=' + true + '&footprint_id=' + footprintId;
+        $.ajax({
+            type: "post",
+            url: '../lib/profile/manageFootprints.php',
+            data: dataString,
+            success: function(result) {
+                // On success change display on page
+                if(result === "Deleted") {
+                    var footprintElement = document.getElementById(footElementId);
+                    $(footprintElement).hide(1000);
+                    setTimeout(function() {
+                        $(footprintElement).remove();
+                    }, 2000);
+                } else {
+                    alert("Unable to remove selected footprint right now.");
+                }
+            }
+        });
     });
 
     // -- Handle delete a wishlist item
