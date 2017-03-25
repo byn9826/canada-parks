@@ -5,9 +5,6 @@
 //use session
 session_start();
 
-//will directly write image to db later
-//echo $_SESSION["google_profile"];
-
 if(isset($_POST['newname'])) {
 	require_once('../lib/validation/fanta_valid.php');
 	//Validate input in php
@@ -30,42 +27,35 @@ if(isset($_POST['newname'])) {
 		$result = $publicLogin->signUp($_POST['newname'], $_POST['newpassword'], $_POST['newemail']);
 		//if email already taken
 		if ($result == 'duplicate') {
-			$error_message = 'Email address has already been used and verified';
+			$error_message = 'Email address has already been used';
 		}
-		//if there's error
-		else if ($result == 0) {
+		//if there's error from server
+		else if ($result == '0') {
 			$error_message = 'Something wrong, please try again';
 		}
-		//sign up success, write into session, redirect to homepage
+		//new account created for google login user
+		else if ($result == 1) {
+			header('Location: ../');
+		}
+		//account created into db, need verfiy email
 		else {
-			//get phpmailer, send verification mail
-			//test only will write logic later
+			require_once('../lib/email/Default.php');
 			require_once('../vendor/phpmailer/phpmailer/PHPMailerAutoload.php');
-			$mail = new PHPMailer;
-			$mail->isSMTP();
-			$mail->Host = 'smtp-mail.outlook.com';
-			$mail->SMTPAuth = true;
-			$mail->Username = 'marvelcanada@outlook.com';
-			$mail->Password = 'hb2017cms';
-			$mail->SMTPSecure = 'tls';
-			$mail->Port = 587;
-			$mail->setFrom('marvelcanada@outlook.com', 'Mailer');
-			$mail->addAddress($_POST['newemail']);
-			$mail->isHTML(true);
-			$mail->Subject = 'Verify your email address on Marvel Canada';
-			//encrypt a secure string with username, email pair
-			$string = $_POST['newname'] . '(-!+am)cuw]&' . $_POST['newemail'];
-			$encrypted = openssl_encrypt($string, "AES-128-ECB", "hm!f$#aba=s)&adsf");
-			$mail->Body = 'Please click the link below to verify your email address. <br/>';
-			$mail->Body .= '<a style="font-size:20px; font-weight: bold; margin:10px 0" href="http://localhost/canada-parks/signup/valid.php?' . $encrypted . '">Click here to verify your email address</a> <br/>';
-			$mail->Body .= 'Please click the link below if the link above not working: <br/>';
-			$mail->Body .= 'http://localhost/canada-parks/signup/valid.php?' . $encrypted;
-			if(!$mail->send()) {
+			$emailValid = new OutEmail();
+			$address = $_POST['newemail'];
+			$subject = 'Verify your email address on Marvel Canada';
+			$string = openssl_encrypt($result, "AES-128-ECB", "hm!f$#abas&adsf");
+			$body = 'Please click the link below to verify your email address. <br/>';
+			$body .= '<a style="font-size:20px; font-weight: bold; margin:10px 0" href="http://localhost/canada-parks/signup/valid.php?' . $string . '">Click here to verify your email address</a> <br/>';
+			$body .= 'Please click the link below if the link above not working: <br/>';
+			$body .= 'http://localhost/canada-parks/signup/valid.php?' . $string;
+			$sent = $emailValid->validEmail($address , $subject, $body);
+			//If can't send email
+			if($sent == 0) {
 			    $error_message = "Can't send email right now, try later";
 			}
 			//redirect to require email valid page
 			else {
-				//If mail successfully sent, will write logic later
 				header('Location: confirm.php?email=' . $_POST['newemail'] . '&name=' . $_POST['newname']);
 			}
 		}

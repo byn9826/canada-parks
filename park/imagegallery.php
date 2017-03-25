@@ -37,13 +37,12 @@
         {
             width:100%;
             height:50px;
-            background:#00a2d1;
-            font-family:"Lucida Handwriting";
-            font-family:Verdana, Geneva, sans-serif;
+            background:white;
+            font-family:sans-serif;
             text-align:center;
-            font-size:35px;
-            font-weight:bolder;
-            color:#f9f9f9;
+            font-size:15px;
+            color: #081f44;
+
         }
         #body
         {
@@ -53,9 +52,7 @@
     </style>
 </head>
 <body>
-<div id="header">
-    <label>Image Gallery</label>
-</div>
+
 <div id="body">
     <?php
     $folder_path = '../static/img/park/5'; //image's folder path

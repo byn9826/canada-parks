@@ -6,6 +6,7 @@ if(!isset($_SESSION)){
     session_start();
 }
 
+
 //define route for different pages
 $team_route_src = '../';
 if(isset($team_route_custom)) {
@@ -15,6 +16,22 @@ if(isset($team_route_custom)) {
 //get db connection
 require_once($team_route_src . 'lib/DatabaseAccess.php');
 $db = DatabaseAccess::getConnection();
+
+
+//if user login store in cookie
+if(isset($_COOKIE['token'])){
+    require_once($team_route_src . 'lib/publicLogin/default.php');
+    $checkLogin = new PublicLogin($db);
+    $token = $_COOKIE['token'];
+    $check_result = $checkLogin->useCookieLogin($token);
+    if ($check_result != NULL) {
+        $_SESSION['user_name'] = $check_result['user_name'];
+        $_SESSION['user_id'] = $check_result['user_id'];
+    }
+
+}
+
+
 
 //Get header navigation names and links
 require_once($team_route_src . 'lib/globe/globe.php');
@@ -50,13 +67,21 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
         }
         //If account exist, email verified, write into session
         else {
-            $_SESSION['user_name'] = $login_result->user_name;
-            $_SESSION['user_id'] = $login_result->user_id;
+            //if user want to remember that login statues in cookie
+            if ($_POST['remember'] == 'true') {
+                $date = new DateTime();
+                $random = $date->getTimestamp();
+                $combine = $email . md5('asd32^3@ma') . sha1($random);
+                $publicLogin->activeCookieLogin($email, $combine);
+            }
+            $_SESSION['user_name'] = $login_result['user_name'];
+            $_SESSION['user_id'] = $login_result['user_id'];
         }
     }
 }
 //logout
 if (isset($_POST['logout'])) {
+    setcookie("token", "" , time()- 3600, "/", "localhost", false, true);
     $_SESSION = array();
     session_destroy();
 }

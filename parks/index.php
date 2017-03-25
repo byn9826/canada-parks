@@ -8,25 +8,12 @@ require_once '../lib/profile/Wishlist.php';
 
 $p = new Park();
 
-$provinces = array(
-    'Alberta' => 'AB',
-    'British Columbia' => 'BC',
-    'Manitoba' => 'MB',
-    'New Brunswick' => 'NB',
-    'Newfoundland and Labrador' => 'NL',
-    'Northwest Territories' => 'NT',
-    'Nova Scotia' => 'NS',
-    'Nunavut' => 'NU',
-    'Ontario' => 'ON',
-    'Prince Edward Island' => 'PE',
-    'Quebec' => 'QC',
-    'Saskatchewan' => 'SK',
-    'Yukon' => 'YT'
-);
 $db = DatabaseAccess::getConnection();
 $province = isset($_GET['province']) ? $_GET['province'] : '';
 $name = isset($_GET['name']) ? $_GET['name'] : '';
 $parkRepository = new ParkRepository($db);
+$provinces = $parkRepository->getProvinces();
+
 $parks = $parkRepository->getParks($name, $province);
 
 // -- If user is signed in, display wshlist icons
@@ -74,8 +61,8 @@ if($fManageWishlist) {
                         <label for="province">Province</label>
                         <select class="form-control" id="province" name="province">
                             <option value="">Select a Province</option>
-                            <?php foreach($provinces as $name => $value) {?>
-                            <option <?=($province == $value) ? "selected" : ""?> value="<?=$value?>"><?=$name?></option>
+                            <?php foreach($provinces as $p) {?>
+                            <option <?=($province == $p["province_code"]) ? "selected" : ""?> value="<?=$p["province_code"]?>"><?=$p["province"]?></option>
                             <?php } ?>
                         </select>
                     </div>

@@ -1,3 +1,17 @@
+<?php
+
+require '../lib/DatabaseAccess.php';
+require '../lib/park.php';
+require '../lib/ParkRepository.php';
+
+$db = DatabaseAccess::getConnection();
+$parkRepository = new ParkRepository($db);
+$provinces = $parkRepository->getProvinces();
+$id = $_GET['id'];
+$park1 = $parkRepository->getPark($id);
+// var_dump($park1);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,11 +42,12 @@
           </article>
       </aside>
 	    <div class="col-md-8">
-	  <h1>About the Park</h1>
+	  <h1><?=$park1["name"]?></h1>
 	  
 	  By:Navpreet<br>
-	  <img class="img-responsive" id="pic1" alt="Problem Loading Image" src="p1.jpg">
-	  <p> This is a beautiful park for enjoyment. It is an ideal location to be used for special occasions and celebrations. It is a great park to spend time with family as well as friends.
+
+	  <img class="img-responsive" id="pic1" alt="Problem Loading Image" src="<?=$park1["banner"]?>">
+	  <p> <?=$park1["description"]?>
 	  </p>
 	 
 	  
@@ -46,10 +61,6 @@
             ?>
 	  <form action="parks.html" method="post">
 	  <h2>Comments</h2>
-	  <div>
-	  <label for="name" class="form-label">Name:</label>
-	  <input type="text" id="name" name="visitor_name" placeholder="Type your name here."/>
-	  </div>
 	  <div>
 	  <label for="comments" class="form-label">Comments:</label>
 	  <input type="text" id="comments" name="visitor_comments" placeholder="Type your comments here."/>
