@@ -302,7 +302,7 @@ div.edit-image {
     position: relative;
 }
 
-button.delete-img {
+button.del-foot-img {
     position: absolute;
     right: 60px;
     top: 8px;
@@ -311,14 +311,15 @@ button.delete-img {
     height: 12px;
 }
 
-.delete-img span {
+.del-foot-img {
     color: #d01d33 !important;
 }
 
-.delete-img:hover span {
+.del-foot-img:hover span {
     color: #d01d33 !important;
     font-weight: bold !important;
 }
+
 
 /* ============================ */
 /*    STYLE A WISHLIST BLOCK    */

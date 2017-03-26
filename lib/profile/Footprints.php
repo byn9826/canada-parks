@@ -383,4 +383,39 @@ class Footprints
         rmdir($sPathToDirectory);
     }
 
+    // -- Function to delete a footprint image
+    public static function DeleteAFootprintImage($objConnection, $iImageId) {
+        // Variable declaration
+        $fStatus = false;
+
+        // Query to delete an image
+        $sQueryDeleteImg = "DELETE FROM footprint_images WHERE image_id = :imageId";
+        $objPDOStmt = $objConnection->prepare($sQueryDeleteImg);
+        $objPDOStmt->bindValue(':imageId', $iImageId, PDO::PARAM_INT);
+        try {
+            $fStatus = $objPDOStmt->execute();
+        } catch(PDOException $e) {
+            // Error occured while trying to delete an image
+        }
+        return $fStatus;
+    }
+
+    // -- Function to delete an image file
+    public static function DeleteFootprintImageFile($userId, $footprintId, $fileName) {
+        // Variables declaration
+        $sFolderName = $userId . '_' . $footprintId;
+        $sFolderPath = "../../static/img/profile/footprints/{$sFolderName}";
+        $sImagePath = $sFolderPath . '/' . $fileName;
+
+        // Delete image file from folder
+        if (file_exists($sImagePath)) {
+            unlink($sImagePath);
+        }
+
+        // Check if directory/folder empty, and delete folder
+        if (count(glob("{$sFolderPath}/*")) === 0 ) {
+            rmdir($sFolderPath);
+        }
+    }
+
 }

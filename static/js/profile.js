@@ -117,7 +117,7 @@ $(document).ready(function() {
                     $.each(result[1], function(index, objImage) {
                         var sImagePath = sFolderPath + objImage.image_src;
                         displayImages += '<div class="item edit-image">';
-                        displayImages += '<button type="button" class="close delete-img" data-footprintId="' + footprintId + '" data-imageSrc="' + objImage.image_src + '" data-imageId="'+ objImage.image_id + '" title=\"Delete this image\" aria-label=\"Delete image from footprint\">';
+                        displayImages += '<button type="button" class="close del-foot-img" data-footprintId="' + footprintId + '" data-imageSrc="' + objImage.image_src + '" data-imageId="'+ objImage.image_id + '" title=\"Delete this image\" aria-label=\"Delete image from footprint\">';
                         displayImages += '<span aria-hidden="true">&times;</span>';
                         displayImages += '</button>';
                         displayImages += '<img src="' + sImagePath + '" />';
@@ -188,7 +188,39 @@ $(document).ready(function() {
     });
 
     // -- Handle delete a footprint image
-    
+    $(document.body).on('click', '.del-foot-img', function() {
+        // Confirm user's delete action
+        var userConfirm = confirm('Are you sure you want to permanently delete this image from your footprint?');
+
+        // If user confirms, delete image
+        if(userConfirm === true) {
+            // Capture image details
+            var imageItem = $(this).closest('div.owl-item');
+            var footprintId = $(this).attr('data-footprintid');
+            var imageId = $(this).attr('data-imageid');
+            var imageSrc = $(this).attr('data-imagesrc');
+
+            // AJAX delete footprint image
+            var dataString = 'deleteFootImg=' + true + '&footprint_id=' + footprintId + '&image_id=' + imageId + '&image_src=' + imageSrc;
+            $.ajax({
+                type: "post",
+                url: '../lib/profile/manageFootprints.php',
+                data: dataString,
+                success: function(result) {
+                    // On success, remove element from footprint
+                    if(result == "Deleted") {
+                        imageItem.hide(1000);
+                        setTimeout(function() {
+                            $(imageItem).remove();
+                        }, 2000);
+                    } else {
+                        alert("Unable to delete selected image right now.");
+                    }
+                }
+            });
+        }
+
+    });
 
     // -- Handle delete a wishlist item
     $('a.del-wishitem').on('click', function(e) {

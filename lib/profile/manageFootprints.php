@@ -211,3 +211,43 @@ if(isset($_POST['btnEditFootprint'])) {
     }
 
 }
+
+
+//-- If user select's an image to delete from footprint
+if(isset($_POST['deleteFootImg'])) {
+    // Handle user session
+    session_start();
+    require_once '../DatabaseAccess.php';
+
+    // -- Variables declaration
+    $fStatus = false;
+    $userId = $_SESSION['user_id'];
+    $footprintId = $_POST['footprint_id'];
+    $imageId = $_POST['image_id'];
+    $imageSrc = $_POST['image_src'];
+    $objConnection = DatabaseAccess::getConnection();
+
+    // -- Delete entry from DB and from file
+    try {
+        // BEGIN Transaction
+        $objConnection->beginTransaction();
+
+        // Delete image from DB
+        $fStatus = Footprints::DeleteAFootprintImage($objConnection, $imageId);
+
+        if($fStatus) {
+            // Delete image file
+            Footprints::DeleteFootprintImageFile($userId, $footprintId, $imageSrc);
+        }
+
+        // COMMIT Transaction
+        $objConnection->commit();
+
+        // Operations ended successfully
+        echo "Deleted";
+    } catch (Exception $e) {
+        // ROLLBACK Transaction
+        $objConnection->rollBack();
+        echo "Failed";
+    }
+}
