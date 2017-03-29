@@ -68,7 +68,7 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
         //If account exist, email verified, write into session
         else {
             //if user want to remember that login statues in cookie
-            if ($_POST['remember'] == 'true') {
+            if (isset($_POST['remember']) && $_POST['remember'] == 'true') {
                 $date = new DateTime();
                 $random = $date->getTimestamp();
                 $combine = $email . md5('asd32^3@ma') . sha1($random);

@@ -132,7 +132,7 @@ class Wishlist
             $sResult .= "        </div>";
             $sResult .= "        <div class=\"col col-xs-8 col-sm-8 wishlist-group__park-details\">";
             $sResult .= "            <div>";
-            $sResult .= "                <a class=\"wishlist-group__park-link\" href=\"../park/?id={$objParkDetails->park_id}\" alt=\"Link to park profile page\">{$objParkDetails->name}</a>";
+            $sResult .= "                <a class=\"wishlist-group__park-link\" href=\"../park/?id={$objParkDetails->park_id}\" alt=\"Link to park profile page\" title=\"Click to view park details\">{$objParkDetails->name}</a>";
             $sResult .= "            </div>";
             $sResult .= "            <div class=\"wishlist-group__more-details\">{$objParkDetails->address}</div>";
             $sResult .= "            <div class=\"wishlist-group__more-details\">{$objParkDetails->province}</div>";

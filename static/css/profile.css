@@ -245,6 +245,10 @@ main {
     color: #5cb85c;
 }
 
+.footprint__park:hover {
+    text-decoration: underline;
+}
+
 .footprint__date {
     font-size: 0.875em;
     padding-top: 0.125em;
@@ -257,6 +261,22 @@ main {
 
 .footprint__gallery {
     padding: 0 8px;
+}
+
+span.edit-footprint {
+    cursor: pointer !important;
+    font-size: 13px;
+    color: #c8c8c8 !important;
+    text-shadow: 0 1px 0 #fff;
+}
+
+span.edit-footprint:hover {
+    color: #000 !important;
+}
+
+.footprint__gallery_edit {
+    border-top: 1px solid #e5e5e5;
+    padding-top: 16px;
 }
 
 .owl-carousel .owl-item img {
@@ -276,6 +296,28 @@ main {
     -ms-transform: scale(1.02);
     transform: scale(1.02);
     z-index: 5;
+}
+
+div.edit-image {
+    position: relative;
+}
+
+button.del-foot-img {
+    position: absolute;
+    right: 60px;
+    top: 8px;
+    z-index: 10;
+    width: 12px;
+    height: 12px;
+}
+
+.del-foot-img {
+    color: #d01d33 !important;
+}
+
+.del-foot-img:hover span {
+    color: #d01d33 !important;
+    font-weight: bold !important;
 }
 
 
