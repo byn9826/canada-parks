@@ -11,8 +11,11 @@ $(document).ready(function() {
         if(footprintStatus === "s") {
             footprintMessage = "Your new footprint was added successfully.";
             messageType = "success";
+        } else if(footprintStatus === "e") {
+            footprintMessage = "Your footprint has been updated successfully.";
+            messageType = "success";
         } else {
-            footprintMessage = "Sorry. Currently, we are not able to add your new footprint."
+            footprintMessage = "Sorry. Currently, we are not able to perform any footprint operation."
             messageType = "warning";
         }
         $.alert(footprintMessage,{
@@ -34,41 +37,38 @@ $(document).ready(function() {
     }
 
     // -- Initialise the Carousel for images
-    var owl = $('.owl-carousel');
-    owl.owlCarousel({
-        margin: 5,
-        nav: true
-        // loop: true,
-        // responsive: {
-        //      0: {
-        //          items: 1
-        //      },
-        //      600: {
-        //          items: 3
-        //      },
-        //       1000: {
-        //          items: 5
-        //       }
-        // }
-    })
+    function pInitialiseCarousel() {
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            margin: 5,
+            nav: true,
+            // loop: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                420: {
+                    items: 2
+                },
+                700: {
+                    items: 3
+                }
+            }
+        })
+    }
+    pInitialiseCarousel();
 
     // -- Initialise date pickers
     $(function() {
         $('#inputDateVisit').datepicker();
+        $('#editDateVisit').datepicker();
     } );
 
     // -- Handle form when User Adds a new footprint
     $('#frmAddFootprint').submit(function(e) {
 
         // Capture form data
-        //var frmFootprint = document.forms.frmAddFootprint;
-        //var iParkId = $('#slctPark').val();
         var dDateVisited = $('#inputDateVisit').val();
-        // var sUserStory = $('#inputStory').val();
-        // if ( $('#isPublic').is(':checked') )
-        //     var fSharePublic = $('#isPublic').val();
-        // else
-        //     var fSharePublic = 'N';
 
         // Perform validation
         if(dDateVisited === "") {
@@ -80,9 +80,146 @@ $(document).ready(function() {
 
     });
 
-    // Reset form is user hits Cancel button
+    // -- Reset form is user hits Cancel button
     $('#btnCancelFootprint').on('click', function () {
         $('#frmAddFootprint').trigger('reset');
+    });
+
+    // -- Handle 'Edit' event and display footprint details to edit
+    $('span.edit-footprint').on('click', function(e) {
+        // Get footprint Id to edit
+        var footprintId = $(this).attr('data-footprintId');
+
+        // Get footprint details using AJAX
+        var dataString = 'footprintToEdit=' + true + '&footprint_id=' + footprintId;
+        $.ajax({
+            type: "get",
+            url: '../lib/profile/manageFootprints.php',
+            data: dataString,
+            success: function(result) {
+                // Capture footprint details
+                var parkId = result[0].park_id;
+                var dateVisited = result[0].date_visited;
+                var formattedDate = dateVisited.substring(5,7) + '/' + dateVisited.substring(8,10) + '/' + dateVisited.substring(0,4);
+                var userStory = result[0].user_story;
+                if(result[0].is_public === "Y") {
+                    var postIsPublic = true;
+                } else {
+                    var postIsPublic = false;
+                }
+                var createdOn = result[0].created_on;
+
+                // Construct image display
+                var sFolderPath = '../static/img/profile/footprints/' + currentUserId + '_' + footprintId + '/';
+                var displayImages = "";
+                if(result[1].length > 0) {
+                    displayImages += '<div class="owl-carousel owl-theme footprint__gallery_edit">';
+                    $.each(result[1], function(index, objImage) {
+                        var sImagePath = sFolderPath + objImage.image_src;
+                        displayImages += '<div class="item edit-image">';
+                        displayImages += '<button type="button" class="close del-foot-img" data-footprintId="' + footprintId + '" data-imageSrc="' + objImage.image_src + '" data-imageId="'+ objImage.image_id + '" title=\"Delete this image\" aria-label=\"Delete image from footprint\">';
+                        displayImages += '<span aria-hidden="true">&times;</span>';
+                        displayImages += '</button>';
+                        displayImages += '<img src="' + sImagePath + '" />';
+                        displayImages += '</div>';
+                    });
+                    displayImages += '</div>';
+                }
+
+                // Set value to HTML controls
+                $('#editFootprintId').val(footprintId);
+                $('#editCreatedOn').val(createdOn);
+                $('#editSlctPark').val(parkId);
+                $('#editDateVisit').val(formattedDate);
+                $('#editStory').val(userStory);
+                $('#eIsPublic').prop('checked', postIsPublic);
+                $('#editFootprintGallery').html(displayImages);
+                pInitialiseCarousel();
+            }
+        });
+
+        // Display footprint details in modal form
+        var t = setTimeout(function() {
+            $('#editFootprint').modal('show');
+        }, 300);
+    });
+
+    // -- Handle form when User Edit a footprint
+    $('#frmEditFootprint').submit(function(e) {
+
+        // Capture form data
+        var dDateVisited = $('#editDateVisit').val();
+
+        // Perform validation
+        if(dDateVisited === "") {
+            $('#errEditFootprintDate').html('Please select a date')
+            return false;
+        } else {
+            $('#errEditFootprintDate').html('');
+        }
+
+    });
+
+    // -- Handle delete a footprint post
+    $('button.delete-footprint').on('click', function(e) {
+        e.preventDefault();
+        var footElementId = $(this).attr('data-footElementId');
+        var footprintId = $(this).attr('data-footprintId');
+
+        // AJAX delete footprint item
+        var dataString = 'deleteFootprint=' + true + '&footprint_id=' + footprintId;
+        $.ajax({
+            type: "post",
+            url: '../lib/profile/manageFootprints.php',
+            data: dataString,
+            success: function(result) {
+                // On success change display on page
+                if(result === "Deleted") {
+                    var footprintElement = document.getElementById(footElementId);
+                    $(footprintElement).hide(1000);
+                    setTimeout(function() {
+                        $(footprintElement).remove();
+                    }, 2000);
+                } else {
+                    alert("Unable to remove selected footprint right now.");
+                }
+            }
+        });
+    });
+
+    // -- Handle delete a footprint image
+    $(document.body).on('click', '.del-foot-img', function() {
+        // Confirm user's delete action
+        var userConfirm = confirm('Are you sure you want to permanently delete this image from your footprint?');
+
+        // If user confirms, delete image
+        if(userConfirm === true) {
+            // Capture image details
+            var imageItem = $(this).closest('div.owl-item');
+            var footprintId = $(this).attr('data-footprintid');
+            var imageId = $(this).attr('data-imageid');
+            var imageSrc = $(this).attr('data-imagesrc');
+
+            // AJAX delete footprint image
+            var dataString = 'deleteFootImg=' + true + '&footprint_id=' + footprintId + '&image_id=' + imageId + '&image_src=' + imageSrc;
+            $.ajax({
+                type: "post",
+                url: '../lib/profile/manageFootprints.php',
+                data: dataString,
+                success: function(result) {
+                    // On success, remove element from footprint
+                    if(result == "Deleted") {
+                        imageItem.hide(1000);
+                        setTimeout(function() {
+                            $(imageItem).remove();
+                        }, 2000);
+                    } else {
+                        alert("Unable to delete selected image right now.");
+                    }
+                }
+            });
+        }
+
     });
 
     // -- Handle delete a wishlist item
