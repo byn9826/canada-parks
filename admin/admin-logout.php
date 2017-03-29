@@ -10,7 +10,7 @@ require_once "model/admin.php";
 
 session_start();
 
-AdminUser::updateUserStatus(AdminUser::findUserByUsername($_SESSION["user_name"]));
+//AdminUser::updateUserStatus(AdminUser::findUserByUsername($_SESSION["user_name"]));
 var_dump($_SESSION);
 if (!empty($_SESSION)){
     session_destroy();

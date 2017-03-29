@@ -29,8 +29,8 @@ function initialize() {
         // The anchor for this image is the base of the flagpole at (0, 32).
         anchor: new google.maps.Point(0, 32)
       };
-
-      parks.map(function(park) {
+    if (typeof parks != 'undefined' || parks.length != 0) {
+        parks.map(function(park) {
         var marker = new google.maps.Marker({
             position: {lat: parseFloat(park.latitude), lng: parseFloat(park.longitude)},
             map: map,
@@ -52,7 +52,12 @@ function initialize() {
 
         bounds.extend(marker.position);
     });
+<<<<<<< HEAD
 
+=======
+    }
+
+>>>>>>> 131c518bdd7a0d0104bc691ba2f1e4248e6d63c6
     map.fitBounds(bounds);
 }
 
