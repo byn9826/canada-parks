@@ -30,7 +30,8 @@ function initialize() {
         anchor: new google.maps.Point(0, 32)
       };
     
-    parks.map(function(park) {
+    if (typeof parks != 'undefined' || parks.length != 0) {
+        parks.map(function(park) {
         var marker = new google.maps.Marker({
             position: {lat: parseFloat(park.latitude), lng: parseFloat(park.longitude)},
             map: map,
@@ -52,6 +53,7 @@ function initialize() {
         
         bounds.extend(marker.position);
     });
+    }
     
     map.fitBounds(bounds);
 }
