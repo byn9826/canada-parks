@@ -122,7 +122,7 @@ if($fManageWishlist) {
     		?>
         </div>
 
-		<script type="text/javascript">
+        <script type="text/javascript">
 		    var parks = <?=json_encode($parks)?>;
 		</script>
 
