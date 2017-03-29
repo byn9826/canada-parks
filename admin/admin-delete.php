@@ -2,10 +2,10 @@
     require_once "header.php";
     require_once "model/database.php";
     require_once "model/admin.php";
-
+    $db = Database::getDB();
     if (isset($_POST['delete'])){
         $id = $_POST['id'];
-        $row = AdminUser::deleteAdminByID($id);
+        $row = AdminUser::deleteAdminByID($db, $id);
         if ($row == 1) {
             header("Location: admin-list.php");
         }

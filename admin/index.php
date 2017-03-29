@@ -11,8 +11,10 @@ require_once "model/admin.php";
  * */
 
 //var_dump($_SESSION);
-
+    $db = Database::getDB();
     if (isset($_SESSION["user_name"])){
+        $_SESSION["role_id"] = (AdminUser::findUserByUsername($db, $_SESSION["user_name"]))->role_id;
+        $_SESSION["user_id"] = (AdminUser::findUserByUsername($db, $_SESSION["user_name"]))->user_id;
         header("Location: admin-list.php");
     }
     else
@@ -23,7 +25,7 @@ require_once "model/admin.php";
             $username = $_POST["username"];
             $password = $_POST["pwd"];
 
-            $currentUser = AdminUser::findUserByUsername($username);
+            $currentUser = AdminUser::findUserByUsername($db, $username);
             if (is_null($currentUser) || !isset($currentUser) || $currentUser == false)
             {
                 echo "<div class=\"alert alert-danger\"> No username found!</div>";
@@ -34,7 +36,7 @@ require_once "model/admin.php";
                 $_SESSION["user_id"] = $currentUser->user_id;
                 $_SESSION["user_name"] = $currentUser->user_name;
                 $_SESSION["role_id"] = $currentUser->role_id;
-                AdminUser::updateUserStatus($currentUser);
+                //AdminUser::updateUserStatus($currentUser);
                 //var_dump($_SESSION["user_name"]);
                 header("Location: admin-list.php");
             }
