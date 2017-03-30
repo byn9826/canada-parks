@@ -27,25 +27,44 @@
 }
 
 #attitude {
-    padding: 10px 3%;
-    background-color: #eff2f7;
+    margin: 10px 0;
     display: block;
-    width: 94%;
+    width: 92%;
+    vertical-align: middle;
+    padding: 15px 4%;
     border-radius: 5px;
+    background-color: #eff2f7;
 }
 
-.attitude-rating {
+#attitude-rate h5 {
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#attitude-rate {
     display: inline-block;
     vertical-align: middle;
 }
 
-.attitude-rating h5 {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 10px;
+#attitude-rate a{
+    cursor: default;
 }
 
-#star-rating {
-    display: block;
+.attitude-vote{
+    display: inline-block;
+    margin-left:6%;
     vertical-align: middle;
+    border: 1px solid #216b42;
+    box-shadow: 2px 2px 1px #888888;
+    border-radius: 6px;
+    padding: 10px 2%;
+}
+
+.attitude-vote h5{
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    color: #3f385b;
 }

@@ -43,14 +43,14 @@ $park1 = $parkRepository->getPark($id);
       </aside>
 	    <div class="col-md-8">
 	  <h1><?=$park1["name"]?></h1>
-	  
+
 	  By:Navpreet<br>
 
 	  <img class="img-responsive" id="pic1" alt="Problem Loading Image" src="<?=$park1["banner"]?>">
 	  <p> <?=$park1["description"]?>
 	  </p>
-	 
-	  
+
+
 
             <?php
             include "imagegallery.php";
@@ -69,7 +69,7 @@ $park1 = $parkRepository->getPark($id);
 	  <button type="submit" name="Submit">Post Comment</button>
 	  </div>
 	  </form>
-	  
+
 	</div>
       </div>
       <?php include "../templates/footer.php";?>
