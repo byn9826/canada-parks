@@ -381,4 +381,37 @@ class AdminUser
             $pdostament->closeCursor();
         }
     }
+
+    public static function updateEmailSubscribe($db, $id, $currentStatus){
+        //$db = Database::getDB();
+        try {
+            $query = "UPDATE user SET email_subscribed = :switch WHERE user_id = :id";
+            $pdostament = $db->prepare($query);
+            $changed = ($currentStatus == 1) ? 0 : 1;
+            $pdostament->bindValue(':switch', $changed, PDO::PARAM_INT);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $row = $pdostament->execute();
+            return $row;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function checkEmailSubscribe($db, $id){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT email_subscribed FROM user WHERE user_id = :id LIMIT 1";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $pdostament->execute();
+            $existed = $pdostament->fetch(PDO::FETCH_OBJ);
+            return $existed;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
 }
