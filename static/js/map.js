@@ -52,12 +52,9 @@ function initialize() {
 
         bounds.extend(marker.position);
     });
-<<<<<<< HEAD
 
-=======
     }
 
->>>>>>> 131c518bdd7a0d0104bc691ba2f1e4248e6d63c6
     map.fitBounds(bounds);
 }
 
