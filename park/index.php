@@ -71,8 +71,9 @@ $park1 = $parkRepository->getPark($id);
 	  </form>
 
 	</div>
+    <?php include "../templates/footer.php";?>
       </div>
-      <?php include "../templates/footer.php";?>
+
   </main>
 
 </body>
