@@ -26,7 +26,7 @@ Features
 
 Stacks
 --
-PHP, Mysql, Apache, Bootstrap, jQuery
+PHP, Mysql, Apache, Bootstrap, jQuery, React
 
 Team
 --
