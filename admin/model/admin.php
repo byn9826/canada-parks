@@ -98,8 +98,8 @@ class AdminUser
         $this->setUserPassword(sha1($myPassword));
     }
 
-    public static function getAllUsers($id){
-        $db = Database::getDB();
+    public static function getAllUsers($db, $id){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM user WHERE user_id != :user_id ORDER BY role_id DESC";
             $pdostament = $db->prepare($query);
@@ -115,8 +115,8 @@ class AdminUser
         }
     }
 
-    public static function getAllRoles(){
-        $db = Database::getDB();
+    public static function getAllRoles($db){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM role";
             $pdostament = $db->prepare($query);
@@ -150,8 +150,8 @@ class AdminUser
         }
     }*/
 
-    public static function updateUserRole($id, $roleId){
-        $db = Database::getDB();
+    public static function updateUserRole($db, $id, $roleId){
+        //$db = Database::getDB();
         try {
             $query = "UPDATE user SET role_id = :role_id WHERE user_id = :id";
             $pdostament = $db->prepare($query);
@@ -167,8 +167,8 @@ class AdminUser
     }
 
 
-    public static function updateUserStatus($user){
-        $db = Database::getDB();
+    public static function updateUserStatus($db, $user){
+        //$db = Database::getDB();
         try {
             $query = "UPDATE user SET user_status = :status WHERE user_id = :id";
             $pdostament = $db->prepare($query);
@@ -186,8 +186,8 @@ class AdminUser
         }
     }
 
-    public static function updatePassword($id, $email, $password){
-        $db = Database::getDB();
+    public static function updatePassword($db, $id, $email, $password){
+        //$db = Database::getDB();
         try {
             $query = "UPDATE user SET user_password = :password WHERE user_id = :id AND user_email = :email";
             $pdostament = $db->prepare($query);
@@ -203,8 +203,8 @@ class AdminUser
         }
     }
 
-    public static function searchUsersByEmailOrUsername($term){
-        $db = Database::getDB();
+    public static function searchUsersByEmailOrUsername($db, $term){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM user WHERE user_email LIKE :term OR user_name LIKE :term ORDER BY role_id DESC";
             $pdostament = $db->prepare($query);
@@ -219,8 +219,8 @@ class AdminUser
         }
     }
 
-    public static function findUserByID($id){
-        $db = Database::getDB();
+    public static function findUserByID($db, $id){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM user WHERE user_id = :id";
             $pdostament = $db->prepare($query);
@@ -235,8 +235,8 @@ class AdminUser
         }
     }
 
-    public static function findUserByUsername($username){
-        $db = Database::getDB();
+    public static function findUserByUsername($db, $username){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM user WHERE user_name = :username";
             $pdostament = $db->prepare($query);
@@ -251,8 +251,8 @@ class AdminUser
         }
     }
 
-    public static function findUserByEmail($email){
-        $db = Database::getDB();
+    public static function findUserByEmail($db, $email){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM user WHERE user_email = :email";
             $pdostament = $db->prepare($query);
@@ -267,8 +267,8 @@ class AdminUser
         }
     }
 
-    public static function findRoleNameByRoleID($roleId){
-        $db = Database::getDB();
+    public static function findRoleNameByRoleID($db, $roleId){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM role WHERE role_id = :id";
             $pdostament = $db->prepare($query);
@@ -283,8 +283,8 @@ class AdminUser
         }
     }
 
-    public static function checkEmailExisted($id, $email){
-        $db = Database::getDB();
+    public static function checkEmailExisted($db, $id, $email){
+        //$db = Database::getDB();
         try {
             $query = "SELECT 1 FROM user WHERE user_email = :email AND user_id != :id LIMIT 1";
             $pdostament = $db->prepare($query);
@@ -300,8 +300,8 @@ class AdminUser
         }
     }
 
-    public static function checkEmailExistedInDB($email){
-        $db = Database::getDB();
+    public static function checkEmailExistedInDB($db, $email){
+        //$db = Database::getDB();
         try {
             $query = "SELECT 1 FROM user WHERE user_email = :email LIMIT 1";
             $pdostament = $db->prepare($query);
@@ -316,8 +316,8 @@ class AdminUser
         }
     }
 
-    public static function checkUsernameExisted($id, $username){
-        $db = Database::getDB();
+    public static function checkUsernameExisted($db, $id, $username){
+        //$db = Database::getDB();
         try {
             $query = "SELECT 1 FROM user WHERE user_name = :username AND user_id != :id LIMIT 1";
             $pdostament = $db->prepare($query);
@@ -333,8 +333,8 @@ class AdminUser
         }
     }
 
-    public static function updateUsernameAndEmailForUser($id, $username, $email){
-        $db = Database::getDB();
+    public static function updateUsernameAndEmailForUser($db, $id, $username, $email){
+        //$db = Database::getDB();
         try {
             $query = "UPDATE user SET user_email = :email, user_name = :username WHERE user_id = :id";
             $pdostament = $db->prepare($query);
@@ -350,8 +350,8 @@ class AdminUser
         }
     }
 
-    public static function deleteUserByID($id){
-        $db = Database::getDB();
+    public static function deleteUserByID($db, $id){
+        //$db = Database::getDB();
         try {
             $query = "DELETE FROM user WHERE user_id = :id";
             $pdostament = $db->prepare($query);
@@ -365,8 +365,8 @@ class AdminUser
         }
     }
 
-    public static function updateActivation($id, $code = null, $date = null){
-        $db = Database::getDB();
+    public static function updateActivation($db, $id, $code = null, $date = null){
+        //$db = Database::getDB();
         try {
             $query = "UPDATE user SET activation_code = :code, activation_date = :date WHERE user_id = :id";
             $pdostament = $db->prepare($query);
@@ -375,6 +375,39 @@ class AdminUser
             $pdostament->bindValue(':id', $id, PDO::PARAM_STR);
             $row = $pdostament->execute();
             return $row;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function updateEmailSubscribe($db, $id, $currentStatus){
+        //$db = Database::getDB();
+        try {
+            $query = "UPDATE user SET email_subscribed = :switch WHERE user_id = :id";
+            $pdostament = $db->prepare($query);
+            $changed = ($currentStatus == 1) ? 0 : 1;
+            $pdostament->bindValue(':switch', $changed, PDO::PARAM_INT);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $row = $pdostament->execute();
+            return $row;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function checkEmailSubscribe($db, $id){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT email_subscribed FROM user WHERE user_id = :id LIMIT 1";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $pdostament->execute();
+            $existed = $pdostament->fetch(PDO::FETCH_OBJ);
+            return $existed;
         } catch (PDOException $e) {
             echo "There is an error: ".$e->getMessage();
         } finally {

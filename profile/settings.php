@@ -12,6 +12,7 @@
     require_once '../lib/profile/UserAccount.php';
     require_once '../lib/profile/Footprints.php';
     require_once '../lib/profile/Wishlist.php';
+    require_once '../admin/model/admin.php';
 
 
     // -- Create a database connection
@@ -258,6 +259,8 @@
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="../static/img/profile/users/custom/jquery.imgareaselect.js"></script>
     <script src="../static/img/profile/users/custom/jquery.form.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -503,6 +506,25 @@
                                     </div>
                                 </div>
 
+                                <!-- Email Subscriber -->
+                                <div class="row display-group">
+                                    <div class="col col-md-12">
+                                        <h3>Email Subscriber</h3>
+                                        <?php
+                                        $user = AdminUser::checkEmailSubscribe($db, $_SESSION['user_id']);
+                                        $checked = ($user->email_subscribed == 1) ? "checked" : ""
+                                        ?>
+                                            <input id="subscribe-email" type="checkbox" data-toggle="toggle" data-on="Subscribed" data-off="Unsubscribed" <?php echo $checked; ?>>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    $('#subscribe-email').change(function() {
+                                        $.post('../admin/admin-email-subscribed.php', { userId : <?php echo $_SESSION['user_id']; ?>}, function(data){
+                                            //console.log(data);
+                                        });
+                                    })
+                                </script>
                             </div>
 
                             <!-- Tab: Account-->

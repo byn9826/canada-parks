@@ -2,7 +2,7 @@
 require_once "../templates/meta.php";
 require_once "model/database.php";
 require_once "model/admin.php";
-
+$db = Database::getDB();
 session_start();
 //var_dump($_SESSION['user-need-new-password']);
 //$actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -39,7 +39,7 @@ if(!$mail->send()) {
     echo "<div class=\"alert alert-danger\"> Mailer Error: $mail->ErrorInfo</div>";
 }
 else {
-    AdminUser::updateActivation($user->user_id, sha1($newpassword), date("Y-m-d"));
+    AdminUser::updateActivation($db, $user->user_id, sha1($newpassword), date("Y-m-d"));
 
     echo "<div class=\"alert alert-success\"> Your new password is sent. Please check mail and validate your new password within the day</div>";
     echo "<a class='btn btn-default' href='index.php'>Back to Login page</a>";

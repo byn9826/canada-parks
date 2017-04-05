@@ -16,6 +16,11 @@ $provinces = $parkRepository->getProvinces();
 
 $parks = $parkRepository->getParks($name, $province);
 
+// header('Content-type: application/json');
+// echo json_encode($parks[0]);
+// die;
+
+
 // -- If user is signed in, display wshlist icons
 // -- ----------------------------------------
 $fManageWishlist = isset($_SESSION["user_id"])? true : false;
@@ -122,7 +127,7 @@ if($fManageWishlist) {
     		?>
         </div>
 
-		<script type="text/javascript">
+        <script type="text/javascript">
 		    var parks = <?=json_encode($parks)?>;
 		</script>
 

@@ -72,7 +72,6 @@ $park1 = $parkRepository->getPark($id);
                                         data-park-id="<?php echo $id; ?>">View Footprints</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

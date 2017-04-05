@@ -56,8 +56,14 @@ a:hover{
 }
 
 #header img{
-    height: 36px;
+    height: 36px !important;
+    width: 36px !important;
     margin-top: 7px;
+    box-shadow: none !important;
+    transition: none !important;
+    -moz-transform: none !important;
+    -webkit-transform: none !important;
+    -ms-transform:none !important;
 }
 
 #header-searchicon{

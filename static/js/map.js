@@ -13,13 +13,13 @@ function initialize() {
             scrollwheel: false,
         }
     });
-    
+
     map.addListener('click', function() {
         closeInfoWdinows();
     });
-    
+
     var bounds = new google.maps.LatLngBounds();
-    
+
     var image = {
         url: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-32.png',
         // This marker is 20 pixels wide by 32 pixels high.
@@ -29,8 +29,8 @@ function initialize() {
         // The anchor for this image is the base of the flagpole at (0, 32).
         anchor: new google.maps.Point(0, 32)
       };
-    
-    parks.map(function(park) {
+    if (typeof parks != 'undefined' || parks.length != 0) {
+        parks.map(function(park) {
         var marker = new google.maps.Marker({
             position: {lat: parseFloat(park.latitude), lng: parseFloat(park.longitude)},
             map: map,
@@ -38,21 +38,23 @@ function initialize() {
             animation: google.maps.Animation.DROP,
             icon: image
         });
-        
+
         var infowindow = new google.maps.InfoWindow({
             content: park.name
         });
-        
+
         marker.addListener('click', function() {
             closeInfoWdinows();
             infowindow.open(map, this);
         });
-        
+
         infos.push(infowindow);
-        
+
         bounds.extend(marker.position);
     });
-    
+
+    }
+
     map.fitBounds(bounds);
 }
 

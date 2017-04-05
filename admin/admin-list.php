@@ -2,15 +2,34 @@
     require_once "header.php";
     require_once "model/database.php";
     require_once "model/admin.php";
-    $admins = AdminUser::getAllUsers($_SESSION["user_id"]);
+    $db = Database::getDB();
+    $admins = AdminUser::getAllUsers($db, $_SESSION["user_id"]);
 
     //var_dump($_SESSION["role_id"]);
-    $search = "";
-    if (isset($_POST["searchBtn"])){
-        $search = $_POST["searchTerm"];
-        $admins = AdminUser::searchUsersByEmailOrUsername($search);
-    }
+//    $search = "";
+//    if (isset($_POST["searchBtn"])){
+//        $search = $_POST["searchTerm"];
+//        $admins = AdminUser::searchUsersByEmailOrUsername($search);
+//    }
 ?>
+
+<script>
+    $(document).ready(function (){
+        $("#btnSearch").click(function(){
+            var search = $("#searchTerm").val();
+            $.post('admin-searchuser.php', { searchTerm: search}, function(data){
+                console.log(data);
+                $("#result").html(data);
+            });
+        });
+
+        $("#searchTerm").keyup(function (event) {
+            if (event.keyCode == 13) {
+                $("#btnSearch").trigger("click");
+            }
+        });
+    });
+</script>
 
 <h1>Administration page</h1>
 
@@ -19,17 +38,18 @@
         <a href="admin-create.php" class="btn btn-info" role="button">Create New Admin</a>
     </div>-->
 
-    <form class="form-horizontal" method="post" action="admin-list.php">
+<!--    <form class="form-horizontal" method="post" action="admin-list.php">-->
     <p>Search for user:
-        <input type="text" class="form-control" id="searchTerm" placeholder="Enter username or email here" name="searchTerm" value="<?php echo $search ?>" style="margin:5px;"/>
-        <button type="submit" class="btn btn-default" name="searchBtn">
+        <input type="text" class="form-control" id="searchTerm" placeholder="Enter username or email here" name="searchTerm" value="" style="margin:5px;"/>
+        <button type="submit" class="btn btn-default" name="searchBtn" id="btnSearch">
             <span class="glyphicon glyphicon-search"></span> Search
         </button>
     </p>
-    </form>
+<!--    </form>-->
     <h2>Admin List</h2>
-    <table class="table table-striped">
-        <thead>
+    <div id="result">
+        <table class="table table-striped">
+            <thead>
             <tr>
                 <th>ID</th>
                 <th>User Name</th>
@@ -38,42 +58,43 @@
                 <th>Role</th>
                 <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-                <?php
-                if (isset($admins)){
-                    foreach($admins as $admin) {
-                        echo "<tr>";
-                        echo "<td>$admin->user_id</td>";
-                        echo "<td>$admin->user_name</td>";
-                        echo "<td>$admin->user_email</td>";
-                        echo "<td>$admin->user_reg</td>";
-                        echo "<td>". AdminUser::findRoleNameByRoleID($admin->role_id)->role_name ."</td>";
-                        echo "<td class='control-td'>";
-                        if ($_SESSION["role_id"] == 2)
-                        {
-                            /*echo "<form method='post' action='admin-edit.php'>
-                                        <input type='hidden' name='id' value='$admin->user_id'/>
-                                        <input class='btn btn-warning' type='submit' name='edit' value='Edit'/>
-                                  </form>";*/
-                            echo "<form method='post' action='admin-delete.php'>
+            </thead>
+            <tbody>
+            <?php
+            if (isset($admins)){
+                foreach($admins as $admin) {
+                    echo "<tr>";
+                    echo "<td>$admin->user_id</td>";
+                    echo "<td>$admin->user_name</td>";
+                    echo "<td>$admin->user_email</td>";
+                    echo "<td>$admin->user_reg</td>";
+                    echo "<td>". AdminUser::findRoleNameByRoleID($db, $admin->role_id)->role_name ."</td>";
+                    echo "<td class='control-td'>";
+                    if ($_SESSION["role_id"] == 2)
+                    {
+                        /*echo "<form method='post' action='admin-edit.php'>
+                                    <input type='hidden' name='id' value='$admin->user_id'/>
+                                    <input class='btn btn-warning' type='submit' name='edit' value='Edit'/>
+                              </form>";*/
+                        echo "<form method='post' action='admin-delete.php'>
                                         <input type='hidden' name='id' value='$admin->user_id'/>
                                         <input class='btn btn-warning' type='submit' name='delete' value='Delete' onClick=\"javascript: return confirm('Do you really want to delete this user?');\"/>
                                   </form>";
-                            echo "<form method='post' action='admin-update-role.php'>
+                        echo "<form method='post' action='admin-update-role.php'>
                                         <input type='hidden' name='id' value='$admin->user_id'/>
                                         <input class='btn btn-success' type='submit' name='privilege' value='Privilege'/>
                                   </form>";
-                        }else {
-                            echo "No action";
-                        }
-                        echo "</td>";
-                        echo "</tr>";
+                    }else {
+                        echo "No action";
                     }
+                    echo "</td>";
+                    echo "</tr>";
                 }
-                ?>
-        </tbody>
-    </table>
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <?php

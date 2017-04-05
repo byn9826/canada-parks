@@ -3,13 +3,13 @@
     require_once "model/database.php";
     require_once "model/admin.php";
     require_once "../lib/validation/fanta_valid.php";
-
+    $db = Database::getDB();
     $id = "";
     $email = "";
     $pwd = "";
 
     $id = $_SESSION["user_id"];
-    $admin = AdminUser::findUserByID($id);
+    $admin = AdminUser::findUserByID($db, $id);
     $email = $admin->user_email;
     $pwd = $admin->user_password;
     //var_dump($pwd);
@@ -39,7 +39,7 @@
         }
 
         if ($ok){
-            $row = AdminUser::updatePassword($id, $email, sha1($_POST['newwpwd']));
+            $row = AdminUser::updatePassword($db ,$id, $email, sha1($_POST['newwpwd']));
 
             if($row == 1){
                 header("Location: admin-success.php");

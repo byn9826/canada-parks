@@ -3,7 +3,7 @@
     require_once "model/database.php";
     require_once "model/admin.php";
     require_once "../lib/validation/fanta_valid.php";
-
+    $db = Database::getDB();
     $fname = "";
     $lname = "";
     $email = "";
@@ -37,7 +37,7 @@
         } elseif (!Fanta_Valid::isEmailValid(trim($email))) {
             $emailError = "Please enter a valid email address";
             $ok = false;
-        } elseif(AdminUser::checkEmailExisted($email)) {
+        } elseif(AdminUser::checkEmailExisted($db, $email)) {
             $ok = false;
             $emailError = "This email is already registered";
         }

@@ -8,13 +8,14 @@
 require_once "header.php";
 require_once "model/database.php";
 require_once "model/admin.php";
+$db = Database::getDB();
 $id = "";
 $username = $email = $date = "";
-$roleArr = AdminUser::getAllRoles();
+$roleArr = AdminUser::getAllRoles($db);
 //var_dump($roleArr);
 if (isset($_POST['id'])){
     $id = $_POST['id'];
-    $user = AdminUser::findUserByID($id);
+    $user = AdminUser::findUserByID($db, $id);
     //var_dump($user);
     $currentRole = $user->role_id;
     $username = $user->user_name;
@@ -24,7 +25,7 @@ if (isset($_POST['id'])){
 
 if (isset($_POST["change"]))
 {
-    $row = AdminUser::updateUserRole($id, $_POST["role"]);
+    $row = AdminUser::updateUserRole($db, $id, $_POST["role"]);
     if($row == 1){
         header("Location: admin-list.php");
     } else {
