@@ -325,6 +325,7 @@ class Footprints
         $sResult = "";
         foreach ($lstFootprints as $objFootprint) {
             $sResult .= "<div id=\"f{$objFootprint->footprint_id}\" data-footprintId=\"{$objFootprint->footprint_id}\" class=\"footprint display-group\">";
+//            $sResult .= "<div id=\"shareBtn\" class=\"btn btn-success clearfix\">Share Dialog</div>";
             $sResult .= "    <div class=\"row\">";
             $sResult .= "        <div class=\"col col-xs-2 col-sm-2 small-profile-pic\"><img src=\"../static/img/profile/users/{$objFootprint->image_src}\" /></div>";
             $sResult .= "        <div class=\"col col-xs-9 col-sm-9\">";
