@@ -687,7 +687,7 @@
                     </div>
                     <div class="modal-body">
                         <form id="cropimage" method="post" enctype="multipart/form-data" action="change_pic.php">
-                            <strong>Upload Image:</strong> <br><br>
+                            <strong>Upload Image:</strong>
                             <input type="file" name="profile-pic" id="profile-pic" />
                             <input type="hidden" name="hdn-profile-id" id="hdn-profile-id" value="<?php echo $_SESSION['user_id']; ?>" />
                             <input type="hidden" name="hdn-x1-axis" id="hdn-x1-axis" value="" />

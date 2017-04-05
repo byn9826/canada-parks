@@ -320,7 +320,7 @@ class Footprints
     // -- PUBLIC STATIC FUNCTIONS DECLARATION
     // -- -----------------------------------
     // -- Function taking a list of park details and return constructed HTML
-    public static function ConstructFootprintItems($lstFootprints) {
+    public static function ConstructFootprintItems($lstFootprints, $fEditMode) {
         // Loop and build a wishlist item
         $sResult = "";
         foreach ($lstFootprints as $objFootprint) {
@@ -333,12 +333,17 @@ class Footprints
             $sResult .= "            </div>";
             $sResult .= "            <div class=\"footprint__date\">{$objFootprint->created_on}</div>";
             $sResult .= "        </div>";
-            $sResult .= "        <div class=\"col col-xs-1 col-sm-1\">";
-            $sResult .= "            <span class=\"glyphicon glyphicon-pencil edit-footprint\" data-footprintId=\"{$objFootprint->footprint_id}\" title=\"Edit this footprint\"></span>";
-            $sResult .= "            <button type=\"button\" class=\"close delete-footprint\" data-footprintId=\"{$objFootprint->footprint_id}\" data-footElementId=\"f{$objFootprint->footprint_id}\" title=\"Delete this footprint\" aria-label=\"Delete footprint\">";
-            $sResult .= "                <span aria-hidden=\"true\">&times;</span>";
-            $sResult .= "            </button>";
-            $sResult .= "        </div>";
+
+            // -- Provide Edit and Close links if in edit mode (Only from user's profile page)
+            if($fEditMode) {
+                $sResult .= "        <div class=\"col col-xs-1 col-sm-1\">";
+                $sResult .= "            <span class=\"glyphicon glyphicon-pencil edit-footprint\" data-footprintId=\"{$objFootprint->footprint_id}\" title=\"Edit this footprint\"></span>";
+                $sResult .= "            <button type=\"button\" class=\"close delete-footprint\" data-footprintId=\"{$objFootprint->footprint_id}\" data-footElementId=\"f{$objFootprint->footprint_id}\" title=\"Delete this footprint\" aria-label=\"Delete footprint\">";
+                $sResult .= "                <span aria-hidden=\"true\">&times;</span>";
+                $sResult .= "            </button>";
+                $sResult .= "        </div>";
+            }
+
             $sResult .= "    </div>";
             $sResult .= "    <p class=\"footprint__caption\">{$objFootprint->user_story}</p>";
             $sResult .= "    <div class=\"row footprint__gallery\">";
@@ -346,6 +351,14 @@ class Footprints
             // -- ----------------------------------------------
             // Target directory containing footprint images
             $sFolderPath = '../static/img/profile/footprints/' . $objFootprint->user_id . '_' . $objFootprint->footprint_id . '/';
+
+            // -- If called from parks page, file paths changes
+            if(!$fEditMode) {
+                $sFolderPath = '../../static/img/profile/footprints/' . $objFootprint->user_id . '_' . $objFootprint->footprint_id . '/';
+                $sImagePath = '../static/img/profile/footprints/' . $objFootprint->user_id . '_' . $objFootprint->footprint_id . '/';
+            }
+
+            // -- Get all image files form the folder
             $iNbFiles = glob($sFolderPath . "*.{JPG,jpg,jpeg,JPEG,gif,GIF,png,PNG,bmp,BMP}", GLOB_BRACE);   // Number of images in folder
             if (is_dir($sFolderPath)) {    // Only if directory exists
                 $sCurrentDirectory = opendir($sFolderPath); // Open folder to read
@@ -353,7 +366,13 @@ class Footprints
                     $sResult .= "        <div class=\"owl-carousel owl-theme\">";
                     while(false !== ($file = readdir($sCurrentDirectory)))
                     {
-                        $file_path = $sFolderPath.$file;
+                        // Handle different source path
+                        if($fEditMode) {
+                            $file_path = $sFolderPath.$file;
+                        } else {
+                            $file_path = $sImagePath.$file;
+                        }
+
                         $extension = strtolower(pathinfo($file ,PATHINFO_EXTENSION));
                         if(in_array($extension, Footprints::$lstImageExtensions))
                         {
@@ -416,6 +435,43 @@ class Footprints
         if (count(glob("{$sFolderPath}/*")) === 0 ) {
             rmdir($sFolderPath);
         }
+    }
+
+    // -- Function to retrieve footprints for a park
+    public static function GetFootprintsForPark($objConnection, $iParkId, $iLoadFromRow, $iNumRowsToLoad) {
+
+        // Query to select footprints details
+        $sQueryFootprints = "
+                                    SELECT fp.footprint_id
+                                          ,DATE_FORMAT(fp.date_visited, '%M %d, %Y') as date_visited
+                                          ,DATE_FORMAT(fp.created_on,'%b %d, %Y %h:%i %p') as created_on
+                                          ,fp.is_public
+                                          ,fp.user_story
+                                          ,ud.user_id
+                                          ,ud.image_src
+                                          ,RTRIM(concat(IFNULL(ud.first_name,''), ' ', IFNULL(ud.last_name,''))) AS full_name
+                                          ,p.id as parkId
+                                          ,p.name
+                                      FROM footprints fp
+                                INNER JOIN user_details ud
+                                        ON ud.user_id = fp.user_id
+                                INNER JOIN park p
+                                        ON p.id = fp.park_id
+                                     WHERE fp.park_id = :parkId
+                                  ORDER BY fp.created_on DESC
+                                     LIMIT 
+                            ";
+        $sQueryFootprints .= $iLoadFromRow;
+        $sQueryFootprints .= ", ";
+        $sQueryFootprints .= $iNumRowsToLoad;
+
+        // Prepare and execute query
+        $objPDOStatement = $objConnection->prepare($sQueryFootprints);
+        $objPDOStatement->bindValue(':parkId', $iParkId, PDO::PARAM_INT);
+        $objPDOStatement->execute();
+        $lstFootprints = $objPDOStatement->fetchAll(PDO::FETCH_OBJ);
+
+        return $lstFootprints;
     }
 
 }

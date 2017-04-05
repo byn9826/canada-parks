@@ -199,128 +199,6 @@ main {
 }
 
 
-/* ============================= */
-/*    STYLE A FOOTPRINT BLOCK    */
-/* ============================= */
-.display-group {
-    border: 1px solid lightgrey;
-    padding: 16px 16px;
-    margin: 8px 0 16px 0;
-    background-color: #fafafa;
-}
-
-.display-group h3 {
-    color: #23527c;
-    font-weight: bold;
-    padding-bottom: 4px;
-    margin-bottom: 16px;
-    border-bottom: 1px solid #23527c;
-}
-
-.footprint .glyphicon {
-    margin-left: 4px;
-    margin-right: 0;
-    color: #5cb85c;
-}
-
-.footprint .small-profile-pic {
-    padding: 0 16px 20px 16px;
-}
-
-.footprint .small-profile-pic img {
-    width: 90%;
-}
-
-.footprint .row>.col:last-child {
-    padding-left: 0;
-}
-
-.footprint__user {
-    color: #286090;
-    font-size: 1.125em;
-    font-weight: bold;
-}
-
-.footprint__park {
-    color: #5cb85c;
-}
-
-.footprint__park:hover {
-    text-decoration: underline;
-}
-
-.footprint__date {
-    font-size: 0.875em;
-    padding-top: 0.125em;
-    color: gray;
-}
-
-.footprint__caption {
-    padding: 0 0 1em 0;
-}
-
-.footprint__gallery {
-    padding: 0 8px;
-}
-
-span.edit-footprint {
-    cursor: pointer !important;
-    font-size: 13px;
-    color: #c8c8c8 !important;
-    text-shadow: 0 1px 0 #fff;
-}
-
-span.edit-footprint:hover {
-    color: #000 !important;
-}
-
-.footprint__gallery_edit {
-    border-top: 1px solid #e5e5e5;
-    padding-top: 16px;
-}
-
-.owl-carousel .owl-item img {
-    width: 235px;
-    height: 175px;
-    -webkit-transition: -webkit-transform .15s ease;
-    -moz-transition: -moz-transform .15s ease;
-    -o-transition: -o-transform .15s ease;
-    -ms-transition: -ms-transform .15s ease;
-    transition: transform .15s ease;
-}
-
-.owl-carousel .owl-item img:hover {
-    -webkit-transform: scale(1.02);
-    -moz-transform: scale(1.02);
-    -o-transform: scale(1.02);
-    -ms-transform: scale(1.02);
-    transform: scale(1.02);
-    z-index: 5;
-}
-
-div.edit-image {
-    position: relative;
-}
-
-button.del-foot-img {
-    position: absolute;
-    right: 60px;
-    top: 8px;
-    z-index: 10;
-    width: 12px;
-    height: 12px;
-}
-
-.del-foot-img {
-    color: #d01d33 !important;
-}
-
-.del-foot-img:hover span {
-    color: #d01d33 !important;
-    font-weight: bold !important;
-}
-
-
 /* ============================ */
 /*    STYLE A WISHLIST BLOCK    */
 /* ============================ */
@@ -402,6 +280,18 @@ button.del-foot-img {
     width: 600px;
 }
 
+#preview-profile-pic {
+    text-align: center;
+}
+
+#profile-pic {
+    display: inline-block;
+}
+
+#preview-profile-pic img {
+    max-height: 475px !important;
+    width: auto !important;
+}
 
 /* =================== */
 /*    SETTINGS PAGE    */
