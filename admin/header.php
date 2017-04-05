@@ -54,7 +54,7 @@
                     <a class="page-scroll" href="index.php">Admin Home Page</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#team">Team</a>
+                    <a class="page-scroll" href="admin-create-newsletter.php">News Letter</a>
                 </li>
                 <li>
                     <a class="page-scroll" href="#contact">Contact</a>

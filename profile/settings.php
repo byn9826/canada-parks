@@ -521,7 +521,6 @@
                                 <script>
                                     $('#subscribe-email').change(function() {
                                         $.post('../admin/admin-email-subscribed.php', { userId : <?php echo $_SESSION['user_id']; ?>}, function(data){
-                                            //console.log(data);
                                         });
                                     })
                                 </script>

@@ -414,4 +414,66 @@ class AdminUser
             $pdostament->closeCursor();
         }
     }
+
+    public static function findGeneralSubscribers($db){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT * FROM user WHERE email_subscribed = 1";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $user = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $user;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getAllParks($db){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT * FROM park";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $parks = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $parks;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getUsersByWishlistAboutParks($db, $listPark){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT DISTINCT u.* FROM user u JOIN wishlist w ON w.user_id = u.user_id WHERE w.park_id IN ($listPark)";
+            $pdostament = $db->prepare($query);
+            //$pdostament->bindValue(':listPark', $listPark, PDO::PARAM_STR);
+            $pdostament->execute();
+            $parks = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $parks;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getUsersByListOfUserId($db, $listId){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT DISTINCT u.* FROM user u JOIN wishlist w ON w.user_id = u.user_id WHERE w.park_id IN ($listPark)";
+            $pdostament = $db->prepare($query);
+            //$pdostament->bindValue(':listPark', $listPark, PDO::PARAM_STR);
+            $pdostament->execute();
+            $parks = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $parks;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
 }
