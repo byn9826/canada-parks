@@ -213,7 +213,8 @@ if(isset($_POST['btnEditFootprint'])) {
 }
 
 
-//-- If user select's an image to delete from footprint
+// -- If user select's an image to delete from footprint
+// -- --------------------------------------------------
 if(isset($_POST['deleteFootImg'])) {
     // Handle user session
     session_start();
@@ -250,4 +251,24 @@ if(isset($_POST['deleteFootImg'])) {
         $objConnection->rollBack();
         echo "Failed";
     }
+}
+
+
+// -- If user clicked 'Load Footprints' from a park's page
+// -- ----------------------------------------------------
+if(isset($_POST['btnLoadParkFootprints'])) {
+    require_once '../DatabaseAccess.php';
+
+    // -- Variables declaration
+    $objConnection = DatabaseAccess::getConnection();
+    $iParkId = $_POST['park_id'];
+    $iMaxRowsPerLoad = $_POST['rows_per_load'];
+    $iLoadFromRow = $_POST['from_row_num'];
+
+    // -- Fetch footprints for park
+    $lstFootprints = Footprints::GetFootprintsForPark($objConnection, $iParkId, $iLoadFromRow, $iMaxRowsPerLoad);
+
+    // -- Construct Footprints HTML Markup
+    echo Footprints::ConstructFootprintItems($lstFootprints, false);
+
 }

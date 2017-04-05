@@ -120,7 +120,18 @@ class Wishlist
         return $filterArray;
     }
 
-    // Function taking a list of park details and return constructed HTML
+    /**
+     * Function to construct HTML markup to display parks found in user's wishlist.
+     *
+     * Function takes in a list of wishlist details as object.
+     *
+     * @author Irfaan Auhammad
+     *
+     * @since March 25, 2017
+     *
+     * @param object $listOfWishParkDetails List of park details.
+     * @return string $sDivForWishlist HTML Mark-up for the wishlist items.
+     */
     public static function ConstructWishlistItems($listOfWishParkDetails) {
         // Loop and build a wishlist item
         $sResult = "";

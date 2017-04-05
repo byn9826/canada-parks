@@ -163,7 +163,8 @@ $(document).ready(function() {
             type: 'post',
             success: function() {
                 $('#profile_pic_modal').modal('hide');
-                $(".imgareaselect-border1,.imgareaselect-border2,.imgareaselect-border3,.imgareaselect-border4,.imgareaselect-border2,.imgareaselect-outer").css('display', 'none');
+                $("div.imgareaselect-border1, div.imgareaselect-border2, div.imgareaselect-border3, div.imgareaselect-border4, div.imgareaselect-border2, div.imgareaselect-outer").hide();
+                $('.imgareaselect-selection').parent().css('z-index', '-100');
                 $("#preview-profile-pic").html('');
                 $("#profile-pic").val('');
             }
@@ -211,7 +212,8 @@ $(document).ready(function() {
             type: 'Post',
             success: function (response) {
                 $('#profile_pic_modal').modal('hide');
-                $(".imgareaselect-border1,.imgareaselect-border2,.imgareaselect-border3,.imgareaselect-border4,.imgareaselect-border2,.imgareaselect-outer").css('display', 'none');
+                $("div.imgareaselect-border1, div.imgareaselect-border2, div.imgareaselect-border3, div.imgareaselect-border4, div.imgareaselect-outer, div.imgareaselect-selection").hide();
+                $('.imgareaselect-selection').parent().css('z-index', '-100');
                 $("#profile_picture").attr('src', response);
                 $("#preview-profile-pic").html('');
                 $("#profile-pic").val();

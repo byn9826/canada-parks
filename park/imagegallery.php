@@ -9,7 +9,7 @@
         {
             background:#fff;
         }
-        img
+        .temporary img
         {
             width:auto;
             box-shadow:0px 0px 20px #cecece;
@@ -21,7 +21,7 @@
             -ms-transform: scale(0.7);
             -ms-transition-duration: 0.6s;
         }
-        img:hover
+        .temporary img:hover
         {
             box-shadow: 20px 20px 20px #dcdcdc;
             -moz-transform: scale(0.8);
@@ -82,10 +82,10 @@
     closedir($folder);  */
 
     ?>
-    <a><img src="<?php echo $folder_path.'/0.jpg'; ?>"  height="250" /></a>
-    <a><img src="<?php echo $folder_path.'/1.jpg'; ?>"  height="250" /></a>
-    <a><img src="<?php echo $folder_path.'/2.jpg'; ?>"  height="250" /></a>
-    <a><img src="<?php echo $folder_path.'/3.jpg'; ?>"  height="250" /></a>
+<!--    <a><img class="temporary" src="--><?php //echo $folder_path.'/0.jpg'; ?><!--"  height="250" /></a>-->
+<!--    <a><img class="temporary" src="--><?php //echo $folder_path.'/1.jpg'; ?><!--"  height="250" /></a>-->
+<!--    <a><img class="temporary" src="--><?php //echo $folder_path.'/2.jpg'; ?><!--"  height="250" /></a>-->
+<!--    <a><img class="temporary" src="--><?php //echo $folder_path.'/3.jpg'; ?><!--"  height="250" /></a>-->
 
 </div>
 </body>
