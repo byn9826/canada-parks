@@ -22,7 +22,7 @@ function changeProfilePic() {
     $post = isset($_POST) ? $_POST : array();
     $max_width = "500";
     $userId = isset($post['hdn-profile-id']) ? intval($post['hdn-profile-id']) : 0;
-    $path = '../static/img/profile/users';
+    $path = '../static/img/profile/users/temp';
     $valid_formats = array("jpg", "png", "gif", "bmp","jpeg", "JPG", "PNG", "GIF", "BMP", "JPEG");
     $name = $_FILES['profile-pic']['name'];
     $size = $_FILES['profile-pic']['size'];
@@ -84,7 +84,9 @@ function saveProfilePicTmp() {
     $t_height = 300;    // Maximum thumbnail height
     if(isset($_POST['t']) and $_POST['t'] == "ajax") {
         extract($_POST);
+        $fromTemp = '../static/img/profile/users/temp/'.$_POST['image_name'];
         $imagePath = '../static/img/profile/users/'.$_POST['image_name'];
+        rename($fromTemp, $imagePath);
         $actual_image_name = $_POST['image_name'];
         $ratio = ($t_width/$w1);
         $nw = ceil($w1 * $ratio);
@@ -107,14 +109,15 @@ function deleteTempImage() {
     $userId = isset($_POST['id'])? intval($_POST['id']) : 0;
     if(isset($_POST['t']) and $_POST['t'] == 'ajax') {
         extract($_POST);
-        $imagePath = '../static/img/profile/users/' . $_POST['image_name'];
+        $imagePath = '../static/img/profile/users/temp/' . $_POST['image_name'];
         if(file_exists($imagePath)) {
-            if(unlink($imagePath)) {
-                $res = saveProfilePic(array(
-                    'userId' => isset($userId) ? intval($userId) : 0,
-                    'avatar' => 'default.png',
-                ));
-            }
+            unlink($imagePath);
+//            if(unlink($imagePath)) {
+//                $res = saveProfilePic(array(
+//                    'userId' => isset($userId) ? intval($userId) : 0,
+//                    'avatar' => 'default.png',
+//                ));
+//            }
         }
     }
 }
