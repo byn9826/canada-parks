@@ -66,7 +66,20 @@ if($fManageWishlist) {
                 </ul>
                 <div class="tab-content">
                     <h2 class="text-center fou">We Found <?=count($parks)?> parks for you!</h2>
-                    <div role="tabpanel" class="tab-pane" id="map"></div>
+                    <div role="tabpanel" class="tab-pane row" id="map">
+                        <div id="map-container" class="col-xs-8"></div>
+                        <div id="direction" class="col-xs-4">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Directions</div>
+                                <div class="panel-body">
+                                    <p>Select a park on map</p>
+                                    <button class="btn btn-success" id="get-current-location">Get Current Location</button>
+                                    <button class="btn btn-success" id="get-direction">Get Direction</button>
+                                    <button class="btn btn-danger" id="reset">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div role="tabpanel" class="tab-pane active row parks" id="park-list">
                         <?php foreach($parks as $park) {?>
                         <div class="col-xs-12 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>" style="background-image: url(<?=$park["banner"]?>)">

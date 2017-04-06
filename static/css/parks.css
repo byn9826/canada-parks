@@ -64,6 +64,10 @@
     height: 500px;
 }
 
+#map-container {
+    height: 500px;
+}
+
 #park-compare .row {
     margin-top: 30px
 }
