@@ -16,7 +16,11 @@
 
 <script>
     $(document).ready(function (){
+        $(".loader").hide();
+
         $("#btnSearch").click(function(){
+            $(".loader").show();
+            $("#result").hide();
             var search = $("#searchTerm").val();
             var offset = "";
             var totalNumber = $("#totalNumber").val();
@@ -24,6 +28,8 @@
             $.post('admin-searchuser.php', { searchTerm: search , offset : offset, totalNumber : totalNumber, currentPage : currentPage, bSearch : true}, function(data){
                 //console.log(data);
                 $("#result").html(data);
+                $(".loader").hide();
+                $("#result").show();
             });
         });
 
@@ -38,13 +44,29 @@
 
         $(".pagination a").click(function(){
             //alert($(this)[0].innerText);
-            var search = $("#searchTerm").val();
-            var offset = ($(this)[0].innerText === 0) ? 0 : (($(this)[0].innerText-1) * 10);
-            var totalNumber = $("#totalNumber").val();
+            var search = $("#searchTerm").val(); // search text
+            var offset = ($(this)[0].innerText === 0 || !$.isNumeric($(this)[0].innerText)) ? 0 : (($(this)[0].innerText-1) * 10); // get the next offset
             var currentPage = $(".pagination li[class*='active'] a")[0].innerText;
+            var totalNumber = $("#totalNumber").val(); // count the total records
+            if ($(this)[0].innerText === 'Next'){
+                if (totalNumber - ((currentPage-1)*10) > 10) // check if it's not the last page
+                    offset = currentPage * 10;
+                else
+                    return false;
+            }
+            if ($(this)[0].innerText === 'Previous'){
+                if (currentPage != 1) // check if it's not the first page
+                    offset = (currentPage -2) * 10;
+                else
+                    return false;
+            }
+            $(".loader").show();
+            $("#result").hide();
             $.post('admin-searchuser.php', { searchTerm: search , offset : offset, totalNumber: totalNumber, currentPage : currentPage, bSearch : false}, function(data){
                 //console.log(data);
                 $("#result").html(data);
+                $(".loader").hide();
+                $("#result").show();
             });
         });
     });
@@ -67,6 +89,7 @@
     </p>
 <!--    </form>-->
     <h2>Admin List</h2>
+    <div class="loader"></div>
     <div id="result">
         <nav aria-label="Page navigation">
             <ul class="pagination">
@@ -134,7 +157,7 @@
         </table>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item disabled">
+                <li class="page-item">
                     <a class="page-link">Previous</a>
                 </li>
                 <?php

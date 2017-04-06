@@ -17,6 +17,10 @@ $parks = $parkRepository->getParks();
 		<title>Park List Admin</title>
     </head>
     <body>
+
+    <?php
+    include "../navigation.php";
+    ?>
         <div class="container">
             <h1 class="text-center">Park Admin Page</h1>
             <div class="row">
