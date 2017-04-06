@@ -38,25 +38,8 @@ $parks = array($park1, $park2);
 				include "../templates/header.php";
 			?>
 			<main id="main" class="container">
-                <h1 class="text-center">Park List</h1>
-                <form id="search" action="/parks" class="form-inline" method="GET">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Park Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="province">Province</label>
-                        <select class="form-control" id="province" name="province">
-                            <option value="">Select a Province</option>
-                            <?php foreach($provinces as $p) {?>
-                            <option value="<?=$p["province_code"]?>"><?=$p["province"]?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-success" value="Search"/>
-                    </div>
-                </form>
+                <h1 class="text-center">Compare Parks</h1>
+                <?php include '../templates/parkSearchForm.php';?>
                 <div id="park-compare">
                     <div class="active" id="map"></div>
                     <div class="row">

@@ -10,7 +10,7 @@ class ParkRepository {
     }
 
     public function getParks($name = "", $province = "") {
-        $sql = "SELECT id, name, banner, latitude, longitude FROM park";
+        $sql = "SELECT id, name, banner, province, latitude, longitude FROM park";
         $pdostmt = $this->db->prepare($sql);
 
         if (!empty($name)) {
