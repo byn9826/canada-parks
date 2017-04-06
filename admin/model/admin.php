@@ -115,6 +115,24 @@ class AdminUser
         }
     }
 
+    public static function getAllUsersWithPagination($db, $id, $offset = 0){ // offset should go 0, 10, 20, 30 ... cause we show 10 per time
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT * FROM user WHERE user_id != :user_id ORDER BY role_id DESC LIMIT 10 OFFSET :offset";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':user_id', $id, PDO::PARAM_INT);
+            $pdostament->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $pdostament->execute();
+            $userArr = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            //var_dump($userArr);
+            return $userArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
     public static function getAllRoles($db){
         //$db = Database::getDB();
         try {
@@ -203,12 +221,32 @@ class AdminUser
         }
     }
 
-    public static function searchUsersByEmailOrUsername($db, $term){
+    public static function searchUsersByEmailOrUsername($db, $user_id, $term){
         //$db = Database::getDB();
         try {
-            $query = "SELECT * FROM user WHERE user_email LIKE :term OR user_name LIKE :term ORDER BY role_id DESC";
+            $query = "SELECT * FROM user WHERE (user_email LIKE :term OR user_name LIKE :term) AND user_id != :user_id ORDER BY role_id DESC";
             $pdostament = $db->prepare($query);
             $pdostament->bindValue(':term', '%' . $term . '%', PDO::PARAM_STR);
+            $pdostament->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $pdostament->execute();
+            $userArr = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $userArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function searchUsersWithTermAndPagination($db, $user_id, $term, $offset = 0){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT * FROM user WHERE (user_email LIKE :term OR user_name LIKE :term) AND user_id != :user_id ORDER BY role_id DESC LIMIT 10 OFFSET :offset";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':term', '%' . $term . '%', PDO::PARAM_STR);
+            $pdostament->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $pdostament->bindValue(':offset', intval($offset), PDO::PARAM_INT);
+            //var_dump($pdostament);
             $pdostament->execute();
             $userArr = $pdostament->fetchAll(PDO::FETCH_OBJ);
             return $userArr;
@@ -464,12 +502,12 @@ class AdminUser
     public static function getUsersByListOfUserId($db, $listId){
         //$db = Database::getDB();
         try {
-            $query = "SELECT DISTINCT u.* FROM user u JOIN wishlist w ON w.user_id = u.user_id WHERE w.park_id IN ($listPark)";
+            $query = "SELECT DISTINCT u.* FROM user u JOIN wishlist w ON w.user_id = u.user_id WHERE w.park_id IN ($listId)";
             $pdostament = $db->prepare($query);
             //$pdostament->bindValue(':listPark', $listPark, PDO::PARAM_STR);
             $pdostament->execute();
-            $parks = $pdostament->fetchAll(PDO::FETCH_OBJ);
-            return $parks;
+            $users = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $users;
         } catch (PDOException $e) {
             echo "There is an error: ".$e->getMessage();
         } finally {

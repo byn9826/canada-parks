@@ -16,12 +16,13 @@ $email = "";
 
 $parks = AdminUser::getAllParks($db);
 if (isset($_POST['submit'])) {
-//    if (isset($_POST['listPark']) & $_POST['listPark'] != ""){
-//        $user = AdminUser::
-//    }
-//    else {
+    //var_dump($_POST);
+    if ($_POST['listPark'] != ""){
+        $users = AdminUser::getUsersByWishlistAboutParks($db, $_POST['listPark']);
+    }
+    else {
         $users = AdminUser::findGeneralSubscribers($db);
-//    }
+    }
 
     //var_dump($users);
     require_once '../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
@@ -42,10 +43,10 @@ if (isset($_POST['submit'])) {
     $mail->addAddress("canadanationalpark@gmail.com");
     $mail->isHTML(true);
     $mail->Subject = $_POST['title'];
-    $mail->Body = "Dear <strong>$user->user_name</strong>,<br/>" .
+    $mail->Body = "Dear beloved user,<br/>" .
         'Thank you so much for your support to out website.<br/>' .
         $_POST['body'] .
-        '<br/> Thank you so much!' .
+        '<br/> Thank you for your time! We hope to see you again at our website.' .
         '<br/> Admin from Marvel team!' .
         '<br/> Duc Nguyen'
     ;
@@ -110,14 +111,14 @@ if (isset($_POST['submit'])) {
             <label class="control-label col-sm-2" for="title">Email Title:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="title" placeholder="Enter Email title" name="title" value="<?php echo $emailTitle ?>" />
-                <br/><span><?php if (isset($emailTitleError)) echo "$emailTitleError"; ?></span>
+                <br/><span id="titleErr"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="body">Email Body:</label>
             <div class="col-sm-10">
                 <textarea id="body" name="body" value="<?php echo $emailBody ?>" /></textarea>
-                <br/><span><?php if (isset($emailBodyError)) echo "$emailBodyError"; ?></span>
+                <br/><span id="bodyErr"></span>
             </div>
         </div>
         <div class="form-group">
@@ -135,13 +136,14 @@ if (isset($_POST['submit'])) {
                         ?>
                     </select>
                 </div>
-                <br/><span><?php if (isset($emailTopicError)) echo "$emailTopicError"; ?></span>
+                <br/><span id="selectPickerErr"></span>
+                <input type="hidden" id="listPark" name="listPark" value=""/>
             </div>
         </div>
-        <input type="hidden" id="listPark" name="listPark"/>
+
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button id="myBtn" type="submit" class="btn btn-success" name="submit1">Send to Users</button>
+                <button id="myBtn" type="submit" class="btn btn-success" name="submit">Send to Users</button>
                 <a class="btn btn-default" href="admin-list.php">Cancel</a>
             </div>
         </div>
@@ -168,11 +170,31 @@ if (isset($_POST['submit'])) {
         });
 
         $("#myBtn").click(function(){
-            var parks = $('.selectpicker').selectpicker('val').toString();
-            $.post("admin-get-users-by-wishlist.php", { list : parks}, function(data){
-                alert(data);
-                $('#listPark').val(data);
-            });
+            if ($('#title').val() === ""){
+                $("#titleErr").html("Please enter Email title");
+                return false;
+            }
+            if (tinyMCE.activeEditor.getContent()  === ""){
+                $("#bodyErr").html("Please enter Email body");
+                return false;
+            }
+            if ($('input[type=radio][name=topic]:checked').val() === "specific") {
+                if ($('.selectpicker').selectpicker('val').toString() !== "") {
+                    var parks = $('.selectpicker').selectpicker('val').toString();
+                    $('#listPark').val(parks);
+                } else{
+                    $("#selectPickerErr").html("Please select one or more parks above");
+                    return false;
+                }
+            }
         });
+
+        setInterval(function(){
+            var option = $('input[type=radio][name=topic]:checked').val(); // general or specific
+            var parks = $('.selectpicker').selectpicker('val').toString();
+            $.post("admin-get-number-of-users.php", { option : option, parks : parks}, function(data){
+                $("#selectPickerErr").html("Currently found " + data + " user(s) to send email to!").css('color','green');
+            });
+        }, 2000);
     });
 </script>
