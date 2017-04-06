@@ -9,10 +9,44 @@ require_once "header.php";
 require_once "model/database.php";
 require_once "model/admin.php";
 $db = Database::getDB();
-$search = $_POST["searchTerm"];
-$admins = AdminUser::searchUsersByEmailOrUsername($db, $search);
-?>
+$searchTerm = $_POST["searchTerm"];
+$offset = $_POST["offset"];
+$totalNumber = $_POST["totalNumber"];
+$currentPage = $_POST["currentPage"];
+$bSearch = $_POST["bSearch"];
+//var_dump($bSearch);
+//$admins = AdminUser::searchUsersByEmailOrUsername($db, $searchTerm);
+//var_dump($searchTerm);
+//var_dump(intval($offset));
+//var_dump($currentPage);
 
+
+$admins = AdminUser::searchUsersWithTermAndPagination($db, $_SESSION["user_id"], $searchTerm, $offset);
+if ($searchTerm != "")
+{
+    $totalNumber = count(AdminUser::searchUsersByEmailOrUsername($db, $_SESSION["user_id"], $searchTerm));
+    //var_dump($totalNumber);
+}
+
+?>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item ">
+            <a class="page-link">Previous</a>
+        </li>
+        <?php
+        $num = ceil($totalNumber/10);
+        for ($x = 1; $x <= $num; $x++) {
+            echo "<li class='page-item '>";
+            echo "<a class='page-link'>$x</a>";
+            echo "</li>";
+        }
+        ?>
+        <li class="page-item">
+            <a class="page-link">Next</a>
+        </li>
+    </ul>
+</nav>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -59,3 +93,40 @@ $admins = AdminUser::searchUsersByEmailOrUsername($db, $search);
     ?>
     </tbody>
 </table>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item ">
+            <a class="page-link">Previous</a>
+        </li>
+        <?php
+        $num = ceil($totalNumber/10);
+        for ($x = 1; $x <= $num; $x++) {
+            echo "<li class='page-item '>";
+            echo "<a class='page-link'>$x</a>";
+            echo "</li>";
+        }
+        ?>
+        <li class="page-item">
+            <a class="page-link">Next</a>
+        </li>
+    </ul>
+</nav>
+
+<script>
+    $(document).ready(function (){
+        //$(".pagination a:contains('Previous')").parent().addClass('disabled');
+        $(".pagination a:contains('<?php echo (intval($offset)/10 + 1); ?>')").parent().addClass('active');
+
+        $(".pagination a").click(function(){
+            //alert($(this)[0].innerText);
+            var search = $("#searchTerm").val();
+            var offset = ($(this)[0].innerText === 0) ? 0 : (($(this)[0].innerText-1) * 10);
+            var totalNumber = $("#totalNumber").val();
+            var currentPage = $(".pagination li a")[0].innerText;
+            $.post('admin-searchuser.php', { searchTerm: search , offset : offset, totalNumber: totalNumber, currentPage : currentPage, bSearch : false}, function(data){
+                //console.log(data);
+                $("#result").html(data);
+            });
+        });
+    });
+</script>

@@ -9,7 +9,7 @@ session_start();
 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $user = $_SESSION['user-need-new-password'];
 $newpassword = randomPassword();
-require '../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+require_once '../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
 $mail = new PHPMailer;
 $mail->isSMTP();
 $mail->SMTPDebug = 0;

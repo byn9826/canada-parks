@@ -3,8 +3,9 @@
     require_once "model/database.php";
     require_once "model/admin.php";
     $db = Database::getDB();
-    $admins = AdminUser::getAllUsers($db, $_SESSION["user_id"]);
-
+    $numberOfAdmins = count(AdminUser::getAllUsers($db, $_SESSION["user_id"]));
+    $admins = AdminUser::getAllUsersWithPagination($db, $_SESSION["user_id"]);
+    //var_dump($numberOfAdmins);
     //var_dump($_SESSION["role_id"]);
 //    $search = "";
 //    if (isset($_POST["searchBtn"])){
@@ -17,8 +18,11 @@
     $(document).ready(function (){
         $("#btnSearch").click(function(){
             var search = $("#searchTerm").val();
-            $.post('admin-searchuser.php', { searchTerm: search}, function(data){
-                console.log(data);
+            var offset = "";
+            var totalNumber = $("#totalNumber").val();
+            var currentPage = "";
+            $.post('admin-searchuser.php', { searchTerm: search , offset : offset, totalNumber : totalNumber, currentPage : currentPage, bSearch : true}, function(data){
+                //console.log(data);
                 $("#result").html(data);
             });
         });
@@ -27,6 +31,21 @@
             if (event.keyCode == 13) {
                 $("#btnSearch").trigger("click");
             }
+        });
+
+        //$(".pagination a:contains('Previous')").parent().addClass('disabled');
+        $(".pagination a:contains('1')").parent().addClass('active');
+
+        $(".pagination a").click(function(){
+            //alert($(this)[0].innerText);
+            var search = $("#searchTerm").val();
+            var offset = ($(this)[0].innerText === 0) ? 0 : (($(this)[0].innerText-1) * 10);
+            var totalNumber = $("#totalNumber").val();
+            var currentPage = $(".pagination li[class*='active'] a")[0].innerText;
+            $.post('admin-searchuser.php', { searchTerm: search , offset : offset, totalNumber: totalNumber, currentPage : currentPage, bSearch : false}, function(data){
+                //console.log(data);
+                $("#result").html(data);
+            });
         });
     });
 </script>
@@ -41,6 +60,7 @@
 <!--    <form class="form-horizontal" method="post" action="admin-list.php">-->
     <p>Search for user:
         <input type="text" class="form-control" id="searchTerm" placeholder="Enter username or email here" name="searchTerm" value="" style="margin:5px;"/>
+        <input type="hidden" id="totalNumber" name="totalNumber" value="<?php echo $numberOfAdmins; ?>"/>
         <button type="submit" class="btn btn-default" name="searchBtn" id="btnSearch">
             <span class="glyphicon glyphicon-search"></span> Search
         </button>
@@ -48,6 +68,24 @@
 <!--    </form>-->
     <h2>Admin List</h2>
     <div id="result">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item ">
+                    <a class="page-link">Previous</a>
+                </li>
+                <?php
+                    $num = ceil($numberOfAdmins/10);
+                    for ($x = 1; $x <= $num; $x++) {
+                        echo "<li class='page-item '>";
+                        echo "<a class='page-link'>$x</a>";
+                        echo "</li>";
+                    }
+                ?>
+                <li class="page-item">
+                    <a class="page-link">Next</a>
+                </li>
+            </ul>
+        </nav>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -94,6 +132,24 @@
             ?>
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                <?php
+                $num = ceil($numberOfAdmins/10);
+                for ($x = 1; $x <= $num; $x++) {
+                    echo "<li class='page-item '>";
+                    echo "<a class='page-link'>$x</a>";
+                    echo "</li>";
+                }
+                ?>
+                <li class="page-item">
+                    <a class="page-link">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 
