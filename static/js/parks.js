@@ -14,12 +14,13 @@ $(document).ready(function() {
             $(this).removeClass('btn-success');
             $(this).text('Compare');
             parkIds.splice(parkIds.indexOf(parkId), 1);
+            $('#compare-park-' + parkId).remove();
             
         } else {
             if (parkIds.length != 2) {
                 $(this).addClass('btn-success');
                 $(this).text('Selected');
-
+                $('#compare-parks-body').append('<button id="compare-park-' + parkId +'" class="btn btn-success">' + $(this).data('name') + '</button>')
                 parkIds.push(parkId);
             }
         }

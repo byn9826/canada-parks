@@ -80,7 +80,7 @@ if (isset($_GET["id"])) {
                     
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" name="description" id="description"></textarea>
+                        <textarea class="form-control" name="description" id="description"><?=$park["description"]?></textarea>
                     </div>
                     
                     <div class="form-group">
