@@ -57,27 +57,7 @@ if($fManageWishlist) {
 			?>
 			<main id="main" class="row col-md-10 col-md-offset-1">
                 <h1 id="parks-headline" class="text-center">Park List</h1>
-                <form id="search" class="form-inline" method="GET">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="<?=$name?>" placeholder="Park Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="province">Province</label>
-                        <select class="form-control" id="province" name="province">
-                            <option value="">Select a Province</option>
-                            <?php foreach($provinces as $p) {?>
-                            <option <?=($province == $p["province_code"]) ? "selected" : ""?> value="<?=$p["province_code"]?>"><?=$p["province"]?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-success" value="Search"/>
-                    </div>
-                    <div class="form-group">
-                        <a disabled="disabled" id="compare" class="btn btn-primary">Compare Parks</a>
-                    </div>
-                </form>
+                <?php include '../templates/parkSearchForm.php';?>
                 <?php if (count($parks) != 0) {?>
 
                 <ul class="nav nav-tabs" role="tablist">
@@ -86,7 +66,20 @@ if($fManageWishlist) {
                 </ul>
                 <div class="tab-content">
                     <h2 class="text-center fou">We Found <?=count($parks)?> parks for you!</h2>
-                    <div role="tabpanel" class="tab-pane" id="map"></div>
+                    <div role="tabpanel" class="tab-pane row" id="map">
+                        <div id="map-container" class="col-xs-8"></div>
+                        <div id="direction" class="col-xs-4">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">Directions</div>
+                                <div class="panel-body">
+                                    <p>Select a park on map</p>
+                                    <button class="btn btn-success" id="get-current-location">Get Current Location</button>
+                                    <button class="btn btn-success" id="get-direction">Get Direction</button>
+                                    <button class="btn btn-danger" id="reset">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div role="tabpanel" class="tab-pane active row parks" id="park-list">
                         <?php foreach($parks as $park) {?>
                         <div class="col-xs-12 col-sm-4 col-md-3 park" id="park-<?=$park['id']?>" style="background-image: url(<?=$park["banner"]?>)">
@@ -94,7 +87,7 @@ if($fManageWishlist) {
                                 <h3 class="name"><?=$park['name']?></h3>
                                 <p>
                                     <a href="../park?id=<?=$park['id']?>" class="btn btn-primary" role="button">Detail</a>
-                                    <a  data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a>
+                                    <a data-name="<?=$park['name']?>" data-id="<?=$park['id']?>" href="#" class="btn btn-default select" role="button">Compare</a>
                                     <!-- If user is logged in, display wishlist menu -->
                                     <!-- ------------------------------------------- -->
                                     <?php if($fManageWishlist) { ?>
@@ -116,6 +109,10 @@ if($fManageWishlist) {
                             </div>
                         </div>
                         <?php } ?>
+                    </div>
+                    <div class="panel panel-primary" id="compare-parks-box">
+                        <div class="panel-heading">Select Two Park <a disabled="disabled" id="compare" class="btn btn-primary">Compare Parks</a></div>
+                        <div class="panel-body" id="compare-parks-body"></div>
                     </div>
                 </div>
                 <?php } else { ?>

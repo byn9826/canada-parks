@@ -511,6 +511,12 @@
                                 <div class="row display-group">
                                     <div class="col col-md-12">
                                         <h3>Email Subscriber</h3>
+                                        <p>
+                                            Select "Subscribed" will help user to receive emails about the update information from website.
+                                        </p>
+                                        <p>
+                                            User is also available to get emails relates to the parks in user's wishlist.
+                                        </p>
                                         <?php
                                         $user = AdminUser::checkEmailSubscribe($db, $_SESSION['user_id']);
                                         $checked = ($user->email_subscribed == 1) ? "checked" : ""

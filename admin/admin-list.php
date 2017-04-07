@@ -6,7 +6,7 @@
     $numberOfAdmins = count(AdminUser::getAllUsers($db, $_SESSION["user_id"]));
     $admins = AdminUser::getAllUsersWithPagination($db, $_SESSION["user_id"]);
     //var_dump($numberOfAdmins);
-    //var_dump($_SESSION["role_id"]);
+    //var_dump($_SESSION);
 //    $search = "";
 //    if (isset($_POST["searchBtn"])){
 //        $search = $_POST["searchTerm"];
@@ -16,7 +16,11 @@
 
 <script>
     $(document).ready(function (){
+        $(".loader").hide();
+
         $("#btnSearch").click(function(){
+            $(".loader").show();
+            $("#result").hide();
             var search = $("#searchTerm").val();
             var offset = "";
             var totalNumber = $("#totalNumber").val();
@@ -24,6 +28,8 @@
             $.post('admin-searchuser.php', { searchTerm: search , offset : offset, totalNumber : totalNumber, currentPage : currentPage, bSearch : true}, function(data){
                 //console.log(data);
                 $("#result").html(data);
+                $(".loader").hide();
+                $("#result").show();
             });
         });
 
@@ -38,21 +44,51 @@
 
         $(".pagination a").click(function(){
             //alert($(this)[0].innerText);
-            var search = $("#searchTerm").val();
-            var offset = ($(this)[0].innerText === 0) ? 0 : (($(this)[0].innerText-1) * 10);
-            var totalNumber = $("#totalNumber").val();
+            var search = $("#searchTerm").val(); // search text
+            var offset = ($(this)[0].innerText === 0 || !$.isNumeric($(this)[0].innerText)) ? 0 : (($(this)[0].innerText-1) * 10); // get the next offset
             var currentPage = $(".pagination li[class*='active'] a")[0].innerText;
+            var totalNumber = $("#totalNumber").val(); // count the total records
+            if ($(this)[0].innerText === 'Next'){
+                if (totalNumber - ((currentPage-1)*10) > 10) // check if it's not the last page
+                    offset = currentPage * 10;
+                else
+                    return false;
+            }
+            if ($(this)[0].innerText === 'Previous'){
+                if (currentPage != 1) // check if it's not the first page
+                    offset = (currentPage -2) * 10;
+                else
+                    return false;
+            }
+            $(".loader").show();
+            $("#result").hide();
             $.post('admin-searchuser.php', { searchTerm: search , offset : offset, totalNumber: totalNumber, currentPage : currentPage, bSearch : false}, function(data){
                 //console.log(data);
                 $("#result").html(data);
+                $(".loader").hide();
+                $("#result").show();
             });
         });
     });
 </script>
 
-<h1>Administration page</h1>
+<h1>Welcome to admin site of Canada National Park</h1>
 
 <div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading"><span class="glyphicon">&#xe086;</span> <b>Member Privilege</b></div>
+        <div class="panel-body">
+                <p>
+                    <span class="glyphicon">&#xe125;</span> <b>Super Admin:</b> be able to go to Admin site, see list of members, manage members, change member privilege and delete member accounts. Can create Newsletter. From here Super Admin can control your account.
+                </p>
+                <p>
+                    <span class="glyphicon">&#xe089;</span> <b>Admin:</b> be able to go to Admin site, see list of members. Can create Newsletter. From here Super Admin can control your account.
+                </p>
+                <p>
+                    <span class="glyphicon">&#xe090;</span> <b>User:</b> Not be able to go to this place.
+                </p>
+        </div>
+    </div>
     <!--<div id="button-create">
         <a href="admin-create.php" class="btn btn-info" role="button">Create New Admin</a>
     </div>-->
@@ -61,12 +97,13 @@
     <p>Search for user:
         <input type="text" class="form-control" id="searchTerm" placeholder="Enter username or email here" name="searchTerm" value="" style="margin:5px;"/>
         <input type="hidden" id="totalNumber" name="totalNumber" value="<?php echo $numberOfAdmins; ?>"/>
-        <button type="submit" class="btn btn-default" name="searchBtn" id="btnSearch">
+        <button type="submit" class="btn btn-primary" name="searchBtn" id="btnSearch">
             <span class="glyphicon glyphicon-search"></span> Search
         </button>
     </p>
 <!--    </form>-->
     <h2>Admin List</h2>
+    <div class="loader"></div>
     <div id="result">
         <nav aria-label="Page navigation">
             <ul class="pagination">
@@ -114,6 +151,7 @@
                                     <input type='hidden' name='id' value='$admin->user_id'/>
                                     <input class='btn btn-warning' type='submit' name='edit' value='Edit'/>
                               </form>";*/
+                        //
                         echo "<form method='post' action='admin-delete.php'>
                                         <input type='hidden' name='id' value='$admin->user_id'/>
                                         <input class='btn btn-warning' type='submit' name='delete' value='Delete' onClick=\"javascript: return confirm('Do you really want to delete this user?');\"/>
@@ -134,7 +172,7 @@
         </table>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item disabled">
+                <li class="page-item">
                     <a class="page-link">Previous</a>
                 </li>
                 <?php
@@ -152,6 +190,7 @@
         </nav>
     </div>
 </div>
+
 
 <?php
 

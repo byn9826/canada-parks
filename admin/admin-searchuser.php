@@ -114,18 +114,39 @@ if ($searchTerm != "")
 
 <script>
     $(document).ready(function (){
+        $("#totalNumber").val(<?php echo $totalNumber; ?>);
         //$(".pagination a:contains('Previous')").parent().addClass('disabled');
         $(".pagination a:contains('<?php echo (intval($offset)/10 + 1); ?>')").parent().addClass('active');
 
         $(".pagination a").click(function(){
-            //alert($(this)[0].innerText);
             var search = $("#searchTerm").val();
-            var offset = ($(this)[0].innerText === 0) ? 0 : (($(this)[0].innerText-1) * 10);
+            var offset = ($(this)[0].innerText === 0 || !$.isNumeric($(this)[0].innerText)) ? 0 : (($(this)[0].innerText-1) * 10);
             var totalNumber = $("#totalNumber").val();
-            var currentPage = $(".pagination li a")[0].innerText;
+            //var currentPage = $(".pagination li a")[0].innerText;
+            var currentPage = $(".pagination li[class*='active'] a")[0].innerText;
+            console.log("Text : " + $(this)[0].innerText);
+            if ($(this)[0].innerText === 'Next'){
+                if (totalNumber - ((currentPage-1)*10) > 10) // check if it's not the last page
+                    offset = currentPage * 10;
+                else
+                    return false;
+            }
+            if ($(this)[0].innerText === 'Previous'){
+                if (currentPage != 1) // check if it's not the first page
+                    offset = (currentPage -2) * 10;
+                else
+                    return false;
+            }
+            $(".loader").show();
+            $("#result").hide();
+            console.log("totalNumber : " + totalNumber);
+            console.log("offset : " + offset);
+            console.log("currentPage : " + currentPage);
             $.post('admin-searchuser.php', { searchTerm: search , offset : offset, totalNumber: totalNumber, currentPage : currentPage, bSearch : false}, function(data){
                 //console.log(data);
                 $("#result").html(data);
+                $(".loader").hide();
+                $("#result").show();
             });
         });
     });

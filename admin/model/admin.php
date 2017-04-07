@@ -242,6 +242,7 @@ class AdminUser
         //$db = Database::getDB();
         try {
             $query = "SELECT * FROM user WHERE (user_email LIKE :term OR user_name LIKE :term) AND user_id != :user_id ORDER BY role_id DESC LIMIT 10 OFFSET :offset";
+            //$query = "SELECT u.*, r.role_name FROM user u JOIN role r on r.role_id = u.role_id  WHERE (user_email LIKE :term OR user_name LIKE :term OR role_name LIKE :term) AND user_id != :user_id ORDER BY role_id DESC LIMIT 10 OFFSET :offset";
             $pdostament = $db->prepare($query);
             $pdostament->bindValue(':term', '%' . $term . '%', PDO::PARAM_STR);
             $pdostament->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -508,6 +509,22 @@ class AdminUser
             $pdostament->execute();
             $users = $pdostament->fetchAll(PDO::FETCH_OBJ);
             return $users;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getUserDetailsById($db, $id){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT * FROM user_details WHERE user_id = :id LIMIT 1";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $pdostament->execute();
+            $existed = $pdostament->fetch(PDO::FETCH_OBJ);
+            return $existed;
         } catch (PDOException $e) {
             echo "There is an error: ".$e->getMessage();
         } finally {

@@ -1,13 +1,18 @@
 /*Author: Sam*/
 
 var map;
+var bounds;
 var service;
 var infowindow;
 var infos = [];
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var current;
+var destination;
 
 function initialize() {
-
-    map = new google.maps.Map(document.getElementById('map'), {
+    
+    map = new google.maps.Map(document.getElementById('map-container'), {
         zoom: 13,
         options: {
             scrollwheel: false,
@@ -18,7 +23,7 @@ function initialize() {
         closeInfoWdinows();
     });
 
-    var bounds = new google.maps.LatLngBounds();
+    bounds = new google.maps.LatLngBounds();
 
     var image = {
         url: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-32.png',
@@ -44,6 +49,7 @@ function initialize() {
         });
 
         marker.addListener('click', function() {
+            destination = marker;
             closeInfoWdinows();
             infowindow.open(map, this);
         });
@@ -56,6 +62,44 @@ function initialize() {
     }
 
     map.fitBounds(bounds);
+}
+
+$('#get-direction').on('click', function() {
+    console.log(destination);
+});
+
+$('#reset').on('click', function() {
+    directionsDisplay.setMap(null);
+    directionsDisplay = null;
+    map.fitBounds(bounds);
+});
+
+$('#get-current-location').on('click', function() {
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(map);
+    getDirection();
+});
+
+function getDirection() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            var request = {
+                origin: pos,
+                destination: destination.position,
+                travelMode: 'DRIVING'
+            };
+            directionsService.route(request, function(result, status) {
+               // console.log(result);
+                if (status == 'OK') {
+                    directionsDisplay.setDirections(result);
+                }
+            });
+        });
+    }
 }
 
 function closeInfoWdinows() {
