@@ -1,11 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Lenoir
- * Date: 4/6/2017
- * Time: 3:07 PM
- */
-?>
+
 
 <!-- Navigation -->
 <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -18,17 +11,31 @@
 
             <?php
             if(!empty($_SESSION)){
-                //var_dump(isset($_SESSION["user_name"]));
+                //var_dump($_SESSION);
                 if (isset($_SESSION["user_name"])) { //var_dump($_SESSION["admin_fullname"])
                     ?>
                     <div class="dropdown admin-header-drop-down-div">
                         <a href="#" class="dropdown-toggle admin-header-drop-down" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome back
                             <strong><?php echo $_SESSION["user_name"]; ?></strong><span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            <?php
+                                $role = "";
+                                switch ($_SESSION["role_id"]){
+                                    case 1:
+                                        $role = "Admin";
+                                        break;
+                                    case 2:
+                                        $role = "Super Admin";
+                                        break;
+                                    default:
+                                        header("Location: admin-logout.php");
+                                }
+                                echo "<li class=\"dropdown-header\">You are $role</li>";
+                            ?>
+                            <li role="separator" class="divider"></li>
                             <li><a href="admin-edit.php">Edit profile</a></li>
                             <li><a href="admin-changepassword.php">Change password</a></li>
-                            <li role="separator" class="divider"></li>
-                            <!--        <li class="dropdown-header">Nav header</li>-->
+                            <li class="divider"></li>
                             <li><a href="admin-logout.php?">Sign out</a></li>
                         </ul>
                     </div>
@@ -52,7 +59,7 @@
                     <a class="page-scroll" href="admin-create-newsletter.php">News Letter</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#contact">Contact</a>
+                    <a class="page-scroll" href="park/index.php">Park</a>
                 </li>
             </ul>
         </div>

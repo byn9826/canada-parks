@@ -13,7 +13,7 @@ $db = Database::getDB();
 $emailTitle = "";
 $emailBody = "";
 $email = "";
-
+$currentAdmin = AdminUser::getUserDetailsById($db, $_SESSION['user_id']);
 $parks = AdminUser::getAllParks($db);
 if (isset($_POST['submit'])) {
     //var_dump($_POST);
@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
         $_POST['body'] .
         '<br/> Thank you for your time! We hope to see you again at our website.' .
         '<br/> Admin from Marvel team!' .
-        '<br/> Duc Nguyen'
+        '<br/>' . $currentAdmin->first_name . " " . $currentAdmin->last_name
     ;
     if(!$mail->send()) {
         echo "<div class=\"alert alert-danger\"> Mailer Error: $mail->ErrorInfo</div>";
@@ -103,6 +103,27 @@ if (isset($_POST['submit'])) {
         }]
     });</script>
 <h1>Create News Letter</h1>
+
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading"><span class="glyphicon">&#xe101;</span> <b>Note:</b></div>
+        <div class="panel-body">
+            <p>
+                This place is for admin to send news letter to all subscribers of the website. Be careful with 2 options below and read instruction before sending email.
+            </p>
+            <p>
+                The sending email address will be: <b><mark>canadanationalpark@gmail.com</mark></b>
+            </p>
+            <div>
+                <p>
+                    <span class="glyphicon">&#x2709;</span> <b>General:</b> this option will help you to send email to all subscribers in the website. Make sure your mail has general information about all parks or the website.
+                </p>
+                <p>
+                    <span class="glyphicon">&#x2709;</span> <b>Specific Park(s):</b> this option will let you to choose 1 or more parks and every subscriber has the park(s) on their wishlist will recieve your mail. Make sure your mail's information is related to those specific parks.
+                </p>
+            </div>
+        </div>
+    </div>
 <form class="form-horizontal" method="post" action="admin-create-newsletter.php">
     <fieldset>
         <legend>Please fill in the form below:</legend>
@@ -149,7 +170,7 @@ if (isset($_POST['submit'])) {
         </div>
     </fieldset>
 </form>
-
+</div>
 <script>
     $(document).ready(function(){
         $('.selectpicker').prop('disabled', true);

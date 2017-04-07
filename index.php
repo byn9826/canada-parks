@@ -3,7 +3,7 @@
 	<head>
 		<?php
 			$team_route_custom = "./";
-			include "templates/meta.php";
+			include_once "templates/meta.php";
 		?>
 		<meta name="author" content="Bao">
 		<title>Marvel Canada</title>

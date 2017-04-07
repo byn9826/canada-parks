@@ -1,5 +1,5 @@
 <?php
-require_once "header.php";
+//require_once "header.php";
 require_once "model/database.php";
 require_once "model/admin.php";
 /*
@@ -9,7 +9,10 @@ require_once "model/admin.php";
  *      duc - user
  * pass: 123123123
  * */
-
+if (empty($_SESSION))
+{
+    session_start();
+}
 //var_dump($_SESSION);
     $db = Database::getDB();
     if (isset($_SESSION["user_name"])){
@@ -68,7 +71,7 @@ require_once "model/admin.php";
         <meta name="author" content="Duc Nguyen"/>
         <title>Admin page</title>
         <?php
-            include_once "header.php";
+            require_once "header.php";
         ?>
     </head>
     <body>

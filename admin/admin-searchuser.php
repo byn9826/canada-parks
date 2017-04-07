@@ -114,6 +114,7 @@ if ($searchTerm != "")
 
 <script>
     $(document).ready(function (){
+        $("#totalNumber").val(<?php echo $totalNumber; ?>);
         //$(".pagination a:contains('Previous')").parent().addClass('disabled');
         $(".pagination a:contains('<?php echo (intval($offset)/10 + 1); ?>')").parent().addClass('active');
 
@@ -125,7 +126,7 @@ if ($searchTerm != "")
             var currentPage = $(".pagination li[class*='active'] a")[0].innerText;
             console.log("Text : " + $(this)[0].innerText);
             if ($(this)[0].innerText === 'Next'){
-                if (totalNumber - ((currentPage-1)*10) >= 10) // check if it's not the last page
+                if (totalNumber - ((currentPage-1)*10) > 10) // check if it's not the last page
                     offset = currentPage * 10;
                 else
                     return false;

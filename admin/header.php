@@ -1,9 +1,9 @@
 <?php
-    include "../templates/meta.php";
-    if (empty($_SESSION))
-    {
+    require_once "../templates/meta.php";
+    if (!isset($_SESSION)){
         session_start();
     }
+
 
 ?>
 
@@ -11,6 +11,6 @@
 
 
 <?php
-include "navigation.php";
+require_once "navigation.php";
 ?>
 

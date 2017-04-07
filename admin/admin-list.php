@@ -6,7 +6,7 @@
     $numberOfAdmins = count(AdminUser::getAllUsers($db, $_SESSION["user_id"]));
     $admins = AdminUser::getAllUsersWithPagination($db, $_SESSION["user_id"]);
     //var_dump($numberOfAdmins);
-    //var_dump($_SESSION["role_id"]);
+    //var_dump($_SESSION);
 //    $search = "";
 //    if (isset($_POST["searchBtn"])){
 //        $search = $_POST["searchTerm"];
@@ -72,9 +72,23 @@
     });
 </script>
 
-<h1>Administration page</h1>
+<h1>Welcome to admin site of Canada National Park</h1>
 
 <div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading"><span class="glyphicon">&#xe086;</span> <b>Member Privilege</b></div>
+        <div class="panel-body">
+                <p>
+                    <span class="glyphicon">&#xe125;</span> <b>Super Admin:</b> be able to go to Admin site, see list of members, manage members, change member privilege and delete member accounts. Can create Newsletter. From here Super Admin can control your account.
+                </p>
+                <p>
+                    <span class="glyphicon">&#xe089;</span> <b>Admin:</b> be able to go to Admin site, see list of members. Can create Newsletter. From here Super Admin can control your account.
+                </p>
+                <p>
+                    <span class="glyphicon">&#xe090;</span> <b>User:</b> Not be able to go to this place.
+                </p>
+        </div>
+    </div>
     <!--<div id="button-create">
         <a href="admin-create.php" class="btn btn-info" role="button">Create New Admin</a>
     </div>-->
@@ -83,7 +97,7 @@
     <p>Search for user:
         <input type="text" class="form-control" id="searchTerm" placeholder="Enter username or email here" name="searchTerm" value="" style="margin:5px;"/>
         <input type="hidden" id="totalNumber" name="totalNumber" value="<?php echo $numberOfAdmins; ?>"/>
-        <button type="submit" class="btn btn-default" name="searchBtn" id="btnSearch">
+        <button type="submit" class="btn btn-primary" name="searchBtn" id="btnSearch">
             <span class="glyphicon glyphicon-search"></span> Search
         </button>
     </p>
@@ -137,6 +151,7 @@
                                     <input type='hidden' name='id' value='$admin->user_id'/>
                                     <input class='btn btn-warning' type='submit' name='edit' value='Edit'/>
                               </form>";*/
+                        //
                         echo "<form method='post' action='admin-delete.php'>
                                         <input type='hidden' name='id' value='$admin->user_id'/>
                                         <input class='btn btn-warning' type='submit' name='delete' value='Delete' onClick=\"javascript: return confirm('Do you really want to delete this user?');\"/>
@@ -175,6 +190,7 @@
         </nav>
     </div>
 </div>
+
 
 <?php
 

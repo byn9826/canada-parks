@@ -19,11 +19,11 @@ Irfaan:
 5. Facebook share page
 
 Duc:
-1. admin user next page
+1. admin user next page (done)
 2. popup box for Delete
-3. email subscribe functions explanation
+3. email subscribe functions explanation (done)
 4. stastics page for use
-5. admin and super admin roles explanation
+5. admin and super admin roles explanation (done)
 
 Sam:
 1. direction with current Location
