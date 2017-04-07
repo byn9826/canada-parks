@@ -1,4 +1,4 @@
-<form id="search" class="form-inline" method="GET">
+<form id="search" class="form-inline" method="GET" action="../parks">
     <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name" name="name" value="<?=$name?>" placeholder="Park Name">

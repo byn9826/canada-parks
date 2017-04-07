@@ -27,15 +27,15 @@ Duc:
 
 Sam:
 1. direction with current Location
-2. reset button on search park
-3. show rating and attitude, footprint numbers on compare page
+2. reset button on search park -- done
+3. show rating and attitude, footprint numbers on compare page -- done
 4. edit page link to admin header, combine with admin login system
-5. fix edit page page
+5. fix edit page page --fixed
 6. delete park
-7. edit park show map error
+7. edit park show map error --fixed
 8. compare parks page, compare button explanation
 9. compare parks page filter panel fix postion or change layout
-10. the 3rd park error for showing maps
+10. the 3rd park error for showing maps -- fixed
 
 Nav:
 1. find image apis

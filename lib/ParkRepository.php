@@ -42,15 +42,40 @@ class ParkRepository {
         $sql = "SELECT DISTINCT(province), province_code FROM park";
         $pdostmt = $this->db->prepare($sql);
         $pdostmt->execute();
-        return $pdostmt->fetchAll();
+        return $pdostmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getPark($id) {
-        $sql = "SELECT * FROM park WHERE id = :id";
+        $sql = "SELECT *
+                FROM park
+                WHERE park.id = :id";
         $pdostmt = $this->db->prepare($sql);
         $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
         $pdostmt->execute();
-        return $pdostmt->fetch();
+        $park = $pdostmt->fetch(PDO::FETCH_ASSOC);
+        // print_r($pdostmt->errorInfo());
+        // die;
+        $park['rating'] = $this->getRatingForPark($id);
+        $park['footprints'] = $this->getFootPrintsForPark($id);
+        return $park;
+    }
+    
+    public function getRatingForPark($id) {
+        $sql = "SELECT AVG(attitude_rate) AS rating FROM attitude WHERE park_id = :id";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
+        $pdostmt->execute();
+        $result = $pdostmt->fetch(PDO::FETCH_ASSOC);
+        return $result['rating'];
+    }
+    
+    public function getFootPrintsForPark($id) {
+        $sql = "SELECT COUNT(*) AS footprint FROM footprints WHERE park_id = :id";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
+        $pdostmt->execute();
+        $result = $pdostmt->fetch(PDO::FETCH_ASSOC);
+        return $result['footprint'];
     }
 
     public function addPark($park, $upload) {
