@@ -70,6 +70,21 @@ main {
     font-weight: bold;
 }
 
+.display-group {
+    border: 1px solid lightgrey;
+    padding: 16px 16px;
+    margin: 8px 0 16px 0;
+    background-color: #fafafa;
+}
+
+.display-group h3 {
+    color: #23527c;
+    font-weight: bold;
+    padding-bottom: 4px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #23527c;
+}
+
 
 /* ========================= */
 /*    NAVIGATION/TAB MENU    */

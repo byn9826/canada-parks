@@ -224,5 +224,23 @@ $(document).ready(function() {
         });
     }
 
+    // -- Function to get user's confirmation when deleting account
+    function confirmDeleteAccount() {
+        bootbox.confirm({
+            title: "Delete Account Permanently?",
+            message: "Are you sure you want to delete your account?\nThis action is irreversible and you will lose all your footprints and wishlist items.",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Remove'
+                }
+            },
+            callback: function (result) {
+                return result;
+            }
+        });
+    }
 
 });

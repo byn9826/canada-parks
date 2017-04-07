@@ -166,22 +166,39 @@ $(document).ready(function() {
         var footElementId = $(this).attr('data-footElementId');
         var footprintId = $(this).attr('data-footprintId');
 
-        // AJAX delete footprint item
-        var dataString = 'deleteFootprint=' + true + '&footprint_id=' + footprintId;
-        $.ajax({
-            type: "post",
-            url: '../lib/profile/manageFootprints.php',
-            data: dataString,
-            success: function(result) {
-                // On success change display on page
-                if(result === "Deleted") {
-                    var footprintElement = document.getElementById(footElementId);
-                    $(footprintElement).hide(1000);
-                    setTimeout(function() {
-                        $(footprintElement).remove();
-                    }, 2000);
-                } else {
-                    alert("Unable to remove selected footprint right now.");
+        // Get user's confirmation for delete action
+        bootbox.confirm({
+            title: "Destroy footprint?",
+            message: "Are you sure you want to permanently delete this post? This cannot be undone.",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Delete'
+                }
+            },
+            callback: function (result) {
+                if(result === true) {
+                    // AJAX delete footprint item
+                    var dataString = 'deleteFootprint=' + true + '&footprint_id=' + footprintId;
+                    $.ajax({
+                        type: "post",
+                        url: '../lib/profile/manageFootprints.php',
+                        data: dataString,
+                        success: function(result) {
+                            // On success change display on page
+                            if(result === "Deleted") {
+                                var footprintElement = document.getElementById(footElementId);
+                                $(footprintElement).hide(1000);
+                                setTimeout(function() {
+                                    $(footprintElement).remove();
+                                }, 2000);
+                            } else {
+                                alert("Unable to remove selected footprint right now.");
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -189,64 +206,97 @@ $(document).ready(function() {
 
     // -- Handle delete a footprint image
     $(document.body).on('click', '.del-foot-img', function() {
+
+        // Capture image details to delete an image
+        var imageItem = $(this).closest('div.owl-item');
+        var footprintId = $(this).attr('data-footprintid');
+        var imageId = $(this).attr('data-imageid');
+        var imageSrc = $(this).attr('data-imagesrc');
+
         // Confirm user's delete action
-        var userConfirm = confirm('Are you sure you want to permanently delete this image from your footprint?');
-
-        // If user confirms, delete image
-        if(userConfirm === true) {
-            // Capture image details
-            var imageItem = $(this).closest('div.owl-item');
-            var footprintId = $(this).attr('data-footprintid');
-            var imageId = $(this).attr('data-imageid');
-            var imageSrc = $(this).attr('data-imagesrc');
-
-            // AJAX delete footprint image
-            var dataString = 'deleteFootImg=' + true + '&footprint_id=' + footprintId + '&image_id=' + imageId + '&image_src=' + imageSrc;
-            $.ajax({
-                type: "post",
-                url: '../lib/profile/manageFootprints.php',
-                data: dataString,
-                success: function(result) {
-                    // On success, remove element from footprint
-                    if(result == "Deleted") {
-                        imageItem.hide(1000);
-                        setTimeout(function() {
-                            $(imageItem).remove();
-                        }, 2000);
-                    } else {
-                        alert("Unable to delete selected image right now.");
-                    }
+        bootbox.confirm({
+            title: "Delete image?",
+            message: "Are you sure you want to permanently delete this image from your footprint?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Delete'
                 }
-            });
-        }
+            },
+            callback: function (result) {
+                if(result === true) {
+                    // AJAX delete footprint image
+                    var dataString = 'deleteFootImg=' + true + '&footprint_id=' + footprintId + '&image_id=' + imageId + '&image_src=' + imageSrc;
+                    $.ajax({
+                        type: "post",
+                        url: '../lib/profile/manageFootprints.php',
+                        data: dataString,
+                        success: function(result) {
+                            // On success, remove element from footprint
+                            if(result == "Deleted") {
+                                imageItem.hide(1000);
+                                setTimeout(function() {
+                                    $(imageItem).remove();
+                                }, 2000);
+                            } else {
+                                alert("Unable to delete selected image right now.");
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
     });
 
     // -- Handle delete a wishlist item
     $('a.del-wishitem').on('click', function(e) {
-        e.preventDefault();
+
+        e.preventDefault(); // Prevent default action
+
+        // Capture wish item details
         var wishElementId = $(this).attr('data-wishElmt');
         var wishId = $(this).attr('data-wishId');
 
-        // AJAX delete wish item
-        var dataString = 'delFromWishlist=' + true + '&wish_id=' + wishId;
-        $.ajax({
-            type: "post",
-            url: '../lib/profile/manageWishlist.php',
-            data: dataString,
-            success: function(result) {
-                // on success change display on page
-                if(result === "Deleted") {
-                    var wishItemElement = document.getElementById(wishElementId);
-                    $(wishItemElement).hide(1000);  // Hide wishlist item first with animation
-                    setTimeout(function() {
-                        $(wishItemElement).remove();    // Remove item from DOM
-                    }, 2000);
-                } else {
-                    alert("Unable to remove park from wishlist.");
+        // -- Get confirmation from user for their action
+        bootbox.confirm({
+            title: "Remove wishist item?",
+            message: "Do you want to remove this park from your wishlist?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Remove'
+                }
+            },
+            callback: function (result) {
+                if(result === true) {
+                    // AJAX delete wish item
+                    var dataString = 'delFromWishlist=' + true + '&wish_id=' + wishId;
+                    $.ajax({
+                        type: "post",
+                        url: '../lib/profile/manageWishlist.php',
+                        data: dataString,
+                        success: function(result) {
+                            // on success change display on page
+                            if(result === "Deleted") {
+                                var wishItemElement = document.getElementById(wishElementId);
+                                $(wishItemElement).hide(1000);  // Hide wishlist item first with animation
+                                setTimeout(function() {
+                                    $(wishItemElement).remove();    // Remove item from DOM
+                                }, 2000);
+                            } else {
+                                alert("Unable to remove park from wishlist.");
+                            }
+                        }
+                    });
                 }
             }
         });
+
     });
 
 });
