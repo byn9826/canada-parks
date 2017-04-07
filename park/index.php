@@ -23,6 +23,15 @@ $park1 = $parkRepository->getPark($id);
         <link rel="stylesheet" href="../static/css/footprints.css" />
         <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
         <script src="../lib/profile/owl.carousel.js"></script>
+        <script>
+            var iParkId = <?php
+                                if(isset($_GET['id'])) {
+                                    echo $_GET['id'];
+                                } else {
+                                    echo 0;
+                                }
+                          ?>
+        </script>
     </head>
     <body>
         <!-- Include Page header -->
@@ -52,24 +61,13 @@ $park1 = $parkRepository->getPark($id);
 
                         <?php include "../templates/attitude.php"; ?>
 
-                        <form action="parks.html" method="post">
-                            <h2>Comments</h2>
-                            <div>
-                                <label for="comments" class="form-label">Comments:</label>
-                                <input type="text" id="comments" name="visitor_comments" placeholder="Type your comments here."/>
-                            </div>
-                            <div>
-                                <button type="submit" name="Submit">Post Comment</button>
-                            </div>
-                        </form>
-
                         <!-- Allow visitors to load footprints from users for the current park -->
                         <div class="row park-footprints">
+                            <h2>Park's Footprints</h2>
                             <div class="park-footprints__container"></div>
                             <div class="park-footprints__load-btn">
                                 <button type="button" class="btn btn-primary btn-lg btn-block btn-load-footprints"
-                                        title="Click to load footprints members posted about this park"
-                                        data-park-id="<?php echo $id; ?>">View Footprints</button>
+                                        title="Click to load footprints members posted about this park">View Footprints</button>
                             </div>
                         </div>
                     </div>
