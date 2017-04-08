@@ -9,7 +9,7 @@ class ParkRepository {
         $this->db = $db;
     }
 
-    public function getParks($name = "", $province = "") {
+    public function getParks($page = "all", $name = "", $province = "") {
         $sql = "SELECT id, name, banner, province, latitude, longitude FROM park";
         $pdostmt = $this->db->prepare($sql);
 
@@ -24,8 +24,16 @@ class ParkRepository {
         if (!empty($name) && !empty($province)) {
             $sql = $sql . " WHERE name LIKE :name AND province_code = :province";
         }
+        
+        if ($page != "all") {
+            $limit = 10;
+            $offset = ($page - 1)  * $limit;
+            $sql = $sql . " LIMIT :limit OFFSET :offset";
+        }
 
         $pdostmt = $this->db->prepare($sql);
+        
+        
         if (!empty($name)) {
             $name = "%" . $name . "%";
             $pdostmt->bindValue(":name", $name, PDO::PARAM_STR);
@@ -34,8 +42,23 @@ class ParkRepository {
         if (!empty($province)) {
             $pdostmt->bindValue(":province", $province, PDO::PARAM_STR);
         }
+        
+        if ($page != "all") {
+            $pdostmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+            $pdostmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+        }
+        
         $pdostmt->execute();
-        return $pdostmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    
+    public function getTotalParks() {
+        $sql = "SELECT COUNT(*) FROM park";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->execute();
+        $result = $pdostmt->fetchColumn();
+        return $result;
     }
 
     public function getProvinces() {
@@ -161,6 +184,14 @@ class ParkRepository {
         } catch (PDOException $e) {
             return array("code" => 500, "msg" => "fail");
         }
+    }
+    
+    public function deletePark($id) {
+        $sql = "DELETE FROM park WHERE id = :id";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
+        $pdostmt->execute();
+        return array("code" => 200, "msg" => "success");
     }
 
     public function getNumParksWithProvince() {

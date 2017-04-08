@@ -31,7 +31,7 @@ Sam:
 3. show rating and attitude, footprint numbers on compare page -- done
 4. edit page link to admin header, combine with admin login system
 5. fix edit page page --fixed
-6. delete park
+6. delete park --done
 7. edit park show map error --fixed
 8. compare parks page, compare button explanation
 9. compare parks page filter panel fix postion or change layout

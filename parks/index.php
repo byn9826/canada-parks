@@ -14,7 +14,7 @@ $name = isset($_GET['name']) ? $_GET['name'] : '';
 $parkRepository = new ParkRepository($db);
 $provinces = $parkRepository->getProvinces();
 
-$parks = $parkRepository->getParks($name, $province);
+$parks = $parkRepository->getParks('all', $name, $province);
 
 // header('Content-type: application/json');
 // echo json_encode($parks[0]);
