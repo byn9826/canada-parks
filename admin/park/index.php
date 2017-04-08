@@ -29,6 +29,13 @@ $total = $parkRepository->getTotalParks();
             <div class="row">
                 <?php include "sidebar.php" ?>
                 <div class="col-md-10" id="admin-parks">
+                    <div class="form-group" id="search-park-form">
+                        <label for="search-park">Search Park</label>
+                        <input class="form-control" type="text" id="search-park" />
+                        <div id="search-park-result">
+                            
+                        </div>
+                    </div>
                     <table class="table table-hover">
                         <tr>
                             <td>Name</td>

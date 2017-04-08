@@ -8,7 +8,7 @@ $parkRepository = new ParkRepository($db);
 if ($_GET['action'] == 'getlist') {
     $province = isset($_GET['province']) ? $_GET['province'] : '';
     $name = isset($_GET['name']) ? $_GET['name'] : '';
-    $parks = $parkRepository->getParks($name, $province);
+    $parks = $parkRepository->getParks('all', $name, $province);
     
     echo json_encode($parks);
 }
