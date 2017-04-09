@@ -35,12 +35,24 @@ const ParkList = ({parks, remove}) => {
     );
 };
 
+const Pagination = (currentPage) => {
+    return (
+        <nav aria-label="...">
+            <ul className="pagination">
+                <li className="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <li className="active"><a href="#">1 <span className="sr-only">(current)</span></a></li>
+            </ul>
+        </nav>
+    );
+};
+
 class AdminParks extends React.Component {
     constructor(props) {
         super(props);
 		this.state = {
             parks: this.props.parks,
             filters: [],
+            currentPage: 1,
         };
 	}
 	componentWillMount(){
@@ -60,7 +72,7 @@ class AdminParks extends React.Component {
         }.bind(this));
 	}
 	filter(e) {
-	    var filters = this.props.parks;
+	    //var filters = this.props.parks;
 	   // filters = filters.filter(function(park) {
 	   //     return park.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1;
 	   // });
@@ -71,6 +83,7 @@ class AdminParks extends React.Component {
             <div>
                 <input onChange={this.filter} />
                 <ParkList parks={this.state.filters} remove={this.handleRemove.bind(this)} />
+                <Pagination currentPage={this.state.currentPage} />
             </div>
         );
     }

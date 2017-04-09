@@ -93,7 +93,7 @@ function getDirection() {
                 travelMode: 'DRIVING'
             };
             directionsService.route(request, function(result, status) {
-               // console.log(result);
+                console.log(result);
                 if (status == 'OK') {
                     directionsDisplay.setDirections(result);
                 }

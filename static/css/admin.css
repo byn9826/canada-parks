@@ -48,6 +48,24 @@ h1, h2 {
 
 }
 
+#search-park-form {
+    position: relative;
+}
+
+#search-park-result {
+    background: #ffffff;
+    position: absolute;
+    left: 0;
+    top: 60px;
+}
+
+#search-park-result .media:hover {
+    background: #cccccc;
+}
+
+#search-park-result img {
+    width: 100px;
+}
 
 .park-banner {
     margin-bottom: 20px;

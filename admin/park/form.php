@@ -37,7 +37,7 @@ if (isset($_GET["id"])) {
 			include "../../templates/meta.php";
 		?>
 		<link rel="stylesheet" href="../../static/css/admin.css" type="text/css" />
-		<title>Edit Park</title>
+		<title><?=$_GET["action"]?> Park</title>
     </head>
     <body>
         <?php

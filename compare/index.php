@@ -11,6 +11,7 @@ $provinces = $parkRepository->getProvinces();
 $parkId1 = $_GET['park1'];
 $parkId2 = $_GET['park2'];
 $park1 = $parkRepository->getPark($parkId1);
+//var_dump($park1);die;
 $park2 = $parkRepository->getPark($parkId2);
 $parks = array($park1, $park2);
 
@@ -41,7 +42,9 @@ $parks = array($park1, $park2);
                 <h1 class="text-center">Compare Parks</h1>
                 <?php include '../templates/parkSearchForm.php';?>
                 <div id="park-compare">
-                    <div class="active" id="map"></div>
+                    <div class="active" id="map">
+                        <?php include '../templates/parkMap.php' ?>
+                    </div>
                     <div class="row">
                         <div class="col-xs-6 text-center">
                             <h2 class="name"><a href="/park?id=<?=$park1["id"]?>"><?=$park1['name']?></a></h2>
@@ -66,14 +69,24 @@ $parks = array($park1, $park2);
                             <?=$park2["address"]?>
                         </div>
                     </div>
-
+                    
                     <div class="row">
-                        <h3 class="col-xs-12">Province</h3>
+                        <h3 class="col-xs-12">Rating by Users</h3>
                         <div class="col-xs-6">
-                            <?=$park1["province"]?>
+                            <?=$park1["rating"]?>
                         </div>
                         <div class="col-xs-6">
-                            <?=$park2["province"]?>
+                            <?=$park2["rating"]?>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <h3 class="col-xs-12">Footprints by Users</h3>
+                        <div class="col-xs-6">
+                            <?=$park1["footprints"]?>
+                        </div>
+                        <div class="col-xs-6">
+                            <?=$park2["footprints"]?>
                         </div>
                     </div>
 

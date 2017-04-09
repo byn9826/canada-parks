@@ -531,4 +531,137 @@ class AdminUser
             $pdostament->closeCursor();
         }
     }
+
+    public static function getUserRoleAndQuantity($db){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT COUNT(r.role_id) as quantity, r.role_name FROM user u JOIN role r ON r.role_id = u.role_id GROUP BY r. role_id ORDER BY r.role_id";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $users = $pdostament->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($users as $user) {
+                $result[] = array(
+                    "rolename" => $user["role_name"],
+                    "y" => intval($user["quantity"])
+                );
+            }
+            return $result;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getNumberOfRegisteredEachMonth($db){
+        //$db = Database::getDB();
+        try {
+            $query = "Select MONTH(`user_reg`) as month, COUNT(MONTH(`user_reg`)) as numberReg  from user WHERE YEAR(`user_reg`) = YEAR(CURRENT_DATE()) GROUP BY MONTH(`user_reg`)";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $res = $pdostament->fetchAll(PDO::FETCH_ASSOC);
+            $newArr = [];
+            for ($x = 0; $x < 12; $x++)
+            {
+                if (array_key_exists($x,$res))
+                {
+                    array_push($newArr,intval($res[$x]["numberReg"]));
+                }
+                else
+                {
+                    array_push($newArr,0);
+                }
+            }
+
+            return $newArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getNumberOfRegisteredEachMonthByMale($db){
+        //$db = Database::getDB();
+        try {
+            $query = "Select MONTH(`user_reg`) as month, COUNT(MONTH(`user_reg`)) as numberReg  from user u JOIN user_details d ON u.user_id = d.user_id WHERE YEAR(`user_reg`) = YEAR(CURRENT_DATE()) and d.gender = 'M' GROUP BY MONTH(`user_reg`)";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $res = $pdostament->fetchAll(PDO::FETCH_ASSOC);
+            $newArr = [];
+            for ($x = 0; $x < 12; $x++)
+            {
+                if (array_key_exists($x,$res))
+                {
+                    array_push($newArr,intval($res[$x]["numberReg"]));
+                }
+                else
+                {
+                    array_push($newArr,0);
+                }
+            }
+
+            return $newArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getNumberOfRegisteredEachMonthByFeMale($db){
+        //$db = Database::getDB();
+        try {
+            $query = "Select MONTH(`user_reg`) as month, COUNT(MONTH(`user_reg`)) as numberReg  from user u JOIN user_details d ON u.user_id = d.user_id WHERE YEAR(`user_reg`) = YEAR(CURRENT_DATE()) and d.gender = 'F' GROUP BY MONTH(`user_reg`)";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $res = $pdostament->fetchAll(PDO::FETCH_ASSOC);
+            $newArr = [];
+            for ($x = 0; $x < 12; $x++)
+            {
+                if (array_key_exists($x,$res))
+                {
+                    array_push($newArr,intval($res[$x]["numberReg"]));
+                }
+                else
+                {
+                    array_push($newArr,0);
+                }
+            }
+
+            return $newArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getNumberOfRegisteredEachMonthByNotMaleOrFemale($db){
+        //$db = Database::getDB();
+        try {
+            $query = "Select MONTH(`user_reg`) as month, COUNT(MONTH(`user_reg`)) as numberReg  from user u JOIN user_details d ON u.user_id = d.user_id WHERE YEAR(`user_reg`) = YEAR(CURRENT_DATE()) and d.gender is NULL GROUP BY MONTH(`user_reg`)";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $res = $pdostament->fetchAll(PDO::FETCH_ASSOC);
+            $newArr = [];
+            for ($x = 0; $x < 12; $x++)
+            {
+                if (array_key_exists($x,$res))
+                {
+                    array_push($newArr,intval($res[$x]["numberReg"]));
+                }
+                else
+                {
+                    array_push($newArr,0);
+                }
+            }
+
+            return $newArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
 }
