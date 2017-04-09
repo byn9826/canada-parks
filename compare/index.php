@@ -59,44 +59,69 @@ $parks = array($park1, $park2);
                             </figure>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <h3 class="col-xs-12">Address</h3>
-                        <div class="col-xs-6">
-                            <?=$park1["address"]?>
+                    
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Address</h3>
                         </div>
-                        <div class="col-xs-6">
-                            <?=$park2["address"]?>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <?=$park1["address"]?>
+                                </div>
+                                <div class="col-xs-6">
+                                    <?=$park2["address"]?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="row">
-                        <h3 class="col-xs-12">Rating by Users</h3>
-                        <div class="col-xs-6">
-                            <?=$park1["rating"]?>
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Rating by Users</h3>
                         </div>
-                        <div class="col-xs-6">
-                            <?=$park2["rating"]?>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <?=$park1["rating"]?>
+                                </div>
+                                <div class="col-xs-6">
+                                    <?=$park2["rating"]?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="row">
-                        <h3 class="col-xs-12">Footprints by Users</h3>
-                        <div class="col-xs-6">
-                            <?=$park1["footprints"]?>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Footprints by Users</h3>
                         </div>
-                        <div class="col-xs-6">
-                            <?=$park2["footprints"]?>
+                        <div class="panel-body">
+                            <div class="row">
+                                <h3 class="col-xs-12"></h3>
+                                <div class="col-xs-6">
+                                    <?=$park1["footprints"]?>
+                                </div>
+                                <div class="col-xs-6">
+                                    <?=$park2["footprints"]?>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <h3 class="col-xs-12">Website</h3>
-                        <div class="col-xs-6">
-                            <a href="<?=$park1["website"]?>" class="btn btn-success" target="_blank">Go to website</a>
+                    
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Website</h3>
                         </div>
-                        <div class="col-xs-6">
-                            <a href="<?=$park2["website"]?>" class="btn btn-success" target="_blank">Go to website</a>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <a href="<?=$park1["website"]?>" class="btn btn-success" target="_blank">Go to website</a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="<?=$park2["website"]?>" class="btn btn-success" target="_blank">Go to website</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

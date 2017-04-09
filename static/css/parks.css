@@ -68,17 +68,12 @@
     height: 500px;
 }
 
-#park-compare .row {
+#park-compare .panel {
     margin-top: 30px
 }
 
 #park-compare .name {
     height: 60px;
-}
-
-#park-compare h3 {
-    border-bottom: 1px solid #000000;
-    margin-bottom: 10px;
 }
 
 button.parkToWishlist {
