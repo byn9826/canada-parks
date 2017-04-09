@@ -3,11 +3,9 @@
 var map;
 var bounds;
 var service;
-var infowindow;
 var infos = [];
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
-var current;
 var destination;
 
 function initialize() {
@@ -64,22 +62,6 @@ function initialize() {
     map.fitBounds(bounds);
 }
 
-$('#get-direction').on('click', function() {
-    console.log(destination);
-});
-
-$('#reset').on('click', function() {
-    directionsDisplay.setMap(null);
-    directionsDisplay = null;
-    map.fitBounds(bounds);
-});
-
-$('#get-current-location').on('click', function() {
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsDisplay.setMap(map);
-    getDirection();
-});
-
 function getDirection() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -96,6 +78,8 @@ function getDirection() {
                 console.log(result);
                 if (status == 'OK') {
                     directionsDisplay.setDirections(result);
+                } else {
+                    alert(status);
                 }
             });
         });
@@ -107,3 +91,20 @@ function closeInfoWdinows() {
         info.close();
     });
 }
+
+google.maps.event.addDomListener(window, "resize", function() {
+    google.maps.event.trigger(map, "resize");
+    map.fitBounds(bounds);
+});
+
+$('#reset').on('click', function() {
+    directionsDisplay.setMap(null);
+    directionsDisplay = null;
+    map.fitBounds(bounds);
+});
+
+$('#get-direction').on('click', function() {
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(map);
+    getDirection();
+});

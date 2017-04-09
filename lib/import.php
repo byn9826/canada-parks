@@ -51,7 +51,7 @@ class ParkImport {
         if ($park["photos"]) {
             foreach ($park["photos"] as $photo) {
                 if (isset($photo["photo_reference"])) {
-                    $photoUrl = $this->photoAPI . $this->apiKey . "&maxwidth=400&photoreference=" . $photo["photo_reference"];
+                    $photoUrl = $this->photoAPI . $this->apiKey . "&maxwidth=1200&photoreference=" . $photo["photo_reference"];
                     break;
                 }
             }
@@ -115,7 +115,7 @@ class ParkImport {
             "phone_number" => $phone_number,
             "website" => $website,
         );
-
+        
         $this->parkrepository->addPark($newPark, array());
     }
 }
