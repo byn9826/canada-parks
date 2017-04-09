@@ -64,6 +64,26 @@ $(document).ready(function() {
         $('#editDateVisit').datepicker();
     } );
 
+    // -- Initialise Facebook Share Dialog SDK
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '270453156734455',
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+    };
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    // -- EVENTS HANDLING -- //
+    // --------------------- //
     // -- Handle form when User Adds a new footprint
     $('#frmAddFootprint').submit(function(e) {
 
@@ -168,7 +188,7 @@ $(document).ready(function() {
 
         // Get user's confirmation for delete action
         bootbox.confirm({
-            title: "Destroy footprint?",
+            title: "Delete footprint?",
             message: "Are you sure you want to permanently delete this post? This cannot be undone.",
             buttons: {
                 cancel: {
@@ -194,6 +214,12 @@ $(document).ready(function() {
                                 setTimeout(function() {
                                     $(footprintElement).remove();
                                 }, 2000);
+                                // Decrement number of footprints
+                                var iNumFootprints = parseInt($('span.activities__footprint').html());
+                                $('span.activities__footprint').fadeOut("slow", function(){
+                                    $('span.activities__footprint').html(iNumFootprints - 1);
+                                    $('span.activities__footprint').fadeIn("slow");
+                                });
                             } else {
                                 alert("Unable to remove selected footprint right now.");
                             }
@@ -288,6 +314,12 @@ $(document).ready(function() {
                                 setTimeout(function() {
                                     $(wishItemElement).remove();    // Remove item from DOM
                                 }, 2000);
+                                // Decrement number of footprints
+                                var iNumWishlist = parseInt($('span.activities__wishlist').html());
+                                $('span.activities__wishlist').fadeOut("slow", function(){
+                                    $('span.activities__wishlist').html(iNumWishlist - 1);
+                                    $('span.activities__wishlist').fadeIn("slow");
+                                });
                             } else {
                                 alert("Unable to remove park from wishlist.");
                             }
@@ -296,6 +328,40 @@ $(document).ready(function() {
                 }
             }
         });
+
+    });
+
+    // -- Handle facebook share footprint
+    $(document).on('click','.shareBtn',function(){
+        // Get Required data to share footprint
+        var iFootprintId = $(this).attr('data-footprintId');
+        var sUserName = $(this).parent().find('span.footprint__user').html();
+        var sParkName = $(this).parent().find('span.footprint__park').html();
+        var sDescription = $(this).parent().find('p.footprint__caption').html();
+        var sImagePath = $(this).parent().find('div.item').first().html();
+
+        // Parameters required to share post on Facebook
+        var sShareURL = 'http://www.irfaanauhammad.com/marvel-canada/Footprint/?uid=' + currentUserId + '&fid=' + iFootprintId;
+        var sShareTitle = sUserName + ' has been to ' + sParkName + ' park recently.';
+        var sShareCaption = sUserName + ' has a new footprint';
+        var sShareDescrip = sDescription;
+        // If footprint doesn't have any image, use marvel-canada default image
+        if(sImagePath == null) {
+            sImagePath = window.location.protocol + "//" + window.location.host + '/marvel-canada/static/img/home/marvel.jpg';
+        } else {
+            sImagePath = window.location.protocol + "//" + window.location.host + '/marvel-canada' + sImagePath.substring(12, sImagePath.length - 2);
+        }
+
+        // Share footprint post to Facebook
+        FB.ui({
+            display: 'popup',
+            method: 'share',
+            href: sShareURL,
+            picture: sImagePath,
+            title: sShareTitle,
+            caption: sShareCaption,
+            description: sShareDescrip,
+        }, function(response){ });
 
     });
 

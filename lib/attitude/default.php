@@ -81,4 +81,18 @@ class Attitude{
         }
     }
 
+    /**
+     * Function to delete all attitudes of a user
+     *
+     * @param $sUserId
+     *
+     * author: Irfaan
+     */
+    public function deleteAllAttitudeOfUser($sUserId) {
+        $deleteQuery = 'DELETE FROM attitude WHERE user_id = :userId';
+        $deleteStmt = $this->db->prepare($deleteQuery);
+        $deleteStmt->bindValue(':userId', $sUserId, PDO::PARAM_INT);
+        $deleteStmt->execute();
+    }
+
 }

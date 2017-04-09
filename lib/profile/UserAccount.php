@@ -89,16 +89,33 @@ class UserAccount
         return $iRowUpdated;
     }
 
-    public function DeleteAccount() {
+    public function deleteAccountPermanently() {
         // TODO: Delete User Account Permanently
+        try {
+            // -- BEGIN Transaction
+            $this->_objConnection->beginTransaction();
 
-        # 1. Delete Wishlist of User
-        # 2. Delete Footprints images file
-        # 3. Delete Footprints images from DB table
-        # 4. Delete Footprints from DB table
-        # 5. Delete user details
-        # 6. Delete user loggin credentials
+            # 1. Delete User's Attitudes
+            $this->pDeleteAttitudes();
 
+            # 2. Delete Wishlist of User
+            $this->pDeleteWishItems();
+
+            # 3. Delete Footprints (Images, Footprint Images table, and footprints)
+            $this->pDeleteFootprints();
+
+            # 4. Delete user details
+            $this->pDeleteUserDetails();
+
+            # 5. Delete user loggin credentials
+            $this->pDeleteUserCredential();
+
+            // -- COMMIT Transaction
+            $this->_objConnection->commit();
+        } catch (PDOException $e) {
+            // -- ROLLBACK Transaction
+            $this->_objConnection->rollback();
+        }
     }
 
     // Private Functions Declaration
@@ -118,6 +135,46 @@ class UserAccount
         $this->_email = $objAccountInfo->user_email;
         $this->_password = $objAccountInfo->user_password;
 
+    }
+
+    /**
+     * Function to delete a user's attitudes
+     *
+     * author: Irfaan
+     */
+    private function pDeleteAttitudes() {
+        $objAttitude = new Attitude($this->_objConnection);
+        $objAttitude->deleteAllAttitudeOfUser($this->_userId);
+    }
+
+    private function pDeleteWishItems() {
+        $objWishlist = new Wishlist($this->_objConnection, $this->_userId);
+        $objWishlist->DeleteUserWishlist();
+    }
+
+    private function pDeleteFootprints() {
+        #1. Select list of footprints to delete
+        $objFootprint = new Footprints($this->_objConnection, $this->_userId);
+        $lstUserFootprints = $objFootprint->GetFootprintsDetails();
+
+        #2. Delete footprints
+        foreach ($lstUserFootprints as $objUserFootprint) {
+            $objTmpFootprint = new Footprints($this->_objConnection, $this->_userId);
+            $objTmpFootprint->setFootprintId($objUserFootprint->footprint_id);
+            $objTmpFootprint->Delete(true);
+        }
+    }
+
+    private function pDeleteUserDetails() {
+        $objUserDetails = new UserDetails($this->_objConnection, $this->_userId);
+        $objUserDetails->deleteUserAccount();
+    }
+
+    private function pDeleteUserCredential() {
+        $sDeleteUser = "DELETE FROM user WHERE user_id = :userId";
+        $objPDOStmt = $this->_objConnection->prepare($sDeleteUser);
+        $objPDOStmt->bindValue(':userId', $this->_userId);
+        $objPDOStmt->execute();
     }
 
 }

@@ -139,13 +139,13 @@ class Footprints
         // Query to add new footprint
         $sQueryAddFootprint = "
                                 INSERT INTO footprints (user_id, park_id, date_visited, user_story, is_public, created_on)
-                                VALUES (:userId, :parkId, :dateVisited, :userStory, :isPublic, :createdOn);
+                                VALUES (:userId, :parkId, :dateVisited, :userStory , :isPublic, :createdOn);
                               ";
         $objPDOStatement = $this->_objConnection->prepare($sQueryAddFootprint);
         $objPDOStatement->bindValue(':userId', $this->_userId, PDO::PARAM_INT);
         $objPDOStatement->bindValue(':parkId', $this->_parkId, PDO::PARAM_INT);
         $objPDOStatement->bindValue(':dateVisited', $this->_dateVisited);
-        $objPDOStatement->bindValue(':userStory', $this->_userStory, PDO::PARAM_STR);
+        $objPDOStatement->bindValue(':userStory', $this->_userStory);
         $objPDOStatement->bindValue(':isPublic', $this->_isPublic, PDO::PARAM_STR);
         $objPDOStatement->bindValue(':createdOn', $this->_createdOn);
         $fRecordAdded = $objPDOStatement->execute();
@@ -167,14 +167,14 @@ class Footprints
     }
 
     // -- Function to retrieve details to display a footprint
-    public function GetFootprintsDetails() {
+    public function GetFootprintsDetails($iFootprintId = 0) {
         // Query to select footprints details
         $sQueryFootprints = "
                                     SELECT fp.footprint_id
                                           ,DATE_FORMAT(fp.date_visited, '%M %d, %Y') as date_visited
                                           ,DATE_FORMAT(fp.created_on,'%b %d, %Y %h:%i %p') as created_on
                                           ,fp.is_public
-                                          ,fp.user_story
+                                          ,IF(fp.user_story = 'NULL','', fp.user_story) as user_story
                                           ,ud.user_id
                                           ,ud.image_src
                                           ,RTRIM(concat(IFNULL(ud.first_name,''), ' ', IFNULL(ud.last_name,''))) AS full_name
@@ -185,20 +185,28 @@ class Footprints
                                         ON ud.user_id = fp.user_id
                                 INNER JOIN park p
                                         ON p.id = fp.park_id
-                                     WHERE fp.user_id = :userId
-                                  ORDER BY fp.created_on DESC;
+                                     WHERE fp.user_id = :userId                                  
                             ";
+        if($iFootprintId != 0) {
+            $sQueryFootprints .= "   AND fp.footprint_id = :footprintId ";
+        }
+        $sQueryFootprints .= "    ORDER BY fp.created_on DESC; ";
         // Prepare and execute query
         $objPDOStatement = $this->_objConnection->prepare($sQueryFootprints);
         $objPDOStatement->bindValue(':userId', $this->_userId);
+        if($iFootprintId != 0) {
+            $objPDOStatement->bindValue(':footprintId', $iFootprintId);
+        }
         $objPDOStatement->execute();
         $lstFootprints = $objPDOStatement->fetchAll(PDO::FETCH_OBJ);
         return $lstFootprints;
     }
 
     // -- Function to delete a footprint
-    public function Delete() {
+    public function Delete($fDeleteAccount) {
         $fStatus = false;
+        $sDirectoryPath = "";
+
         try {
             // -- Queries to delete footprint details
             // -- -----------------------------------
@@ -230,19 +238,30 @@ class Footprints
             $objPDOStmtPrint->bindValue(':user_id', $this->_userId, PDO::PARAM_INT);
 
             // -- Execute queries
-            $this->_objConnection->beginTransaction();
+            if(!$fDeleteAccount) {
+                $this->_objConnection->beginTransaction();
+            }
             $objPDOStmtImages->execute();
             $objPDOStmtPrint->execute();
-            $this->_objConnection->commit();
+            if(!$fDeleteAccount) {
+                $this->_objConnection->commit();
+            }
             $fStatus = true;
 
             // -- Delete the actual files
             $Folder = $this->_userId . '_' . $this->_footprintId;
-            self::RecursiveRemoveDirectory("../../static/img/profile/footprints/{$Folder}");
+            if($fDeleteAccount) {
+                $sDirectoryPath = "../static/img/profile/footprints/{$Folder}";
+            } else {
+                $sDirectoryPath = "../../static/img/profile/footprints/{$Folder}";
+            }
+            self::RecursiveRemoveDirectory($sDirectoryPath);
 
         } catch (PDOException $e) {
-            // SQL Exception occured
-            $this->_objConnection->rollback();
+            // SQL Exception occurred
+            if(!$fDeleteAccount) {
+                $this->_objConnection->rollback();
+            }
         }
         return $fStatus;
     }
@@ -320,12 +339,11 @@ class Footprints
     // -- PUBLIC STATIC FUNCTIONS DECLARATION
     // -- -----------------------------------
     // -- Function taking a list of park details and return constructed HTML
-    public static function ConstructFootprintItems($lstFootprints, $fEditMode) {
+    public static function ConstructFootprintItems($lstFootprints, $fEditMode, $fFetchAsync) {
         // Loop and build a wishlist item
         $sResult = "";
         foreach ($lstFootprints as $objFootprint) {
             $sResult .= "<div id=\"f{$objFootprint->footprint_id}\" data-footprintId=\"{$objFootprint->footprint_id}\" class=\"footprint display-group\">";
-//            $sResult .= "<div id=\"shareBtn\" class=\"btn btn-success clearfix\">Share Dialog</div>";
             $sResult .= "    <div class=\"row\">";
             $sResult .= "        <div class=\"col col-xs-2 col-sm-2 small-profile-pic\"><img src=\"../static/img/profile/users/{$objFootprint->image_src}\" /></div>";
             $sResult .= "        <div class=\"col col-xs-9 col-sm-9\">";
@@ -354,13 +372,14 @@ class Footprints
             $sFolderPath = '../static/img/profile/footprints/' . $objFootprint->user_id . '_' . $objFootprint->footprint_id . '/';
 
             // -- If called from parks page, file paths changes
-            if(!$fEditMode) {
+            if($fFetchAsync) {
                 $sFolderPath = '../../static/img/profile/footprints/' . $objFootprint->user_id . '_' . $objFootprint->footprint_id . '/';
                 $sImagePath = '../static/img/profile/footprints/' . $objFootprint->user_id . '_' . $objFootprint->footprint_id . '/';
             }
 
             // -- Get all image files form the folder
             $iNbFiles = glob($sFolderPath . "*.{JPG,jpg,jpeg,JPEG,gif,GIF,png,PNG,bmp,BMP}", GLOB_BRACE);   // Number of images in folder
+
             if (is_dir($sFolderPath)) {    // Only if directory exists
                 $sCurrentDirectory = opendir($sFolderPath); // Open folder to read
                 if($iNbFiles > 0) {
@@ -368,7 +387,7 @@ class Footprints
                     while(false !== ($file = readdir($sCurrentDirectory)))
                     {
                         // Handle different source path
-                        if($fEditMode) {
+                        if(!$fFetchAsync) {
                             $file_path = $sFolderPath.$file;
                         } else {
                             $file_path = $sImagePath.$file;
@@ -385,6 +404,11 @@ class Footprints
                 closedir($sCurrentDirectory);   // Close folder after read
             }
             $sResult .= "    </div>";
+            if($fEditMode) {
+                $sResult .= "<div class='share-container'><div class=\"btn btn-primary shareBtn clearfix\"
+                                  data-footprintId=\"{$objFootprint->footprint_id}\" title='Click to share post on Facebook'
+                                  ><span class='fa fa-facebook-square'> </span>Share</div></div>";
+            }
             $sResult .= "</div>";
         }
         return $sResult;
@@ -400,7 +424,9 @@ class Footprints
                 unlink($file);
             }
         }
-        rmdir($sPathToDirectory);
+        if(is_dir($sPathToDirectory)) {
+            rmdir($sPathToDirectory);
+        }
     }
 
     // -- Function to delete a footprint image

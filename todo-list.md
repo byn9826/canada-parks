@@ -12,11 +12,11 @@ Paul:
 6. customize error log
 
 Irfaan:
-1. Delete a user's account
-2. Upload image test online
-3. delete confirm box
-4. footprint load button
-5. Facebook share page
+1. Delete a user's account (done)
+2. Upload image test online (done)
+3. delete confirm box (done)
+4. footprint load button (done)
+5. Facebook share page (done)
 
 Duc:
 1. admin user next page (done)

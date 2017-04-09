@@ -176,6 +176,19 @@ main {
     padding: 0.25em 0.25em;
 }
 
+div.share-container {
+    text-align: right;
+}
+
+div.shareBtn {
+    padding: 2px 8px !important;
+    margin-top: 12px;
+}
+
+.fa-facebook-square {
+    padding-right: 4px;
+}
+
 
 /* ================================ */
 /*    NEW FOOTPRINT MODAL WINDOW    */

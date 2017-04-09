@@ -97,7 +97,7 @@ if(isset($_POST['deleteFootprint'])) {
     // -- Capture form data
     $iFootprintId = $_POST['footprint_id'];
     $objFootprint->setFootprintId($iFootprintId);
-    $fFootprintRemoved = $objFootprint->Delete();
+    $fFootprintRemoved = $objFootprint->Delete(false);
     if($fFootprintRemoved) {
         echo "Deleted";
     } else {
@@ -269,6 +269,6 @@ if(isset($_POST['btnLoadParkFootprints'])) {
     $lstFootprints = Footprints::GetFootprintsForPark($objConnection, $iParkId, $iLoadFromRow, $iMaxRowsPerLoad);
 
     // -- Construct Footprints HTML Markup
-    echo Footprints::ConstructFootprintItems($lstFootprints, false);
+    echo Footprints::ConstructFootprintItems($lstFootprints, false, true);
 
 }

@@ -13,6 +13,7 @@
     require_once '../lib/profile/Footprints.php';
     require_once '../lib/profile/Wishlist.php';
     require_once '../admin/model/admin.php';
+    require_once '../lib/attitude/default.php';
 
 
     // -- Create a database connection
@@ -228,15 +229,22 @@
     // -- Delete user account
     // -- -------------------
     if(isset($_POST['deleteAccount'])) {
-        // Delete account
-        $objUserAccount->DeleteAccount();
 
-        // Logout user and redirect to homepage
-        session_unset($_SESSION['user_id']);
-        session_unset($_SESSION['user_name']);
-        session_destroy();
-        header("location: ../");
-        exit();
+        try {
+            // Delete account
+            $objUserAccount->deleteAccountPermanently();
+
+            // Logout user and redirect to homepage
+            session_unset($_SESSION['user_id']);
+            session_unset($_SESSION['user_name']);
+            session_destroy();
+            header("location: ../");
+            exit();
+
+        } catch(PDOException $e) {
+            // handle exception
+            echo "Error Deleting Account";
+        }
     }
 
 
@@ -683,7 +691,6 @@
 
             </div>
         </main>
-
 
         <!-- Modal window to change profile picture -->
         <div id="profile_pic_modal" class="modal fade" role="dialog">

@@ -108,6 +108,18 @@ class Wishlist
         return $fStatus;
     }
 
+    /**
+     * Function to destroy a user's wishlist
+     *
+     * author: Irfaan
+     */
+    public function DeleteUserWishlist() {
+        $sDeleteWishlist = "DELETE FROM wishlist WHERE user_id = :userId";
+        $objPDOStatement = $this->_objConnection->prepare($sDeleteWishlist);
+        $objPDOStatement->bindValue(':userId', $this->_userId);
+        $objPDOStatement->execute();
+    }
+
 
     // -- Public Static Functions Declaration
     // -- -----------------------------------

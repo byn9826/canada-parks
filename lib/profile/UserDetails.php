@@ -417,4 +417,11 @@ class UserDetails
         return ucwords($this->getFirstName() . ' ' . $this->getLastName());
     }
 
+    public function deleteUserAccount() {
+        $sDeleteQuery = "DELETE FROM user_details WHERE user_id = :userId";
+        $objPDOStmt = $this->_objConnection->prepare($sDeleteQuery);
+        $objPDOStmt->bindValue(':userId', $this->_userId, PDO::PARAM_INT);
+        $objPDOStmt->execute();
+    }
+
 }
