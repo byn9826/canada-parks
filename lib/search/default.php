@@ -59,8 +59,8 @@ class Search{
         $emptyStmt->execute();
         #get result for repace empty characters of the words
         $emptyResult = $emptyStmt->fetchAll(PDO::FETCH_ASSOC);
-        #merge all the result
-        $allResult = array_merge($likeResult, $oddResult, $evenResult, $emptyResult);
+        #merge all the result, total weight 7, like weight 3, empty weight 2, odd weight 1, even weight 1
+        $allResult = array_merge($likeResult, $likeResult, $likeResult, $emptyResult, $emptyResult, $oddResult, $evenResult);
         return $allResult;
     }
 

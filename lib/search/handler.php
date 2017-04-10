@@ -12,7 +12,8 @@ if (isset($_POST['content'])) {
     #get all related park description from park table
     $nameReult = $Search->multiSearch($content, 'park', 'name');
     $descResult = $Search->multiSearch($content, 'park', 'description');
-    $parkResult = array_merge($nameReult, $descResult);
+    #total weight 3, name weight 2, desc weight 1
+    $parkResult = array_merge($nameReult, $nameReult, $descResult);
     $storyResult = $Search->multiSearch($content, 'footprints', 'user_story');
     echo json_encode([$parkResult, $storyResult]);
 }
