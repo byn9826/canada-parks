@@ -4,12 +4,11 @@ Group:
 3. Cleanup the DB (Duc stop messing with the data now)
 
 Paul:
-1. Seach feature
+1. Seach feature (done)
 2. Homepage
 3. Homepage Links
-4. logout stay in same page
-5. cleanup login signup functions
-6. customize error log
+4. cleanup login signup functions
+5. customize error log
 
 Irfaan:
 1. Delete a user's account (done)

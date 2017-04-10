@@ -194,6 +194,6 @@ reqwest({
                 }
             }
         }
-        ReactDOM.render(<Attitude allRate={allRate} totalRate={totalRate} allWorth={allWorth} totalWorth={totalWorth} allBack={allBack} totalBack={totalBack} userRate={userRate} userWorth={userWorth} userId={userId} userBack={userBack} parkId={window.location.href.split("?id=").pop()} />, document.getElementById("root"));
+        ReactDOM.render(<Attitude allRate={allRate} totalRate={totalRate} allWorth={allWorth} totalWorth={totalWorth} allBack={allBack} totalBack={totalBack} userRate={userRate} userWorth={userWorth} userId={userId} userBack={userBack} parkId={window.location.href.split("?id=").pop()} />, document.getElementById("attitude-root"));
 	}
 });

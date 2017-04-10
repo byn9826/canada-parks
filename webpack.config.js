@@ -3,6 +3,7 @@ var webpack = require('webpack');
 module.exports = {
     entry: {
         attitude: "./static/source/Attitude.jsx",
+        search: "./static/source/Search.jsx",
         adminParks: "./static/source/AdminParks.jsx",
     },
     output: {

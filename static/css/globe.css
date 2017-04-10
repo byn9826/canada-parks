@@ -66,8 +66,8 @@ a:hover{
     -ms-transform:none !important;
 }
 
-#header-searchicon{
-    margin-left: 10px;
+#search-root{
+    margin-top: 8px;
 }
 
 #header-login>:first-child{

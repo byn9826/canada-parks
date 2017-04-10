@@ -98,12 +98,7 @@ if (isset($_POST['logout'])) {
                 <img alt="Marvel Logo" src="<?php echo $team_route_src . 'static/img/logo.png'; ?>" />
             </a>
         </div>
-        <form class="navbar-form navbar-left col-md-5 col-sm-4 visible-lg visible-md visible-sm" role="search">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <span id="header-searchicon" class="glyphicon glyphicon-search"></span>
-        </form>
+        <?php include "search.php"; ?>
         <ul id="header-links" class="nav navbar-nav col-md-5 col-sm-6 navbar-right visible-lg visible-md visible-sm">
             <?php
                 foreach ($header_navi as $nav) {
