@@ -19,9 +19,9 @@ Irfaan:
 
 Duc:
 1. admin user next page (done)
-2. popup box for Delete
+2. popup box for Delete (done)
 3. email subscribe functions explanation (done)
-4. stastics page for use
+4. stastics page for use (done)
 5. admin and super admin roles explanation (done)
 
 Sam:
