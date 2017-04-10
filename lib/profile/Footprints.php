@@ -345,7 +345,8 @@ class Footprints
         foreach ($lstFootprints as $objFootprint) {
             $sResult .= "<div id=\"f{$objFootprint->footprint_id}\" data-footprintId=\"{$objFootprint->footprint_id}\" class=\"footprint display-group\">";
             $sResult .= "    <div class=\"row\">";
-            $sResult .= "        <div class=\"col col-xs-2 col-sm-2 small-profile-pic\"><img src=\"../static/img/profile/users/{$objFootprint->image_src}\" /></div>";
+            //$sResult .= "        <div class=\"col col-xs-2 col-sm-2 small-profile-pic\"><img src=\"../static/img/profile/users/{$objFootprint->image_src}\" /></div>";
+            $sResult .= "        <div class=\"col col-xs-2 col-sm-2 small-profile-pic\"><img src=\"" . self::getProfilePictureURL($objFootprint->image_src) . "\" /></div>";
             $sResult .= "        <div class=\"col col-xs-9 col-sm-9\">";
             $sResult .= "            <div>";
             $sResult .= "                <span class=\"footprint__user\">{$objFootprint->full_name}</span> has been to <span class=\"glyphicon glyphicon-tree-deciduous ai-glyphicon\"></span> <a href=\"../park/?id={$objFootprint->parkId}\" alt='View park details' title='Click to view park details'><span class=\"footprint__park\">{$objFootprint->name}</span></a> <span title=\"{$objFootprint->date_visited}\">recently.</span>";
@@ -499,6 +500,21 @@ class Footprints
         $lstFootprints = $objPDOStatement->fetchAll(PDO::FETCH_OBJ);
 
         return $lstFootprints;
+    }
+
+    /**
+     * @param $sImageSource Image source stored in the database
+     * @return string Path to user's profile picture
+     */
+    public static function getProfilePictureURL($sImageSource) {
+        //if img src is from google+
+        if (substr($sImageSource, 0, 4) == 'http') {
+            return $sImageSource;
+        }
+        //if img is from local folder
+        else {
+            return "../static/img/profile/users/" . $sImageSource;
+        }
     }
 
 }
