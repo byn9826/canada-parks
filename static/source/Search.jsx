@@ -7,7 +7,8 @@ class Search extends Component {
 		this.state = {
             content: "",
             result: [[], [], []],
-            box: false
+            box: false,
+            hover: false
         };
 	}
     inputChange(e) {
@@ -29,7 +30,15 @@ class Search extends Component {
         }, 1000);
     }
     inputClose() {
-        this.setState({result: [[], [], []], box: false, content: ""});
+        if (!this.state.hover) {
+            this.setState({result: [[], [], []], box: false, content: ""});
+        }
+    }
+    keepShow() {
+        this.setState({hover: true});
+    }
+    leaveShow() {
+        this.setState({hover: false});
     }
 	render() {
         let matchParks = filterResult(this.state.result[0]);
@@ -38,8 +47,10 @@ class Search extends Component {
         if (matchParks.length > 0) {
             parks = matchParks.map((park, index) =>
                 <div key={"search-park" + index} className="search-park-result">
-                    <img src={park.banner} alt={park.name} />
-                    <h6>{park.name}</h6>
+                    <a href={this.props.route + "park/?id=" + park.id}>
+                        <img src={park.banner} alt={park.name} />
+                        <h6>{park.name}</h6>
+                    </a>
                 </div>
             );
         } else {
@@ -52,7 +63,9 @@ class Search extends Component {
         if (matchStory.length > 0) {
             storys = matchStory.map((story, index) =>
                 <div key={"search-story" + index} className="search-story-result">
-                    <h6>{story.user_story.substring(0,50) + "..."}</h6>
+                    <a href={this.props.route + "footprint/?uid=" + story.user_id + "&fid=" + story.footprint_id}>
+                        <h6>{story.user_story.substring(0,50) + "..."}</h6>
+                    </a>
                 </div>
             );
         } else {
@@ -65,7 +78,7 @@ class Search extends Component {
         let search;
         if (this.state.box) {
             search = (
-                <section id="search">
+                <section id="search" onMouseOver={this.keepShow.bind(this)} onMouseOut={this.leaveShow.bind(this)}>
                     <div className="search-park">
                         <h5>Your might interested in parks:</h5>
                         {parks}
