@@ -1,5 +1,5 @@
 <?php
-    require_once "header.php";
+
     require_once "model/database.php";
     require_once "model/admin.php";
     require_once "../lib/validation/fanta_valid.php";
@@ -7,7 +7,9 @@
     $id = "";
     $email = "";
     $pwd = "";
-
+if (!isset($_SESSION)){
+    session_start();
+}
     $id = $_SESSION["user_id"];
     $admin = AdminUser::findUserByID($db, $id);
     $email = $admin->user_email;
@@ -48,7 +50,7 @@
             }
         }
     }
-
+require_once "header.php";
 ?>
 
 <h1>Change User Password</h1>

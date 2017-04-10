@@ -71,7 +71,7 @@
         });
     });
 </script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <h1>Welcome to admin site of Canada National Park</h1>
 
 <div class="container">
@@ -135,6 +135,23 @@
             </tr>
             </thead>
             <tbody>
+            <script>
+                $(document).ready(function(){
+                    $('.deleteUser').click(function(){
+                        var theForm = $(this).parent();
+                        bootbox.confirm({
+                            size: "small",
+                            message: "Are you sure to delete the user?",
+                            callback: function(result){
+                                if (result){
+                                    theForm.submit();
+                                }
+                            }
+                        });
+                    });
+                });
+
+            </script>
             <?php
             if (isset($admins)){
                 foreach($admins as $admin) {
@@ -153,9 +170,11 @@
                               </form>";*/
                         //
                         echo "<form method='post' action='admin-delete.php'>
-                                        <input type='hidden' name='id' value='$admin->user_id'/>
-                                        <input class='btn btn-warning' type='submit' name='delete' value='Delete' onClick=\"javascript: return confirm('Do you really want to delete this user?');\"/>
-                                  </form>";
+                                <input type='hidden' name='id' value='$admin->user_id'/>
+                                <input class='btn btn-warning deleteUser' type='button' name='delete' value='Delete'/>        
+                              </form>";
+                        //<input class='btn btn-warning' type='submit' name='delete' value='Delete' onClick="javascript: return confirm('Do you really want to delete this user?');"/>
+
                         echo "<form method='post' action='admin-update-role.php'>
                                         <input type='hidden' name='id' value='$admin->user_id'/>
                                         <input class='btn btn-success' type='submit' name='privilege' value='Privilege'/>

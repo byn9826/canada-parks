@@ -53,6 +53,8 @@ if (empty($_SESSION))
             }
             else
             {
+                //var_dump($_SESSION);
+                //var_dump(sha1($password));
                 echo "<div style='position:relative;top:5em;' class=\"alert alert-danger\"> Invalid password for the username!</div>";
             }
 

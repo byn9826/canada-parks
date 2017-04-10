@@ -1,8 +1,14 @@
 <?php
-require_once "header.php";
+
 require_once "model/database.php";
 require_once "model/admin.php";
+if (empty($_SESSION))
+{
+    session_start();
+}
 $db = Database::getDB();
+
+
 ?>
 
 <div class="container" id="forgot-form">
@@ -36,4 +42,5 @@ if (isset($_POST['submit']))
         echo "<div class=\"alert alert-danger\"> Your email is not found!</div>";
     }
 }
+require_once "header.php";
 ?>

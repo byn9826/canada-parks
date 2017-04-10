@@ -77,7 +77,7 @@ if ($searchTerm != "")
                       </form>";*/
                 echo "<form method='post' action='admin-delete.php'>
                                         <input type='hidden' name='id' value='$admin->user_id'/>
-                                        <input class='btn btn-warning' type='submit' name='delete' value='Delete' onClick=\"javascript: return confirm('Do you really want to delete this user?');\"/>
+                                        <input class='btn btn-warning deleteUser' type='button' name='delete' value='Delete'/>
                                   </form>";
                 echo "<form method='post' action='admin-update-role.php'>
                                         <input type='hidden' name='id' value='$admin->user_id'/>
@@ -114,6 +114,19 @@ if ($searchTerm != "")
 
 <script>
     $(document).ready(function (){
+        $('.deleteUser').click(function(){
+            var theForm = $(this).parent();
+            bootbox.confirm({
+                size: "small",
+                message: "Are you sure to delete the user?",
+                callback: function(result){
+                    if (result){
+                        theForm.submit();
+                    }
+                }
+            });
+        });
+
         $("#totalNumber").val(<?php echo $totalNumber; ?>);
         //$(".pagination a:contains('Previous')").parent().addClass('disabled');
         $(".pagination a:contains('<?php echo (intval($offset)/10 + 1); ?>')").parent().addClass('active');

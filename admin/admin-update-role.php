@@ -5,7 +5,10 @@
  * Date: 3/15/2017
  * Time: 3:44 PM
  */
-require_once "header.php";
+if (empty($_SESSION))
+{
+    session_start();
+}
 require_once "model/database.php";
 require_once "model/admin.php";
 $db = Database::getDB();
@@ -81,5 +84,6 @@ if (isset($_POST["change"]))
 
 
 <?php
+require_once "header.php";
 require_once "footer.php";
 ?>

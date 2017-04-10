@@ -392,7 +392,7 @@ class AdminUser
     public static function deleteUserByID($db, $id){
         //$db = Database::getDB();
         try {
-            $query = "DELETE FROM user WHERE user_id = :id";
+            $query = "DELETE FROM user WHERE user_id = :id; DELETE FROM user_details WHERE user_id = :id;";
             $pdostament = $db->prepare($query);
             $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
             $row = $pdostament->execute();
