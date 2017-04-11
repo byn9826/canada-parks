@@ -1,14 +1,15 @@
 Group:
 1. Check all features functions, links
 2. Responsive
-3. Cleanup the DB (Duc stop messing with the data now)
+3. Cleanup the DB
 
 Paul:
 1. Seach feature (done)
-2. Homepage
-3. Homepage Links
-4. cleanup login signup functions
+2. Homepage(done)
+3. Homepage Links(done)
+4. cleanup login signup functions(done)
 5. customize error log
+6. homepage footprint list
 
 Irfaan:
 1. Delete a user's account (done)

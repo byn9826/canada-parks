@@ -1,3 +1,17 @@
+<?php
+//author : BAO
+
+//get db connection
+require_once('./lib/DatabaseAccess.php');
+$db = DatabaseAccess::getConnection();
+//Get header navigation names and links
+require_once($team_route_src . 'lib/globe/default.php');
+$globe = new Globe($db);
+$recommend_parks = $globe->getRecommend();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -18,18 +32,11 @@
 				<img id="banner-img" class="visible-lg visible-md visible-sm" alt="go to parks on map page" src="static/img/home/marvel.jpg" />
 				<!--Granted copyright by Paul-->
 				<h3 id="banner-list" class="visible-lg visible-md visible-sm">
-					Explore Marvel <br />
-					for your next trip
+					<a href="./parks">
+						Explore Marvel <br />
+						for your next trip
+					</a>
 				</h3>
-				<section class="section col-md-12 col-sm-12 col-xs-12">
-					<h3 class="col-md-12 col-sm-12 col-xs-12">
-						Make the best decision
-						<span class="section-icon glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
-					</h3>
-					<div class="col-md-12 col-sm-12 col-xs-12" style="height:300px">
-						<!--will import from compare page -->
-					</div>
-				</section>
 				<section class="section col-md-12 col-sm-12 col-xs-12">
 					<h3 class="col-md-12 col-sm-12 col-xs-12">
 						Parks You might like

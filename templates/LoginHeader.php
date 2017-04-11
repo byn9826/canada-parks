@@ -1,15 +1,9 @@
 <ul class="dropdown-menu">
-    <li><a>
-        Home
+    <li><a href="<?php echo $team_route_src . 'profile/'; ?>">
+        Profile
     </a></li>
-    <li><a>
-        My Profile
-    </a></li>
-    <li><a>
+    <li><a href="<?php echo $team_route_src . 'profile/settings.php'; ?>">
         Setting
-    </a></li>
-    <li><a>
-        Message Box
     </a></li>
     <li role="separator" class="divider"></li>
     <li>

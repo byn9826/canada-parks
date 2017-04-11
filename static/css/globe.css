@@ -114,8 +114,13 @@ a:hover{
 #login-error{
     display: block;
     margin-top: 10px;
-    margin-left: 4%;
+    margin-left: 8%;
+    margin-right: 8%;
     color: red;
+}
+
+#login-check{
+    margin-left: -15px;
 }
 
 #footer{
@@ -131,4 +136,8 @@ a:hover{
     vertical-align: middle;
     float: left;
     margin-left: 5%;
+}
+
+.dropdown-menu li{
+    text-align: center;
 }

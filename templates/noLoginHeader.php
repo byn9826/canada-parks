@@ -9,13 +9,13 @@
         <li>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" name="remember" value="true"> Remember me
+                    <input id="login-check" type="checkbox" name="remember" value="true"> Remember me
                 </label>
             </div>
         </li>
         <li>
             <h5 id="login-error">
-                <?php echo isset($login_error)? $login_error: 'Error message here'; ?>
+                <?php echo isset($login_error)? $login_error: ''; ?>
             </h5>
         </li>
         <li>
