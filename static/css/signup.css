@@ -73,3 +73,7 @@
 #repass{
     margin: 20px;
 }
+
+#change-message{
+    color: red;
+}

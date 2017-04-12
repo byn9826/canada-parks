@@ -1,5 +1,6 @@
 <?php
 	//author: Bao
+
 	//get email and token
 	if (isset($_SERVER["QUERY_STRING"]) && isset($_POST['change-password'])) {
 		//double check password format
@@ -14,20 +15,16 @@
 	        $email = substr($string, 0, $position);
 	        //get token
 	        $token = substr($string, $position + 20);
+			$password = sha1($password);
 			require_once('../lib/DatabaseAccess.php');
-			require_once('../lib/publicLogin/default.php');
+			require_once('../lib/account/default.php');
 			$db = DatabaseAccess::getConnection();
-			$publicLogin = new PublicLogin($db);
-			$result = $publicLogin->retrievePass($email, $password, $token);
-			if (!$result) {
+			$account = new Account($db);
+			$result = $account->retrievePass($email, $password, $token);
+			if ($result == '0') {
 				$error = 'Not a valid request';
 			} else {
-				if(!isset($_SESSION)){
-				    session_start();
-				}
-				$_SESSION['user_name'] = $result['user_name'];
-	            $_SESSION['user_id'] = $result['user_id'];
-				header('Location: ../');
+				$error = 'Success, please login';
 			}
 		}
 	}

@@ -17,22 +17,36 @@
             $db = DatabaseAccess::getConnection();
             $account = new Account($db);
             if (isset($_POST['valid-password'])) {
+                //there are more than 1 record in database already
                 //if user has been required to retype password, double check password
                 require_once('../lib/validation/fanta_valid.php');
         		$password = Fanta_Valid::sanitizeUserInput($_POST['valid-password']);
         		if (Fanta_Valid::isNullOrEmpty($password) || !count($password) === 32) {
         	        $error = 'Please enable javaScript';
         	    } else {
-                    require_once('../lib/publicLogin/default.php');
-                    $publicLogin = new PublicLogin($db);
-                    $result = $publicLogin->conflictValid($username, $email, $password, $string);
-                    if ($result === 0) {
-                        $message = "Can't update info right now, please try later!";
-                    } else {
-                        $message = "Email verified! Welcome, " . $result[0];
-                        session_start();
-                        $_SESSION['user_name'] = $result[0];
-                        $_SESSION['user_id'] = $result[1];
+                    //secure password
+                    $password = sha1($password);
+                    //delete all the related row first
+                    $delete = $account->deleteRecord($email);
+                    if ($delete == '0') {
+    					//db error
+    					$message = 'Something wrong, please try again';
+    				} else {
+                        $reg = date('Y-m-d H:i:s');
+                        //delete success insert new row into user and user detail table
+                        $create = $account->createRecord($username, $password, $email, $reg, 1, null);
+            			if ($create == '0') {
+            				//db error
+            				$message = 'Something wrong, please try again';
+            			} else {
+                            $id = intval($create);
+            				$detail = $account->createDetail($id, $username, $reg, 'default.png');
+                            //verify success login
+                            $message = "Email verified! Welcome, " . $username;
+                            session_start();
+                            $_SESSION['user_name'] = $username;
+                            $_SESSION['user_id'] = $id;
+                        }
                     }
                 }
             } else {

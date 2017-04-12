@@ -150,4 +150,40 @@ class Account {
         }
     }
 
+    //create forget token for user find password back
+    public function setForget($token, $email) {
+        $query1 = 'UPDATE user SET forget_token = :string WHERE user_email = :email';
+        try {
+            $pdostmt1 = $this->db->prepare($query1);
+            $pdostmt1->bindValue(':string', $token, PDO::PARAM_STR);
+            $pdostmt1->bindValue(':email', $email, PDO::PARAM_STR);
+            $this->db->beginTransaction();
+            $pdostmt1->execute();
+            $this->db->commit();
+            return '1';
+        } catch(PDOExecption $e) {
+            $this->db->rollback();
+            return '0';
+        }
+    }
+
+
+    //retrieve password
+    public function retrievePass($email, $password, $token){
+        $query = 'UPDATE user SET user_password = :password, forget_token = NULL WHERE user_email = :email AND forget_token = :token';
+        try {
+            $pdostmt = $this->db->prepare($query);
+            $pdostmt->bindValue(':password', $password, PDO::PARAM_STR);
+            $pdostmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $pdostmt->bindValue(':token', $token, PDO::PARAM_STR);
+            $this->db->beginTransaction();
+            $pdostmt->execute();
+            $this->db->commit();
+            return '1';
+        } catch(PDOExecption $e) {
+            $this->db->rollback();
+            return '0';
+        }
+    }
+
 }
