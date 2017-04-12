@@ -8,6 +8,12 @@ require_once('./lib/globe/default.php');
 $globe = new Globe($db);
 //get highest three parks
 $recommend_parks = $globe->getRecommend();
+
+//require_once 'lib/profile/manageFootprints.php';
+require_once 'lib/globe/footprint.php';
+
+$objFootprints = new Footprints($db);
+$lstFootprints = $objFootprints->GetFootprintsDetails();
 ?>
 
 
@@ -21,6 +27,11 @@ $recommend_parks = $globe->getRecommend();
 		<meta name="author" content="Bao">
 		<title>Marvel Canada</title>
         <link href="static/css/home.css" rel="stylesheet" type="text/css">
+		<link href="static/css/footprints.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="lib/profile/owl.carousel.min.css">
+        <link rel="stylesheet" href="lib/profile/owl.theme.default.min.css">
+		<script src="lib/profile/owl.carousel.js"></script>
+
 		<!-- rate plugin from http://rateyo.fundoocode.ninja/ -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.2.0/jquery.rateyo.min.css">
 		<!-- rate plugin from http://rateyo.fundoocode.ninja/ -->
@@ -80,11 +91,17 @@ $recommend_parks = $globe->getRecommend();
 						Marvels around Canada
 						<span class="section-icon glyphicon glyphicon-triangle-right" aria-hidden="true"></span>
 					</h3>
+					<section id="home-footprint">
+						<?php
+							echo Footprints::ConstructFootprintItems($lstFootprints, true, false);
+						?>
+					</section>
 				</section>
             </main>
 			<?php
 				include "templates/footer.php";
 			?>
         </div>
+		<script src="static/js/home.js"></script>
 	</body>
 </html>

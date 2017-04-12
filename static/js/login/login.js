@@ -58,8 +58,6 @@ function onSignIn(googleUser) {
                     window.location = document.getElementById("js-team-route").innerHTML;
                 } else if (result == 'failed') {
                     $("#login").val("Something Wrong");
-                } else {
-                    console.log(result);
                 }
             }
         });
@@ -122,7 +120,7 @@ $(document).ready(function () {
                 client_id: "168098850234-7ouvsm9ikqj9g77u623o5754kdp1t62c.apps.googleusercontent.com"
             }).then(function(auth2) {
                 auth2.signOut().then(function () {
-                  console.log('User signed out.');
+                    //console.log('User signed out.');
                 });
             });
         });
