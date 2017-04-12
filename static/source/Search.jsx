@@ -78,7 +78,7 @@ class Search extends Component {
         let search;
         if (this.state.box) {
             search = (
-                <section id="search" onMouseOver={this.keepShow.bind(this)} onMouseOut={this.leaveShow.bind(this)}>
+                <section id="header-search" onMouseOver={this.keepShow.bind(this)} onMouseOut={this.leaveShow.bind(this)}>
                     <div className="search-park">
                         <h5>Your might interested in parks:</h5>
                         {parks}
