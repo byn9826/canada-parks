@@ -20,6 +20,83 @@ class Account {
         return $pdostmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    //change email valid field to valid for valid email page
+    public function validEmail($email, $name) {
+        $uQuery = 'Update user SET email_valid = 1 WHERE user_name = :username AND user_email = :email';
+        try {
+            $uPdostmt = $this->db->prepare($uQuery);
+            $uPdostmt->bindValue(':username', $name, PDO::PARAM_STR);
+            $uPdostmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $this->db->beginTransaction();
+            $uPdostmt->execute();
+            $this->db->commit();
+            return '1';
+        } catch(PDOExecption $e) {
+            $this->db->rollback();
+            return '0';
+        }
+    }
+
+    //create a record for success signup before email valid
+    public function createRecord($name, $password, $email, $reg, $encrypted, $google) {
+        //create new row into user
+        $upQuery = 'INSERT INTO user (user_name, user_password, user_email, user_reg, accept_term, email_valid, google_id)
+                    VALUES (:name, :password, :email, :reg, 1, :valid, :google)';
+        try {
+            $upPdostmt = $this->db->prepare($upQuery);
+            $upPdostmt->bindValue(':name', $name, PDO::PARAM_STR);
+            $upPdostmt->bindValue(':password', $password, PDO::PARAM_STR);
+            $upPdostmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $upPdostmt->bindValue(':reg', $reg);
+            $upPdostmt->bindValue(':valid', $encrypted, PDO::PARAM_STR);
+            $upPdostmt->bindValue(':google', $google);
+            $this->db->beginTransaction();
+            $upPdostmt->execute();
+            $id = $this->db->lastInsertId();
+            $this->db->commit();
+            return $id;
+        } catch(PDOExecption $e) {
+            $this->db->rollback();
+            return '0';
+        }
+    }
+
+    //delete all related record for one email address
+    public function deleteRecord($email) {
+        $delQuery = 'DELETE FROM user WHERE user_email = :email';
+        try {
+            $delPdostmt = $this->db->prepare($delQuery);
+            $delPdostmt->bindValue(':email', $email, PDO::PARAM_STR);
+            $this->db->beginTransaction();
+            $delPdostmt->execute();
+            $this->db->commit();
+            return '1';
+        } catch(PDOExecption $e) {
+            $this->db->rollback();
+            return '0';
+        }
+    }
+
+    //insert into user detail for valid account
+    public function createDetail($id, $name, $reg, $image) {
+        $sQuery = 'INSERT INTO user_details (user_id, first_name, joined_on, image_src)
+                              VALUES (:user_id, :first_name, :joined_on, :image_src)';
+        try {
+            $PDOStmt2 = $this->db->prepare($sQuery);
+            $PDOStmt2->bindValue(':user_id', $id, PDO::PARAM_INT);
+            $PDOStmt2->bindValue(':first_name', $name, PDO::PARAM_STR);
+            $PDOStmt2->bindValue(':joined_on', $reg);
+            $PDOStmt2->bindValue(':image_src', $image, PDO::PARAM_STR);
+            $this->db->beginTransaction();
+            $PDOStmt2->execute();
+            $this->db->commit();
+            return '1';
+        } catch(PDOExecption $e) {
+            $this->db->rollback();
+            return '0';
+        }
+    }
+
     //link google id with current account
     public function linkGoogle($id, $email) {
         $query1 = 'UPDATE user SET google_id = :google WHERE user_email = :email AND email_valid = 1';

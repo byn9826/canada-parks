@@ -1,5 +1,6 @@
 <?php
 //author: Bao
+//get email name from query string
 $string = htmlspecialchars(str_replace("email=","",$_SERVER["QUERY_STRING"]));
 $position = strpos($string, htmlspecialchars('&name='));
 $email = substr($string, 0, $position);

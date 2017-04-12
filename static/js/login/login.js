@@ -135,7 +135,7 @@ $(document).ready(function () {
             var email = $("#hide-email").val();
             $.ajax({
                 type: "POST",
-                url: '../lib/publicLogin/sendVerify.php',
+                url: './api.php',
                 data: {name: name, email: email},
                 success: function (result) {
                     $("#confirm-resend").text(result);
