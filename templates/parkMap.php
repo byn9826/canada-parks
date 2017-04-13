@@ -1,5 +1,8 @@
-<div id="map-container" class="col-xs-12 col-sm-8"></div>
-<div id="direction" class="col-xs-12 col-sm-4">
+<?php
+/*Author Sam*/
+?>
+<div id="map-container" class="col-xs-12 col-sm-12"></div>
+<div id="direction">
     <div class="panel panel-primary">
         <div class="panel-heading">Directions</div>
         <div class="panel-body">

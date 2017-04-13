@@ -1,3 +1,6 @@
+<?php
+/*Author Sam*/
+?>
 <form id="search" class="form-inline" method="GET" action="../parks">
     <div class="form-group">
         <label for="name">Name</label>
@@ -16,6 +19,6 @@
         <input type="submit" class="btn btn-success" value="Search"/>
     </div>
     <div class="form-group">
-        <a href="/parks" class="btn btn-primary">Reset</a>
+        <a href="/parks" class="btn btn-danger">Reset</a>
     </div>
 </form>
