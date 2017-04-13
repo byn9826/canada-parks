@@ -23,7 +23,6 @@ class Attitude extends Component {
         	method: "POST",
         	data: {"newRate": rateNum, "parkId1": this.props.parkId},
         	success: function(result) {
-                console.log(result);
                 if (result == 1) {
                     let newAll = rateNum - this.state.userRate + this.state.allRate;
                     if (this.state.userRate) {
