@@ -112,3 +112,11 @@ h1, h2 {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+/*and (min-width: 481px)*/
+@media all and (max-width: 768px) {
+    #result table thead tr th:nth-child(1),#result table tbody tr td:nth-child(1),
+    #result table thead tr th:nth-child(3),#result table tbody tr td:nth-child(3),
+    #result table thead tr th:nth-child(4),#result table tbody tr td:nth-child(4){
+        display: none;
+    }
+}
