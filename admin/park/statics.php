@@ -15,6 +15,7 @@ $footprints = $parkRepository->getFootprintStatic();
 			$team_route_custom = "../../";
 			include "../../templates/meta.php";
 		?>
+		<link rel="stylesheet" href="../../static/css/admin.css" type="text/css" />
 		<title>Park List Admin</title>
     </head>
     <body>
