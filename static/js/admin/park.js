@@ -84,7 +84,7 @@ function renderPhoto(photos) {
     } else {
         var photosHTML = '';
         photos.map(function(photo) {
-            var photoUrl = photo.getUrl({'maxWidth': 400, 'maxHeight': 300});
+            var photoUrl = photo.getUrl({'maxWidth': 1200, 'maxHeight': 1200});
             var photoHTML = '<img class="col-md-3 park-banner" src="' + photoUrl + '" />';
             photosHTML += photoHTML;
         });

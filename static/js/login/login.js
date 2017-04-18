@@ -31,7 +31,7 @@ function validateEmail(email) {
 }
 
 //change login status when users submit login request
-if ($("#login-error").html() && $("#login-error").html().trim() !== "Error message here") {
+if ($("#login-error").html() && $("#login-error").html().trim() !== "") {
     $("#login-dropdowm").click();
 }
 
@@ -42,8 +42,6 @@ function onSignIn(googleUser) {
     if (googleLogin === 1) {
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log("Image URL: " + profile.getImageUrl());
         // The ID token you need to pass to your backend:
         var id_token = googleUser.getAuthResponse().id_token;
         var user_email = profile.getEmail();
@@ -51,17 +49,15 @@ function onSignIn(googleUser) {
         var google_profile = profile.getImageUrl();
         $.ajax({
             type: "POST",
-            url: window.location.origin + '/canada-parks' + '/lib/publicLogin/googleLogin.php',
+            url: window.location.origin + '/canada-parks' + '/lib/account/handler.php',
             data: {id: id_token, email: user_email, name: user_name, profile: google_profile},
             success: function (result) {
                 if (result == 'create') {
-                    window.location = window.location.origin + '/canada-parks' + '/signup/';
+                    window.location = document.getElementById("js-team-route").innerHTML + '/signup/';
                 } else if (result == 'success') {
-                    window.location = window.location.origin + '/canada-parks';
+                    window.location = document.getElementById("js-team-route").innerHTML;
                 } else if (result == 'failed') {
                     $("#login").val("Something Wrong");
-                } else {
-                    console.log(result);
                 }
             }
         });
@@ -124,7 +120,7 @@ $(document).ready(function () {
                 client_id: "168098850234-7ouvsm9ikqj9g77u623o5754kdp1t62c.apps.googleusercontent.com"
             }).then(function(auth2) {
                 auth2.signOut().then(function () {
-                  console.log('User signed out.');
+                    //console.log('User signed out.');
                 });
             });
         });
@@ -137,7 +133,7 @@ $(document).ready(function () {
             var email = $("#hide-email").val();
             $.ajax({
                 type: "POST",
-                url: '../lib/publicLogin/sendVerify.php',
+                url: './api.php',
                 data: {name: name, email: email},
                 success: function (result) {
                     $("#confirm-resend").text(result);

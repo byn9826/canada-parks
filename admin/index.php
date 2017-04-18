@@ -1,5 +1,5 @@
 <?php
-require_once "header.php";
+//require_once "header.php";
 require_once "model/database.php";
 require_once "model/admin.php";
 /*
@@ -9,10 +9,15 @@ require_once "model/admin.php";
  *      duc - user
  * pass: 123123123
  * */
-
+if (empty($_SESSION))
+{
+    session_start();
+}
 //var_dump($_SESSION);
-
+    $db = Database::getDB();
     if (isset($_SESSION["user_name"])){
+        $_SESSION["role_id"] = (AdminUser::findUserByUsername($db, $_SESSION["user_name"]))->role_id;
+        $_SESSION["user_id"] = (AdminUser::findUserByUsername($db, $_SESSION["user_name"]))->user_id;
         header("Location: admin-list.php");
     }
     else
@@ -23,7 +28,7 @@ require_once "model/admin.php";
             $username = $_POST["username"];
             $password = $_POST["pwd"];
 
-            $currentUser = AdminUser::findUserByUsername($username);
+            $currentUser = AdminUser::findUserByUsername($db, $username);
             if (is_null($currentUser) || !isset($currentUser) || $currentUser == false)
             {
                 echo "<div class=\"alert alert-danger\"> No username found!</div>";
@@ -34,21 +39,23 @@ require_once "model/admin.php";
                 $_SESSION["user_id"] = $currentUser->user_id;
                 $_SESSION["user_name"] = $currentUser->user_name;
                 $_SESSION["role_id"] = $currentUser->role_id;
-                AdminUser::updateUserStatus($currentUser);
+                //AdminUser::updateUserStatus($currentUser);
                 //var_dump($_SESSION["user_name"]);
                 header("Location: admin-list.php");
             }
             elseif ($currentUser->role_id == 0)
             {
-                echo "<div class=\"alert alert-danger\"> This account does not have privilege to access admin page. Please contact admin for further information.</div>";
+                echo "<div style='position:relative;top:5em;' class=\"alert alert-danger\"> This account does not have privilege to access admin page. Please contact admin for further information.</div>";
             }
             elseif ($currentUser->user_status == 1)
             {
-                echo "<div class=\"alert alert-danger\"> The username is already logged in our website!</div>";
+                echo "<div style='position:relative;top:5em;' class=\"alert alert-danger\"> The username is already logged in our website!</div>";
             }
             else
             {
-                echo "<div class=\"alert alert-danger\"> Invalid password for the username!</div>";
+                //var_dump($_SESSION);
+                //var_dump(sha1($password));
+                echo "<div style='position:relative;top:5em;' class=\"alert alert-danger\"> Invalid password for the username!</div>";
             }
 
         }
@@ -66,7 +73,7 @@ require_once "model/admin.php";
         <meta name="author" content="Duc Nguyen"/>
         <title>Admin page</title>
         <?php
-            include_once "header.php";
+            require_once "header.php";
         ?>
     </head>
     <body>

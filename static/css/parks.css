@@ -51,22 +51,34 @@
     width: 100%;
 }
 
-#map {
-    width: 100%;
-    height: 500px;
+#compare-parks-box {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 0;
+    min-width: 300px;
 }
 
-#park-compare .row {
+#direction {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#map {
+    position: relative;
+}
+
+#map-container {
+    width: 100%;
+    height: 600px;
+}
+
+#park-compare .panel {
     margin-top: 30px
 }
 
 #park-compare .name {
     height: 60px;
-}
-
-#park-compare h3 {
-    border-bottom: 1px solid #000000;
-    margin-bottom: 10px;
 }
 
 button.parkToWishlist {

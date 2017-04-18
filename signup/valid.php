@@ -1,6 +1,6 @@
 <?php
 //author: Bao
-    //Only have meaning to url contain query string
+    //Only response to url contain query string
     if (isset($_SERVER["QUERY_STRING"])) {
         $string = htmlspecialchars($_SERVER["QUERY_STRING"]);
         //get origin string
@@ -13,48 +13,78 @@
         $email = substr($decrypted, $position + 12);
         if ($position > 0) {
             require_once('../lib/DatabaseAccess.php');
-            require_once('../lib/publicLogin/default.php');
+            require_once('../lib/account/default.php');
             $db = DatabaseAccess::getConnection();
-            $publicLogin = new PublicLogin($db);
+            $account = new Account($db);
             if (isset($_POST['valid-password'])) {
-                //double check password
+                //there are more than 1 record in database already
+                //if user has been required to retype password, double check password
                 require_once('../lib/validation/fanta_valid.php');
         		$password = Fanta_Valid::sanitizeUserInput($_POST['valid-password']);
         		if (Fanta_Valid::isNullOrEmpty($password) || !count($password) === 32) {
         	        $error = 'Please enable javaScript';
         	    } else {
-                    $result = $publicLogin->conflictValid($username, $email, $password, $string);
-                    if ($result === 0) {
-                        $message = "Can't update info right now, please try later!";
-                    } else {
-                        $message = "Email verified! Welcome, " . $result[0];
-                        session_start();
-                        $_SESSION['user_name'] = $result[0];
-                        $_SESSION['user_id'] = $result[1];
+                    //secure password
+                    $password = sha1($password);
+                    //delete all the related row first
+                    $delete = $account->deleteRecord($email);
+                    if ($delete == '0') {
+    					//db error
+    					$message = 'Something wrong, please try again';
+    				} else {
+                        $reg = date('Y-m-d H:i:s');
+                        //delete success insert new row into user and user detail table
+                        $create = $account->createRecord($username, $password, $email, $reg, 1, null);
+            			if ($create == '0') {
+            				//db error
+            				$message = 'Something wrong, please try again';
+            			} else {
+                            $id = intval($create);
+            				$detail = $account->createDetail($id, $username, $reg, 'default.png');
+                            //verify success login
+                            $message = "Email verified! Welcome, " . $username;
+                            session_start();
+                            $_SESSION['user_name'] = $username;
+                            $_SESSION['user_id'] = $id;
+                        }
                     }
                 }
             } else {
-                $result = $publicLogin->verifyEmail($username, $email, $string);
-                if (!$result) {
+                //users go to this page, verify everything by default
+                //search all related records to this email first
+                $records = $account->searchEmails($email);
+                //no record exist, not a valid requst
+                if (count($records) == 0) {
                     $message = "Account doesn't exist";
-                } else if ($result === 1) {
-                    $message = "Email already verified before!";
-                    session_start();
-                    $_SESSION['user_name'] = $result['user_name'];
-                    $_SESSION['user_id'] = $result['user_id'];
-                } else if ($result === 0) {
-                    $message = "Can't update info right now, please try later!";
-                } else if ($result ===3) {
+                } else if (count($records) == 1) {
+                    if ($records[0]['email_valid'] == '1') {
+                        //if email already valid, login user
+                        $message = "Email already verified before!";
+                        session_start();
+                        $_SESSION['user_name'] = $records[0]['user_name'];
+                        $_SESSION['user_id'] = $records[0]['user_id'];
+                    } else {
+                        //if email not valid, valid email first
+                        $valid = $account->validEmail($email, $username);
+                        if ($valid == '0') {
+                            $message = "Can't update info right now, please try later!";
+                        } else {
+                            $id = $records[0]['user_id'];
+                            $reg = date('Y-m-d H:i:s');
+                            //insert into user detail table for email valid
+                            $detail = $account->createDetail($id, $username, $reg, 'default.png');
+                            $message = "Email verified! Welcome, " . $records[0]['user_name'];
+                            //verify success,login
+                            session_start();
+                            $_SESSION['user_name'] = $records[0]['user_name'];
+                            $_SESSION['user_id'] = $records[0]['user_id'];
+                        }
+                    }
+                } else {
+                    //if several record exist, force password change
                     $message = "Change your password for secure concern";
                 }
-                else {
-                    $message = "Email verified! Welcome, " . $result['user_name'];
-                    session_start();
-                    $_SESSION['user_name'] = $result['user_name'];
-                    $_SESSION['user_id'] = $result['user_id'];
-                }
             }
-
         }
     }
 ?>
@@ -76,7 +106,7 @@
 			?>
             <main id="main" class="row">
 				<section id="signup" class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-                    <?php if ($result != 3) { ?>
+                    <?php if ($message != 'Change your password for secure concern') { ?>
                         <h2>
                             <?php
                                 //show error if the link doesn't contain email and username information

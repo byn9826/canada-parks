@@ -9,7 +9,7 @@
         {
             background:#fff;
         }
-        img
+        .temporary img
         {
             width:auto;
             box-shadow:0px 0px 20px #cecece;
@@ -21,7 +21,7 @@
             -ms-transform: scale(0.7);
             -ms-transition-duration: 0.6s;
         }
-        img:hover
+        .temporary img:hover
         {
             box-shadow: 20px 20px 20px #dcdcdc;
             -moz-transform: scale(0.8);
@@ -62,9 +62,6 @@
     ?>
     <a><img src="<?php echo $folder_path . $gallery["src"]; ?>"  height="250" /></a>
     <?php } ?>
-
-
-
 </div>
 </body>
 </html>

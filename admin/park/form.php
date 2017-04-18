@@ -37,9 +37,12 @@ if (isset($_GET["id"])) {
 			include "../../templates/meta.php";
 		?>
 		<link rel="stylesheet" href="../../static/css/admin.css" type="text/css" />
-		<title>Edit Park</title>
+		<title><?=$_GET["action"]?> Park</title>
     </head>
     <body>
+        <?php
+        include "../navigation.php";
+        ?>
         <div class="container">
             <a class="btn btn-default" href="index.php" role="button">Back to Park List</a>
             <h1 class="text-center"><?=$_GET["action"]?> Park</h1>
@@ -68,8 +71,8 @@ if (isset($_GET["id"])) {
                     </div>
                     
                     <div class="form-group">
-                        <!--<label for="upload">Upload banner</label>-->
-                        <!--<input type="file" class="form-control" id="upload" name="upload" />-->
+                        <label for="upload">Upload banner</label>
+                        <input type="file" class="form-control" id="upload" name="upload" />
                         <label for="banner">Use url banner</label>
                         <input type="text" class="form-control" id="banner" name="banner" value="<?=isset($park["banner"]) ? $park["banner"] : "" ?>">
                         <button id="pullPhotosFromGoogle" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Select banner from Google</button>
@@ -80,7 +83,7 @@ if (isset($_GET["id"])) {
                     
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea class="form-control" name="description" id="description"></textarea>
+                        <textarea class="form-control" name="description" id="description"><?=$park["description"]?></textarea>
                     </div>
                     
                     <div class="form-group">

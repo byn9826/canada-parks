@@ -8,49 +8,88 @@ class ParkRepository {
     public function __construct($db) {
         $this->db = $db;
     }
-    
-    public function getParks($name = "", $province = "") {
-        $sql = "SELECT * FROM park";
+
+    public function getParks($page = "all", $name = "", $province = "") {
+        $sql = "SELECT id, name, banner, province, latitude, longitude FROM park";
         $pdostmt = $this->db->prepare($sql);
-        
+
         if (!empty($name)) {
-            $sql = "SELECT * FROM park WHERE name LIKE :name";
+            $sql = $sql . " WHERE name LIKE :name";
         }
-        
+
         if (!empty($province)) {
-            $sql = "SELECT * FROM park WHERE province_code = :province";
+            $sql = $sql . " WHERE province_code = :province";
         }
-        
+
         if (!empty($name) && !empty($province)) {
-            $sql = "SELECT * FROM park WHERE name LIKE :name AND province_code = :province";
+            $sql = $sql . " WHERE name LIKE :name AND province_code = :province";
         }
         
+        if ($page != "all") {
+            $limit = 10;
+            $offset = ($page - 1)  * $limit;
+            $sql = $sql . " LIMIT :limit OFFSET :offset";
+        }
+
         $pdostmt = $this->db->prepare($sql);
+        
+        
         if (!empty($name)) {
             $name = "%" . $name . "%";
             $pdostmt->bindValue(":name", $name, PDO::PARAM_STR);
         }
-        
+
         if (!empty($province)) {
             $pdostmt->bindValue(":province", $province, PDO::PARAM_STR);
         }
+        
+        if ($page != "all") {
+            $pdostmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+            $pdostmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+        }
+        
         $pdostmt->execute();
-        return $pdostmt->fetchAll();
+        $result = $pdostmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
     
+    public function getTotalParks() {
+        $sql = "SELECT COUNT(*) FROM park";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->execute();
+        $result = $pdostmt->fetchColumn();
+        return $result;
+    }
+
     public function getProvinces() {
         $sql = "SELECT DISTINCT(province), province_code FROM park";
         $pdostmt = $this->db->prepare($sql);
         $pdostmt->execute();
-        return $pdostmt->fetchAll();
+        return $pdostmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+
     public function getPark($id) {
-        $sql = "SELECT * FROM park WHERE id = :id";
+        $sql = "SELECT *
+                FROM park
+                WHERE park.id = :id";
         $pdostmt = $this->db->prepare($sql);
         $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
         $pdostmt->execute();
-        return $pdostmt->fetch();
+        $park = $pdostmt->fetch(PDO::FETCH_ASSOC);
+        // print_r($pdostmt->errorInfo());
+        // die;
+        $park['rating'] = $this->getRatingForPark($id);
+        $park['footprints'] = $this->getFootPrintsForPark($id);
+        return $park;
+    }
+    
+    public function getRatingForPark($id) {
+        $sql = "SELECT AVG(attitude_rate) AS rating FROM attitude WHERE park_id = :id";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
+        $pdostmt->execute();
+        $result = $pdostmt->fetch(PDO::FETCH_ASSOC);
+        return $result['rating'];
     }
 
     public function getParkGallery($id){
@@ -61,38 +100,47 @@ class ParkRepository {
         return $pdostmt->fetchAll();
     }
     
+    public function getFootPrintsForPark($id) {
+        $sql = "SELECT COUNT(*) AS footprint FROM footprints WHERE park_id = :id";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
+        $pdostmt->execute();
+        $result = $pdostmt->fetch(PDO::FETCH_ASSOC);
+        return $result['footprint'];
+    }
+
     public function addPark($park, $upload) {
-        
-        $sql = "INSERT INTO park (google_place_id, name, banner, description, address, province, province_code, country, country_code, postal_code, latitude, longitude, phone_number, rating, website)" . 
+
+        $sql = "INSERT INTO park (google_place_id, name, banner, description, address, province, province_code, country, country_code, postal_code, latitude, longitude, phone_number, rating, website)" .
         "VALUES ( :google_place_id, :name, :banner, :description, :address, :province, :province_code, :country, :country_code, :postal_code, :latitude, :longitude, :phone_number, 0.0, :website)";
 
         return $this->parkOperation($park, $upload, $sql);
 
     }
-    
+
     public function updatePark($park, $upload) {
 
-        $sql = "UPDATE park SET 
+        $sql = "UPDATE park SET
             google_place_id = :google_place_id,
-            name = :name, 
+            name = :name,
             banner = :banner,
-            address = :address, 
+            address = :address,
             description = :description,
-            province = :province, 
-            province_code = :province_code, 
-            country = :country, 
-            country_code = :country_code, 
+            province = :province,
+            province_code = :province_code,
+            country = :country,
+            country_code = :country_code,
             postal_code = :postal_code,
-            latitude = :latitude, 
-            longitude = :longitude, 
+            latitude = :latitude,
+            longitude = :longitude,
             phone_number = :phone_number,
-            website = :website 
+            website = :website
         WHERE id = :id ";
-        
+
         return $this->parkOperation($park, $upload, $sql);
 
     }
-    
+
     public function parkOperation($park, $upload, $sql) {
         if (isset($park["id"])) {
             $id = $park["id"];
@@ -111,12 +159,12 @@ class ParkRepository {
         $longitude = $park["longitude"];
         $phone_number = $park["phone_number"];
         $website = $park["website"];
-        
+
         if (isset($upload["name"]) && !empty($upload["name"])) {
             $u = new Upload();
             $banner = $u->toServer($upload);
         }
-        
+
         $pdostmt = $this->db->prepare($sql);
 
         if (isset($id)) {
@@ -146,6 +194,14 @@ class ParkRepository {
         }
     }
     
+    public function deletePark($id) {
+        $sql = "DELETE FROM park WHERE id = :id";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
+        $pdostmt->execute();
+        return array("code" => 200, "msg" => "success");
+    }
+
     public function getNumParksWithProvince() {
         $sql = "SELECT COUNT(*) as y, province FROM park GROUP BY province";
         $pdostmt = $this->db->prepare($sql);
@@ -160,7 +216,7 @@ class ParkRepository {
         }
         return $result;
     }
-    
+
     public function getFootprintStatic() {
         $sql = "SELECT COUNT(user_id) as num_user, park.name FROM footprints JOIN park WHERE park.id = footprints.park_id GROUP BY footprints.park_id";
         $pdostmt = $this->db->prepare($sql);
@@ -174,7 +230,7 @@ class ParkRepository {
             );
         }
         return $result;
-        
+
     }
 
     public static function getParksForDropDown($objConnection) {

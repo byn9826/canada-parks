@@ -98,8 +98,8 @@ class AdminUser
         $this->setUserPassword(sha1($myPassword));
     }
 
-    public static function getAllUsers($id){
-        $db = Database::getDB();
+    public static function getAllUsers($db, $id){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM user WHERE user_id != :user_id ORDER BY role_id DESC";
             $pdostament = $db->prepare($query);
@@ -115,8 +115,26 @@ class AdminUser
         }
     }
 
-    public static function getAllRoles(){
-        $db = Database::getDB();
+    public static function getAllUsersWithPagination($db, $id, $offset = 0){ // offset should go 0, 10, 20, 30 ... cause we show 10 per time
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT * FROM user WHERE user_id != :user_id ORDER BY role_id DESC LIMIT 10 OFFSET :offset";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':user_id', $id, PDO::PARAM_INT);
+            $pdostament->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $pdostament->execute();
+            $userArr = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            //var_dump($userArr);
+            return $userArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getAllRoles($db){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM role";
             $pdostament = $db->prepare($query);
@@ -150,8 +168,8 @@ class AdminUser
         }
     }*/
 
-    public static function updateUserRole($id, $roleId){
-        $db = Database::getDB();
+    public static function updateUserRole($db, $id, $roleId){
+        //$db = Database::getDB();
         try {
             $query = "UPDATE user SET role_id = :role_id WHERE user_id = :id";
             $pdostament = $db->prepare($query);
@@ -167,8 +185,8 @@ class AdminUser
     }
 
 
-    public static function updateUserStatus($user){
-        $db = Database::getDB();
+    public static function updateUserStatus($db, $user){
+        //$db = Database::getDB();
         try {
             $query = "UPDATE user SET user_status = :status WHERE user_id = :id";
             $pdostament = $db->prepare($query);
@@ -186,8 +204,8 @@ class AdminUser
         }
     }
 
-    public static function updatePassword($id, $email, $password){
-        $db = Database::getDB();
+    public static function updatePassword($db, $id, $email, $password){
+        //$db = Database::getDB();
         try {
             $query = "UPDATE user SET user_password = :password WHERE user_id = :id AND user_email = :email";
             $pdostament = $db->prepare($query);
@@ -203,12 +221,13 @@ class AdminUser
         }
     }
 
-    public static function searchUsersByEmailOrUsername($term){
-        $db = Database::getDB();
+    public static function searchUsersByEmailOrUsername($db, $user_id, $term){
+        //$db = Database::getDB();
         try {
-            $query = "SELECT * FROM user WHERE user_email LIKE :term OR user_name LIKE :term ORDER BY role_id DESC";
+            $query = "SELECT * FROM user WHERE (user_email LIKE :term OR user_name LIKE :term) AND user_id != :user_id ORDER BY role_id DESC";
             $pdostament = $db->prepare($query);
             $pdostament->bindValue(':term', '%' . $term . '%', PDO::PARAM_STR);
+            $pdostament->bindValue(':user_id', $user_id, PDO::PARAM_INT);
             $pdostament->execute();
             $userArr = $pdostament->fetchAll(PDO::FETCH_OBJ);
             return $userArr;
@@ -219,8 +238,28 @@ class AdminUser
         }
     }
 
-    public static function findUserByID($id){
-        $db = Database::getDB();
+    public static function searchUsersWithTermAndPagination($db, $user_id, $term, $offset = 0){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT * FROM user WHERE (user_email LIKE :term OR user_name LIKE :term) AND user_id != :user_id ORDER BY role_id DESC LIMIT 10 OFFSET :offset";
+            //$query = "SELECT u.*, r.role_name FROM user u JOIN role r on r.role_id = u.role_id  WHERE (user_email LIKE :term OR user_name LIKE :term OR role_name LIKE :term) AND user_id != :user_id ORDER BY role_id DESC LIMIT 10 OFFSET :offset";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':term', '%' . $term . '%', PDO::PARAM_STR);
+            $pdostament->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $pdostament->bindValue(':offset', intval($offset), PDO::PARAM_INT);
+            //var_dump($pdostament);
+            $pdostament->execute();
+            $userArr = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $userArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function findUserByID($db, $id){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM user WHERE user_id = :id";
             $pdostament = $db->prepare($query);
@@ -235,8 +274,8 @@ class AdminUser
         }
     }
 
-    public static function findUserByUsername($username){
-        $db = Database::getDB();
+    public static function findUserByUsername($db, $username){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM user WHERE user_name = :username";
             $pdostament = $db->prepare($query);
@@ -251,8 +290,8 @@ class AdminUser
         }
     }
 
-    public static function findUserByEmail($email){
-        $db = Database::getDB();
+    public static function findUserByEmail($db, $email){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM user WHERE user_email = :email";
             $pdostament = $db->prepare($query);
@@ -267,8 +306,8 @@ class AdminUser
         }
     }
 
-    public static function findRoleNameByRoleID($roleId){
-        $db = Database::getDB();
+    public static function findRoleNameByRoleID($db, $roleId){
+        //$db = Database::getDB();
         try {
             $query = "SELECT * FROM role WHERE role_id = :id";
             $pdostament = $db->prepare($query);
@@ -283,8 +322,8 @@ class AdminUser
         }
     }
 
-    public static function checkEmailExisted($id, $email){
-        $db = Database::getDB();
+    public static function checkEmailExisted($db, $id, $email){
+        //$db = Database::getDB();
         try {
             $query = "SELECT 1 FROM user WHERE user_email = :email AND user_id != :id LIMIT 1";
             $pdostament = $db->prepare($query);
@@ -300,8 +339,8 @@ class AdminUser
         }
     }
 
-    public static function checkEmailExistedInDB($email){
-        $db = Database::getDB();
+    public static function checkEmailExistedInDB($db, $email){
+        //$db = Database::getDB();
         try {
             $query = "SELECT 1 FROM user WHERE user_email = :email LIMIT 1";
             $pdostament = $db->prepare($query);
@@ -316,8 +355,8 @@ class AdminUser
         }
     }
 
-    public static function checkUsernameExisted($id, $username){
-        $db = Database::getDB();
+    public static function checkUsernameExisted($db, $id, $username){
+        //$db = Database::getDB();
         try {
             $query = "SELECT 1 FROM user WHERE user_name = :username AND user_id != :id LIMIT 1";
             $pdostament = $db->prepare($query);
@@ -333,8 +372,8 @@ class AdminUser
         }
     }
 
-    public static function updateUsernameAndEmailForUser($id, $username, $email){
-        $db = Database::getDB();
+    public static function updateUsernameAndEmailForUser($db, $id, $username, $email){
+        //$db = Database::getDB();
         try {
             $query = "UPDATE user SET user_email = :email, user_name = :username WHERE user_id = :id";
             $pdostament = $db->prepare($query);
@@ -350,10 +389,10 @@ class AdminUser
         }
     }
 
-    public static function deleteUserByID($id){
-        $db = Database::getDB();
+    public static function deleteUserByID($db, $id){
+        //$db = Database::getDB();
         try {
-            $query = "DELETE FROM user WHERE user_id = :id";
+            $query = "DELETE FROM user WHERE user_id = :id; DELETE FROM user_details WHERE user_id = :id;";
             $pdostament = $db->prepare($query);
             $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
             $row = $pdostament->execute();
@@ -365,8 +404,8 @@ class AdminUser
         }
     }
 
-    public static function updateActivation($id, $code = null, $date = null){
-        $db = Database::getDB();
+    public static function updateActivation($db, $id, $code = null, $date = null){
+        //$db = Database::getDB();
         try {
             $query = "UPDATE user SET activation_code = :code, activation_date = :date WHERE user_id = :id";
             $pdostament = $db->prepare($query);
@@ -375,6 +414,250 @@ class AdminUser
             $pdostament->bindValue(':id', $id, PDO::PARAM_STR);
             $row = $pdostament->execute();
             return $row;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function updateEmailSubscribe($db, $id, $currentStatus){
+        //$db = Database::getDB();
+        try {
+            $query = "UPDATE user SET email_subscribed = :switch WHERE user_id = :id";
+            $pdostament = $db->prepare($query);
+            $changed = ($currentStatus == 1) ? 0 : 1;
+            $pdostament->bindValue(':switch', $changed, PDO::PARAM_INT);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $row = $pdostament->execute();
+            return $row;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function checkEmailSubscribe($db, $id){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT email_subscribed FROM user WHERE user_id = :id LIMIT 1";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $pdostament->execute();
+            $existed = $pdostament->fetch(PDO::FETCH_OBJ);
+            return $existed;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function findGeneralSubscribers($db){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT * FROM user WHERE email_subscribed = 1";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $user = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $user;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getAllParks($db){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT * FROM park";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $parks = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $parks;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getUsersByWishlistAboutParks($db, $listPark){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT DISTINCT u.* FROM user u JOIN wishlist w ON w.user_id = u.user_id WHERE w.park_id IN ($listPark)";
+            $pdostament = $db->prepare($query);
+            //$pdostament->bindValue(':listPark', $listPark, PDO::PARAM_STR);
+            $pdostament->execute();
+            $parks = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $parks;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getUsersByListOfUserId($db, $listId){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT DISTINCT u.* FROM user u JOIN wishlist w ON w.user_id = u.user_id WHERE w.park_id IN ($listId)";
+            $pdostament = $db->prepare($query);
+            //$pdostament->bindValue(':listPark', $listPark, PDO::PARAM_STR);
+            $pdostament->execute();
+            $users = $pdostament->fetchAll(PDO::FETCH_OBJ);
+            return $users;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getUserDetailsById($db, $id){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT * FROM user_details WHERE user_id = :id LIMIT 1";
+            $pdostament = $db->prepare($query);
+            $pdostament->bindValue(':id', $id, PDO::PARAM_INT);
+            $pdostament->execute();
+            $existed = $pdostament->fetch(PDO::FETCH_OBJ);
+            return $existed;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getUserRoleAndQuantity($db){
+        //$db = Database::getDB();
+        try {
+            $query = "SELECT COUNT(r.role_id) as quantity, r.role_name FROM user u JOIN role r ON r.role_id = u.role_id GROUP BY r. role_id ORDER BY r.role_id";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $users = $pdostament->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($users as $user) {
+                $result[] = array(
+                    "rolename" => $user["role_name"],
+                    "y" => intval($user["quantity"])
+                );
+            }
+            return $result;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getNumberOfRegisteredEachMonth($db){
+        //$db = Database::getDB();
+        try {
+            $query = "Select MONTH(`user_reg`) as month, COUNT(MONTH(`user_reg`)) as numberReg  from user WHERE YEAR(`user_reg`) = YEAR(CURRENT_DATE()) GROUP BY MONTH(`user_reg`)";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $res = $pdostament->fetchAll(PDO::FETCH_ASSOC);
+            $newArr = [];
+            for ($x = 0; $x < 12; $x++)
+            {
+                if (array_key_exists($x,$res))
+                {
+                    array_push($newArr,intval($res[$x]["numberReg"]));
+                }
+                else
+                {
+                    array_push($newArr,0);
+                }
+            }
+
+            return $newArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getNumberOfRegisteredEachMonthByMale($db){
+        //$db = Database::getDB();
+        try {
+            $query = "Select MONTH(`user_reg`) as month, COUNT(MONTH(`user_reg`)) as numberReg  from user u JOIN user_details d ON u.user_id = d.user_id WHERE YEAR(`user_reg`) = YEAR(CURRENT_DATE()) and d.gender = 'M' GROUP BY MONTH(`user_reg`)";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $res = $pdostament->fetchAll(PDO::FETCH_ASSOC);
+            $newArr = [];
+            for ($x = 0; $x < 12; $x++)
+            {
+                if (array_key_exists($x,$res))
+                {
+                    array_push($newArr,intval($res[$x]["numberReg"]));
+                }
+                else
+                {
+                    array_push($newArr,0);
+                }
+            }
+
+            return $newArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getNumberOfRegisteredEachMonthByFeMale($db){
+        //$db = Database::getDB();
+        try {
+            $query = "Select MONTH(`user_reg`) as month, COUNT(MONTH(`user_reg`)) as numberReg  from user u JOIN user_details d ON u.user_id = d.user_id WHERE YEAR(`user_reg`) = YEAR(CURRENT_DATE()) and d.gender = 'F' GROUP BY MONTH(`user_reg`)";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $res = $pdostament->fetchAll(PDO::FETCH_ASSOC);
+            $newArr = [];
+            for ($x = 0; $x < 12; $x++)
+            {
+                if (array_key_exists($x,$res))
+                {
+                    array_push($newArr,intval($res[$x]["numberReg"]));
+                }
+                else
+                {
+                    array_push($newArr,0);
+                }
+            }
+
+            return $newArr;
+        } catch (PDOException $e) {
+            echo "There is an error: ".$e->getMessage();
+        } finally {
+            $pdostament->closeCursor();
+        }
+    }
+
+    public static function getNumberOfRegisteredEachMonthByNotMaleOrFemale($db){
+        //$db = Database::getDB();
+        try {
+            $query = "Select MONTH(`user_reg`) as month, COUNT(MONTH(`user_reg`)) as numberReg  from user u JOIN user_details d ON u.user_id = d.user_id WHERE YEAR(`user_reg`) = YEAR(CURRENT_DATE()) and d.gender is NULL GROUP BY MONTH(`user_reg`)";
+            $pdostament = $db->prepare($query);
+            $pdostament->execute();
+            $res = $pdostament->fetchAll(PDO::FETCH_ASSOC);
+            $newArr = [];
+            for ($x = 0; $x < 12; $x++)
+            {
+                if (array_key_exists($x,$res))
+                {
+                    array_push($newArr,intval($res[$x]["numberReg"]));
+                }
+                else
+                {
+                    array_push($newArr,0);
+                }
+            }
+
+            return $newArr;
         } catch (PDOException $e) {
             echo "There is an error: ".$e->getMessage();
         } finally {

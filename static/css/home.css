@@ -51,3 +51,26 @@
     margin-bottom: 10px;
     cursor: pointer;
 }
+
+.thumbnail-image{
+    width: 400px !important;
+    height: 225px !important;
+    overflow: hidden !important;
+}
+
+.thumbnail-rate{
+    margin-left: 30%;
+    margin-bottom: 20px;
+}
+
+.caption h5{
+    text-align: center;
+    font-weight: bold;
+}
+
+#home-footprint{
+    display: block;
+    margin-top: 70px;
+    width: 80%;
+    margin-left: 10%;
+}

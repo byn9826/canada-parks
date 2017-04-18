@@ -1,10 +1,5 @@
 <?php
 //author: Bao
-//sign up page for /signup
-
-//use session
-session_start();
-
 if(isset($_POST['newname'])) {
 	require_once('../lib/validation/fanta_valid.php');
 	//Validate input in php
@@ -14,49 +9,79 @@ if(isset($_POST['newname'])) {
 	$name = Fanta_Valid::sanitizeUserInput($name);
 	$email = Fanta_Valid::sanitizeUserInput($email);
     $password = Fanta_Valid::sanitizeUserInput($password);
+	//secure password
+	$password = sha1($password);
+	//get current date
+	$reg = date('Y-m-d H:i:s');
 	//Double check user input in php
 	if (Fanta_Valid::isNullOrEmpty($name) ||Fanta_Valid::isNullOrEmpty($email) || Fanta_Valid::isNullOrEmpty($password) || !Fanta_Valid::isBelowMaxLength($name, 10) || !Fanta_Valid::isEmailValid($email) || !count($password) === 32) {
         $error_message = 'Please enable javaScript';
-    }
-	// if input is valid
-	else {
+    } else {
+		// if input is valid
 		require_once('../lib/DatabaseAccess.php');
-		require_once('../lib/publicLogin/default.php');
+		require_once('../lib/account/default.php');
 		$db = DatabaseAccess::getConnection();
-		$publicLogin = new PublicLogin($db);
-		$result = $publicLogin->signUp($_POST['newname'], $_POST['newpassword'], $_POST['newemail']);
-		//if email already taken
-		if ($result == 'duplicate') {
-			$error_message = 'Email address has already been used';
-		}
-		//if there's error from server
-		else if ($result == '0') {
-			$error_message = 'Something wrong, please try again';
-		}
-		//new account created for google login user
-		else if ($result == 1) {
-			header('Location: ../');
-		}
-		//account created into db, need verfiy email
-		else {
-			require_once('../lib/email/Default.php');
-			require_once('../vendor/phpmailer/phpmailer/PHPMailerAutoload.php');
-			$emailValid = new OutEmail();
-			$address = $_POST['newemail'];
-			$subject = 'Verify your email address on Marvel Canada';
-			$string = openssl_encrypt($result, "AES-128-ECB", "hm!f$#abas&adsf");
-			$body = 'Please click the link below to verify your email address. <br/>';
-			$body .= '<a style="font-size:20px; font-weight: bold; margin:10px 0" href="http://localhost/canada-parks/signup/valid.php?' . $string . '">Click here to verify your email address</a> <br/>';
-			$body .= 'Please click the link below if the link above not working: <br/>';
-			$body .= 'http://localhost/canada-parks/signup/valid.php?' . $string;
-			$sent = $emailValid->validEmail($address , $subject, $body);
-			//If can't send email
-			if($sent == 0) {
-			    $error_message = "Can't send email right now, try later";
+		$account = new Account($db);
+		//get all related email accounts
+		$records = $account->searchEmails($email);
+		if(!isset($_SESSION)) {session_start();}
+		if (!isset($_SESSION['google_id'])) {
+			//for people not sign up from google button
+			if(count($records) == 1 && $records[0]['email_valid'] == 1) {
+				$error_message = 'Email address has already been used';
+			} else {
+				//create record and send verify email for situations below:
+	            //1. rowCount() =1, email_valid !=1 2. rowCount() =0 3. rowCount() > 1
+				$string = $name . '-!+a4mc1uw]&' . $email;
+				$encrypted = openssl_encrypt($string, 'AES-128-ECB', 'hm!f$#abas&adsf');
+				$create = $account->createRecord($name, $password, $email, $reg, $encrypted, null);
+				//db error
+				if ($create == '0') {
+					$error_message = 'Something wrong, please try again';
+				} else {
+					require_once('../lib/email/default.php');
+					require_once('../vendor/phpmailer/phpmailer/PHPMailerAutoload.php');
+					$email = new AccountEmail();
+					//send verify email
+					$sent = $email->sendVerify($_POST['newemail'], $encrypted);
+					if($sent == '0') {
+						//can't send email
+					    $error_message = "Can't send email right now, try later";
+					} else {
+						//redirect to require email valid page
+						header('Location: confirm.php?email=' . $_POST['newemail'] . '&name=' . $_POST['newname']);
+					}
+				}
 			}
-			//redirect to require email valid page
-			else {
-				header('Location: confirm.php?email=' . $_POST['newemail'] . '&name=' . $_POST['newname']);
+		} else {
+			//delete all account first if account registered but not valid email before
+			if (count($records) != 0) {
+				$delete = $account->deleteRecord($email);
+				if ($delete == '0') {
+					//db error
+					$error_message = 'Something wrong, please try again';
+					return false;
+				}
+			}
+			//directly insert a new row with email Validate
+			$google = $_SESSION['google_id'];
+			$create = $account->createRecord($name, $password, $email, $reg, 1, $google);
+			if ($create == '0') {
+				//db error
+				$error_message = 'Something wrong, please try again';
+			} else {
+				//insert into user detail table
+				$id = intval($create);
+				$detail = $account->createDetail($id, $name, $reg, $_SESSION["google_profile"]);
+				if ($detail == '0') {
+					//db error
+					$error_message = 'Something wrong, please try again';
+				} else {
+					//login success write user name and id into session
+					$_SESSION['user_name'] = $name;
+					$_SESSION['user_id'] = $id;
+					header('Location: ../');
+				}
 			}
 		}
 	}
@@ -111,7 +136,7 @@ if(isset($_POST['newname'])) {
 								if( isset($error_message)) {
 									echo $error_message;
 								} else {
-									echo 'Test Error message, will hide later';
+									echo '';
 								}
 							?>
 						</h5>
@@ -119,6 +144,9 @@ if(isset($_POST['newname'])) {
 					</form>
 				</section>
             </main>
+			<?php
+				include "../templates/footer.php";
+			?>
         </div>
 	</body>
 </html>

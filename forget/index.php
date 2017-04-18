@@ -1,5 +1,6 @@
 <?php
 	//author: Bao
+
 	if (isset($_POST['user-email'])) {
 		//valid email in php
 		require_once('../lib/validation/fanta_valid.php');
@@ -8,34 +9,42 @@
 			$error = "Please enable javaScript";
 		} else {
 			require_once('../lib/DatabaseAccess.php');
-			require_once('../lib/publicLogin/default.php');
+			require_once('../lib/account/default.php');
 			$db = DatabaseAccess::getConnection();
-			$publicLogin = new PublicLogin($db);
-			$result = $publicLogin->forgetPass($email);
-			if ($result == 0) {
+			$account = new Account($db);
+			//search all account related to this email address first
+			$search = $account->searchEmails($email);
+			if (count($search) == 0) {
 				$error = "Account not exist, please sign up.";
-			} else if ($result == 2) {
+			} else if (count($search) >1) {
 				$error = "Email not verified, please sign up again!";
-			} else if ($result == 3) {
-				$error = "Server error, please try later";
 			} else {
-				require_once('../lib/email/Default.php');
-				require_once('../vendor/phpmailer/phpmailer/PHPMailerAutoload.php');
-				$emailValid = new OutEmail();
-				$address = $email;
-				$token = $email . "&&&&" . $result;
-				$subject = 'Retrieve your password on Marvel Canada';
-				$body = 'Please click the link below to change your password. <br/>';
-				$body .= '<a style="font-size:20px; font-weight: bold; margin:10px 0" href="http://localhost/canada-parks/forget/retrieve.php?' . $token . '">Click here to verify your email address</a> <br/>';
-				$body .= 'Please click the link below if the link above not working: <br/>';
-				$body .= 'http://localhost/canada-parks/forget/retrieve.php?' . $token;
-				$sent = $emailValid->validEmail($address , $subject, $body);
-				//If can't send email
-				if($sent == 0) {
-					$error = "Something wrong, try later";
-				}
-				else {
-					$error = "Success, please check your email";
+				if ($search[0]['email_valid'] != '1') {
+					$error = "Email not verified, please sign up again!";
+				} else {
+					//create a secure token
+					$date = new DateTime();
+	                $random = $date->getTimestamp();
+	                $combine = 'dc*yqw@dcasg' . $random . 'ibndw$528t*';
+	                $string = sha1(md5($combine));
+					$set = $account->setForget($string, $email);
+					if ($set == '0') {
+						$error = "Server error, please try later";
+					} else {
+						require_once('../lib/email/Default.php');
+						require_once('../vendor/phpmailer/phpmailer/PHPMailerAutoload.php');
+						$service = new AccountEmail();
+						//send retrieve password email
+						$token = $email . "&&&&" . $string;
+						$sent = $service->sendForget($email, $token);
+						//If can't send email
+						if($sent == 0) {
+							$error = "Something wrong, try later";
+						}
+						else {
+							$error = "Success, please check your email";
+						}
+					}
 				}
 			}
 		}

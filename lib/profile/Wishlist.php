@@ -108,6 +108,18 @@ class Wishlist
         return $fStatus;
     }
 
+    /**
+     * Function to destroy a user's wishlist
+     *
+     * author: Irfaan
+     */
+    public function DeleteUserWishlist() {
+        $sDeleteWishlist = "DELETE FROM wishlist WHERE user_id = :userId";
+        $objPDOStatement = $this->_objConnection->prepare($sDeleteWishlist);
+        $objPDOStatement->bindValue(':userId', $this->_userId);
+        $objPDOStatement->execute();
+    }
+
 
     // -- Public Static Functions Declaration
     // -- -----------------------------------
@@ -120,7 +132,18 @@ class Wishlist
         return $filterArray;
     }
 
-    // Function taking a list of park details and return constructed HTML
+    /**
+     * Function to construct HTML markup to display parks found in user's wishlist.
+     *
+     * Function takes in a list of wishlist details as object.
+     *
+     * @author Irfaan Auhammad
+     *
+     * @since March 25, 2017
+     *
+     * @param object $listOfWishParkDetails List of park details.
+     * @return string $sDivForWishlist HTML Mark-up for the wishlist items.
+     */
     public static function ConstructWishlistItems($listOfWishParkDetails) {
         // Loop and build a wishlist item
         $sResult = "";
@@ -132,7 +155,7 @@ class Wishlist
             $sResult .= "        </div>";
             $sResult .= "        <div class=\"col col-xs-8 col-sm-8 wishlist-group__park-details\">";
             $sResult .= "            <div>";
-            $sResult .= "                <a class=\"wishlist-group__park-link\" href=\"../park/?id={$objParkDetails->park_id}\" alt=\"Link to park profile page\">{$objParkDetails->name}</a>";
+            $sResult .= "                <a class=\"wishlist-group__park-link\" href=\"../park/?id={$objParkDetails->park_id}\" alt=\"Link to park profile page\" title=\"Click to view park details\">{$objParkDetails->name}</a>";
             $sResult .= "            </div>";
             $sResult .= "            <div class=\"wishlist-group__more-details\">{$objParkDetails->address}</div>";
             $sResult .= "            <div class=\"wishlist-group__more-details\">{$objParkDetails->province}</div>";

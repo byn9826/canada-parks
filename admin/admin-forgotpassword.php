@@ -1,7 +1,14 @@
 <?php
-require_once "header.php";
+
 require_once "model/database.php";
 require_once "model/admin.php";
+if (empty($_SESSION))
+{
+    session_start();
+}
+$db = Database::getDB();
+
+
 ?>
 
 <div class="container" id="forgot-form">
@@ -25,9 +32,9 @@ require_once "model/admin.php";
 <?php
 if (isset($_POST['submit']))
 {
-    if (AdminUser::checkEmailExistedInDB($_POST['email']))
+    if (AdminUser::checkEmailExistedInDB($db, $_POST['email']))
     {
-        $_SESSION['user-need-new-password'] = AdminUser::findUserByEmail($_POST['email']);
+        $_SESSION['user-need-new-password'] = AdminUser::findUserByEmail($db, $_POST['email']);
         header("Location: admin-sendnewpassword.php");
     }
     else
@@ -35,4 +42,5 @@ if (isset($_POST['submit']))
         echo "<div class=\"alert alert-danger\"> Your email is not found!</div>";
     }
 }
+require_once "header.php";
 ?>

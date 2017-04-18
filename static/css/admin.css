@@ -6,9 +6,9 @@ html {
 }
 body {
     margin: 0;
+    padding-top: 100px;
 }
 h1, h2 {
-    margin-top: 3em;
     margin-bottom: 1em;
     text-align: center;
     text-transform: uppercase;
@@ -48,6 +48,24 @@ h1, h2 {
 
 }
 
+#search-park-form {
+    position: relative;
+}
+
+#search-park-result {
+    background: #ffffff;
+    position: absolute;
+    left: 0;
+    top: 60px;
+}
+
+#search-park-result .media:hover {
+    background: #cccccc;
+}
+
+#search-park-result img {
+    width: 100px;
+}
 
 .park-banner {
     margin-bottom: 20px;
@@ -73,4 +91,32 @@ h1, h2 {
     background-color: #e7e7e7;
     padding: 1em;
     color: #777;
+}
+
+#park-multi-select *{
+    color: black;
+}
+
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: 5% 45%;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/*and (min-width: 481px)*/
+@media all and (max-width: 768px) {
+    #result table thead tr th:nth-child(1),#result table tbody tr td:nth-child(1),
+    #result table thead tr th:nth-child(3),#result table tbody tr td:nth-child(3),
+    #result table thead tr th:nth-child(4),#result table tbody tr td:nth-child(4){
+        display: none;
+    }
 }

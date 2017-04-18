@@ -56,12 +56,18 @@ a:hover{
 }
 
 #header img{
-    height: 36px;
+    height: 36px !important;
+    width: 36px !important;
     margin-top: 7px;
+    box-shadow: none !important;
+    transition: none !important;
+    -moz-transform: none !important;
+    -webkit-transform: none !important;
+    -ms-transform:none !important;
 }
 
-#header-searchicon{
-    margin-left: 10px;
+#search-root{
+    margin-top: 8px;
 }
 
 #header-login>:first-child{
@@ -108,8 +114,13 @@ a:hover{
 #login-error{
     display: block;
     margin-top: 10px;
-    margin-left: 4%;
+    margin-left: 8%;
+    margin-right: 8%;
     color: red;
+}
+
+#login-check{
+    margin-left: -15px;
 }
 
 #footer{
@@ -125,4 +136,8 @@ a:hover{
     vertical-align: middle;
     float: left;
     margin-left: 5%;
+}
+
+.dropdown-menu li{
+    text-align: center;
 }

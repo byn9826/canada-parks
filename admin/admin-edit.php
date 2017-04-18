@@ -1,18 +1,22 @@
 <?php
-    require_once "header.php";
+
     require_once "model/database.php";
     require_once "model/admin.php";
     require_once "../lib/validation/fanta_valid.php";
-
+if (empty($_SESSION))
+{
+    session_start();
+}
+    $db = Database::getDB();
     $id = $_SESSION["user_id"];
-    $admin = AdminUser::findUserByID($id);
+    $admin = AdminUser::findUserByID($db, $id);
     $username = $admin->user_name;
     $email = $admin->user_email;
 
     if (isset($_POST['update'])){
         $ok = true;
-        $usernameExisted = AdminUser::checkUsernameExisted($_POST['id'], $_POST['username']);
-        $emailExisted = AdminUser::checkEmailExisted($_POST['id'], $_POST['email']);
+        $usernameExisted = AdminUser::checkUsernameExisted($db, $_POST['id'], $_POST['username']);
+        $emailExisted = AdminUser::checkEmailExisted($db, $_POST['id'], $_POST['email']);
 
         if(Fanta_Valid::isNullOrEmpty($_POST['username'])) {
             $usernameError = "Username can not be empty";
@@ -35,8 +39,9 @@
 
         if ($ok){
             //var_dump($_POST['gender']);
-            $row = AdminUser::updateUsernameAndEmailForUser($_POST['id'], $_POST['username'], $_POST['email']);
+            $row = AdminUser::updateUsernameAndEmailForUser($db, $_POST['id'], $_POST['username'], $_POST['email']);
             if($row == 1){
+                $_SESSION['user_name'] = $_POST['username'];
                 header("Location: admin-success.php");
             } else {
                 echo "Something went wrong! Please try again!";
@@ -75,5 +80,6 @@
 </form>
 
 <?php
+require_once "header.php";
 require_once "footer.php";
 ?>
