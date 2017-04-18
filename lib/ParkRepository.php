@@ -52,6 +52,14 @@ class ParkRepository {
         $pdostmt->execute();
         return $pdostmt->fetch();
     }
+
+    public function getParkGallery($id){
+        $sql = "SELECT * FROM gallery WHERE park_id = :id";
+        $pdostmt = $this->db->prepare($sql);
+        $pdostmt->bindValue(":id", $id, PDO::PARAM_STR);
+        $pdostmt->execute();
+        return $pdostmt->fetchAll();
+    }
     
     public function addPark($park, $upload) {
         

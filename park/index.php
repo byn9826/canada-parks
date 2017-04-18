@@ -10,6 +10,8 @@ $provinces = $parkRepository->getProvinces();
 $id = $_GET['id'];
 $park1 = $parkRepository->getPark($id);
 // var_dump($park1);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +23,8 @@ $park1 = $parkRepository->getPark($id);
     <meta name="author" content="Navpreet">
   <title>Parks</title>
 </head>
+
+
 <body>
 
 
@@ -39,9 +43,40 @@ $park1 = $parkRepository->getPark($id);
                           <li><a href="#">Image Gallery</a></li>
                       </ul>
 
-          </article>
-      </aside>
+                  </article>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        Weather
+                    </div>
+                    <div class="panel-footer">
+                <?php
+                $postalCode = $park1["postal_code"];
+                $postalCode = str_replace(' ', '', $postalCode);
+                $url = "http://apidev.accuweather.com/locations/v1/search?q=" . $postalCode . "&apikey=hoArfRosT1215";
+                //$url = "http://apidev.accuweather.com/locations/v1/search?q=P0E 1E0&apikey=hoArfRosT1215";
+                $display = json_decode(file_get_contents($url), true);
+                    $key = $display[0]["Key"];
+
+                $url = "http://apidev.accuweather.com/currentconditions/v1/" . $key .".json?language=en&apikey=hoArfRosT1215";
+                //$url = "http://apidev.accuweather.com/locations/v1/search?q=P0E 1E0&apikey=hoArfRosT1215";
+                $display = json_decode(file_get_contents($url), true);
+                    $key = $display[0]["Temperature"];
+                    var_dump($key);
+
+                $display = json_decode(file_get_contents($url), true);
+                $key = $display[0]["Temperature"];
+                var_dump($key);
+
+                ?>
+                    </div>
+                </div>
+<!--                <a href="https://www.accuweather.com/en/us/toronto-on/10007/current-weather/349727" class="aw-widget-legal">-->
+<!--                </a><div id="awtd1491400412000" class="aw-widget-36hour"  data-locationkey=""-->
+<!--                         data-unit="f" data-language="en-us" data-useip="true" data-uid="awtd1491400412000"-->
+<!--                         -editlocation="true"></div><script type="text/javascript" src="https://oap.accuweather.com/launch.js"></script>-->
+            </aside>
 	    <div class="col-md-8">
+
 	  <h1><?=$park1["name"]?></h1>
 	  
 	  By:Navpreet<br>
@@ -49,27 +84,16 @@ $park1 = $parkRepository->getPark($id);
 	  <img class="img-responsive" id="pic1" alt="Problem Loading Image" src="<?=$park1["banner"]?>">
 	  <p> <?=$park1["description"]?>
 	  </p>
-	 
-	  
+
 
             <?php
             include "imagegallery.php";
             ?>
-
             <?php
             include "../templates/attitude.php";
             ?>
-	  <form action="parks.html" method="post">
-	  <h2>Comments</h2>
-	  <div>
-	  <label for="comments" class="form-label">Comments:</label>
-	  <input type="text" id="comments" name="visitor_comments" placeholder="Type your comments here."/>
-	  </div>
-	  <div>
-	  <button type="submit" name="Submit">Post Comment</button>
-	  </div>
-	  </form>
-	  
+
+
 	</div>
       </div>
       <?php include "../templates/footer.php";?>
