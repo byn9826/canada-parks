@@ -141,3 +141,33 @@ a:hover{
 .dropdown-menu li{
     text-align: center;
 }
+
+#mobile{
+    border: 1px solid #abb2a6;
+    margin-top: 51px;
+    margin-left: 1%;
+    width: 98%;
+    display: none;
+}
+
+#mobile div{
+    margin: 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #dcedd0;
+    width: 90%;
+    margin-left: 5%;
+    text-align: center;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 767px) {
+    #login-area{
+        margin-left: 5%;
+        text-align: center;
+    }
+
+    #login-area ul{
+        background-color: white;
+        border: 1px solid #abb2a6;
+    }
+}

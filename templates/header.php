@@ -103,20 +103,19 @@ if (isset($_POST['logout'])) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <div class="col-md-1 col-md-offset-1 col-sm-1 col-sm-offset-0 col-xs-2 col-xs-offset-4">
+        <div class="col-md-1 col-md-offset-1 col-sm-1 col-sm-offset-0 col-xs-2 col-xs-offset-2">
             <a href="<?php echo $team_route_src; ?>">
                 <img alt="Marvel Logo" src="<?php echo $team_route_src . 'static/img/logo.png'; ?>" />
             </a>
         </div>
         <?php include "search.php"; ?>
-        <ul id="header-links" class="nav navbar-nav col-md-4 col-sm-6 navbar-right visible-lg visible-md visible-sm">
+        <ul id="header-links" class="nav navbar-nav col-md-4 col-sm-6 navbar-right col-xs-6">
             <?php
                 foreach ($header_navi as $nav) {
-                    echo '<li><a href="' . $team_route_src . $nav['path'] . '">' . $nav['link'] . '</a></li>';
-
+                    echo '<li class="visible-lg visible-md visible-sm"><a href="' . $team_route_src . $nav['path'] . '">' . $nav['link'] . '</a></li>';
                 }
             ?>
-            <li class="dropdown">
+            <li id="login-area" class="dropdown">
                 <a id="login-dropdowm" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <?php
                         //show user name or "sign in" based on user login or not
@@ -135,6 +134,13 @@ if (isset($_POST['logout'])) {
             </li>
         </ul>
     </header>
+    <section id="mobile">
+        <?php
+            foreach ($header_navi as $nav) {
+                echo '<div><a href="' . $team_route_src . $nav['path'] . '"><h4>' . $nav['link'] . '</h4></a></div>';
+            }
+        ?>
+    </section>
 </div>
 <script type="text/javascript" src="<?php echo $team_route_src . 'static/js/login/login.js'; ?>"></script>
 <script id="js-team-route" type="application/json">
