@@ -47,14 +47,13 @@ $park1 = $parkRepository->getPark($id);
     $url = "http://apidev.accuweather.com/currentconditions/v1/" . $key .".json?language=en&apikey=hoArfRosT1215";
     //$url = "http://apidev.accuweather.com/locations/v1/search?q=P0E 1E0&apikey=hoArfRosT1215";
     $display = json_decode(file_get_contents($url), true);
-    var_dump($display);
+    //var_dump($display);
     $temperature = $display[0]["Temperature"];
     //var_dump($temperature);
     $metric = $temperature["Metric"];
 
     $weatherText = $display[0]["WeatherText"];
 
-    $time = $display[0]["LocalObservationDateTime"];
     $weatherIcon = $display[0]["WeatherIcon"];
     ?>
 
@@ -71,23 +70,21 @@ $park1 = $parkRepository->getPark($id);
                     <div class="panel-body">
                         <b><i><h2>Weather</h2></i></b>
                     </div>
-                    <div style="width:242px;background-color:lightblue;height:600px;margin-right:500px;border:1px solid green;">
+                    <div style="width:100%;background-color:lightblue;height:90%;margin-right:500px;border:1px solid green;">
 
-                        <img src="http://apidev.accuweather.com/developers/Media/Default/WeatherIcons/0<?=$weatherIcon?>-s.png" width="150px" height="100px"/>
-                        <div style="margin-top:180px;">
+                        <img src="http://apidev.accuweather.com/developers/Media/Default/WeatherIcons/0<?=$weatherIcon?>-s.png" width="100%" height="30%"/>
 
-                            <b><i>  <?=$metric["Value"]?></i></b>
-                            <?=$metric["Unit"]?> </br>
-                            <?=$weatherText?> </br>
-                                <?=$time?>
 
-                        </div>
+                           <h1> <b><?=$metric["Value"]?> &#8451</b></h1>
+                          <!--  <h1> <b> <?=$metric["Unit"]?></b></h1>   -->
+                             <h1> <b> The weather is <?=$weatherText?> </b></h1></br>
+
+
 
                     </div>
                     <div class="panel-footer">
 
-<!-- div -->
-
+                <!-- div -->
               <!-- <a href="https://www.accuweather.com/en/us/toronto-on/10007/current-weather/349727" class="aw-widget-legal">
                 </a><div id="awtd1491400412000" class="aw-widget-36hour"  data-locationkey=""
                          data-unit="f" data-language="en-us" data-useip="true" data-uid="awtd1491400412000"
