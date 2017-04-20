@@ -1,0 +1,6 @@
+[19-Apr-2017 19:28:20 America/Los_Angeles] PHP Notice:  Undefined offset: 0 in C:\Users\BAO\www\canada-parks\park\index.php on line 44
+[19-Apr-2017 19:28:20 America/Los_Angeles] PHP Warning:  file_get_contents(http://apidev.accuweather.com/currentconditions/v1/.json?language=en&amp;apikey=hoArfRosT1215): failed to open stream: HTTP request failed! HTTP/1.0 400 Bad Request
+ in C:\Users\BAO\www\canada-parks\park\index.php on line 48
+[19-Apr-2017 19:45:47 America/Los_Angeles] PHP Notice:  Undefined offset: 0 in C:\Users\BAO\www\canada-parks\park\index.php on line 44
+[19-Apr-2017 19:45:48 America/Los_Angeles] PHP Warning:  file_get_contents(http://apidev.accuweather.com/currentconditions/v1/.json?language=en&amp;apikey=hoArfRosT1215): failed to open stream: HTTP request failed! HTTP/1.0 400 Bad Request
+ in C:\Users\BAO\www\canada-parks\park\index.php on line 48

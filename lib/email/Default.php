@@ -2,13 +2,17 @@
 //Author Bao
 
 class AccountEmail {
-    private $host = 'smtp-mail.outlook.com';
+    //private $host = 'smtp-mail.outlook.com';
+    private $host = 'smtp.gmail.com';
     private $smtpAuth = true;
-    private $username = 'marvelcanada@outlook.com';
-    private $password = 'hb2017cms';
+    //private $username = 'marvelcanada@outlook.com';
+    private $username = 'canadanationalpark@gmail.com';
+    //private $password = 'hb2017cms';
+    private $password = 'canada123';
     private $smtpSecure = 'tls';
     private $port = 587;
-    private $from = 'marvelcanada@outlook.com';
+    //private $from = 'marvelcanada@outlook.com;
+    private $from = 'canadanationalpark@gmail.com';
 
     //send validation email
     public function sendVerify($address, $encrypted) {
@@ -67,5 +71,5 @@ class AccountEmail {
         } else {
             return '1';
         }
-    }    
+    }
 }
