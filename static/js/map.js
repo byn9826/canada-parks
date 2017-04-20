@@ -48,14 +48,9 @@ function initialize() {
                                 '<h3 class="name">' + park.name + '</h3>' +
                                 '<p>' +
                                     '<a href="../park?id=' + park.id + '" class="btn btn-primary" role="button">Detail</a>' +
-                                    '<a data-name="' + park.name + '" data-id="' + park.id + '" href="#" class="btn btn-default select" role="button">Compare</a>' +
                                 '</p>' +
                             '</div>' +
                         '</div>',
-        });
-        
-        google.maps.event.addListener(infowindow, 'domready', function() {
-            handleClickCompare();
         });
 
         marker.addListener('click', function() {
@@ -75,27 +70,19 @@ function initialize() {
 }
 
 function getDirection() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            var request = {
-                origin: pos,
-                destination: destination.position,
-                travelMode: 'DRIVING'
-            };
-            directionsService.route(request, function(result, status) {
-                console.log(result);
-                if (status == 'OK') {
-                    directionsDisplay.setDirections(result);
-                } else {
-                    alert(status);
-                }
-            });
-        });
-    }
+    var request = {
+        origin: currentLocation,
+        destination: destination.position,
+        travelMode: 'DRIVING'
+    };
+    directionsService.route(request, function(result, status) {
+        console.log(result);
+        if (status == 'OK') {
+            directionsDisplay.setDirections(result);
+        } else {
+            alert(status);
+        }
+    });
 }
 
 function closeInfoWdinows() {
