@@ -5,7 +5,11 @@
  * Date: 3/29/2017
  * Time: 1:20 PM
  */
-require_once "header.php";
+//require_once "header.php";
+if (empty($_SESSION))
+{
+    session_start();
+}
 require_once "model/database.php";
 require_once "model/admin.php";
 $db = Database::getDB();
@@ -16,17 +20,24 @@ $currentPage = $_POST["currentPage"];
 $bSearch = $_POST["bSearch"];
 //var_dump($bSearch);
 //$admins = AdminUser::searchUsersByEmailOrUsername($db, $searchTerm);
-//var_dump($searchTerm);
+var_dump($searchTerm);
 //var_dump(intval($offset));
 //var_dump($currentPage);
 
-
+var_dump($totalNumber);
 $admins = AdminUser::searchUsersWithTermAndPagination($db, $_SESSION["user_id"], $searchTerm, $offset);
 if ($searchTerm != "")
 {
     $totalNumber = count(AdminUser::searchUsersByEmailOrUsername($db, $_SESSION["user_id"], $searchTerm));
     //var_dump($totalNumber);
 }
+else {
+    $totalNumber = count(AdminUser::getAllUsers($db, $_SESSION["user_id"]));
+}
+//if ($searchTerm == "" && $totalNumber == 0)
+//{
+//    $totalNumber = count(AdminUser::searchUsersByEmailOrUsername($db, $_SESSION["user_id"], $searchTerm));
+//}
 
 ?>
 <nav aria-label="Page navigation">
@@ -132,6 +143,7 @@ if ($searchTerm != "")
         $(".pagination a:contains('<?php echo (intval($offset)/10 + 1); ?>')").parent().addClass('active');
 
         $(".pagination a").click(function(){
+            //alert();
             var search = $("#searchTerm").val();
             var offset = ($(this)[0].innerText === 0 || !$.isNumeric($(this)[0].innerText)) ? 0 : (($(this)[0].innerText-1) * 10);
             var totalNumber = $("#totalNumber").val();
