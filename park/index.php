@@ -39,6 +39,7 @@ $park1 = $parkRepository->getPark($id);
     $postalCode = $park1["postal_code"];
     $postalCode = str_replace(' ', '', $postalCode);
     $url = "http://apidev.accuweather.com/locations/v1/search?q=" . $postalCode . "&apikey=hoArfRosT1215";
+    //var_dump($postalCode);
     //$url = "http://apidev.accuweather.com/locations/v1/search?q=P0E 1E0&apikey=hoArfRosT1215";
     $display = json_decode(file_get_contents($url), true);
     $key = $display[0]["Key"];
@@ -46,27 +47,17 @@ $park1 = $parkRepository->getPark($id);
     $url = "http://apidev.accuweather.com/currentconditions/v1/" . $key .".json?language=en&apikey=hoArfRosT1215";
     //$url = "http://apidev.accuweather.com/locations/v1/search?q=P0E 1E0&apikey=hoArfRosT1215";
     $display = json_decode(file_get_contents($url), true);
+    var_dump($display);
     $temperature = $display[0]["Temperature"];
-    var_dump($temperature);
+    //var_dump($temperature);
     $metric = $temperature["Metric"];
 
+    $weatherText = $display[0]["WeatherText"];
+
+    $time = $display[0]["LocalObservationDateTime"];
+    $weatherIcon = $display[0]["WeatherIcon"];
     ?>
-    <div style="width:400px;background-color:lightskyblue;height:600px;margin:auto;border:1px solid green;">
-        <input type="text" value="Toronto,ON"/>
-           <div style="margin-top:200px;">
 
-        <div style="float:left;width:134px;height:400px;border:1px solid black;">
-            <?=$metric["Value"]?>
-            <?=$metric["Unit"]?>
-        </div>
-        <div style="float:right;width:131px;height:400px;border:1px solid pink;">right
-        </div>
-        <div style="float:right;width:131px;height:400px;border:1px solid pink;">right
-        </div>
-
-           </div>
-
-    </div>
 
         <!-- Include Page header -->
         <?php include_once "../templates/header.php"; ?>
@@ -78,15 +69,29 @@ $park1 = $parkRepository->getPark($id);
                     <aside id="sidebar" class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        Weather
+                        <b><i><h2>Weather</h2></i></b>
+                    </div>
+                    <div style="width:242px;background-color:lightblue;height:600px;margin-right:500px;border:1px solid green;">
+
+                        <img src="http://apidev.accuweather.com/developers/Media/Default/WeatherIcons/0<?=$weatherIcon?>-s.png" width="150px" height="100px"/>
+                        <div style="margin-top:180px;">
+
+                            <b><i>  <?=$metric["Value"]?></i></b>
+                            <?=$metric["Unit"]?> </br>
+                            <?=$weatherText?> </br>
+                                <?=$time?>
+
+                        </div>
+
                     </div>
                     <div class="panel-footer">
 
+<!-- div -->
 
-               <a href="https://www.accuweather.com/en/us/toronto-on/10007/current-weather/349727" class="aw-widget-legal">
+              <!-- <a href="https://www.accuweather.com/en/us/toronto-on/10007/current-weather/349727" class="aw-widget-legal">
                 </a><div id="awtd1491400412000" class="aw-widget-36hour"  data-locationkey=""
                          data-unit="f" data-language="en-us" data-useip="true" data-uid="awtd1491400412000"
-                       -editlocation="true"></div><script type="text/javascript" src="https://oap.accuweather.com/launch.js"></script>
+                       -editlocation="true"></div><script type="text/javascript" src="https://oap.accuweather.com/launch.js"></script>   -->
             </aside>
 	    <div class="col-md-8">
 
