@@ -47,20 +47,20 @@ $currentLocation = IPLocation::getLocation();
                         <?php include '../templates/parkMap.php' ?>
                     </div>
                     <div class="row">
-                        <div class="col-xs-6 text-center">
+                        <div class="col-xs-6 text-center compare-parks-div">
                             <h2 class="name"><a href="/park?id=<?=$park1["id"]?>"><?=$park1['name']?></a></h2>
                             <figure>
                                 <img class="img-responsive" src="<?=$park1["banner"]?>" alt="<?=$park1["name"]?>" />
                             </figure>
                         </div>
-                        <div class="col-xs-6 text-center">
+                        <div class="col-xs-6 text-center compare-parks-div">
                             <h2 class="name"><a href="/park?id=<?=$park2["id"]?>"><?=$park2['name']?></a></h2>
                             <figure>
                                 <img class="img-responsive" src="<?=$park2["banner"]?>" alt="<?=$park2["name"]?>" />
                             </figure>
                         </div>
                     </div>
-                    
+
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">Address</h3>
@@ -76,7 +76,7 @@ $currentLocation = IPLocation::getLocation();
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <h3 class="panel-title">Rating by Users</h3>
@@ -92,7 +92,7 @@ $currentLocation = IPLocation::getLocation();
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h3 class="panel-title">Footprints by Users</h3>
@@ -109,7 +109,7 @@ $currentLocation = IPLocation::getLocation();
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="panel panel-warning">
                         <div class="panel-heading">
                             <h3 class="panel-title">Website</h3>
@@ -128,10 +128,11 @@ $currentLocation = IPLocation::getLocation();
 
                 </div>
             </main>
+			<?php
+				include "../templates/footer.php";
+			?>
         </div>
-        <?php
-			include "../templates/footer.php";
-		?>
+
 		<script type="text/javascript">
 		    var parks = <?=json_encode($parks)?>;
 		    var currentLocation = <?=json_encode($currentLocation)?>

@@ -1,3 +1,6 @@
+<?php 
+    #author Bao
+?>
 <ul class="dropdown-menu">
     <li><a href="<?php echo $team_route_src . 'profile/'; ?>">
         Profile

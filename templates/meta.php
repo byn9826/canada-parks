@@ -5,7 +5,7 @@
         $team_route_src = $team_route_custom;
     }
     
-    //error log
+    #error log
     ini_set("error_log", $team_route_src . "error.log");
     ini_set("display_errors", 'Off');
 
