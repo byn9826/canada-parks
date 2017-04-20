@@ -20,11 +20,11 @@ $currentPage = $_POST["currentPage"];
 $bSearch = $_POST["bSearch"];
 //var_dump($bSearch);
 //$admins = AdminUser::searchUsersByEmailOrUsername($db, $searchTerm);
-var_dump($searchTerm);
+//var_dump($searchTerm);
 //var_dump(intval($offset));
 //var_dump($currentPage);
 
-var_dump($totalNumber);
+//var_dump($totalNumber);
 $admins = AdminUser::searchUsersWithTermAndPagination($db, $_SESSION["user_id"], $searchTerm, $offset);
 if ($searchTerm != "")
 {
