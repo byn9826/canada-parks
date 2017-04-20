@@ -49,7 +49,7 @@ function onSignIn(googleUser) {
         var google_profile = profile.getImageUrl();
         $.ajax({
             type: "POST",
-            url: window.location.origin + '/canada-parks' + '/lib/account/handler.php',
+            url: window.location.origin + '/marvel-canada' + '/lib/account/handler.php',
             data: {id: id_token, email: user_email, name: user_name, profile: google_profile},
             success: function (result) {
                 if (result == 'create') {
