@@ -43,7 +43,19 @@ function initialize() {
         });
 
         var infowindow = new google.maps.InfoWindow({
-            content: park.name
+            content:    '<div class="park infowindow" style="background-image: url(' + park.banner +')">' +
+                            '<div class="caption">' +
+                                '<h3 class="name">' + park.name + '</h3>' +
+                                '<p>' +
+                                    '<a href="../park?id=' + park.id + '" class="btn btn-primary" role="button">Detail</a>' +
+                                    '<a data-name="' + park.name + '" data-id="' + park.id + '" href="#" class="btn btn-default select" role="button">Compare</a>' +
+                                '</p>' +
+                            '</div>' +
+                        '</div>',
+        });
+        
+        google.maps.event.addListener(infowindow, 'domready', function() {
+            handleClickCompare();
         });
 
         marker.addListener('click', function() {

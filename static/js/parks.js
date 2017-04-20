@@ -1,15 +1,10 @@
 //Author: Sam
-$('#toMap').on('click', function() {
-    if (typeof map == 'undefined') {
-        initialize();
-    }
-});
-
-$(document).ready(function() {
-    var parkIds = [];
-    $('.select').on('click', function(e) {
+var parkIds = [];
+function handleClickCompare() {
+    $('.park').on('click', '.select', function(e) {
         e.preventDefault();
         var parkId = $(this).attr('data-id');
+        console.log(parkId);
         if ($(this).hasClass('btn-success')) {
             $(this).removeClass('btn-success');
             $(this).text('Compare');
@@ -24,9 +19,8 @@ $(document).ready(function() {
                 parkIds.push(parkId);
             }
         }
-        
         if (parkIds.length == 2) {
-
+            console.log(parkIds);
             $('#compare').attr('disabled', false);
             var url = '../compare?park1=' + parkIds[0] + '&park2=' + parkIds[1];
             $('#compare').attr('href', url);
@@ -34,4 +28,14 @@ $(document).ready(function() {
             $('#compare').attr('disabled', true);
         }
     });
+}
+
+$('#toMap').on('click', function() {
+    if (typeof map == 'undefined') {
+        initialize();
+    }
+});
+
+$(document).ready(function() {
+    handleClickCompare();
 });
