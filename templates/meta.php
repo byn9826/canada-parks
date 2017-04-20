@@ -4,6 +4,11 @@
     if(isset($team_route_custom)) {
         $team_route_src = $team_route_custom;
     }
+    
+    //error log
+    ini_set("error_log", $team_route_src . "error.log");
+    ini_set("display_errors", 'Off');
+
 ?>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

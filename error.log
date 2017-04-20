@@ -1,5 +1,0 @@
-[20-Apr-2017 16:43:26 Europe/Berlin] PHP Warning:  Illegal string offset 'WeatherText' in C:\xampp\htdocs\canada-parks\park\index.php on line 80
-[20-Apr-2017 16:45:21 Europe/Berlin] PHP Notice:  Undefined variable: LocalObservationDateTime in C:\xampp\htdocs\canada-parks\park\index.php on line 82
-[20-Apr-2017 16:46:07 Europe/Berlin] PHP Notice:  Undefined variable: LocalObservationDateTime in C:\xampp\htdocs\canada-parks\park\index.php on line 75
-[20-Apr-2017 16:46:25 Europe/Berlin] PHP Notice:  Undefined variable: LocalObservationDateTime in C:\xampp\htdocs\canada-parks\park\index.php on line 75
-[20-Apr-2017 16:46:59 Europe/Berlin] PHP Notice:  Undefined variable: LocalObservationDateTime in C:\xampp\htdocs\canada-parks\park\index.php on line 82
