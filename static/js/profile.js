@@ -335,8 +335,8 @@ $(document).ready(function() {
     $(document).on('click','.shareBtn',function(){
         // Get Required data to share footprint
         var iFootprintId = $(this).attr('data-footprintId');
-        var sUserName = $(this).parent().find('span.footprint__user').html();
-        var sParkName = $(this).parent().find('span.footprint__park').html();
+        var sUserName = $(this).parent().parent().find('span.footprint__user').html();
+        var sParkName = $(this).parent().parent().find('span.footprint__park').html();
         var sDescription = $(this).parent().find('p.footprint__caption').html();
         var sImagePath = $(this).parent().find('div.item').first().html();
 

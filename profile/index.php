@@ -258,7 +258,7 @@
                                             </div>
                                         </div>
                                         <!-- Indicate if footprint shared as public -->
-                                        <div class="form-group row">
+                                        <div class="form-group row hidden">
                                             <label for="isPublic" class="col-sm-5 col-form-label">Share post as public?</label>
                                             <div class="col-sm-7">
                                                 <input class="form-check-input" type="checkbox" id="isPublic" name="isPublic" value="Y">
