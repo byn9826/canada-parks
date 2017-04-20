@@ -12,6 +12,10 @@
     margin-bottom: 20px;
 }
 
+.parks-header {
+    margin-top: 20px;
+}
+
 #park-list {
     margin-top: 20px;
 }
@@ -33,7 +37,7 @@
 }
 
 .park:hover {
-    background-size: 200%;
+    background-size: 300%;
 }
 
 .park .caption {
@@ -57,6 +61,15 @@
     right: 0;
     margin-bottom: 0;
     min-width: 300px;
+}
+
+#compare {
+    margin-bottom: 20px;
+}
+
+#compare-parks-body button {
+    display: block;
+    margin-bottom: 10px;
 }
 
 #direction {

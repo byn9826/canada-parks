@@ -51,7 +51,7 @@ if($fManageWishlist) {
 				include "../templates/header.php";
 			?>
 			<main id="main" class="row col-md-10 col-md-offset-1">
-                <h1 id="parks-headline" class="text-center">Park List</h1>
+                <h1 id="parks-headline" class="text-center">Parks</h1>
                 <?php include '../templates/parkSearchForm.php';?>
                 <?php if (count($parks) != 0) {?>
 
@@ -60,7 +60,7 @@ if($fManageWishlist) {
                     <li role="presentation"><a href="#map" id="toMap" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
                 </ul>
                 <div class="tab-content">
-                    <h2 class="text-center fou">We Found <?=count($parks)?> parks for you!</h2>
+                    <h2 class="text-center parks-header">We Found <?=count($parks)?> parks for you!</h2>
                     <div role="tabpanel" class="tab-pane row" id="map">
                         <?php include '../templates/parkMap.php' ?>
                     </div>
@@ -95,12 +95,17 @@ if($fManageWishlist) {
                         <?php } ?>
                     </div>
                     <div class="panel panel-primary" id="compare-parks-box">
-                        <div class="panel-heading">Select Two Park <a disabled="disabled" id="compare" class="btn btn-primary">Compare Parks</a></div>
-                        <div class="panel-body" id="compare-parks-body"></div>
+                        <div class="panel-heading">Select Two Park</div>
+                        <div class="panel-body">
+                            <a disabled="disabled" id="compare" class="btn btn-success">Compare Parks</a>
+                            <div id="compare-parks-body">
+                                
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <?php } else { ?>
-                <h2 class="text-center">No Park</h2>
+                <h2 class="text-center parks-header">No Park</h2>
                 <?php } ?>
             </main>
             <?php
