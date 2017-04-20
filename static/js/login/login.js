@@ -180,4 +180,7 @@ $(document).ready(function () {
         }
     });
 
+    $("#header-hamburger").unbind('click').bind('click', function(event) {
+        $("#mobile").toggle();
+    });
 });
