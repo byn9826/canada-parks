@@ -1,5 +1,6 @@
 <?php
 //Author: Sam
+require '../lib/IPLocation.php';
 require '../lib/DatabaseAccess.php';
 require '../lib/park.php';
 require '../lib/ParkRepository.php';
@@ -11,9 +12,9 @@ $provinces = $parkRepository->getProvinces();
 $parkId1 = $_GET['park1'];
 $parkId2 = $_GET['park2'];
 $park1 = $parkRepository->getPark($parkId1);
-//var_dump($park1);die;
 $park2 = $parkRepository->getPark($parkId2);
 $parks = array($park1, $park2);
+$currentLocation = IPLocation::getLocation();
 
 ?>
 <!DOCTYPE html>
@@ -133,6 +134,7 @@ $parks = array($park1, $park2);
 		?>
 		<script type="text/javascript">
 		    var parks = <?=json_encode($parks)?>;
+		    var currentLocation = <?=json_encode($currentLocation)?>
 		</script>
 
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aO6SHBdMTgsBbV_sn5WI8WVGl4DCu-k&libraries=places"></script>

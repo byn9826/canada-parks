@@ -73,6 +73,9 @@
 }
 
 #direction {
+    max-width: 300px;
+    height: 100%;
+    overflow: auto;
     position: absolute;
     top: 0;
     right: 0;

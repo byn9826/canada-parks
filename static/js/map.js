@@ -80,7 +80,7 @@ function getDirection() {
         if (status == 'OK') {
             directionsDisplay.setDirections(result);
         } else {
-            alert(status);
+            $('#route').html('<div class="alert alert-danger" role="alert">Google Could not find a route for this park!</div>')
         }
     });
 }
@@ -97,6 +97,7 @@ google.maps.event.addDomListener(window, "resize", function() {
 });
 
 $('#reset').on('click', function() {
+    $('#route').html('');
     directionsDisplay.setMap(null);
     directionsDisplay = null;
     map.fitBounds(bounds);
@@ -105,5 +106,6 @@ $('#reset').on('click', function() {
 $('#get-direction').on('click', function() {
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('route'));
     getDirection();
 });

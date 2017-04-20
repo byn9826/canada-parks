@@ -12,7 +12,7 @@ $(document).ready(function() {
         e.preventDefault();
         var parkId = $(this).attr('data-id');
         if ($(this).hasClass('btn-success')) {
-            unselectPark(parkId, '#compare-park' + parkId);
+            unselectPark(parkId);
             
         } else {
             if (parkIds.length != 2) {
@@ -22,23 +22,29 @@ $(document).ready(function() {
                 parkIds.push(parkId);
             }
         }
-        if (parkIds.length == 2) {
-            $('#compare').attr('disabled', false);
-            var url = '../compare?park1=' + parkIds[0] + '&park2=' + parkIds[1];
-            $('#compare').attr('href', url);
-        } else {
-            $('#compare').attr('disabled', true);
-        }
+        
+        handleCompareButton();
     });
     
     $('#compare-parks-body').on('click', '.selected-park', function() {
         var parkId = $(this).data('park');
         unselectPark(parkId, this);
+        handleCompareButton();
     });
 });
 
-function unselectPark(parkId, node) {
+function handleCompareButton() {
+    if (parkIds.length == 2) {
+        $('#compare').attr('disabled', false);
+        var url = '../compare?park1=' + parkIds[0] + '&park2=' + parkIds[1];
+        $('#compare').attr('href', url);
+    } else {
+        $('#compare').attr('disabled', true);
+    }
+}
+
+function unselectPark(parkId) {
     $('#park-' + parkId).find('.select').removeClass('btn-success').text('compare');
     parkIds.splice(parkIds.indexOf(parkId), 1);
-    $(node).remove();
+    $('#compare-park-' + parkId).remove();
 }
