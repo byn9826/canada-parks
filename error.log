@@ -1,0 +1,256 @@
+[20-Apr-2017 23:52:35 Europe/Berlin] PHP Notice:  Undefined offset: 0 in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\park\index.php on line 45
+[20-Apr-2017 23:52:35 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:35 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\park\index.php:0
+[20-Apr-2017 23:52:36 Europe/Berlin] PHP Warning:  file_get_contents(http://apidev.accuweather.com/currentconditions/v1/.json?language=en&amp;apikey=hoArfRosT1215): failed to open stream: HTTP request failed! HTTP/1.0 400 Bad Request
+ in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\park\index.php on line 49
+[20-Apr-2017 23:52:36 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:36 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\park\index.php:0
+[20-Apr-2017 23:52:36 Europe/Berlin] PHP   2. file_get_contents() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\park\index.php:49
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: name in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 7
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:52:47 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: name in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 7
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:33 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: name in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 7
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP Stack trace:
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[20-Apr-2017 23:53:57 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: name in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 7
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Notice:  Undefined variable: province in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\templates\parkSearchForm.php on line 14
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:0
+[21-Apr-2017 02:00:18 Europe/Berlin] PHP   2. include() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\compare\index.php:44
+[21-Apr-2017 02:09:44 Europe/Berlin] PHP Notice:  Undefined index: user_id in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php on line 16
+[21-Apr-2017 02:09:44 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:09:44 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php:0
+[21-Apr-2017 02:13:56 Europe/Berlin] PHP Notice:  Undefined index: user_id in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php on line 6
+[21-Apr-2017 02:13:56 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:13:56 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php:0
+[21-Apr-2017 02:13:56 Europe/Berlin] PHP Notice:  Undefined index: user_id in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php on line 7
+[21-Apr-2017 02:13:56 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:13:56 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php:0
+[21-Apr-2017 02:17:25 Europe/Berlin] PHP Notice:  Undefined index: user_id in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php on line 10
+[21-Apr-2017 02:17:25 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:17:25 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php:0
+[21-Apr-2017 02:17:25 Europe/Berlin] PHP Notice:  Undefined index: user_id in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php on line 11
+[21-Apr-2017 02:17:25 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:17:25 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php:0
+[21-Apr-2017 02:17:57 Europe/Berlin] PHP Notice:  Undefined index: user_id in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php on line 19
+[21-Apr-2017 02:17:57 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:17:57 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php:0
+[21-Apr-2017 02:18:53 Europe/Berlin] PHP Notice:  Undefined index: user_id in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php on line 19
+[21-Apr-2017 02:18:53 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:18:53 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php:0
+[21-Apr-2017 02:19:02 Europe/Berlin] PHP Notice:  Undefined index: user_id in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php on line 19
+[21-Apr-2017 02:19:02 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:19:02 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php:0

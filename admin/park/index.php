@@ -2,6 +2,13 @@
 
 include "../../lib/DatabaseAccess.php";
 include "../../lib/ParkRepository.php";
+if (empty($_SESSION))
+{
+    session_start();
+}
+if (!isset($_SESSION["user_name"])){
+    header("Location: ../index.php");
+}
 $db = DatabaseAccess::getConnection();
 $parkRepository = new ParkRepository($db);
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
