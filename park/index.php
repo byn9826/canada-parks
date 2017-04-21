@@ -76,9 +76,9 @@ $park1 = $parkRepository->getPark($id);
                         <b><i><h3>Weather</h3></i></b>
                     </div>
                     <div style="width:100%;background-color:lightblue;height:90%;margin-right:500px;border:1px solid green;">
-
+                        <!--
                         <img src="http://apidev.accuweather.com/developers/Media/Default/WeatherIcons/0<?=$weatherIcon?>-s.png" width="100%" height="30%"/>
-
+                    -->
 
                            <h4 style="text-align:center; margin: 10px 0"> <?=$metric["Value"]?> &#8451</h4>
                           <!--  <h1> <b> <?=$metric["Unit"]?></b></h1>   -->
