@@ -310,6 +310,13 @@ class UserDetails
 
     // Public Functions Declaration
     // ----------------------------
+    /**
+     * Function to read a user's profile details and fill object's property values
+     *
+     * @return int
+     *
+     * author: Irfaan
+     */
     public function Read() {
         $iRowRetrieved = 0;
 
@@ -348,6 +355,13 @@ class UserDetails
         return $iRowRetrieved;
     }
 
+    /**
+     * Function to update a user's profile details
+     *
+     * @return int
+     *
+     * author: Irfaan
+     */
     public function Update() {
         $iRowUpdated = 0;
         $dateArray = null;
@@ -402,6 +416,13 @@ class UserDetails
         return $iRowUpdated;
     }
 
+    /**
+     * Function that returns the correct profile picture URL
+     *
+     * @return string
+     *
+     * author: Irfaan
+     */
     public function getProfilePictureURL() {
         //if img src is from google+
         if (substr($this->_imageSrc, 0, 4) == 'http') {
@@ -413,10 +434,22 @@ class UserDetails
         }
     }
 
+    /**
+     * Function that returns the full name of the user
+     *
+     * @return string
+     *
+     * author: Irfaan
+     */
     public function getFullName() {
         return ucwords($this->getFirstName() . ' ' . $this->getLastName());
     }
 
+    /**
+     * Function that deletes the user's account details
+     *
+     * author: Irfaan
+     */
     public function deleteUserAccount() {
         $sDeleteQuery = "DELETE FROM user_details WHERE user_id = :userId";
         $objPDOStmt = $this->_objConnection->prepare($sDeleteQuery);

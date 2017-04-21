@@ -160,6 +160,7 @@ class Footprints
         $objPDOStatement = $this->_objConnection->prepare($sQuery);
         $objPDOStatement->bindValue(':footprintId', $this->_footprintId);
 
+        // Execute the query multiple times for each image
         foreach ($lstImages as $anImage) {
            $objPDOStatement->bindValue(':imageName', $anImage);
            $objPDOStatement->execute();

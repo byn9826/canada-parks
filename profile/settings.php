@@ -516,6 +516,7 @@
                                 </div>
 
                                 <!-- Email Subscriber -->
+                                <!-- Author: Duc      -->
                                 <div class="row display-group">
                                     <div class="col col-md-12">
                                         <h3>Email Subscriber</h3>

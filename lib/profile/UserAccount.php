@@ -67,6 +67,13 @@ class UserAccount
 
     // Public Functions Declaration
     // ----------------------------
+    /**
+     * Function to update a user's e-mail/password
+     *
+     * @return int
+     *
+     * author: Irfaan
+     */
     public function Update() {
         $iRowUpdated = 0;
 
@@ -89,8 +96,12 @@ class UserAccount
         return $iRowUpdated;
     }
 
+    /**
+     * Function to delete a user's account permanently from the database
+     *
+     * author: Irfaam
+     */
     public function deleteAccountPermanently() {
-        // TODO: Delete User Account Permanently
         try {
             // -- BEGIN Transaction
             $this->_objConnection->beginTransaction();
@@ -120,6 +131,11 @@ class UserAccount
 
     // Private Functions Declaration
     // -----------------------------
+    /**
+     * Function to read user's credential details and set values to properties
+     *
+     * author: Irfaan
+     */
     private function pReadUserInfo() {
 
         // Query to fetch user info
@@ -147,11 +163,21 @@ class UserAccount
         $objAttitude->deleteAllAttitudeOfUser($this->_userId);
     }
 
+    /**
+     * Function to delete a user's wish list
+     *
+     * author: Irfaan
+     */
     private function pDeleteWishItems() {
         $objWishlist = new Wishlist($this->_objConnection, $this->_userId);
         $objWishlist->DeleteUserWishlist();
     }
 
+    /**
+     * Function to delete a user's footprints
+     *
+     * author: Irfaan
+     */
     private function pDeleteFootprints() {
         #1. Select list of footprints to delete
         $objFootprint = new Footprints($this->_objConnection, $this->_userId);
@@ -165,11 +191,21 @@ class UserAccount
         }
     }
 
+    /**
+     * Function to delete a user's profile details
+     *
+     * author: Irfaan
+     */
     private function pDeleteUserDetails() {
         $objUserDetails = new UserDetails($this->_objConnection, $this->_userId);
         $objUserDetails->deleteUserAccount();
     }
 
+    /**
+     * Function to delete a user's login credentials
+     *
+     * author: Irfaan
+     */
     private function pDeleteUserCredential() {
         $sDeleteUser = "DELETE FROM user WHERE user_id = :userId";
         $objPDOStmt = $this->_objConnection->prepare($sDeleteUser);

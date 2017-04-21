@@ -2,7 +2,7 @@
  * Created by M. Irfaan Auhammad on 04-Apr-17.
  */
 $(document).ready(function() {
-    //console.log(iParkId);
+
     // -- Initialise the Carousel for images
     function pInitialiseCarousel() {
         var owl = $('.owl-carousel');
