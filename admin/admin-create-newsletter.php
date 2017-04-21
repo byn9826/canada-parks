@@ -9,6 +9,9 @@
 require_once "header.php";
 require_once "model/database.php";
 require_once "model/admin.php";
+if (!isset($_SESSION["user_name"])){
+    header("Location: index.php");
+}
 $db = Database::getDB();
 $emailTitle = "";
 $emailBody = "";
