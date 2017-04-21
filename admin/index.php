@@ -100,9 +100,9 @@ if (empty($_SESSION))
                 </div>
             </form>
         </div>
+        <?php
+        require_once "footer.php";
+        ?>
     </body>
-</html>
 
-<?php
-require_once "footer.php";
-?>
+</html>
