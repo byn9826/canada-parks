@@ -1,0 +1,11 @@
+#parks-image{
+    width: 80%;
+    margin-left:10%;
+    margin-top:10px;
+    border-radius:5px;
+    margin-bottom: 10px;
+}
+
+#parks-desc{
+    text-align: left;
+}

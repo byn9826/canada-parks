@@ -1,4 +1,8 @@
 <?php
+#error log
+ini_set("error_log", "../error.log");
+ini_set("display_errors", 'Off');
+
 
 require '../lib/DatabaseAccess.php';
 require '../lib/park.php';
@@ -17,21 +21,22 @@ $park1 = $parkRepository->getPark($id);
     <head>
         <?php include "../templates/meta.php"; ?>
         <meta name="author" content="Navpreet">
-        <title>Park Page | Marvel Canada</title>
+        <title><?=$park1["name"]?></title>
         <link rel="stylesheet" href="../lib/profile/owl.carousel.min.css">
         <link rel="stylesheet" href="../lib/profile/owl.theme.default.min.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="../static/css/footprints.css" />
+        <link rel="stylesheet" href="../static/css/park_fix.css" />
         <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
         <script src="../lib/profile/owl.carousel.js"></script>
         <script>
             var iParkId = <?php
-                                if(isset($_GET['id'])) {
-                                    echo $_GET['id'];
-                                } else {
-                                    echo 0;
-                                }
-                          ?>
+                    if(isset($_GET['id'])) {
+                        echo $_GET['id'];
+                    } else {
+                        echo 0;
+                    }
+              ?>
         </script>
     </head>
     <body>
@@ -65,19 +70,19 @@ $park1 = $parkRepository->getPark($id);
             <!-- Page Content -->
             <div class="row" style="margin-top: 100px">
                 <div class="col-md-10 col-md-offset-1">
-                    <aside id="sidebar" class="col-md-3">
+                    <aside id="sidebar" class="col-md-3 col-sm-3 visible-lg visible-md visible-sm">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <b><i><h2>Weather</h2></i></b>
+                        <b><i><h3>Weather</h3></i></b>
                     </div>
                     <div style="width:100%;background-color:lightblue;height:90%;margin-right:500px;border:1px solid green;">
 
                         <img src="http://apidev.accuweather.com/developers/Media/Default/WeatherIcons/0<?=$weatherIcon?>-s.png" width="100%" height="30%"/>
 
 
-                           <h1> <b><?=$metric["Value"]?> &#8451</b></h1>
+                           <h4 style="text-align:center; margin: 10px 0"> <?=$metric["Value"]?> &#8451</h4>
                           <!--  <h1> <b> <?=$metric["Unit"]?></b></h1>   -->
-                             <h1> <b> The weather is <?=$weatherText?> </b></h1></br>
+                             <h4 style="text-align:center">  The weather is <?=$weatherText?> </h4></br>
 
 
 
@@ -90,18 +95,15 @@ $park1 = $parkRepository->getPark($id);
                          data-unit="f" data-language="en-us" data-useip="true" data-uid="awtd1491400412000"
                        -editlocation="true"></div><script type="text/javascript" src="https://oap.accuweather.com/launch.js"></script>   -->
             </aside>
-	    <div class="col-md-8">
+	    <div class="col-md-8 col-sm-8">
 
-	  <h1><?=$park1["name"]?></h1>
-	  
-	  By:Navpreet<br>
+	  <h2 style="text-align:center"><?=$park1["name"]?></h2>
 
-	  <img class="img-responsive" id="pic1" alt="Problem Loading Image" src="<?=$park1["banner"]?>">
-	  <p> <?=$park1["description"]?>
+	  <img id="parks-image" class="img-responsive" id="pic1" alt="Problem Loading Image" src="<?=$park1["banner"]?>">
+	  <p id="parks-desc"> <?=$park1["description"]?>
 	  </p>
-                        <?php include "imagegallery.php"; ?>
-
-                        <?php include "../templates/attitude.php"; ?>
+    <?php include "imagegallery.php"; ?>
+    <?php include "../templates/attitude.php"; ?>
 
                         <!-- Allow visitors to load footprints from users for the current park -->
                         <div class="row park-footprints">

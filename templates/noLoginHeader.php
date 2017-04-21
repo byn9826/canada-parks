@@ -1,3 +1,6 @@
+<?php
+    #author Bao
+?>
 <ul class="dropdown-menu">
     <form id="header-login" method="POST" action="">
         <li>

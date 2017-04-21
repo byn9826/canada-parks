@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [20-Apr-2017 23:52:35 Europe/Berlin] PHP Notice:  Undefined offset: 0 in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\park\index.php on line 45
 [20-Apr-2017 23:52:35 Europe/Berlin] PHP Stack trace:
 [20-Apr-2017 23:52:35 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\park\index.php:0
@@ -254,3 +255,61 @@
 [21-Apr-2017 02:19:02 Europe/Berlin] PHP Notice:  Undefined index: user_id in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php on line 19
 [21-Apr-2017 02:19:02 Europe/Berlin] PHP Stack trace:
 [21-Apr-2017 02:19:02 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php:0
+=======
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: name in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 7
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 11:16:36 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: name in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 7
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:03 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: name in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 7
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:32:35 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: name in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 7
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+[20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
+>>>>>>> 3341dadd44e04cf190f6036f3aea46360aa612f5
