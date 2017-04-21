@@ -337,8 +337,8 @@ $(document).ready(function() {
         var iFootprintId = $(this).attr('data-footprintId');
         var sUserName = $(this).parent().parent().find('span.footprint__user').html();
         var sParkName = $(this).parent().parent().find('span.footprint__park').html();
-        var sDescription = $(this).parent().find('p.footprint__caption').html();
-        var sImagePath = $(this).parent().find('div.item').first().html();
+        var sDescription = $(this).parent().parent().find('p.footprint__caption').html();
+        var sImagePath = $(this).parent().parent().find('div.item').first().html();
 
         // Parameters required to share post on Facebook
         var sShareURL = 'http://www.irfaanauhammad.com/marvel-canada/Footprint/?uid=' + currentUserId + '&fid=' + iFootprintId;
