@@ -9,3 +9,8 @@
 #parks-desc{
     text-align: left;
 }
+
+.park-footprints h2{
+    padding-top: 10px;
+    display: block;
+}

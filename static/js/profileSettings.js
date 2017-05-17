@@ -41,6 +41,7 @@ $(document).ready(function() {
     frmUpdatePassword.onsubmit = changePassword;
     frmUpdateEmail.onsubmit = changeEmail;
 
+    // -- Function to validate and change a user's password
     function changePassword() {
         var fFormValid = true;
 
@@ -83,6 +84,7 @@ $(document).ready(function() {
         }
     }
 
+    // -- Function to validate and change a user's email
     function changeEmail() {
         var fFormValid = true;
 

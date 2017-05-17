@@ -112,12 +112,6 @@ function deleteTempImage() {
         $imagePath = '../static/img/profile/users/temp/' . $_POST['image_name'];
         if(file_exists($imagePath)) {
             unlink($imagePath);
-//            if(unlink($imagePath)) {
-//                $res = saveProfilePic(array(
-//                    'userId' => isset($userId) ? intval($userId) : 0,
-//                    'avatar' => 'default.png',
-//                ));
-//            }
         }
     }
 }

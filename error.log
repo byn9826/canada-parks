@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 [20-Apr-2017 23:52:35 Europe/Berlin] PHP Notice:  Undefined offset: 0 in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\park\index.php on line 45
 [20-Apr-2017 23:52:35 Europe/Berlin] PHP Stack trace:
 [20-Apr-2017 23:52:35 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\park\index.php:0
@@ -330,3 +331,5 @@ Stack trace:
 #0 C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php(10): AdminUser::getAllUsers(NULL, '99')
 #1 {main}
   thrown in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\model\admin.php on line 114
+=======
+>>>>>>> 47e9b6a05eea62390e0a3abfceeeb60269134e53
