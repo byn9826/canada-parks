@@ -16,8 +16,8 @@ if (empty($_SESSION))
 //var_dump($_SESSION);
     $db = Database::getDB();
     if (isset($_SESSION["user_name"])){
-        $_SESSION["role_id"] = (AdminUser::findUserByUsername($db, $_SESSION["user_name"]))->role_id;
-        $_SESSION["user_id"] = (AdminUser::findUserByUsername($db, $_SESSION["user_name"]))->user_id;
+        $_SESSION["role_id"] = AdminUser::findUserByUsername($db, $_SESSION["user_name"])->role_id;
+        $_SESSION["user_id"] = AdminUser::findUserByUsername($db, $_SESSION["user_name"])->user_id;
         header("Location: admin-list.php");
     }
     else

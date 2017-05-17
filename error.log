@@ -313,3 +313,20 @@
 [20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
 [20-Apr-2017 15:34:04 America/Los_Angeles] PHP Notice:  Undefined variable: province in C:\Users\BAO\www\canada-parks\templates\parkSearchForm.php on line 14
 >>>>>>> 3341dadd44e04cf190f6036f3aea46360aa612f5
+[21-Apr-2017 02:35:52 Europe/Berlin] PHP Notice:  Undefined index: user_id in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php on line 19
+[21-Apr-2017 02:35:52 Europe/Berlin] PHP Stack trace:
+[21-Apr-2017 02:35:52 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-create-newsletter.php:0
+[10-May-2017 17:18:30 Europe/Berlin] PHP Notice:  Undefined variable: pdostament in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\model\admin.php on line 114
+[10-May-2017 17:18:30 Europe/Berlin] PHP Stack trace:
+[10-May-2017 17:18:30 Europe/Berlin] PHP   1. {main}() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php:0
+[10-May-2017 17:18:30 Europe/Berlin] PHP   2. AdminUser::getAllUsers() C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php:10
+[10-May-2017 17:18:30 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\model\admin.php:105
+Stack trace:
+#0 C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php(10): AdminUser::getAllUsers(NULL, '99')
+#1 {main}
+
+Next Error: Call to a member function closeCursor() on null in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\model\admin.php:114
+Stack trace:
+#0 C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\admin-list.php(10): AdminUser::getAllUsers(NULL, '99')
+#1 {main}
+  thrown in C:\xampp\htdocs\WebApplicationClass\Canada-Parks\canada-parks\admin\model\admin.php on line 114

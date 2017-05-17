@@ -10,9 +10,9 @@ class DatabaseAccess
 {
     // Private static variables declaration
     // ------------------------------------
-    private static $_dsn = 'mysql:host=159.203.38.161;dbname=marvel';
-    private static $_username = 'humberTeam';
-    private static $_password = 'sQbI8cMHci2VYJjrvXlp';
+    private static $_dsn = 'mysql:host=my02.winhost.com;dbname=mysql_108076_lenoir';
+    private static $_username = 'lenoir';
+    private static $_password = '123qweasdzxc';
     private static $_objConnection;
 
 
